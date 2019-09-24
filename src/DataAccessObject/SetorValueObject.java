@@ -1,10 +1,10 @@
-package modal.bean;
+package DataAccessObject;
 
 /**
  *
  * @author Eduardo
  */
-public class Setor {
+public class SetorValueObject {
     private int idsetor;
     private String setorCodigo;
     private String setorNome;

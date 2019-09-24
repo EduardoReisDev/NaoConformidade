@@ -1,4 +1,4 @@
-package modal.bean;
+package DataAccessObject;
 
 import java.util.Date;
 
@@ -6,19 +6,27 @@ import java.util.Date;
  *
  * @author Eduardo
  */
-public class Naoconformidade {
+public class NaoConformidadeValueObject {
     private int idnc;
-    private String ncCodigo;
-    private String ncDescricao;
-    private Date ncDataregistro;
-    private Date ncDataacontecimento;
-    private int ncReincidencia;
     private String ncAbrangencia;
-    private String ncOrigem;
-    private String ncResponsavel;
     private String ncAcaocorrecao;
+    private String ncCodigo;
+    private Date ncDataacontecimento;
+    private Date ncDataregistro;
+    private String ncDescricao;
     private String ncImagem;
+    private String ncOrigem;
+    private int ncReincidencia;
+    private String ncResponsavel;
+    private int setorIdSetor;
 
+    public int getSetorIdSetor() {
+        return setorIdSetor;
+    }
+
+    public void setSetorIdSetor(int setorIdSetor) {
+        this.setorIdSetor = setorIdSetor;
+    }
     public int getIdnc() {
         return idnc;
     }
