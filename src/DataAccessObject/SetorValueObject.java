@@ -5,40 +5,42 @@ package DataAccessObject;
  * @author Eduardo
  */
 public class SetorValueObject {
-    private int idsetor;
-    private String setorCodigo;
-    private String setorNome;
-    private String setorResponsavel;
+    private int id;
+    private String Codigo;
+    private String Nome;
+    private String Responsavel;
 
-    public int getIdsetor() {
-        return idsetor;
+    public int getId() {
+        return id;
     }
 
-    public void setIdsetor(int idsetor) {
-        this.idsetor = idsetor;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getSetorCodigo() {
-        return setorCodigo;
+    public String getCodigo() {
+        return Codigo;
     }
 
-    public void setSetorCodigo(String setorCodigo) {
-        this.setorCodigo = setorCodigo;
+    public void setCodigo(String Codigo) {
+        this.Codigo = Codigo;
     }
 
-    public String getSetorNome() {
-        return setorNome;
+    public String getNome() {
+        return Nome;
     }
 
-    public void setSetorNome(String setorNome) {
-        this.setorNome = setorNome;
+    public void setNome(String Nome) {
+        this.Nome = Nome;
     }
 
-    public String getSetorResponsavel() {
-        return setorResponsavel;
+    public String getResponsavel() {
+        return Responsavel;
     }
 
-    public void setSetorResponsavel(String setorResponsavel) {
-        this.setorResponsavel = setorResponsavel;
+    public void setResponsavel(String Responsavel) {
+        this.Responsavel = Responsavel;
     }
+
+    
 }

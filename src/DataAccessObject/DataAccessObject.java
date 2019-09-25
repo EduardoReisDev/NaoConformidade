@@ -17,6 +17,6 @@ public interface DataAccessObject<T> {
     public void listarTodos(Consumer <?super T> resultado);
     public void listarPorIntervalo();
     public T listarPorId(T value, int id);
-    public void editar(T value);
-    public void excluir(int id);
+    public boolean editar(T dados);
+    public boolean excluir(int id);
 }

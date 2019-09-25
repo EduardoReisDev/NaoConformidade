@@ -29,7 +29,7 @@ public class Conexao {
         return null;
     }
 
-    public void fechaConexao(Connection conexao){
+    public static void fechaConexao(Connection conexao){
         try{
             conexao.close();
         }

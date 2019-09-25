@@ -7,111 +7,114 @@ import java.util.Date;
  * @author Eduardo
  */
 public class NaoConformidadeValueObject {
-    private int idnc;
-    private String ncAbrangencia;
-    private String ncAcaocorrecao;
-    private String ncCodigo;
-    private Date ncDataacontecimento;
-    private Date ncDataregistro;
-    private String ncDescricao;
-    private String ncImagem;
-    private String ncOrigem;
-    private int ncReincidencia;
-    private String ncResponsavel;
-    private int setorIdSetor;
+    private int id;
+    private String abrangencia;
+    private String acaoCorrecao;
+    private String codigo;
+    private Date DataAcontecimento;
+    private Date dataRegistro;
+    private String descricao;
+    private String imagem;
+    private String origem;
+    private int reincidencia;
+    private String responsavel;
+    private int idSetor;
 
-    public int getSetorIdSetor() {
-        return setorIdSetor;
-    }
-
-    public void setSetorIdSetor(int setorIdSetor) {
-        this.setorIdSetor = setorIdSetor;
-    }
-    public int getIdnc() {
-        return idnc;
+    public int getId() {
+        return id;
     }
 
-    public void setIdnc(int idnc) {
-        this.idnc = idnc;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getNcCodigo() {
-        return ncCodigo;
+    public String getAbrangencia() {
+        return abrangencia;
     }
 
-    public void setNcCodigo(String ncCodigo) {
-        this.ncCodigo = ncCodigo;
+    public void setAbrangencia(String abrangencia) {
+        this.abrangencia = abrangencia;
     }
 
-    public String getNcDescricao() {
-        return ncDescricao;
+    public String getAcaoCorrecao() {
+        return acaoCorrecao;
     }
 
-    public void setNcDescricao(String ncDescricao) {
-        this.ncDescricao = ncDescricao;
+    public void setAcaoCorrecao(String acaoCorrecao) {
+        this.acaoCorrecao = acaoCorrecao;
     }
 
-    public Date getNcDataregistro() {
-        return ncDataregistro;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setNcDataregistro(Date ncDataregistro) {
-        this.ncDataregistro = ncDataregistro;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public Date getNcDataacontecimento() {
-        return ncDataacontecimento;
+    public Date getDataAcontecimento() {
+        return DataAcontecimento;
     }
 
-    public void setNcDataacontecimento(Date ncDataacontecimento) {
-        this.ncDataacontecimento = ncDataacontecimento;
+    public void setDataAcontecimento(Date DataAcontecimento) {
+        this.DataAcontecimento = DataAcontecimento;
     }
 
-    public int getNcReincidencia() {
-        return ncReincidencia;
+    public Date getDataRegistro() {
+        return dataRegistro;
     }
 
-    public void setNcReincidencia(int ncReincidencia) {
-        this.ncReincidencia = ncReincidencia;
+    public void setDataRegistro(Date dataRegistro) {
+        this.dataRegistro = dataRegistro;
     }
 
-    public String getNcAbrangencia() {
-        return ncAbrangencia;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNcAbrangencia(String ncAbrangencia) {
-        this.ncAbrangencia = ncAbrangencia;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String getNcOrigem() {
-        return ncOrigem;
+    public String getImagem() {
+        return imagem;
     }
 
-    public void setNcOrigem(String ncOrigem) {
-        this.ncOrigem = ncOrigem;
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
-    public String getNcResponsavel() {
-        return ncResponsavel;
+    public String getOrigem() {
+        return origem;
     }
 
-    public void setNcResponsavel(String ncResponsavel) {
-        this.ncResponsavel = ncResponsavel;
+    public void setOrigem(String origem) {
+        this.origem = origem;
     }
 
-    public String getNcAcaocorrecao() {
-        return ncAcaocorrecao;
+    public int getReincidencia() {
+        return reincidencia;
     }
 
-    public void setNcAcaocorrecao(String ncAcaocorrecao) {
-        this.ncAcaocorrecao = ncAcaocorrecao;
+    public void setReincidencia(int reincidencia) {
+        this.reincidencia = reincidencia;
     }
 
-    public String getNcImagem() {
-        return ncImagem;
+    public String getResponsavel() {
+        return responsavel;
     }
 
-    public void setNcImagem(String ncImagem) {
-        this.ncImagem = ncImagem;
+    public void setResponsavel(String responsavel) {
+        this.responsavel = responsavel;
     }
+
+    public int getIdSetor() {
+        return idSetor;
+    }
+
+    public void setIdSetor(int setorIdSetor) {
+        this.idSetor = setorIdSetor;
+    }
+
+   
 }
