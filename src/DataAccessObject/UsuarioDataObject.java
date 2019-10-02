@@ -20,7 +20,7 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
 
     @Override
     public boolean salvar(UsuarioValueObject dados) {
-        Connection conexao = Conexao.abreConexao();
+        Connection conexao = new Conexao().abreConexao();
         String query = "insert into usuario ("
                 + "usuarioNome, usuarioEmail, usuarioSenha) VALUES ( ?, ?, ?)";
         try{
@@ -52,7 +52,7 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
 
     @Override
     public boolean editar(UsuarioValueObject dados) {
-        Connection conexao = Conexao.abreConexao();
+        Connection conexao = new Conexao().abreConexao();
         String query = "update usuario set usuarioNome = ?, usuarioEmail = ?, usuarioSenha = ? where idusuario = ?";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
@@ -73,7 +73,7 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
 
     @Override
     public boolean excluir(int id) {
-        Connection conexao = Conexao.abreConexao();
+        Connection conexao = new Conexao().abreConexao();
         String query = "delete from usuario where idusuario = ?";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
@@ -92,7 +92,7 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
     @Override
     public void listarTodos(Consumer<? super UsuarioValueObject> resultado) {
         String query = "select * from usuario";
-        Connection conexao = Conexao.abreConexao();
+        Connection conexao = new Conexao().abreConexao();
         UsuarioValueObject result;
         try{
             Statement stm = conexao.createStatement();

@@ -20,7 +20,7 @@ public class SetorDataObject implements DataAccessObject<SetorValueObject>{
 
     @Override
     public boolean salvar(SetorValueObject dados) {
-        Connection conexao = Conexao.abreConexao();
+        Connection conexao = new Conexao().abreConexao();
         String query = "insert into setor ("
                 + "setorCodigo, setorNome, setorResponsavel) VALUES ( ?, ?, ?)";
         try{
@@ -42,7 +42,7 @@ public class SetorDataObject implements DataAccessObject<SetorValueObject>{
     @Override
     public void listarTodos(Consumer<? super SetorValueObject> resultado) {
         String query = "select * from setor";
-        Connection conexao = Conexao.abreConexao();
+        Connection conexao = new Conexao().abreConexao();
         SetorValueObject result;
         try{
             Statement stm = conexao.createStatement();
@@ -76,7 +76,7 @@ public class SetorDataObject implements DataAccessObject<SetorValueObject>{
 
     @Override
     public boolean editar(SetorValueObject dados) {
-        Connection conexao = Conexao.abreConexao();
+        Connection conexao = new Conexao().abreConexao();
         String query = "update setor set setorNome = ?, setorCodigo = ?, setorResponsavel = ? where idsetor = ?";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
@@ -97,7 +97,7 @@ public class SetorDataObject implements DataAccessObject<SetorValueObject>{
 
     @Override
     public boolean excluir(int id) {
-        Connection conexao = Conexao.abreConexao();
+        Connection conexao = new Conexao().abreConexao();
         String query = "delete from setor where idsetor = ?";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);

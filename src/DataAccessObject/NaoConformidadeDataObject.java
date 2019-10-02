@@ -21,7 +21,7 @@ public class NaoConformidadeDataObject implements DataAccessObject<NaoConformida
 
     @Override
     public boolean salvar(NaoConformidadeValueObject dados) {
-        Connection conexao = Conexao.abreConexao();
+        Connection conexao = new Conexao().abreConexao();
         String query = "insert into nc ("
                 + "ncCodigo, ncDescricao, ncDataregistro, ncDataacontecimento, ncReincidencia, ncAbrangencia, "
                 + "ncOrigem, ncResponsavel, ncAcaocorrecao, ncImagem, setor_idsetor) VALUES ("
@@ -53,7 +53,7 @@ public class NaoConformidadeDataObject implements DataAccessObject<NaoConformida
     @Override
     public void listarTodos(Consumer<? super NaoConformidadeValueObject> resultado) {
         String query = "select * from nc ";
-        Connection conexao = Conexao.abreConexao();
+        Connection conexao = new Conexao().abreConexao();
         NaoConformidadeValueObject result;
         try{
             Statement stm = conexao.createStatement();
@@ -86,7 +86,7 @@ public class NaoConformidadeDataObject implements DataAccessObject<NaoConformida
 
     @Override
     public boolean editar(NaoConformidadeValueObject dados) {
-    Connection conexao = Conexao.abreConexao();
+    Connection conexao = new Conexao().abreConexao();
         String query = "update nc set ncCodigo = ?, ncDescricao = ?, ncDataregistro = ?, ncDataacontecimento = ?, ncReincidencia = ?, ncAbrangencia = ?, "
                 + "ncOrigem = ?, ncResponsavel = ?, ncAcaocorrecao = ?, ncImagem = ?, setor_idsetor = ? where idnc = ?";
         try{
@@ -117,7 +117,7 @@ public class NaoConformidadeDataObject implements DataAccessObject<NaoConformida
 
     @Override
     public boolean excluir(int id) {
-        Connection conexao = Conexao.abreConexao();
+        Connection conexao = new Conexao().abreConexao();
         String query = "delete from nc where idnc = ?";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
@@ -131,6 +131,27 @@ public class NaoConformidadeDataObject implements DataAccessObject<NaoConformida
         finally{
             Conexao.fechaConexao(conexao);
         }
+    }
+    
+    public int listarUltimoId(){
+        String query = "select max(idnc) as maxId from nc;";
+        Connection conexao = new Conexao().abreConexao();
+        NaoConformidadeValueObject result;
+        try{
+            Statement stm = conexao.createStatement();
+            ResultSet res = stm.executeQuery(query);
+            while (res.next()){
+                return res.getInt("maxId");
+                
+            }
+        }
+        catch(SQLException e){
+            System.out.println("erro na listagem "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
+        return 0; 
     }
     
 }
