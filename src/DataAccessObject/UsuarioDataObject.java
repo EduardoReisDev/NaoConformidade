@@ -113,4 +113,32 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
             Conexao.fechaConexao(conexao);
         }
     }
+    
+   public boolean checkLogin (String usuarioEmail, String usuarioSenha){
+       Connection conexao = Conexao.abreConexao();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+       boolean check = false;
+       
+       try{
+           stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE usuarioEmail = ? and usuarioSenha= ? ");
+           stmt.setString(1, usuarioEmail);
+           stmt.setString(2, usuarioSenha);
+           
+           rs = stmt.executeQuery();
+          
+           if(rs.next()){
+               check = true;
+           }
+           
+       }
+       catch (SQLException e){
+            System.out.println("erro na listagem "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
+       
+       return check;
+   } 
 }
