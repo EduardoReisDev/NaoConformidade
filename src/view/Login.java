@@ -5,23 +5,42 @@
  */
 package view;
 
-import DataAccessObject.UsuarioDataObject;
-import javax.swing.JOptionPane;
+import controller.Controller;
+import controller.UsuarioController;
 
 /**
  *
- * @author Eduardo
+ * @author leona
  */
-public class TelaLogin extends javax.swing.JPanel {
+public class Login extends javax.swing.JDialog {
 
     /**
-     * Creates new form TelaLogin
+     * Creates new form Login
      */
-    public TelaLogin() {
+    public Login(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        this.setVisible(true);
+    }
+    
+    private String usuario;
+    private String senha; 
+
+    public String getUsuario() {
+        return usuario;
     }
 
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,13 +57,21 @@ public class TelaLogin extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Controle de Não Conformidade - Entrar");
+
         jLabel1.setText("Login");
 
-        usuarioEmail.setText("E-mail");
+        usuarioEmail.setToolTipText("Digite seu nome de usuário");
+        usuarioEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioEmailActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Digite eu e-mail");
 
-        usuarioSenha.setText("Senha");
+        usuarioSenha.setToolTipText("Digite sua senha");
 
         jLabel3.setText("Digite sua senha");
 
@@ -55,8 +82,8 @@ public class TelaLogin extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -93,13 +120,19 @@ public class TelaLogin extends javax.swing.JPanel {
                 .addComponent(jButton1)
                 .addContainerGap(56, Short.MAX_VALUE))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       UsuarioDataObject login = new UsuarioDataObject();
-      
+        this.usuario = usuarioEmail.getText();
+        this.senha = usuarioSenha.getText();
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void usuarioEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usuarioEmailActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

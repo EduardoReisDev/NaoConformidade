@@ -22,12 +22,14 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
     public boolean salvar(UsuarioValueObject dados) {
         Connection conexao = new Conexao().abreConexao();
         String query = "insert into usuario ("
-                + "usuarioNome, usuarioEmail, usuarioSenha) VALUES ( ?, ?, ?)";
+                + "nome, cpf, usuario, senha, master) VALUES ( ?, ?, ?, ?, ?)";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, dados.getNome());
-            ps.setString(2, dados.getEmail());
-            ps.setString(3, dados.getSenha());
+            ps.setString(2, dados.getCpf());
+            ps.setString(3, dados.getUsuario());
+            ps.setString(4, dados.getSenha());
+            ps.setBoolean(5, dados.isMaster());
             return ps.executeUpdate()>0;
         }
         catch(SQLException sqlex){
@@ -53,13 +55,15 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
     @Override
     public boolean editar(UsuarioValueObject dados) {
         Connection conexao = new Conexao().abreConexao();
-        String query = "update usuario set usuarioNome = ?, usuarioEmail = ?, usuarioSenha = ? where idusuario = ?";
+        String query = "update usuario set nome = ?, usuario = ?, cpf = ?, senha = ?, master = ? where id = ?";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, dados.getNome());
-            ps.setString(2, dados.getEmail());
-            ps.setString(3, dados.getSenha());
-            ps.setInt(4, dados.getId());
+            ps.setString(2, dados.getCpf());
+            ps.setString(3, dados.getUsuario());
+            ps.setString(4, dados.getSenha());
+            ps.setBoolean(5, dados.isMaster());
+            ps.setInt(6, dados.getId());
             return ps.executeUpdate()>0;
         }
         catch(SQLException e){
@@ -74,7 +78,7 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
     @Override
     public boolean excluir(int id) {
         Connection conexao = new Conexao().abreConexao();
-        String query = "delete from usuario where idusuario = ?";
+        String query = "delete from usuario where id = ?";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setInt(1, id);
@@ -99,10 +103,12 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
             ResultSet res = stm.executeQuery(query);
             while (res.next()){
                 result = new UsuarioValueObject();
-                result.setNome(res.getString("usuarioNome"));
-                result.setId(res.getInt("idusuario"));
-                result.setEmail(res.getString("usuarioEmail"));
-                result.setSenha(res.getString("usuarioSenha"));
+                result.setNome(res.getString("nome"));
+                result.setId(res.getInt("id"));
+                result.setUsuario(res.getString("usuario"));
+                result.setCpf(res.getString("cpf"));
+                result.setSenha(res.getString("senha"));
+                result.setMaster(res.getBoolean("master"));
                 resultado.accept(result);
             }
         }
@@ -114,31 +120,49 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
         }
     }
     
-   public boolean checkLogin (String usuarioEmail, String usuarioSenha){
-       Connection conexao = Conexao.abreConexao();
-       PreparedStatement stmt = null;
-       ResultSet rs = null;
-       boolean check = false;
-       
-       try{
-           stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE usuarioEmail = ? and usuarioSenha= ? ");
-           stmt.setString(1, usuarioEmail);
-           stmt.setString(2, usuarioSenha);
-           
-           rs = stmt.executeQuery();
-          
-           if(rs.next()){
-               check = true;
-           }
-           
-       }
-       catch (SQLException e){
-            System.out.println("erro na listagem "+e.getMessage());
+    public boolean existeUsuarios(){
+         Connection conexao = new Conexao().abreConexao();
+        try{
+            PreparedStatement stmt = conexao.prepareStatement("SELECT count(id) as quantidade from usuario");
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                return rs.getInt("quantidade")>0;
+            }
+        }
+        catch (SQLException e){
+            System.out.println("erro na busca "+e.getMessage());
         }
         finally{
             Conexao.fechaConexao(conexao);
         }
-       
-       return check;
-   } 
+        return false;
+    }
+    
+    public UsuarioValueObject login (String usuario, String senha){
+        Connection conexao = new Conexao().abreConexao();
+        UsuarioValueObject usuarioLogin = null;
+        try{
+            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE usuario = ? and senha= ? ");
+            stmt.setString(1, usuario);
+            stmt.setString(2, senha);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                usuarioLogin = new UsuarioValueObject();
+                usuarioLogin.setId(rs.getInt("id"));
+                usuarioLogin.setNome(rs.getString("nome"));
+                usuarioLogin.setCpf(rs.getString("cpf"));
+                usuarioLogin.setUsuario(rs.getString("usuario"));
+                usuarioLogin.setSenha(rs.getString("senha"));
+                usuarioLogin.setMaster(rs.getBoolean("master"));
+            }
+            return usuarioLogin;
+        }
+        catch (SQLException e){
+            System.out.println("erro na busca "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
+        return usuarioLogin;
+    } 
 }

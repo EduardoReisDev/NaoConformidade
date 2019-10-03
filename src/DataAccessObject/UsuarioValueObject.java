@@ -9,8 +9,26 @@ package DataAccessObject;
 public class UsuarioValueObject {
     private int id;
     private String nome;
-    private String email;
+    private String cpf;
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+    private String usuario;
     private String senha;
+    private boolean master;
+
+    public boolean isMaster() {
+        return master;
+    }
+
+    public void setMaster(boolean master) {
+        this.master = master;
+    }
 
     public int getId() {
         return id;
@@ -28,12 +46,12 @@ public class UsuarioValueObject {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getSenha() {
