@@ -8,7 +8,7 @@ package view;
 import controller.UsuarioController;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import javafx.scene.input.KeyCode;
+import javax.swing.JTextField;
 
 /**
  *
@@ -24,7 +24,16 @@ public class VerificaCpf extends javax.swing.JDialog {
         initComponents();
     }
     
+    private boolean cpfValido = false;
 
+    public JTextField getTxtCpf() {
+        return txtCpf;
+    }
+
+    public void setTxtCpf(JTextField txtCpf) {
+        this.txtCpf = txtCpf;
+    }
+    
     private void removeCaracteresNaoNumericos(){
         int tamanho = txtCpf.getText().length();
         String cpf = txtCpf.getText();
@@ -51,9 +60,11 @@ public class VerificaCpf extends javax.swing.JDialog {
         if(preenchido()){
             if(UsuarioController.validaCpf(txtCpf.getText())){
                 verificacaoCpf.setBackground(Color.green);
+                cpfValido = true;
             }
             else{
                 verificacaoCpf.setBackground(Color.red);
+                cpfValido = false;
             }
         }
     }
@@ -75,20 +86,19 @@ public class VerificaCpf extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCpfKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCpfKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCpfKeyTyped(evt);
             }
         });
 
         jLabel1.setText("CPF:");
 
         btnContinuar.setText("Continuar");
+        btnContinuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContinuarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout verificacaoCpfLayout = new javax.swing.GroupLayout(verificacaoCpf);
         verificacaoCpf.setLayout(verificacaoCpfLayout);
@@ -140,17 +150,17 @@ public class VerificaCpf extends javax.swing.JDialog {
     private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
         validaCpf();
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            
+            if(cpfValido){
+                dispose();
+            }
         }
     }//GEN-LAST:event_txtCpfKeyReleased
 
-    private void txtCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyTyped
-        //validaCpf();
-    }//GEN-LAST:event_txtCpfKeyTyped
-
-    private void txtCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCpfKeyPressed
+    private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
+        if(cpfValido){
+            dispose();
+        }
+    }//GEN-LAST:event_btnContinuarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinuar;

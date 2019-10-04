@@ -5,6 +5,9 @@
  */
 package view;
 
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.util.Arrays;
 import javax.swing.JCheckBox;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -63,7 +66,57 @@ public class CadastroUsuario extends javax.swing.JDialog {
         this.txtUsuario = txtUsuario;
     }
     
+    private boolean validarNome(){
+        return txtNome.getText().length()>2;
+    }
     
+    private boolean validarUsuario(){
+        return txtUsuario.getText().length()>2;
+    }
+    
+    private boolean validarSenha(){
+        return txtSenha.getPassword().length > 3;
+    }
+    
+    private boolean verificarSenha(){
+        return Arrays.equals(txtSenha.getPassword(), txtConfirmarSenha.getPassword()) && 
+                txtConfirmarSenha.getPassword().length > 3;
+    }
+    
+    private void validarEFechar(){
+        boolean valido = true;
+        if(validarNome()){
+            verificacaoNome.setBackground(Color.green);
+        }
+        else{
+            verificacaoNome.setBackground(Color.red);
+            valido = false;
+        }
+        if(validarUsuario()){
+            verificacaoUsuario.setBackground(Color.green);
+        }
+        else{
+            verificacaoUsuario.setBackground(Color.red);
+            valido = false;
+        }
+        if(validarSenha()){
+            verificacaoSenha.setBackground(Color.green);
+        }
+        else{
+            verificacaoSenha.setBackground(Color.red);
+            valido = false;
+        }
+        if(verificarSenha()){
+            verificacaoConfirmacaoSenha.setBackground(Color.green);
+        }
+        else{
+            verificacaoConfirmacaoSenha.setBackground(Color.red);
+            valido = false;
+        }
+        if(valido){
+            dispose();
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -84,18 +137,45 @@ public class CadastroUsuario extends javax.swing.JDialog {
         txtConfirmarSenha = new javax.swing.JPasswordField();
         checkMaster = new javax.swing.JCheckBox();
         btnSalvar = new javax.swing.JButton();
+        verificacaoNome = new javax.swing.JPanel();
+        verificacaoUsuario = new javax.swing.JPanel();
+        verificacaoSenha = new javax.swing.JPanel();
+        verificacaoConfirmacaoSenha = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel2.setText("Nome:");
 
         txtNome.setToolTipText("");
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("Usuário:");
+
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyReleased(evt);
+            }
+        });
 
         jLabel4.setText("Senha:");
 
         jLabel5.setText("Confirmar senha:");
+
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyReleased(evt);
+            }
+        });
+
+        txtConfirmarSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtConfirmarSenhaKeyReleased(evt);
+            }
+        });
 
         checkMaster.setText("Usuário Master");
 
@@ -106,6 +186,50 @@ public class CadastroUsuario extends javax.swing.JDialog {
             }
         });
 
+        javax.swing.GroupLayout verificacaoNomeLayout = new javax.swing.GroupLayout(verificacaoNome);
+        verificacaoNome.setLayout(verificacaoNomeLayout);
+        verificacaoNomeLayout.setHorizontalGroup(
+            verificacaoNomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 24, Short.MAX_VALUE)
+        );
+        verificacaoNomeLayout.setVerticalGroup(
+            verificacaoNomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout verificacaoUsuarioLayout = new javax.swing.GroupLayout(verificacaoUsuario);
+        verificacaoUsuario.setLayout(verificacaoUsuarioLayout);
+        verificacaoUsuarioLayout.setHorizontalGroup(
+            verificacaoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 24, Short.MAX_VALUE)
+        );
+        verificacaoUsuarioLayout.setVerticalGroup(
+            verificacaoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout verificacaoSenhaLayout = new javax.swing.GroupLayout(verificacaoSenha);
+        verificacaoSenha.setLayout(verificacaoSenhaLayout);
+        verificacaoSenhaLayout.setHorizontalGroup(
+            verificacaoSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 24, Short.MAX_VALUE)
+        );
+        verificacaoSenhaLayout.setVerticalGroup(
+            verificacaoSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout verificacaoConfirmacaoSenhaLayout = new javax.swing.GroupLayout(verificacaoConfirmacaoSenha);
+        verificacaoConfirmacaoSenha.setLayout(verificacaoConfirmacaoSenhaLayout);
+        verificacaoConfirmacaoSenhaLayout.setHorizontalGroup(
+            verificacaoConfirmacaoSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 24, Short.MAX_VALUE)
+        );
+        verificacaoConfirmacaoSenhaLayout.setVerticalGroup(
+            verificacaoConfirmacaoSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,21 +237,27 @@ public class CadastroUsuario extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNome)
-                    .addComponent(txtUsuario)
-                    .addComponent(txtSenha)
-                    .addComponent(txtConfirmarSenha)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(checkMaster)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
-                        .addComponent(btnSalvar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 257, Short.MAX_VALUE)
+                        .addComponent(btnSalvar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+                            .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(verificacaoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(verificacaoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(verificacaoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(verificacaoConfirmacaoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
@@ -136,19 +266,27 @@ public class CadastroUsuario extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(verificacaoNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(verificacaoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(verificacaoSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(verificacaoConfirmacaoSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkMaster)
@@ -160,8 +298,32 @@ public class CadastroUsuario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        dispose();
+        validarEFechar();
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            validarEFechar();
+        }
+    }//GEN-LAST:event_txtNomeKeyReleased
+
+    private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            validarEFechar();
+        }
+    }//GEN-LAST:event_txtUsuarioKeyReleased
+
+    private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            validarEFechar();
+        }
+    }//GEN-LAST:event_txtSenhaKeyReleased
+
+    private void txtConfirmarSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarSenhaKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            validarEFechar();
+        }
+    }//GEN-LAST:event_txtConfirmarSenhaKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
@@ -174,5 +336,9 @@ public class CadastroUsuario extends javax.swing.JDialog {
     private javax.swing.JTextField txtNome;
     private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
+    private javax.swing.JPanel verificacaoConfirmacaoSenha;
+    private javax.swing.JPanel verificacaoNome;
+    private javax.swing.JPanel verificacaoSenha;
+    private javax.swing.JPanel verificacaoUsuario;
     // End of variables declaration//GEN-END:variables
 }

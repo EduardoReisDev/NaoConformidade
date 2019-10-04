@@ -61,7 +61,10 @@ public class NaoConformidadeDataObject implements DataAccessObject<NaoConformida
             while (res.next()){
                 result = new NaoConformidadeValueObject();
                 result.setId(res.getInt("idnc"));
+                result.setDescricao(res.getString("ncDescricao"));
+                //result.set
                 result.setResponsavel(res.getString("ncResponsavel"));
+                
                 resultado.accept(result);
                 
             }

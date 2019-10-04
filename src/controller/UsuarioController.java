@@ -6,20 +6,72 @@
 package controller;
 
 import DataAccessObject.UsuarioDataObject;
+import DataAccessObject.UsuarioValueObject;
 import java.util.InputMismatchException;
+import java.util.function.Consumer;
+import view.CadastroUsuario;
+import view.Login;
+import view.Principal;
+import view.VerificaCpf;
 
 /**
  *
  * @author leona
  */
 public class UsuarioController {
-    public boolean login(String usuario, String senha){
-        return null != new UsuarioDataObject().login(usuario, senha);
+    private CadastroUsuario telaCadastroUsuario = new CadastroUsuario(null, true);
+    private VerificaCpf telaVerificaCpf = new VerificaCpf(null, true);
+    private Login telaLogin = new Login(null, true);
+    private UsuarioValueObject usuario;
+    
+    public static void ListarUsuarios(Consumer<? super UsuarioValueObject> resultado){
+        new UsuarioDataObject().listarTodos(resultado::accept);
+    }
+    
+    public boolean login(){
+        telaLogin.setLocationRelativeTo(null);
+        boolean loginEfetuado = false;
+        int tentativas = 0;
+        int tentativasMaximas = 3;
+        if(existeUsuarios()){//chama o diálogo de login
+            while(!loginEfetuado && tentativas < tentativasMaximas){
+                telaLogin.setVisible(true);
+                usuario = new UsuarioDataObject().login(
+                                                telaLogin.getTxtUsuario().getText(), 
+                                                String.valueOf(telaLogin.getTxtSenha().getPassword()));
+                loginEfetuado = usuario!=null;
+                tentativas++;
+            }
+        }
+        else{//chama o diálogo de cadastro de usuários
+            cadastrarUsuario();
+        }
+        return loginEfetuado;
     }
     
     public boolean existeUsuarios(){
         return new UsuarioDataObject().existeUsuarios();
     }
+    
+    public void cadastrarUsuario(){
+        telaVerificaCpf.setLocationRelativeTo(null);
+        telaVerificaCpf.setVisible(true);
+        if(new UsuarioDataObject().existeCpf(telaVerificaCpf.getTxtCpf().getText())){
+            System.out.println("editar");
+        }
+        else{
+            telaCadastroUsuario.setLocationRelativeTo(null);
+            telaCadastroUsuario.setVisible(true);
+            usuario = new UsuarioValueObject();
+            usuario.setCpf(telaVerificaCpf.getTxtCpf().getText());
+            usuario.setNome(telaCadastroUsuario.getTxtNome().getText());
+            usuario.setUsuario(telaCadastroUsuario.getTxtUsuario().getText());
+            usuario.setSenha(String.copyValueOf(telaCadastroUsuario.getTxtSenha().getPassword()));
+            usuario.setMaster(telaCadastroUsuario.getCheckMaster().isSelected());
+            new UsuarioDataObject().salvar(usuario);
+        }
+    }
+    
     
     public static boolean validaCpf(String cpf){
         int soma = 0;

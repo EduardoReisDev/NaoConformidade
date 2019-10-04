@@ -12,10 +12,7 @@ import DataAccessObject.SetorValueObject;
 import DataAccessObject.UsuarioDataObject;
 import DataAccessObject.UsuarioValueObject;
 import java.util.Date;
-import view.CadastroUsuario;
-import view.Login;
-import view.VerificaCpf;
-
+import view.Principal;
 /**
  *
  * @author leona
@@ -128,34 +125,19 @@ public class Controller {
     
     public void inicio(){
         login();
+        
     }
     
     UsuarioController controllerUsuario = new UsuarioController();
-    Login telaLogin = new Login(null, true);
-    CadastroUsuario telaCadastroUsuario = new CadastroUsuario(null, true);
-    VerificaCpf telaVerificaCpf = new VerificaCpf(null, true);
+    Principal telaPrincipal = new Principal();
     public void login(){
-        telaLogin.setLocationRelativeTo(null);
-        telaCadastroUsuario.setLocationRelativeTo(null);
-        telaVerificaCpf.setLocationRelativeTo(null);
-        boolean loginEfetuado = false;
-        int tentativas = 0;
-        int tentativasMaximas = 3;
-        if(new UsuarioController().existeUsuarios()){//chama o diálogo de login
-            while(!loginEfetuado && tentativas < tentativasMaximas){
-                telaLogin.setVisible(true);
-                loginEfetuado = controllerUsuario.login(telaLogin.getUsuario(), telaLogin.getSenha());
-                tentativas++;
-            }
-        }
-        else{//chama o diálogo de cadastro de usuários
-            //System.out.println(UsuarioController.validaCpf("06543651131"));
-            telaVerificaCpf.setVisible(true);
+        if(controllerUsuario.login()){
+        
+            telaPrincipal.setVisible(true);
         }
     }
     
     public static void main(String[] args){
         new Controller().inicio();
-        System.exit(0);
     }
 }

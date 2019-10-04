@@ -138,6 +138,26 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
         return false;
     }
     
+    public boolean existeCpf(String cpf){
+        Connection conexao = new Conexao().abreConexao();
+        String query = "SELECT count(id) as quantidade from usuario where cpf = ?";
+        try{
+            PreparedStatement stmt = conexao.prepareStatement(query);
+            stmt.setString(1, cpf);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                return rs.getInt("quantidade")>0;
+            }
+        }
+        catch (SQLException e){
+            System.out.println("erro na busca "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
+        return false;
+    }
+    
     public UsuarioValueObject login (String usuario, String senha){
         Connection conexao = new Conexao().abreConexao();
         UsuarioValueObject usuarioLogin = null;
