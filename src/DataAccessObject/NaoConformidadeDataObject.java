@@ -83,7 +83,7 @@ public class NaoConformidadeDataObject implements DataAccessObject<NaoConformida
     }
 
     @Override
-    public NaoConformidadeValueObject listarPorId(NaoConformidadeValueObject value, int id) {
+    public NaoConformidadeValueObject listarPorId( int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

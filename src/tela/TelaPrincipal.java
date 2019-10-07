@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package tela;
 
 /**
  *
  * @author Eduardo
  */
-public class TelaCadastroNC extends javax.swing.JPanel {
+public class TelaPrincipal extends javax.swing.JPanel {
 
     /**
-     * Creates new form TelaCadastroNC
+     * Creates new form TelaPrincipal
      */
-    public TelaCadastroNC() {
+    public TelaPrincipal() {
         initComponents();
     }
 

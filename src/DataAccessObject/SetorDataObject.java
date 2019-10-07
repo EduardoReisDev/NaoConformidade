@@ -70,7 +70,7 @@ public class SetorDataObject implements DataAccessObject<SetorValueObject>{
     }
 
     @Override
-    public SetorValueObject listarPorId(SetorValueObject value, int id) {
+    public SetorValueObject listarPorId(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -5,9 +5,10 @@
  */
 package view;
 
+import DataAccessObject.UsuarioValueObject;
+import controller.UsuarioController;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.util.Arrays;
 import javax.swing.JCheckBox;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -16,12 +17,12 @@ import javax.swing.JTextField;
  *
  * @author leona
  */
-public class CadastroUsuario extends javax.swing.JDialog {
-
+public class CadastrarUsuario extends javax.swing.JDialog {
+    private boolean dadosValidos = false;
     /**
-     * Creates new form CadastroUsuario
+     * Creates new form CadastrarUsuario
      */
-    public CadastroUsuario(java.awt.Frame parent, boolean modal) {
+    public CadastrarUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -30,91 +31,96 @@ public class CadastroUsuario extends javax.swing.JDialog {
         return checkMaster;
     }
 
-    public void setCheckMaster(JCheckBox checkMaster) {
-        this.checkMaster = checkMaster;
-    }
-
-    public JPasswordField getTxtConfirmarSenha() {
-        return txtConfirmarSenha;
-    }
-
-    public void setTxtConfirmarSenha(JPasswordField txtConfirmarSenha) {
-        this.txtConfirmarSenha = txtConfirmarSenha;
-    }
-
     public JTextField getTxtNome() {
         return txtNome;
-    }
-
-    public void setTxtNome(JTextField txtNome) {
-        this.txtNome = txtNome;
     }
 
     public JPasswordField getTxtSenha() {
         return txtSenha;
     }
 
-    public void setTxtSenha(JPasswordField txtSenha) {
-        this.txtSenha = txtSenha;
-    }
-
     public JTextField getTxtUsuario() {
         return txtUsuario;
     }
 
-    public void setTxtUsuario(JTextField txtUsuario) {
-        this.txtUsuario = txtUsuario;
-    }
-    
     private boolean validarNome(){
-        return txtNome.getText().length()>2;
+        return UsuarioController.validarNome(txtNome.getText());
     }
     
     private boolean validarUsuario(){
-        return txtUsuario.getText().length()>2;
+        return UsuarioController.validarUsuario(txtUsuario.getText());
     }
     
     private boolean validarSenha(){
-        return txtSenha.getPassword().length > 3;
+        return UsuarioController.validarSenha(txtSenha.getPassword());
     }
     
     private boolean verificarSenha(){
-        return Arrays.equals(txtSenha.getPassword(), txtConfirmarSenha.getPassword()) && 
-                txtConfirmarSenha.getPassword().length > 3;
+        return UsuarioController.verificarSenha(txtSenha.getPassword(), txtConfirmarSenha.getPassword());
+    }
+    
+    public boolean validar(){
+        return (verificarSenha() && validarNome() && validarUsuario()&& validarSenha() && dadosValidos);
     }
     
     private void validarEFechar(){
         boolean valido = true;
-        if(validarNome()){
+        if(UsuarioController.validarNome(txtNome.getText())){
             verificacaoNome.setBackground(Color.green);
         }
         else{
             verificacaoNome.setBackground(Color.red);
+            txtNome.requestFocusInWindow();
             valido = false;
         }
-        if(validarUsuario()){
+        if(UsuarioController.validarUsuario(txtUsuario.getText())){
             verificacaoUsuario.setBackground(Color.green);
         }
         else{
             verificacaoUsuario.setBackground(Color.red);
+            txtUsuario.requestFocusInWindow();
             valido = false;
         }
-        if(validarSenha()){
+        if(UsuarioController.validarSenha(txtSenha.getPassword())){
             verificacaoSenha.setBackground(Color.green);
         }
         else{
             verificacaoSenha.setBackground(Color.red);
+            txtSenha.requestFocusInWindow();
             valido = false;
         }
-        if(verificarSenha()){
+        if(UsuarioController.verificarSenha(txtSenha.getPassword(), txtConfirmarSenha.getPassword())){
             verificacaoConfirmacaoSenha.setBackground(Color.green);
         }
         else{
             verificacaoConfirmacaoSenha.setBackground(Color.red);
+            txtSenha.requestFocusInWindow();
             valido = false;
         }
         if(valido){
+            dadosValidos = true;
             dispose();
+        }
+    }
+    
+    private void enterCampoNome(){
+        validarEFechar();
+        if(validarNome()){
+            txtUsuario.requestFocusInWindow();
+        }
+    }
+    
+    private void enterCampoUsuario(){
+        validarEFechar();
+        if(validarUsuario()){
+            txtSenha.requestFocusInWindow();
+        }
+    }
+    
+    private void enterCampoSenha(){
+        validarEFechar();
+        if(validarSenha()){
+            txtConfirmarSenha.requestFocusInWindow();
         }
     }
     
@@ -127,24 +133,53 @@ public class CadastroUsuario extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        checkMaster = new javax.swing.JCheckBox();
+        btnSalvar = new javax.swing.JButton();
+        verificacaoNome = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        verificacaoUsuario = new javax.swing.JPanel();
         txtNome = new javax.swing.JTextField();
+        verificacaoSenha = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        verificacaoConfirmacaoSenha = new javax.swing.JPanel();
         txtUsuario = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
         txtConfirmarSenha = new javax.swing.JPasswordField();
-        checkMaster = new javax.swing.JCheckBox();
-        btnSalvar = new javax.swing.JButton();
-        verificacaoNome = new javax.swing.JPanel();
-        verificacaoUsuario = new javax.swing.JPanel();
-        verificacaoSenha = new javax.swing.JPanel();
-        verificacaoConfirmacaoSenha = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        checkMaster.setText("Usuário Master");
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout verificacaoNomeLayout = new javax.swing.GroupLayout(verificacaoNome);
+        verificacaoNome.setLayout(verificacaoNomeLayout);
+        verificacaoNomeLayout.setHorizontalGroup(
+            verificacaoNomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 24, Short.MAX_VALUE)
+        );
+        verificacaoNomeLayout.setVerticalGroup(
+            verificacaoNomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 31, Short.MAX_VALUE)
+        );
 
         jLabel2.setText("Nome:");
+
+        javax.swing.GroupLayout verificacaoUsuarioLayout = new javax.swing.GroupLayout(verificacaoUsuario);
+        verificacaoUsuario.setLayout(verificacaoUsuarioLayout);
+        verificacaoUsuarioLayout.setHorizontalGroup(
+            verificacaoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 24, Short.MAX_VALUE)
+        );
+        verificacaoUsuarioLayout.setVerticalGroup(
+            verificacaoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 31, Short.MAX_VALUE)
+        );
 
         txtNome.setToolTipText("");
         txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -153,7 +188,29 @@ public class CadastroUsuario extends javax.swing.JDialog {
             }
         });
 
+        javax.swing.GroupLayout verificacaoSenhaLayout = new javax.swing.GroupLayout(verificacaoSenha);
+        verificacaoSenha.setLayout(verificacaoSenhaLayout);
+        verificacaoSenhaLayout.setHorizontalGroup(
+            verificacaoSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 24, Short.MAX_VALUE)
+        );
+        verificacaoSenhaLayout.setVerticalGroup(
+            verificacaoSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 31, Short.MAX_VALUE)
+        );
+
         jLabel3.setText("Usuário:");
+
+        javax.swing.GroupLayout verificacaoConfirmacaoSenhaLayout = new javax.swing.GroupLayout(verificacaoConfirmacaoSenha);
+        verificacaoConfirmacaoSenha.setLayout(verificacaoConfirmacaoSenhaLayout);
+        verificacaoConfirmacaoSenhaLayout.setHorizontalGroup(
+            verificacaoConfirmacaoSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 24, Short.MAX_VALUE)
+        );
+        verificacaoConfirmacaoSenhaLayout.setVerticalGroup(
+            verificacaoConfirmacaoSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 31, Short.MAX_VALUE)
+        );
 
         txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -177,59 +234,6 @@ public class CadastroUsuario extends javax.swing.JDialog {
             }
         });
 
-        checkMaster.setText("Usuário Master");
-
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout verificacaoNomeLayout = new javax.swing.GroupLayout(verificacaoNome);
-        verificacaoNome.setLayout(verificacaoNomeLayout);
-        verificacaoNomeLayout.setHorizontalGroup(
-            verificacaoNomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 24, Short.MAX_VALUE)
-        );
-        verificacaoNomeLayout.setVerticalGroup(
-            verificacaoNomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout verificacaoUsuarioLayout = new javax.swing.GroupLayout(verificacaoUsuario);
-        verificacaoUsuario.setLayout(verificacaoUsuarioLayout);
-        verificacaoUsuarioLayout.setHorizontalGroup(
-            verificacaoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 24, Short.MAX_VALUE)
-        );
-        verificacaoUsuarioLayout.setVerticalGroup(
-            verificacaoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout verificacaoSenhaLayout = new javax.swing.GroupLayout(verificacaoSenha);
-        verificacaoSenha.setLayout(verificacaoSenhaLayout);
-        verificacaoSenhaLayout.setHorizontalGroup(
-            verificacaoSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 24, Short.MAX_VALUE)
-        );
-        verificacaoSenhaLayout.setVerticalGroup(
-            verificacaoSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout verificacaoConfirmacaoSenhaLayout = new javax.swing.GroupLayout(verificacaoConfirmacaoSenha);
-        verificacaoConfirmacaoSenha.setLayout(verificacaoConfirmacaoSenhaLayout);
-        verificacaoConfirmacaoSenhaLayout.setHorizontalGroup(
-            verificacaoConfirmacaoSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 24, Short.MAX_VALUE)
-        );
-        verificacaoConfirmacaoSenhaLayout.setVerticalGroup(
-            verificacaoConfirmacaoSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -239,7 +243,7 @@ public class CadastroUsuario extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(checkMaster)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 257, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
                         .addComponent(btnSalvar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -290,8 +294,7 @@ public class CadastroUsuario extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkMaster)
-                    .addComponent(btnSalvar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSalvar)))
         );
 
         pack();
@@ -303,19 +306,19 @@ public class CadastroUsuario extends javax.swing.JDialog {
 
     private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            validarEFechar();
+            enterCampoNome();
         }
     }//GEN-LAST:event_txtNomeKeyReleased
 
     private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            validarEFechar();
+            enterCampoUsuario();
         }
     }//GEN-LAST:event_txtUsuarioKeyReleased
 
     private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            validarEFechar();
+            enterCampoSenha();
         }
     }//GEN-LAST:event_txtSenhaKeyReleased
 
@@ -324,6 +327,22 @@ public class CadastroUsuario extends javax.swing.JDialog {
             validarEFechar();
         }
     }//GEN-LAST:event_txtConfirmarSenhaKeyReleased
+
+    public static UsuarioValueObject inicio() {
+        /* Create and display the dialog */
+        CadastrarUsuario dialog = new CadastrarUsuario(new javax.swing.JFrame(), true);
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+        if(dialog.validar()){
+            return new UsuarioValueObject(
+                                        dialog.getTxtNome().getText(),//nome
+                                        dialog.getTxtUsuario().getText(),//usuário
+                                        String.copyValueOf(dialog.getTxtSenha().getPassword()),//senha
+                                        dialog.getCheckMaster().isSelected()//usuário master
+            );   
+        }
+        return null;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;

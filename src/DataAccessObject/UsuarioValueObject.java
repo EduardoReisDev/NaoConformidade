@@ -10,7 +10,35 @@ public class UsuarioValueObject {
     private int id;
     private String nome;
     private String cpf;
-
+    private String usuario;
+    private String senha;
+    private boolean master;
+    
+    public UsuarioValueObject(){
+        
+    }
+    
+    public UsuarioValueObject(int id, String nome, String cpf, String usuario, String senha, boolean master){
+        this.cpf=cpf;
+        this.id = id;
+        this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.master = master;
+    }
+    
+    public UsuarioValueObject(String nome, String usuario, String senha, boolean master){
+        this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.master = master;
+    }
+    
+    public UsuarioValueObject(String usuario, String senha){
+        this.usuario = usuario;
+        this.senha = senha;
+    }
+    
     public String getCpf() {
         return cpf;
     }
@@ -18,9 +46,6 @@ public class UsuarioValueObject {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-    private String usuario;
-    private String senha;
-    private boolean master;
 
     public boolean isMaster() {
         return master;

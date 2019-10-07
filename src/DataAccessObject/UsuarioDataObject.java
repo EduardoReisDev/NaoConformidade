@@ -48,8 +48,31 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
     }
 
     @Override
-    public UsuarioValueObject listarPorId(UsuarioValueObject value, int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public UsuarioValueObject listarPorId(int id) {
+        Connection conexao = new Conexao().abreConexao();
+        UsuarioValueObject usuario = null;
+        try{
+            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE id = ? ");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                usuario = new UsuarioValueObject();
+                usuario.setId(rs.getInt("id"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setCpf(rs.getString("cpf"));
+                usuario.setUsuario(rs.getString("usuario"));
+                usuario.setSenha(rs.getString("senha"));
+                usuario.setMaster(rs.getBoolean("master"));
+            }
+            return usuario;
+        }
+        catch (SQLException e){
+            System.out.println("erro na busca "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
+        return usuario;
     }
 
     @Override
@@ -121,7 +144,7 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
     }
     
     public boolean existeUsuarios(){
-         Connection conexao = new Conexao().abreConexao();
+        Connection conexao = new Conexao().abreConexao();
         try{
             PreparedStatement stmt = conexao.prepareStatement("SELECT count(id) as quantidade from usuario");
             ResultSet rs = stmt.executeQuery();

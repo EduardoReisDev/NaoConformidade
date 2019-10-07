@@ -14,24 +14,19 @@ import javax.swing.JTextField;
  *
  * @author leona
  */
-public class VerificaCpf extends javax.swing.JDialog {
+public class FormCpf extends javax.swing.JDialog {
 
     /**
-     * Creates new form VerificaCpf
+     * Creates new form FormCpf
      */
-    public VerificaCpf(java.awt.Frame parent, boolean modal) {
+    public FormCpf(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-    
     private boolean cpfValido = false;
 
     public JTextField getTxtCpf() {
         return txtCpf;
-    }
-
-    public void setTxtCpf(JTextField txtCpf) {
-        this.txtCpf = txtCpf;
     }
     
     private void removeCaracteresNaoNumericos(){
@@ -40,7 +35,7 @@ public class VerificaCpf extends javax.swing.JDialog {
         if(tamanho>=0){
             for(int i = 0; i < tamanho; i++){
                 if(!Character.isDigit(cpf.charAt(i))){
-                    txtCpf.setText(cpf.replaceAll(String.valueOf(cpf.charAt(i)), ""));
+                    txtCpf.setText(cpf.replace(String.valueOf(cpf.charAt(i)), ""));
                 }
                 tamanho = txtCpf.getText().length();
                 cpf = txtCpf.getText();
@@ -68,7 +63,6 @@ public class VerificaCpf extends javax.swing.JDialog {
             }
         }
     }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -157,10 +151,18 @@ public class VerificaCpf extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCpfKeyReleased
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
+        validaCpf();
         if(cpfValido){
             dispose();
         }
     }//GEN-LAST:event_btnContinuarActionPerformed
+
+    public static String inicio() {
+        FormCpf dialog = new FormCpf(new javax.swing.JFrame(), true);
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+        return dialog.getTxtCpf().getText();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinuar;
