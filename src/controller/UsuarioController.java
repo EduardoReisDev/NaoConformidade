@@ -5,33 +5,83 @@
  */
 package controller;
 
+import DataAccessObject.UsuarioBusinessObject;
 import DataAccessObject.UsuarioDataObject;
 import DataAccessObject.UsuarioValueObject;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.function.Consumer;
-import javax.swing.JOptionPane;
-import view.CadastrarUsuario;
-import view.Login;
-import view.FormCpf;
+import view.Mensagens;
+import view.usuario.Criar;
+import view.usuario.Editar;
+import view.usuario.Login;
+import view.usuario.InserirCpf;
 
 /**
  *
  * @author leona
  */
 public class UsuarioController {
+    
     public static void ListarUsuarios(Consumer<? super UsuarioValueObject> resultado){
         new UsuarioDataObject().listarTodos(resultado::accept);
     }
     
-    public static UsuarioValueObject ListarPorId(int id){
+    public static UsuarioValueObject listarPorId(int id){
         return new UsuarioDataObject().listarPorId(id);
     }
     
-    public static boolean excluir(int id){
-        return new UsuarioDataObject().excluir(id);
+    public static void excluir(int id){
+        UsuarioValueObject usuario = listarPorId(id);
+        if(Mensagens.confirmar(
+                null,
+                UsuarioBusinessObject.mensagemExcluirUsuário(usuario),
+                UsuarioBusinessObject.TITULO_EXCLUIR,
+                UsuarioBusinessObject.QUESTAO)){
+            if(new UsuarioDataObject().excluir(id)){
+                Mensagens.mensagem(
+                        null,
+                        UsuarioBusinessObject.mensagemSucessoExcluirUsuario(usuario),
+                        UsuarioBusinessObject.TITULO_SUCESSO_EXCLUSAO,
+                        UsuarioBusinessObject.SUCESSO);
+            }
+            else{
+                Mensagens.mensagem(
+                        null,
+                        UsuarioBusinessObject.mensagemErroExcluirUsuario(usuario), 
+                        UsuarioBusinessObject.TITULO_ERRO_EXCLUSAO,
+                        UsuarioBusinessObject.ERRO);
+            }
+        }
     }
     
+    public static boolean editar(int id){
+        UsuarioValueObject usuarioEditar = null;
+        UsuarioValueObject usuarioSelecionado = listarPorId(id);
+        while(usuarioEditar == null){
+            usuarioEditar = Editar.inicio(usuarioSelecionado);//pega os dados do formulário
+            if(usuarioEditar==null){//se o formulário retorna nulo mostra uma mensagem
+                if(!Mensagens.confirmar(
+                        null, 
+                        UsuarioBusinessObject.MENSAGEM_FORMULARIO_NAO_PREENCHIDO,
+                        UsuarioBusinessObject.TITULO_MENSAGEM_FORMULARIO_NAO_PREENCHIDO,
+                        UsuarioBusinessObject.ERRO)){
+                    break;
+                }
+            } 
+            else{//se não, coloca o cpf e insere no banco
+                usuarioEditar.setCpf(usuarioSelecionado.getCpf());//pega o cpf do usuário selecionado
+                usuarioEditar.setId(usuarioSelecionado.getId());//peda o id do usuário selecionado
+                return new UsuarioDataObject().editar(usuarioEditar);//salva no banco de dados
+            }
+        }
+        return false;
+    }
+    
+    /**
+     *Este método é responsável por fazer o login e verificar se o usuário logado é master
+     * @return true se o usuário logado for master, se não, retorna false
+     */
     public static boolean usuarioMaster(){
         return login().isMaster();
     }
@@ -44,11 +94,10 @@ public class UsuarioController {
      */
     public static UsuarioValueObject login(){
         int tentativas = 0;
-        int tentativasMaximas = 3;
         UsuarioValueObject usuario = null;
         UsuarioValueObject usuarioFormulario;
         if(existeUsuarios()){//chama o diálogo de login
-            while(usuario == null && tentativas < tentativasMaximas){
+            while(usuario == null && tentativas < UsuarioBusinessObject.TENTATIVAS_MAXIMAS_LOGIN){
                 tentativas++;
                 usuarioFormulario = Login.inicio();
                 if(usuarioFormulario!=null){
@@ -57,23 +106,24 @@ public class UsuarioController {
                                                     usuarioFormulario.getSenha()
                                                     );
                     if(usuario == null){
-                        if(JOptionPane.showConfirmDialog(null, "Os dados informados não correspondem a nenhum usuário salvo."
-                                                        + "\nDeseja tentar novamente?\n"+
-                                                        (tentativasMaximas-tentativas) + " tentativas restentes.",
-                                                        "Credenciais não inseridas", 
-                                                        JOptionPane.YES_OPTION, 
-                                                        JOptionPane.WARNING_MESSAGE) == 1){
-                            break;
+                        if(UsuarioBusinessObject.TENTATIVAS_MAXIMAS_LOGIN-tentativas > 0){
+                            if(!Mensagens.confirmar(
+                                    null,
+                                    UsuarioBusinessObject.mensagemLoginNaoEftuado(tentativas),
+                                    UsuarioBusinessObject.TITULO_MENSAGEM_LOGIN_NAO_EFETUADO,
+                                    UsuarioBusinessObject.ATENCAO)){
+                                break;
+                            }
                         }
                     }
                 }
                 else{
-                    if(tentativasMaximas-tentativas == 0){
-                        if(JOptionPane.showConfirmDialog(null, "Nenhum dado recebido.\nDeseja tentar novamente?\n"+
-                                                        (tentativasMaximas-tentativas) + " tentativas restentes.",
-                                                        "Credenciais não inseridas", 
-                                                        JOptionPane.YES_OPTION, 
-                                                        JOptionPane.WARNING_MESSAGE) == 1){
+                    if(UsuarioBusinessObject.TENTATIVAS_MAXIMAS_LOGIN-tentativas > 0){
+                        if(!Mensagens.confirmar(
+                                null,
+                                UsuarioBusinessObject.mensagemCredenciaisNaoFornecidas(tentativas), 
+                                UsuarioBusinessObject.TITULO_MENSAGEM_CREDENCIAIS_NAO_FORNECIDAS,
+                                UsuarioBusinessObject.ATENCAO)){
                             break;
                         }
                     }
@@ -81,7 +131,9 @@ public class UsuarioController {
             }
         }
         else{//chama o diálogo de cadastro de usuários
-            cadastrarUsuario();
+            if(cadastrarUsuario()){
+                return login();
+            }
         }
         return usuario;
     }
@@ -96,24 +148,33 @@ public class UsuarioController {
     
     
     public static boolean cadastrarUsuario(){
-        String cpf = "";
-        while(cpf.isEmpty()){//se o formulário do cpf retornou o cpf
-            cpf = FormCpf.inicio();
-            if(cpf.isEmpty()){//se o formulário não retornou nada
-                if(JOptionPane.showConfirmDialog(null, "CPF não inserido.\nDeseja tentar novamente?", "CPF não inserido", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE) == 1){
+        String cpf = null;
+        while(cpf == null){//se o formulário do cpf retornou o cpf
+            cpf = InserirCpf.inicio();
+            if(cpf == null){//se o formulário não retornou nada
+                if(!Mensagens.confirmar(
+                        null, 
+                        UsuarioBusinessObject.MENSAGEM_CPF_NAO_FORNECIDO, 
+                        UsuarioBusinessObject.TITULO_MENSAGEM_CPF_NAO_FORNECIDO,
+                        UsuarioBusinessObject.ATENCAO)){
                     break;
                 }
             }
             else{//se retornou um cpf
-                if(new UsuarioDataObject().existeCpf(cpf)){//verifica no banco se existe um usuário com o mesmo cpf
-                    System.out.println("editar");
+                UsuarioValueObject usuario = new UsuarioDataObject().listarPorCpf(cpf);
+                if(usuario != null){//verifica no banco se existe um usuário com o mesmo cpf
+                    System.out.println(usuario.getId());
+                    editar(usuario.getId());
                 }
-                else{
-                    UsuarioValueObject usuario = null;
+                else{usuario = null;
                     while(usuario == null){
-                        usuario = CadastrarUsuario.inicio();//pega o restante dos dados do formulário
+                        usuario = Criar.inicio();//pega o restante dos dados do formulário
                         if(usuario==null){  //se o formulário retorna nulo mostra uma mensagem
-                            if(JOptionPane.showConfirmDialog(null, "Dados de usuário não inseridos.\nDeseja tentar novamente?", "Dados de usuário não inseridos", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE) == 1){
+                            if(!Mensagens.confirmar(
+                                    null, 
+                                    UsuarioBusinessObject.MENSAGEM_FORMULARIO_NAO_PREENCHIDO,
+                                    UsuarioBusinessObject.TITULO_MENSAGEM_FORMULARIO_NAO_PREENCHIDO,
+                                    UsuarioBusinessObject.ERRO)){
                                 break;
                             }
                         } 
@@ -141,7 +202,7 @@ public class UsuarioController {
     }
     
     public static boolean verificarSenha(char [] senha, char [] confirmaSenha){
-        return Arrays.equals(senha, confirmaSenha);
+        return Arrays.equals(senha, confirmaSenha) && confirmaSenha.length>3;
     }
     
     public static boolean validaCpf(String cpf){

@@ -8,7 +8,7 @@ package tela;
 import DataAccessObject.UsuarioValueObject;
 import controller.UsuarioController;
 import javax.swing.table.DefaultTableModel;
-import view.GerenciarUsuarios;
+import view.usuario.GerenciarUsuarios;
 
 /**
  *

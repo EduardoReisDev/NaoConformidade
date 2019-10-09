@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.usuario;
 
 import controller.UsuarioController;
 import java.awt.Color;
@@ -14,16 +14,21 @@ import javax.swing.JTextField;
  *
  * @author leona
  */
-public class FormCpf extends javax.swing.JDialog {
+public class InserirCpf extends javax.swing.JDialog {
 
     /**
      * Creates new form FormCpf
      */
-    public FormCpf(java.awt.Frame parent, boolean modal) {
+    public InserirCpf(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
+    
     private boolean cpfValido = false;
+
+    public boolean isCpfValido() {
+        return cpfValido;
+    }
 
     public JTextField getTxtCpf() {
         return txtCpf;
@@ -158,10 +163,13 @@ public class FormCpf extends javax.swing.JDialog {
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     public static String inicio() {
-        FormCpf dialog = new FormCpf(new javax.swing.JFrame(), true);
+        InserirCpf dialog = new InserirCpf(new javax.swing.JFrame(), true);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
-        return dialog.getTxtCpf().getText();
+        if(dialog.isCpfValido()){
+            return dialog.getTxtCpf().getText();
+        }
+        return null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.usuario;
 
 import DataAccessObject.UsuarioValueObject;
 import controller.UsuarioController;
@@ -27,7 +27,7 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
     
     DefaultTableModel modeloTabela;
     private final String[] colunas ={"Código", "Nome", "CPF", "Usuário", "Usuário Master"};
-    private ArrayList<Integer> listaId = new ArrayList<>();
+    private ArrayList<Integer> listaId;
     
     public void inicializarTabela(){
         modeloTabela = new DefaultTableModel(){
@@ -39,6 +39,7 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
         for(String coluna: colunas){
             modeloTabela.addColumn(coluna);
         }
+        listaId = new ArrayList<>();
         tblUsuarios.setModel(modeloTabela);
         listar();
     }
@@ -78,17 +79,6 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(this, "Selecione uma linha na tabela.");
     }
     
-    public void editar(){
-        int linhaSelecionada=tblUsuarios.getSelectedRow();
-        if(linhaSelecionada>=0){
-            if(logar()){
-                System.out.println(listaId.get(linhaSelecionada));
-            }
-        }
-        else{
-            exibirMensagemLinhaNaoSelecionada();
-        }
-    }
     
     private boolean logar(){
         return UsuarioController.usuarioMaster();
@@ -104,24 +94,21 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
         return -1;
     }
     
+    private void editar(){
+        int id=logarEPegarIdDaLinhaSelecionada();
+        if(id>=0){
+            UsuarioController.editar(id);
+        }
+        else{
+            exibirMensagemLinhaNaoSelecionada();
+        }
+        inicializarTabela();
+    }
+    
     private void excluir(){
         int id = logarEPegarIdDaLinhaSelecionada();
         if(id>=0){
-            UsuarioValueObject usuario = UsuarioController.ListarPorId(id);
-            if(JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir o usuário:\n" + usuario.getNome() +
-                                                    "\nCom CPF " + usuario.getCpf() + "?",
-                                                    "Excluir usuário",
-                                                    JOptionPane.YES_OPTION , 
-                                                    JOptionPane.WARNING_MESSAGE) == 0){
-                if(UsuarioController.excluir(id)){
-                    JOptionPane.showMessageDialog(this, "Usuário excluído com sucesso!", "Sucesso ao excluir", 
-                                                    JOptionPane.INFORMATION_MESSAGE);
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "Usuário não excluído!", "Erro ao excluir", 
-                                                    JOptionPane.ERROR_MESSAGE);
-                }
-            }
+            UsuarioController.excluir(id);
         }
         else{
             exibirMensagemLinhaNaoSelecionada();
