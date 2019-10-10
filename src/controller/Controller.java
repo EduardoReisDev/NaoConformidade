@@ -5,12 +5,12 @@
  */
 package controller;
 
-import DataAccessObject.NaoConformidadeDataObject;
-import DataAccessObject.NaoConformidadeValueObject;
-import DataAccessObject.SetorDataObject;
-import DataAccessObject.SetorValueObject;
-import DataAccessObject.UsuarioDataObject;
-import DataAccessObject.UsuarioValueObject;
+import dao.NaoConformidadeDao;
+import model.NaoConformidade;
+import dao.SetorDao;
+import model.Setor;
+import dao.UsuarioDao;
+import model.Usuario;
 import java.util.Date;
 import view.Principal;
 /**
@@ -20,18 +20,18 @@ import view.Principal;
 public class Controller {
     //<editor-fold defaultstate="collapsed" desc="comment">
     
-    public void insereUsuario(){
-        UsuarioValueObject usuario = new UsuarioValueObject();
+    public void insereUsuarioDao(){
+        Usuario usuario = new Usuario();
         usuario.setNome("Leonardo");
         usuario.setCpf("06543651130");
         usuario.setUsuario("leo");
         usuario.setSenha("123");
         usuario.setMaster(true);
-        System.out.println(new UsuarioDataObject().salvar(usuario));
+        System.out.println(new UsuarioDao().salvar(usuario));
     }
     
     public void listaUsuarios(){
-        new UsuarioDataObject().listarTodos(usuario->{
+        new UsuarioDao().listarTodos(usuario->{
             System.out.println(usuario.getId());
             System.out.println(usuario.getNome());
             System.out.println(usuario.getUsuario());
@@ -39,31 +39,31 @@ public class Controller {
         });
     }
     
-    public void excluirUsuario(){
-        new UsuarioDataObject().excluir(16);
+    public void excluirUsuarioDao(){
+        new UsuarioDao().excluir(16);
     }
     
-    public void editarUsuario(){
-        UsuarioValueObject usuario = new UsuarioValueObject();
+    public void editarUsuarioDao(){
+        Usuario usuario = new Usuario();
         usuario.setNome("Léo");
         usuario.setUsuario("leo");
         usuario.setSenha("123");
         usuario.setId(2);
         
-        System.out.println(new UsuarioDataObject().editar(usuario));
+        System.out.println(new UsuarioDao().editar(usuario));
     }
     
     public void insereSetor(){
-        SetorValueObject setor = new SetorValueObject();
+        Setor setor = new Setor();
         setor.setCodigo("0001145");
         setor.setNome("Casa das Galinhas");
         setor.setResponsavel("Fulano das Couve");
         
-        System.out.println(new SetorDataObject().salvar(setor));
+        System.out.println(new SetorDao().salvar(setor));
     }
     
     public void listarSetores(){
-        new SetorDataObject().listarTodos(setor->{
+        new SetorDao().listarTodos(setor->{
             System.out.println(setor.getId());
             System.out.println(setor.getNome());
             System.out.println(setor.getCodigo());
@@ -72,20 +72,20 @@ public class Controller {
     }
     
     public void editarSetor(){
-        SetorValueObject setor = new SetorValueObject();
+        Setor setor = new Setor();
         setor.setCodigo("0001145");
         setor.setNome("Casa dos Galos");
         setor.setResponsavel("Fulano das Couve");
         setor.setId(1);
-        System.out.println(new SetorDataObject().editar(setor));
+        System.out.println(new SetorDao().editar(setor));
     }
     
     public void excluirSetor(){
-        new SetorDataObject().excluir(1);
+        new SetorDao().excluir(1);
     }
     
     public void salvarNaoConformidade(){
-        NaoConformidadeValueObject naoConformidade = new NaoConformidadeValueObject();
+        NaoConformidade naoConformidade = new NaoConformidade();
         naoConformidade.setAbrangencia("xxxx");
         naoConformidade.setAcaoCorrecao("teste");
         naoConformidade.setCodigo("00005463");
@@ -97,11 +97,11 @@ public class Controller {
         naoConformidade.setOrigem("Baixa da égua");
         naoConformidade.setReincidencia(3);
         naoConformidade.setResponsavel("fulano");
-        System.out.println(new NaoConformidadeDataObject().salvar(naoConformidade));
+        System.out.println(new NaoConformidadeDao().salvar(naoConformidade));
     }
     
     public void editarNaoConformidade(){
-        NaoConformidadeValueObject naoConformidade = new NaoConformidadeValueObject();
+        NaoConformidade naoConformidade = new NaoConformidade();
         naoConformidade.setAbrangencia("xxxx");
         naoConformidade.setAcaoCorrecao("teste");
         naoConformidade.setCodigo("00005463");
@@ -114,11 +114,11 @@ public class Controller {
         naoConformidade.setReincidencia(3);
         naoConformidade.setResponsavel("eduardo");
         naoConformidade.setId(1);
-        System.out.println(new NaoConformidadeDataObject().editar(naoConformidade));
+        System.out.println(new NaoConformidadeDao().editar(naoConformidade));
     }
     
     public void listarNaoConformidades(){
-        new NaoConformidadeDataObject().listarTodos(naoConformidade->{
+        new NaoConformidadeDao().listarTodos(naoConformidade->{
             System.out.println(naoConformidade.getId());
             System.out.println(naoConformidade.getResponsavel());
         });
@@ -137,7 +137,7 @@ public class Controller {
     }
     
     public static void login(){
-        UsuarioValueObject usuario = UsuarioController.login();
+        Usuario usuario = UsuarioController.login();
         if(usuario!=null){
             abreTelaPrincipal();
         }

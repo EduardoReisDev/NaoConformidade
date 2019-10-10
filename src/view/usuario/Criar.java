@@ -5,7 +5,6 @@
  */
 package view.usuario;
 
-import DataAccessObject.UsuarioValueObject;
 import controller.UsuarioController;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -327,23 +326,6 @@ public class Criar extends javax.swing.JDialog {
             validarEFechar();
         }
     }//GEN-LAST:event_txtConfirmarSenhaKeyReleased
-
-    public static UsuarioValueObject inicio() {
-        /* Create and display the dialog */
-        Criar dialog = new Criar(new javax.swing.JFrame(), true);
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
-        if(dialog.validar()){
-            return new UsuarioValueObject(
-                                        dialog.getTxtNome().getText(),//nome
-                                        dialog.getTxtUsuario().getText(),//usuário
-                                        String.copyValueOf(dialog.getTxtSenha().getPassword()),//senha
-                                        dialog.getCheckMaster().isSelected()//usuário master
-            );   
-        }
-        return null;
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox checkMaster;

@@ -1,4 +1,4 @@
-package DataAccessObject;
+package model;
 
 
 
@@ -6,7 +6,7 @@ package DataAccessObject;
  *
  * @author Eduardo
  */
-public class UsuarioValueObject {
+public class Usuario {
     private int id;
     private String nome;
     private String cpf;
@@ -14,11 +14,11 @@ public class UsuarioValueObject {
     private String senha;
     private boolean master;
     
-    public UsuarioValueObject(){
+    public Usuario(){
         
     }
     
-    public UsuarioValueObject(int id, String nome, String cpf, String usuario, String senha, boolean master){
+    public Usuario(int id, String nome, String cpf, String usuario, String senha, boolean master){
         this.cpf=cpf;
         this.id = id;
         this.nome = nome;
@@ -27,14 +27,14 @@ public class UsuarioValueObject {
         this.master = master;
     }
     
-    public UsuarioValueObject(String nome, String usuario, String senha, boolean master){
+    public Usuario(String nome, String usuario, String senha, boolean master){
         this.nome = nome;
         this.usuario = usuario;
         this.senha = senha;
         this.master = master;
     }
     
-    public UsuarioValueObject(String usuario, String senha){
+    public Usuario(String usuario, String senha){
         this.usuario = usuario;
         this.senha = senha;
     }

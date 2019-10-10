@@ -5,7 +5,7 @@
  */
 package view.usuario;
 
-import DataAccessObject.UsuarioValueObject;
+import model.Usuario;
 import controller.UsuarioController;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -48,7 +48,7 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
         UsuarioController.ListarUsuarios(this::adicionarConteudo);
     }
     
-    public void adicionarConteudo(UsuarioValueObject usuario){
+    public void adicionarConteudo(Usuario usuario){
         modeloTabela.addRow(new Object[]{
             String.format("%010d", usuario.getId()),
             usuario.getNome(),
@@ -73,6 +73,9 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
             UsuarioController.cadastrarUsuario();
             inicializarTabela();
         }
+        else{
+            UsuarioController.mensagemSomenteMaster(this);
+        }
     }
     
     private void exibirMensagemLinhaNaoSelecionada(){
@@ -84,20 +87,28 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
         return UsuarioController.usuarioMaster();
     }
     
-    private int logarEPegarIdDaLinhaSelecionada(){
+    private int pegarIdDaLinhaSelecionada(){
         int linhaSelecionada=tblUsuarios.getSelectedRow();
         if(linhaSelecionada>=0){
             if(logar()){//somente um usuário master poderá excluir um usuário
                 return listaId.get(linhaSelecionada);
+            }
+            else{
+                UsuarioController.mensagemSomenteMaster(this);
             }
         }
         return -1;
     }
     
     private void editar(){
-        int id=logarEPegarIdDaLinhaSelecionada();
+        int id=pegarIdDaLinhaSelecionada();
         if(id>=0){
-            UsuarioController.editar(id);
+            if(logar()){
+                UsuarioController.editar(id);
+            }
+            else{
+                UsuarioController.mensagemSomenteMaster(this);
+            }
         }
         else{
             exibirMensagemLinhaNaoSelecionada();
@@ -106,9 +117,11 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
     }
     
     private void excluir(){
-        int id = logarEPegarIdDaLinhaSelecionada();
+        int id = pegarIdDaLinhaSelecionada();
         if(id>=0){
-            UsuarioController.excluir(id);
+            if(logar()){
+                UsuarioController.excluir(id);
+            }
         }
         else{
             exibirMensagemLinhaNaoSelecionada();

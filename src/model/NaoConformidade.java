@@ -1,4 +1,4 @@
-package DataAccessObject;
+package model;
 
 import java.util.Date;
 
@@ -6,7 +6,7 @@ import java.util.Date;
  *
  * @author Eduardo
  */
-public class NaoConformidadeValueObject {
+public class NaoConformidade {
     private int id;
     private String abrangencia;
     private String acaoCorrecao;

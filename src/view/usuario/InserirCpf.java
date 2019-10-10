@@ -23,51 +23,25 @@ public class InserirCpf extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    
-    private boolean cpfValido = false;
-
-    public boolean isCpfValido() {
-        return cpfValido;
-    }
 
     public JTextField getTxtCpf() {
         return txtCpf;
     }
     
-    private void removeCaracteresNaoNumericos(){
-        int tamanho = txtCpf.getText().length();
-        String cpf = txtCpf.getText();
-        if(tamanho>=0){
-            for(int i = 0; i < tamanho; i++){
-                if(!Character.isDigit(cpf.charAt(i))){
-                    txtCpf.setText(cpf.replace(String.valueOf(cpf.charAt(i)), ""));
-                }
-                tamanho = txtCpf.getText().length();
-                cpf = txtCpf.getText();
-            }
-            if(tamanho>=11){
-                txtCpf.setText(cpf.substring(0, 11));
-            }
+    private void indicarCpfValido(){
+        if(validarCpf()){
+            verificacaoCpf.setBackground(Color.GREEN);
+        }
+        else{
+            verificacaoCpf.setBackground(Color.red);
         }
     }
     
-    private boolean preenchido(){
-        return txtCpf.getText().length()==11;
+    private boolean validarCpf(){
+        txtCpf.setText(UsuarioController.removerCaracteresInvalidos(txtCpf.getText()));
+        return UsuarioController.validarCpf(txtCpf.getText());
     }
     
-    public void validaCpf(){
-        removeCaracteresNaoNumericos();
-        if(preenchido()){
-            if(UsuarioController.validaCpf(txtCpf.getText())){
-                verificacaoCpf.setBackground(Color.green);
-                cpfValido = true;
-            }
-            else{
-                verificacaoCpf.setBackground(Color.red);
-                cpfValido = false;
-            }
-        }
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,30 +121,20 @@ public class InserirCpf extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
-        validaCpf();
+        indicarCpfValido();
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            if(cpfValido){
+            if(validarCpf()){
                 dispose();
             }
         }
     }//GEN-LAST:event_txtCpfKeyReleased
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        validaCpf();
-        if(cpfValido){
+        indicarCpfValido();
+        if(validarCpf()){
             dispose();
         }
     }//GEN-LAST:event_btnContinuarActionPerformed
-
-    public static String inicio() {
-        InserirCpf dialog = new InserirCpf(new javax.swing.JFrame(), true);
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
-        if(dialog.isCpfValido()){
-            return dialog.getTxtCpf().getText();
-        }
-        return null;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinuar;

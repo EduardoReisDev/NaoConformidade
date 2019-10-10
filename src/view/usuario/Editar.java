@@ -5,7 +5,7 @@
  */
 package view.usuario;
 
-import DataAccessObject.UsuarioValueObject;
+import model.Usuario;
 import controller.UsuarioController;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 public class Editar extends javax.swing.JDialog {
 
     /**
-     * Creates new form EditarUsuario
+     * Creates new form Editar
      */
     public Editar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -29,7 +29,7 @@ public class Editar extends javax.swing.JDialog {
     
     private boolean dadosValidos = false;
 
-    public void preencherCampos(UsuarioValueObject usuario){
+    public void preencherCampos(Usuario usuario){
         txtNome.setText(usuario.getNome());
         txtUsuario.setText(usuario.getUsuario());
         txtSenha.setText(usuario.getSenha());
@@ -339,26 +339,6 @@ public class Editar extends javax.swing.JDialog {
             enterCampoNome();
         }
     }                                   
-
-    /**
-     * @param usuarioValueObject
-     * @return 
-     */
-    public static UsuarioValueObject inicio(UsuarioValueObject usuarioValueObject) {
-        Editar dialog = new Editar(new javax.swing.JFrame(), true);
-        dialog.setLocationRelativeTo(null);
-        dialog.preencherCampos(usuarioValueObject);
-        dialog.setVisible(true);
-        if(dialog.validar()){
-            return new UsuarioValueObject(
-                                        dialog.getTxtNome().getText(),//nome
-                                        dialog.getTxtUsuario().getText(),//usuário
-                                        String.copyValueOf(dialog.getTxtSenha().getPassword()),//senha
-                                        dialog.getCheckMaster().isSelected()//usuário master
-            );   
-        }
-        return null;
-    }
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton btnSalvar;

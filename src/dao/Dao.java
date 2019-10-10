@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataAccessObject;
+package dao;
 
 import java.util.function.Consumer;
 
@@ -12,7 +12,7 @@ import java.util.function.Consumer;
  * @author leona
  * @param <T> Tipo da classe value object
  */
-public interface DataAccessObject<T> {
+public interface Dao<T> {
     public boolean salvar(T dados);
     public void listarTodos(Consumer <?super T> resultado);
     public void listarPorIntervalo();

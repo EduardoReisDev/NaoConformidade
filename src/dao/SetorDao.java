@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataAccessObject;
+package dao;
 
+import conexao.Conexao;
+import model.Setor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,10 +18,10 @@ import java.util.function.Consumer;
  *
  * @author leona
  */
-public class SetorDataObject implements DataAccessObject<SetorValueObject>{
+public class SetorDao implements Dao<Setor>{
 
     @Override
-    public boolean salvar(SetorValueObject dados) {
+    public boolean salvar(Setor dados) {
         Connection conexao = new Conexao().abreConexao();
         String query = "insert into setor ("
                 + "setorCodigo, setorNome, setorResponsavel) VALUES ( ?, ?, ?)";
@@ -40,15 +42,15 @@ public class SetorDataObject implements DataAccessObject<SetorValueObject>{
     }
 
     @Override
-    public void listarTodos(Consumer<? super SetorValueObject> resultado) {
+    public void listarTodos(Consumer<? super Setor> resultado) {
         String query = "select * from setor";
         Connection conexao = new Conexao().abreConexao();
-        SetorValueObject result;
+        Setor result;
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
             while (res.next()){
-                result = new SetorValueObject();
+                result = new Setor();
                 result.setNome(res.getString("setorNome"));
                 result.setId(res.getInt("idsetor"));
                 result.setCodigo(res.getString("setorCodigo"));
@@ -70,12 +72,12 @@ public class SetorDataObject implements DataAccessObject<SetorValueObject>{
     }
 
     @Override
-    public SetorValueObject listarPorId(int id) {
+    public Setor listarPorId(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean editar(SetorValueObject dados) {
+    public boolean editar(Setor dados) {
         Connection conexao = new Conexao().abreConexao();
         String query = "update setor set setorNome = ?, setorCodigo = ?, setorResponsavel = ? where idsetor = ?";
         try{

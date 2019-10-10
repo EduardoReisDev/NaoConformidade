@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataAccessObject;
+package dao;
 
+import conexao.Conexao;
+import model.NaoConformidade;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -17,10 +19,10 @@ import java.util.function.Consumer;
  *
  * @author leona
  */
-public class NaoConformidadeDataObject implements DataAccessObject<NaoConformidadeValueObject>{
+public class NaoConformidadeDao implements Dao<NaoConformidade>{
 
     @Override
-    public boolean salvar(NaoConformidadeValueObject dados) {
+    public boolean salvar(NaoConformidade dados) {
         Connection conexao = new Conexao().abreConexao();
         String query = "insert into nc ("
                 + "ncCodigo, ncDescricao, ncDataregistro, ncDataacontecimento, ncReincidencia, ncAbrangencia, "
@@ -51,15 +53,15 @@ public class NaoConformidadeDataObject implements DataAccessObject<NaoConformida
     }
 
     @Override
-    public void listarTodos(Consumer<? super NaoConformidadeValueObject> resultado) {
+    public void listarTodos(Consumer<? super NaoConformidade> resultado) {
         String query = "select * from nc ";
         Connection conexao = new Conexao().abreConexao();
-        NaoConformidadeValueObject result;
+        NaoConformidade result;
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
             while (res.next()){
-                result = new NaoConformidadeValueObject();
+                result = new NaoConformidade();
                 result.setId(res.getInt("idnc"));
                 result.setDescricao(res.getString("ncDescricao"));
                 //result.set
@@ -83,12 +85,12 @@ public class NaoConformidadeDataObject implements DataAccessObject<NaoConformida
     }
 
     @Override
-    public NaoConformidadeValueObject listarPorId( int id) {
+    public NaoConformidade listarPorId( int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean editar(NaoConformidadeValueObject dados) {
+    public boolean editar(NaoConformidade dados) {
     Connection conexao = new Conexao().abreConexao();
         String query = "update nc set ncCodigo = ?, ncDescricao = ?, ncDataregistro = ?, ncDataacontecimento = ?, ncReincidencia = ?, ncAbrangencia = ?, "
                 + "ncOrigem = ?, ncResponsavel = ?, ncAcaocorrecao = ?, ncImagem = ?, setor_idsetor = ? where idnc = ?";
@@ -139,7 +141,7 @@ public class NaoConformidadeDataObject implements DataAccessObject<NaoConformida
     public int listarUltimoId(){
         String query = "select max(idnc) as maxId from nc;";
         Connection conexao = new Conexao().abreConexao();
-        NaoConformidadeValueObject result;
+        NaoConformidade result;
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);

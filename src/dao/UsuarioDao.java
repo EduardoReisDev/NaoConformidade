@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataAccessObject;
+package dao;
 
+import conexao.Conexao;
+import model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,10 +18,10 @@ import java.util.function.Consumer;
  *
  * @author leona
  */
-public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
+public class UsuarioDao implements Dao<Usuario>{
 
     @Override
-    public boolean salvar(UsuarioValueObject dados) {
+    public boolean salvar(Usuario dados) {
         Connection conexao = new Conexao().abreConexao();
         String query = "insert into usuario ("
                 + "nome, cpf, usuario, senha, master) VALUES ( ?, ?, ?, ?, ?)";
@@ -48,15 +50,15 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
     }
 
     @Override
-    public UsuarioValueObject listarPorId(int id) {
+    public Usuario listarPorId(int id) {
         Connection conexao = new Conexao().abreConexao();
-        UsuarioValueObject usuario = null;
+        Usuario usuario = null;
         try{
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE id = ? ");
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                usuario = new UsuarioValueObject();
+                usuario = new Usuario();
                 usuario.setId(rs.getInt("id"));
                 usuario.setNome(rs.getString("nome"));
                 usuario.setCpf(rs.getString("cpf"));
@@ -76,7 +78,7 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
     }
 
     @Override
-    public boolean editar(UsuarioValueObject dados) {
+    public boolean editar(Usuario dados) {
         Connection conexao = new Conexao().abreConexao();
         String query = "update usuario set nome = ?, usuario = ?, cpf = ?, senha = ?, master = ? where id = ?";
         try{
@@ -117,15 +119,15 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
     }
 
     @Override
-    public void listarTodos(Consumer<? super UsuarioValueObject> resultado) {
+    public void listarTodos(Consumer<? super Usuario> resultado) {
         String query = "select * from usuario";
         Connection conexao = new Conexao().abreConexao();
-        UsuarioValueObject result;
+        Usuario result;
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
             while (res.next()){
-                result = new UsuarioValueObject();
+                result = new Usuario();
                 result.setNome(res.getString("nome"));
                 result.setId(res.getInt("id"));
                 result.setUsuario(res.getString("usuario"));
@@ -161,15 +163,15 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
         return false;
     }
     
-    public UsuarioValueObject listarPorCpf(String cpf){
+    public Usuario listarPorCpf(String cpf){
         Connection conexao = new Conexao().abreConexao();
-        UsuarioValueObject usuario = null;
+        Usuario usuario = null;
         try{
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE cpf = ? ");
             stmt.setString(1, cpf);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                usuario = new UsuarioValueObject();
+                usuario = new Usuario();
                 usuario.setId(rs.getInt("id"));
                 usuario.setNome(rs.getString("nome"));
                 usuario.setCpf(rs.getString("cpf"));
@@ -188,16 +190,16 @@ public class UsuarioDataObject implements DataAccessObject<UsuarioValueObject>{
         return usuario;
     }
     
-    public UsuarioValueObject login (String usuario, String senha){
+    public Usuario login (String usuario, String senha){
         Connection conexao = new Conexao().abreConexao();
-        UsuarioValueObject usuarioLogin = null;
+        Usuario usuarioLogin = null;
         try{
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE usuario = ? and senha= ? ");
             stmt.setString(1, usuario);
             stmt.setString(2, senha);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                usuarioLogin = new UsuarioValueObject();
+                usuarioLogin = new Usuario();
                 usuarioLogin.setId(rs.getInt("id"));
                 usuarioLogin.setNome(rs.getString("nome"));
                 usuarioLogin.setCpf(rs.getString("cpf"));

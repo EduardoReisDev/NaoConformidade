@@ -1,10 +1,10 @@
-package DataAccessObject;
+package model;
 
 /**
  *
  * @author Eduardo
  */
-public class SetorValueObject {
+public class Setor {
     private int id;
     private String Codigo;
     private String Nome;
