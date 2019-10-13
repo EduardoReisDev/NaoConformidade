@@ -6,16 +6,15 @@
 package controller;
 
 import dao.UsuarioDao;
-import java.awt.Component;
 import java.awt.Frame;
 import model.Usuario;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import view.Mensagens;
-import view.usuario.Criar;
-import view.usuario.Editar;
-import view.usuario.Login;
-import view.usuario.InserirCpf;
+import view.usuario.FormCriar;
+import view.usuario.FormEditar;
+import view.usuario.FormLogin;
+import view.usuario.FormCpf;
 
 /**
  *
@@ -32,20 +31,21 @@ public class UsuarioController {
     public void setFormPai(Frame formPai) {
         this.formPai = formPai;
     }
+    
     public UsuarioController(){
         usuarioNegocio = new UsuarioBusinnesObject();
     }
     
-    public static void ListarUsuarios(Consumer<? super Usuario> resultado){
+    public void ListarUsuarios(Consumer<? super Usuario> resultado){
         new UsuarioDao().listarTodos(resultado::accept);
     }
     
-    public static Usuario listarPorId(int id){
+    public Usuario listarPorId(int id){
         return new UsuarioDao().listarPorId(id);
     }
     
     public Usuario abrirFormularioLogin() {
-        Login formularioLogin = new Login(formPai, true);
+        FormLogin formularioLogin = new FormLogin(formPai, true);
         formularioLogin.setLocationRelativeTo(formularioLogin);
         formularioLogin.setVisible(true);
         if(!formularioLogin.getTxtUsuario().getText().isEmpty()){
@@ -147,7 +147,7 @@ public class UsuarioController {
     }
     
     public Usuario abrirFormularioEditar(Usuario usuario) {
-        Editar formularioEditar = new Editar(formPai, true);
+        FormEditar formularioEditar = new FormEditar(formPai, true);
         formularioEditar.setLocationRelativeTo(null);
         formularioEditar.preencherCampos(usuario);
         formularioEditar.setVisible(true);
@@ -176,7 +176,7 @@ public class UsuarioController {
                     break;
                 }
             } 
-            else{//se não, coloca o cpf e insere no banco
+            else{//se não, coloca o cpf e o id e insere no banco
                 usuarioEditar.setCpf(usuarioSelecionado.getCpf());//pega o cpf do usuário selecionado
                 usuarioEditar.setId(usuarioSelecionado.getId());//peda o id do usuário selecionado
                 return new UsuarioDao().editar(usuarioEditar);//salva no banco de dados
@@ -189,7 +189,7 @@ public class UsuarioController {
      * Este método é responsável por verificar se existem usuários no banco de dados.
      * @return true quando existe e false quando não existe usuários armazenados.
      */
-    public static boolean existeUsuarios(){
+    public boolean existeUsuarios(){
         return new UsuarioDao().existeUsuarios();
     }
     
@@ -198,12 +198,12 @@ public class UsuarioController {
      * @return Uma String contendo o cpf fornecido ou null quando o cpf fornecido não é valido ou não fornecido
      */
     private String formularioCpf(){
-        InserirCpf formularioCpf = new InserirCpf(formPai, true);
+        FormCpf formularioCpf = new FormCpf(formPai, true);
         String cpf = null;
         formularioCpf.setLocationRelativeTo(null);
         while(cpf==null || cpf.length() == 0){
             formularioCpf.setVisible(true);
-            cpf = formularioCpf.getTxtCpf().getText();
+            cpf = usuarioNegocio.removerCaracteresInvalidosCpf(formularioCpf.getTxtCpf().getText());
             if(usuarioNegocio.validarCpf(cpf)){
                 return cpf;
             }
@@ -221,11 +221,11 @@ public class UsuarioController {
     }
     
     /**
-     * Este método é responsável por abrir o formulário de cpf e retornar o cpf inserido
-     * @return Uma String contendo o cpf fornecido ou null quando o cpf fornecido não é valido ou não fornecido
+     * Este método é responsável por abrir o formulário de cadastro de usuário e retornar os dados inseridos
+     * @return dados de usuário caso forem válidos
      */
     private Usuario formularioUsuario(){
-        Criar formularioUsuario = new Criar(formPai, true);
+        FormCriar formularioUsuario = new FormCriar(formPai, true);
         formularioUsuario.setLocationRelativeTo(null);
         Usuario usuario = null;
         while(usuario == null){

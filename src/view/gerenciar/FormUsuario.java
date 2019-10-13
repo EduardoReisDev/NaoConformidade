@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.usuario;
+package view.gerenciar;
 
 import model.Usuario;
 import controller.UsuarioController;
-import java.awt.Frame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,14 +14,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author leona
  */
-public class GerenciarUsuarios extends javax.swing.JDialog {
+public class FormUsuario extends javax.swing.JDialog {
     UsuarioController usuarioController;
     /**
      * Creates new form GerenciarUsuarios
      * @param parent
      * @param modal
      */
-    public GerenciarUsuarios(java.awt.Frame parent, boolean modal) {
+    public FormUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         usuarioController = new UsuarioController();
@@ -36,7 +35,7 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
         modeloTabela = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; //To change body of generated methods, choose Tools | Templates.
+                return false;
             }
         };
         for(String coluna: colunas){
@@ -47,7 +46,7 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
     }
     
     public void listar(){
-        UsuarioController.ListarUsuarios(this::adicionarConteudo);
+        usuarioController.ListarUsuarios(this::adicionarConteudo);
     }
     
     public void adicionarConteudo(Usuario usuario){
@@ -70,21 +69,15 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
     }
     
     public void adicionar(){
-        if(logar()){
-            usuarioController.cadastrarUsuario();
-            inicializarTabela();
-        }
+        usuarioController.cadastrarUsuario();
+        inicializarTabela();
     }
     
     private void exibirMensagemLinhaNaoSelecionada(){
         JOptionPane.showMessageDialog(this, "Selecione uma linha na tabela.");
     }
     
-    
-    private boolean logar(){
-        return usuarioController.loginMaster();
-    }
-    
+   
     private int pegarIdDaLinhaSelecionada(){
         int linhaSelecionada=tblUsuarios.getSelectedRow();
         if(linhaSelecionada>=0){
@@ -96,9 +89,7 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
     private void editar(){
         int id=pegarIdDaLinhaSelecionada();
         if(id>=0){
-            if(logar()){
-                usuarioController.editar(id);
-            }
+            usuarioController.editar(id);
         }
         else{
             exibirMensagemLinhaNaoSelecionada();
@@ -109,9 +100,7 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
     private void excluir(){
         int id = pegarIdDaLinhaSelecionada();
         if(id>=0){
-            if(logar()){
-                usuarioController.excluir(id);
-            }
+            usuarioController.excluir(id);
         }
         else{
             exibirMensagemLinhaNaoSelecionada();

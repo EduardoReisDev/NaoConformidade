@@ -19,7 +19,7 @@ import javax.swing.text.MaskFormatter;
  *
  * @author leona
  */
-public class InserirCpf extends javax.swing.JDialog {
+public class FormCpf extends javax.swing.JDialog {
     UsuarioController usuarioController;
     MaskFormatter mascaraCpf;
     
@@ -28,7 +28,7 @@ public class InserirCpf extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public InserirCpf(java.awt.Frame parent, boolean modal) {
+    public FormCpf(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         usuarioController =  new UsuarioController();
@@ -37,7 +37,7 @@ public class InserirCpf extends javax.swing.JDialog {
             mascaraCpf.setPlaceholderCharacter('_');
             txtCpf.setFormatterFactory(new DefaultFormatterFactory(mascaraCpf));
         } catch (ParseException ex) {
-            Logger.getLogger(InserirCpf.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormCpf.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

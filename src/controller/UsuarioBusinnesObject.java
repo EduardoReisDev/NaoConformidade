@@ -100,8 +100,6 @@ public class UsuarioBusinnesObject {
         this.TITULO_MENSAGEM_LOGIN_NAO_EFETUADO = "Dados incorretos";
     }
     
-    
-    
     /**
      *
      * @param usuario Usuário selecionado
@@ -148,7 +146,7 @@ public class UsuarioBusinnesObject {
         return "Nenhum dado recebido.\nDeseja tentar novamente?\n" +(TENTATIVAS_MAXIMAS_LOGIN-tentativas) + " tentativas restentes.";
     }
     
-    private String removerCaracteresInvalidosCpf(String cpf){
+    public String removerCaracteresInvalidosCpf(String cpf){
         cpf = cpf.replace(".", "");
         cpf = cpf.replace("-", "");
         return cpf;
@@ -161,7 +159,6 @@ public class UsuarioBusinnesObject {
      */
     public boolean validarCpf(String cpf){
         cpf = removerCaracteresInvalidosCpf(cpf);
-        System.out.println(cpf);
         int soma = 0;
         int peso = 10;
         int resto;

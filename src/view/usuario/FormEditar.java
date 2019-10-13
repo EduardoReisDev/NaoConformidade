@@ -17,14 +17,14 @@ import model.Usuario;
  *
  * @author leona
  */
-public class Editar extends javax.swing.JDialog {
+public class FormEditar extends javax.swing.JDialog {
     UsuarioController usuarioController;
     /**
      * Creates new form Editar
      * @param parent
      * @param modal
      */
-    public Editar(java.awt.Frame parent, boolean modal) {
+    public FormEditar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         usuarioController = new UsuarioController();

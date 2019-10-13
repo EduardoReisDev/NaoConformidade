@@ -16,7 +16,7 @@ import javax.swing.JTextField;
  *
  * @author leona
  */
-public class Criar extends javax.swing.JDialog {
+public class FormCriar extends javax.swing.JDialog {
     private boolean dadosValidos = false;
     UsuarioController usuarioController;
     /**
@@ -24,7 +24,7 @@ public class Criar extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public Criar(java.awt.Frame parent, boolean modal) {
+    public FormCriar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         usuarioController = new UsuarioController();
