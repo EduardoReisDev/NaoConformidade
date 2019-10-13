@@ -8,20 +8,37 @@ package view.usuario;
 import controller.UsuarioController;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
  * @author leona
  */
 public class InserirCpf extends javax.swing.JDialog {
-
+    UsuarioController usuarioController;
+    MaskFormatter mascaraCpf;
+    
     /**
      * Creates new form FormCpf
+     * @param parent
+     * @param modal
      */
     public InserirCpf(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        usuarioController =  new UsuarioController();
+        try {
+            mascaraCpf = new MaskFormatter("###.###.###-##");
+            mascaraCpf.setPlaceholderCharacter('_');
+            txtCpf.setFormatterFactory(new DefaultFormatterFactory(mascaraCpf));
+        } catch (ParseException ex) {
+            Logger.getLogger(InserirCpf.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public JTextField getTxtCpf() {
@@ -38,8 +55,7 @@ public class InserirCpf extends javax.swing.JDialog {
     }
     
     private boolean validarCpf(){
-        txtCpf.setText(UsuarioController.removerCaracteresInvalidos(txtCpf.getText()));
-        return UsuarioController.validarCpf(txtCpf.getText());
+        return usuarioController.validarCpf(txtCpf.getText());
     }
     
     /**
@@ -51,18 +67,13 @@ public class InserirCpf extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtCpf = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnContinuar = new javax.swing.JButton();
         verificacaoCpf = new javax.swing.JPanel();
+        txtCpf = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCpfKeyReleased(evt);
-            }
-        });
+        setResizable(false);
 
         jLabel1.setText("CPF:");
 
@@ -81,8 +92,14 @@ public class InserirCpf extends javax.swing.JDialog {
         );
         verificacaoCpfLayout.setVerticalGroup(
             verificacaoCpfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 20, Short.MAX_VALUE)
         );
+
+        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCpfKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,8 +115,8 @@ public class InserirCpf extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(verificacaoCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -109,9 +126,9 @@ public class InserirCpf extends javax.swing.JDialog {
                 .addGap(113, 113, 113)
                 .addComponent(jLabel1)
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(verificacaoCpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCpf))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(verificacaoCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnContinuar)
                 .addContainerGap(100, Short.MAX_VALUE))
@@ -119,6 +136,13 @@ public class InserirCpf extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
+        indicarCpfValido();
+        if(validarCpf()){
+            dispose();
+        }
+    }//GEN-LAST:event_btnContinuarActionPerformed
 
     private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
         indicarCpfValido();
@@ -129,17 +153,10 @@ public class InserirCpf extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtCpfKeyReleased
 
-    private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        indicarCpfValido();
-        if(validarCpf()){
-            dispose();
-        }
-    }//GEN-LAST:event_btnContinuarActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinuar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField txtCpf;
+    private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JPanel verificacaoCpf;
     // End of variables declaration//GEN-END:variables
 }

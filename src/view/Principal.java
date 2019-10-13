@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.Controller;
 import view.usuario.GerenciarUsuarios;
 
 /**
@@ -12,13 +13,13 @@ import view.usuario.GerenciarUsuarios;
  * @author leona
  */
 public class Principal extends javax.swing.JFrame {
-
+    Controller controller;
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
-        setLocationRelativeTo(null);
+        controller = new Controller();
     }
 
     /**
@@ -172,7 +173,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-        GerenciarUsuarios.tela();
+        controller.abreTelaGerenciarUsuarios(this);
     }//GEN-LAST:event_btnListarActionPerformed
 
 

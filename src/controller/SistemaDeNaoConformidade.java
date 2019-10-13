@@ -5,7 +5,7 @@
  */
 package controller;
 
-import controller.Controller;
+import view.splash.Splash;
 
 /**
  *
@@ -33,7 +33,10 @@ public class SistemaDeNaoConformidade {
             java.util.logging.Logger.getLogger(Controller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        java.awt.EventQueue.invokeLater(Controller::inicio);
+        
+        Splash.splash();
+        java.awt.EventQueue.invokeLater(new Controller()::inicio);
+        
     }
     
 }

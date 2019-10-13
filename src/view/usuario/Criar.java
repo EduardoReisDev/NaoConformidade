@@ -18,12 +18,16 @@ import javax.swing.JTextField;
  */
 public class Criar extends javax.swing.JDialog {
     private boolean dadosValidos = false;
+    UsuarioController usuarioController;
     /**
      * Creates new form CadastrarUsuario
+     * @param parent
+     * @param modal
      */
     public Criar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        usuarioController = new UsuarioController();
     }
 
     public JCheckBox getCheckMaster() {
@@ -43,19 +47,19 @@ public class Criar extends javax.swing.JDialog {
     }
 
     private boolean validarNome(){
-        return UsuarioController.validarNome(txtNome.getText());
+        return usuarioController.validarNome(txtNome.getText());
     }
     
     private boolean validarUsuario(){
-        return UsuarioController.validarUsuario(txtUsuario.getText());
+        return usuarioController.validarUsuario(txtUsuario.getText());
     }
     
     private boolean validarSenha(){
-        return UsuarioController.validarSenha(txtSenha.getPassword());
+        return usuarioController.validarSenha(txtSenha.getPassword());
     }
     
     private boolean verificarSenha(){
-        return UsuarioController.verificarSenha(txtSenha.getPassword(), txtConfirmarSenha.getPassword());
+        return usuarioController.verificarSenha(txtSenha.getPassword(), txtConfirmarSenha.getPassword());
     }
     
     public boolean validar(){
@@ -64,7 +68,7 @@ public class Criar extends javax.swing.JDialog {
     
     private void validarEFechar(){
         boolean valido = true;
-        if(UsuarioController.validarNome(txtNome.getText())){
+        if(validarNome()){
             verificacaoNome.setBackground(Color.green);
         }
         else{
@@ -72,7 +76,7 @@ public class Criar extends javax.swing.JDialog {
             txtNome.requestFocusInWindow();
             valido = false;
         }
-        if(UsuarioController.validarUsuario(txtUsuario.getText())){
+        if(validarUsuario()){
             verificacaoUsuario.setBackground(Color.green);
         }
         else{
@@ -80,7 +84,7 @@ public class Criar extends javax.swing.JDialog {
             txtUsuario.requestFocusInWindow();
             valido = false;
         }
-        if(UsuarioController.validarSenha(txtSenha.getPassword())){
+        if(validarSenha()){
             verificacaoSenha.setBackground(Color.green);
         }
         else{
@@ -88,7 +92,7 @@ public class Criar extends javax.swing.JDialog {
             txtSenha.requestFocusInWindow();
             valido = false;
         }
-        if(UsuarioController.verificarSenha(txtSenha.getPassword(), txtConfirmarSenha.getPassword())){
+        if(verificarSenha()){
             verificacaoConfirmacaoSenha.setBackground(Color.green);
         }
         else{
@@ -146,6 +150,8 @@ public class Criar extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
         txtConfirmarSenha = new javax.swing.JPasswordField();
+
+        setResizable(false);
 
         checkMaster.setText("Usuário Master");
 

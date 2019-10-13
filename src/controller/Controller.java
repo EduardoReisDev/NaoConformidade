@@ -10,15 +10,21 @@ import model.NaoConformidade;
 import dao.SetorDao;
 import model.Setor;
 import dao.UsuarioDao;
+import java.awt.Frame;
 import model.Usuario;
 import java.util.Date;
 import view.Principal;
+import view.usuario.GerenciarUsuarios;
 /**
  *
  * @author leona
  */
 public class Controller {
+    UsuarioController usuarioController = new UsuarioController();
+    GerenciarUsuarios telaGerenciarUsuarios;
+    Principal telaPrincipal;
     //<editor-fold defaultstate="collapsed" desc="comment">
+
     
     public void insereUsuarioDao(){
         Usuario usuario = new Usuario();
@@ -125,21 +131,32 @@ public class Controller {
     }
 //</editor-fold>
     
-    public static void inicio(){
+    public void inicio(){
         login();
     }
     
-    private static void abreTelaPrincipal(){
-        Principal telaPrincipal = new Principal();
+    public void abreTelaGerenciarUsuarios(Frame formPai){
+        if(usuarioController.loginMaster()){
+            telaGerenciarUsuarios =  new GerenciarUsuarios(formPai, true);
+            telaGerenciarUsuarios.setLocationRelativeTo(null);
+            telaGerenciarUsuarios.inicializarTabela();
+            telaGerenciarUsuarios.setVisible(true);
+        }
+    }
+    
+    private void abreTelaPrincipal(){
+        telaPrincipal = new Principal();
         telaPrincipal.setLocationRelativeTo(null);
         telaPrincipal.setExtendedState(Principal.MAXIMIZED_BOTH);
         telaPrincipal.setVisible(true);
     }
     
-    public static void login(){
-        Usuario usuario = UsuarioController.login();
+    public void login(){
+        abreTelaPrincipal();
+        usuarioController.setFormPai(telaPrincipal);
+        Usuario usuario = usuarioController.login();
         if(usuario!=null){
-            abreTelaPrincipal();
+            //adiciona todo o conteúdo da tela principal
         }
         else{
             System.exit(0);

@@ -7,7 +7,7 @@ package view.usuario;
 
 import model.Usuario;
 import controller.UsuarioController;
-import java.util.ArrayList;
+import java.awt.Frame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,18 +16,21 @@ import javax.swing.table.DefaultTableModel;
  * @author leona
  */
 public class GerenciarUsuarios extends javax.swing.JDialog {
-
+    UsuarioController usuarioController;
     /**
      * Creates new form GerenciarUsuarios
+     * @param parent
+     * @param modal
      */
     public GerenciarUsuarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        usuarioController = new UsuarioController();
+        usuarioController.setFormPai(parent);
     }
     
     DefaultTableModel modeloTabela;
     private final String[] colunas ={"Código", "Nome", "CPF", "Usuário", "Usuário Master"};
-    private ArrayList<Integer> listaId;
     
     public void inicializarTabela(){
         modeloTabela = new DefaultTableModel(){
@@ -39,7 +42,6 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
         for(String coluna: colunas){
             modeloTabela.addColumn(coluna);
         }
-        listaId = new ArrayList<>();
         tblUsuarios.setModel(modeloTabela);
         listar();
     }
@@ -56,7 +58,6 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
             usuario.getUsuario(),
             converter(usuario.isMaster())
         });
-        listaId.add(usuario.getId());
     }
     
     public String converter(boolean valor){
@@ -70,11 +71,8 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
     
     public void adicionar(){
         if(logar()){
-            UsuarioController.cadastrarUsuario();
+            usuarioController.cadastrarUsuario();
             inicializarTabela();
-        }
-        else{
-            UsuarioController.mensagemSomenteMaster(this);
         }
     }
     
@@ -84,18 +82,13 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
     
     
     private boolean logar(){
-        return UsuarioController.usuarioMaster();
+        return usuarioController.loginMaster();
     }
     
     private int pegarIdDaLinhaSelecionada(){
         int linhaSelecionada=tblUsuarios.getSelectedRow();
         if(linhaSelecionada>=0){
-            if(logar()){//somente um usuário master poderá excluir um usuário
-                return listaId.get(linhaSelecionada);
-            }
-            else{
-                UsuarioController.mensagemSomenteMaster(this);
-            }
+            return (Integer.parseInt((String) tblUsuarios.getValueAt(linhaSelecionada, 0)));
         }
         return -1;
     }
@@ -104,10 +97,7 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
         int id=pegarIdDaLinhaSelecionada();
         if(id>=0){
             if(logar()){
-                UsuarioController.editar(id);
-            }
-            else{
-                UsuarioController.mensagemSomenteMaster(this);
+                usuarioController.editar(id);
             }
         }
         else{
@@ -120,7 +110,7 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
         int id = pegarIdDaLinhaSelecionada();
         if(id>=0){
             if(logar()){
-                UsuarioController.excluir(id);
+                usuarioController.excluir(id);
             }
         }
         else{
@@ -285,12 +275,6 @@ public class GerenciarUsuarios extends javax.swing.JDialog {
         excluir();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    public static void tela() {
-        GerenciarUsuarios dialog = new GerenciarUsuarios(new javax.swing.JFrame(), true);
-        dialog.setLocationRelativeTo(null);
-        dialog.inicializarTabela();
-        dialog.setVisible(true);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
