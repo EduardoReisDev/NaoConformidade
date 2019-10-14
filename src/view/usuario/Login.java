@@ -16,13 +16,13 @@ import javax.swing.JTextField;
  *
  * @author leona
  */
-public class FormLogin extends javax.swing.JDialog {
+public class Login extends javax.swing.JDialog {
     private boolean saidaValida = false;
     
     /**
      * Creates new form Login
      */
-    public FormLogin(java.awt.Frame parent, boolean modal) {
+    public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }

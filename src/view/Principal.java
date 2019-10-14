@@ -6,7 +6,7 @@
 package view;
 
 import controller.Controller;
-import view.gerenciar.FormUsuario;
+import view.usuario.GerenciarUsuarios;
 
 /**
  *
