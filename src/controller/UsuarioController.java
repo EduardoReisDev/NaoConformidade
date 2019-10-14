@@ -6,7 +6,6 @@
 package controller;
 
 import dao.UsuarioDao;
-import java.awt.Component;
 import java.awt.Frame;
 import model.Usuario;
 import java.util.Arrays;
@@ -165,30 +164,11 @@ public class UsuarioController {
     public boolean editar(int id){
         Usuario usuarioEditar = null;
         Usuario usuarioSelecionado = listarPorId(id);
-<<<<<<< HEAD
         usuarioEditar = abrirFormularioEditar(usuarioSelecionado);//pega os dados do formulário
         if(usuarioEditar!=null){//se não, coloca o cpf e o id e insere no banco
             usuarioEditar.setCpf(usuarioSelecionado.getCpf());//pega o cpf do usuário selecionado
             usuarioEditar.setId(usuarioSelecionado.getId());//peda o id do usuário selecionado
             return new UsuarioDao().editar(usuarioEditar);//salva no banco de dados
-=======
-        while(usuarioEditar == null){
-            usuarioEditar = abrirFormularioEditar(usuarioSelecionado);//pega os dados do formulário
-            if(usuarioEditar==null){//se o formulário retorna nulo mostra uma mensagem
-                if(!Mensagens.confirmar(
-                        formPai, 
-                        usuarioNegocio.MENSAGEM_FORMULARIO_NAO_PREENCHIDO,
-                        usuarioNegocio.TITULO_MENSAGEM_FORMULARIO_NAO_PREENCHIDO,
-                        usuarioNegocio.ERRO)){
-                    break;
-                }
-            } 
-            else{//se não, coloca o cpf e insere no banco
-                usuarioEditar.setCpf(usuarioSelecionado.getCpf());//pega o cpf do usuário selecionado
-                usuarioEditar.setId(usuarioSelecionado.getId());//peda o id do usuário selecionado
-                return new UsuarioDao().editar(usuarioEditar);//salva no banco de dados
-            }
->>>>>>> parent of 83c2153... 13/10/2018
         }
         return false;
     }
@@ -209,30 +189,11 @@ public class UsuarioController {
         InserirCpf formularioCpf = new InserirCpf(formPai, true);
         String cpf = null;
         formularioCpf.setLocationRelativeTo(null);
-<<<<<<< HEAD
         formularioCpf.setVisible(true);
         cpf = usuarioNegocio.removerCaracteresInvalidosCpf(formularioCpf.getTxtCpf().getText());
         if(usuarioNegocio.validarCpf(cpf)){
             return cpf;
         } 
-=======
-        while(cpf==null || cpf.length() == 0){
-            formularioCpf.setVisible(true);
-            cpf = formularioCpf.getTxtCpf().getText();
-            if(usuarioNegocio.validarCpf(cpf)){
-                return cpf;
-            }
-            else{
-                if(!Mensagens.confirmar(
-                        formPai, 
-                        usuarioNegocio.MENSAGEM_CPF_NAO_FORNECIDO, 
-                        usuarioNegocio.TITULO_MENSAGEM_CPF_NAO_FORNECIDO,
-                        usuarioNegocio.ATENCAO)){
-                    break;
-                }
-            }
-        }
->>>>>>> parent of 83c2153... 13/10/2018
         return null;
     }
     

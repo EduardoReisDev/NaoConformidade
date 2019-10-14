@@ -148,7 +148,7 @@ public class UsuarioBusinnesObject {
         return "Nenhum dado recebido.\nDeseja tentar novamente?\n" +(TENTATIVAS_MAXIMAS_LOGIN-tentativas) + " tentativas restentes.";
     }
     
-    private String removerCaracteresInvalidosCpf(String cpf){
+    public String removerCaracteresInvalidosCpf(String cpf){
         cpf = cpf.replace(".", "");
         cpf = cpf.replace("-", "");
         return cpf;
