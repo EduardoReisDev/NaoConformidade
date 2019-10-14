@@ -84,8 +84,8 @@ public class UsuarioDao implements Dao<Usuario>{
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, dados.getNome());
-            ps.setString(2, dados.getCpf());
-            ps.setString(3, dados.getUsuario());
+            ps.setString(2, dados.getUsuario());
+            ps.setString(3, dados.getCpf());
             ps.setString(4, dados.getSenha());
             ps.setBoolean(5, dados.isMaster());
             ps.setInt(6, dados.getId());
@@ -145,10 +145,10 @@ public class UsuarioDao implements Dao<Usuario>{
         }
     }
     
-    public boolean existeUsuarios(){
+    public boolean existeUsuariosMasters(){
         Connection conexao = new Conexao().abreConexao();
         try{
-            PreparedStatement stmt = conexao.prepareStatement("SELECT count(id) as quantidade from usuario");
+            PreparedStatement stmt = conexao.prepareStatement("SELECT count(id) as quantidade from usuario where master = true");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 return rs.getInt("quantidade")>0;

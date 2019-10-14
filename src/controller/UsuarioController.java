@@ -88,7 +88,7 @@ public class UsuarioController {
         int tentativas = 0;
         Usuario usuario = null;
         Usuario usuarioFormulario;
-        if(existeUsuarios()){//chama o diálogo de login
+        if(existeUsuariosMasters()){//chama o diálogo de login
             while(usuario == null && tentativas < usuarioNegocio.TENTATIVAS_MAXIMAS_LOGIN){
                 tentativas++;
                 usuarioFormulario = abrirFormularioLogin();
@@ -178,8 +178,8 @@ public class UsuarioController {
      * Este método é responsável por verificar se existem usuários no banco de dados.
      * @return true quando existe e false quando não existe usuários armazenados.
      */
-    public boolean existeUsuarios(){
-        return new UsuarioDao().existeUsuarios();
+    public boolean existeUsuariosMasters(){
+        return new UsuarioDao().existeUsuariosMasters();
     }
     
     /**
