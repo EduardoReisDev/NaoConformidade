@@ -14,14 +14,14 @@ import java.awt.Frame;
 import model.Usuario;
 import java.util.Date;
 import view.Principal;
-import view.gerenciar.FormUsuario;
+import view.usuario.GerenciarUsuarios;
 /**
  *
  * @author leona
  */
 public class Controller {
     UsuarioController usuarioController = new UsuarioController();
-    FormUsuario telaGerenciarUsuarios;
+    GerenciarUsuarios telaGerenciarUsuarios;
     Principal telaPrincipal;
     //<editor-fold defaultstate="collapsed" desc="comment">
 
@@ -137,7 +137,7 @@ public class Controller {
     
     public void abreTelaGerenciarUsuarios(Frame formPai){
         if(usuarioController.loginMaster()){
-            telaGerenciarUsuarios =  new FormUsuario(formPai, true);
+            telaGerenciarUsuarios =  new GerenciarUsuarios(formPai, true);
             telaGerenciarUsuarios.setLocationRelativeTo(null);
             telaGerenciarUsuarios.inicializarTabela();
             telaGerenciarUsuarios.setVisible(true);

@@ -34,7 +34,7 @@ public class SistemaDeNaoConformidade {
         }
         //</editor-fold>
         
-        //Splash.splash();
+        Splash.splash();
         java.awt.EventQueue.invokeLater(new Controller()::inicio);
         
     }

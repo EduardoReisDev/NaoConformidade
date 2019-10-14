@@ -11,10 +11,10 @@ import model.Usuario;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import view.Mensagens;
-import view.usuario.FormCriar;
-import view.usuario.FormEditar;
-import view.usuario.FormLogin;
-import view.usuario.FormCpf;
+import view.usuario.Criar;
+import view.usuario.Editar;
+import view.usuario.Login;
+import view.usuario.InserirCpf;
 
 /**
  *
@@ -31,21 +31,20 @@ public class UsuarioController {
     public void setFormPai(Frame formPai) {
         this.formPai = formPai;
     }
-    
     public UsuarioController(){
         usuarioNegocio = new UsuarioBusinnesObject();
     }
     
-    public void ListarUsuarios(Consumer<? super Usuario> resultado){
+    public static void ListarUsuarios(Consumer<? super Usuario> resultado){
         new UsuarioDao().listarTodos(resultado::accept);
     }
     
-    public Usuario listarPorId(int id){
+    public static Usuario listarPorId(int id){
         return new UsuarioDao().listarPorId(id);
     }
     
     public Usuario abrirFormularioLogin() {
-        FormLogin formularioLogin = new FormLogin(formPai, true);
+        Login formularioLogin = new Login(formPai, true);
         formularioLogin.setLocationRelativeTo(formularioLogin);
         formularioLogin.setVisible(true);
         if(!formularioLogin.getTxtUsuario().getText().isEmpty()){
@@ -147,7 +146,7 @@ public class UsuarioController {
     }
     
     public Usuario abrirFormularioEditar(Usuario usuario) {
-        FormEditar formularioEditar = new FormEditar(formPai, true);
+        Editar formularioEditar = new Editar(formPai, true);
         formularioEditar.setLocationRelativeTo(null);
         formularioEditar.preencherCampos(usuario);
         formularioEditar.setVisible(true);
@@ -165,22 +164,11 @@ public class UsuarioController {
     public boolean editar(int id){
         Usuario usuarioEditar = null;
         Usuario usuarioSelecionado = listarPorId(id);
-        while(usuarioEditar == null){
-            usuarioEditar = abrirFormularioEditar(usuarioSelecionado);//pega os dados do formulário
-            if(usuarioEditar==null){//se o formulário retorna nulo mostra uma mensagem
-                if(!Mensagens.confirmar(
-                        formPai, 
-                        usuarioNegocio.MENSAGEM_FORMULARIO_NAO_PREENCHIDO,
-                        usuarioNegocio.TITULO_MENSAGEM_FORMULARIO_NAO_PREENCHIDO,
-                        usuarioNegocio.ERRO)){
-                    break;
-                }
-            } 
-            else{//se não, coloca o cpf e o id e insere no banco
-                usuarioEditar.setCpf(usuarioSelecionado.getCpf());//pega o cpf do usuário selecionado
-                usuarioEditar.setId(usuarioSelecionado.getId());//peda o id do usuário selecionado
-                return new UsuarioDao().editar(usuarioEditar);//salva no banco de dados
-            }
+        usuarioEditar = abrirFormularioEditar(usuarioSelecionado);//pega os dados do formulário
+        if(usuarioEditar!=null){//se não, coloca o cpf e o id e insere no banco
+            usuarioEditar.setCpf(usuarioSelecionado.getCpf());//pega o cpf do usuário selecionado
+            usuarioEditar.setId(usuarioSelecionado.getId());//peda o id do usuário selecionado
+            return new UsuarioDao().editar(usuarioEditar);//salva no banco de dados
         }
         return false;
     }
@@ -189,7 +177,7 @@ public class UsuarioController {
      * Este método é responsável por verificar se existem usuários no banco de dados.
      * @return true quando existe e false quando não existe usuários armazenados.
      */
-    public boolean existeUsuarios(){
+    public static boolean existeUsuarios(){
         return new UsuarioDao().existeUsuarios();
     }
     
@@ -198,55 +186,33 @@ public class UsuarioController {
      * @return Uma String contendo o cpf fornecido ou null quando o cpf fornecido não é valido ou não fornecido
      */
     private String formularioCpf(){
-        FormCpf formularioCpf = new FormCpf(formPai, true);
+        InserirCpf formularioCpf = new InserirCpf(formPai, true);
         String cpf = null;
         formularioCpf.setLocationRelativeTo(null);
-        while(cpf==null || cpf.length() == 0){
-            formularioCpf.setVisible(true);
-            cpf = usuarioNegocio.removerCaracteresInvalidosCpf(formularioCpf.getTxtCpf().getText());
-            if(usuarioNegocio.validarCpf(cpf)){
-                return cpf;
-            }
-            else{
-                if(!Mensagens.confirmar(
-                        formPai, 
-                        usuarioNegocio.MENSAGEM_CPF_NAO_FORNECIDO, 
-                        usuarioNegocio.TITULO_MENSAGEM_CPF_NAO_FORNECIDO,
-                        usuarioNegocio.ATENCAO)){
-                    break;
-                }
-            }
-        }
+        formularioCpf.setVisible(true);
+        cpf = usuarioNegocio.removerCaracteresInvalidosCpf(formularioCpf.getTxtCpf().getText());
+        if(usuarioNegocio.validarCpf(cpf)){
+            return cpf;
+        } 
         return null;
     }
     
     /**
-     * Este método é responsável por abrir o formulário de cadastro de usuário e retornar os dados inseridos
-     * @return dados de usuário caso forem válidos
+     * Este método é responsável por abrir o formulário de cpf e retornar o cpf inserido
+     * @return Uma String contendo o cpf fornecido ou null quando o cpf fornecido não é valido ou não fornecido
      */
     private Usuario formularioUsuario(){
-        FormCriar formularioUsuario = new FormCriar(formPai, true);
+        Criar formularioUsuario = new Criar(formPai, true);
         formularioUsuario.setLocationRelativeTo(null);
         Usuario usuario = null;
-        while(usuario == null){
-            formularioUsuario.setVisible(true);
-            if(formularioUsuario.validar()){
-                usuario = new Usuario(
-                        formularioUsuario.getTxtNome().getText(),//nome
-                        formularioUsuario.getTxtUsuario().getText(),//usuário
-                        String.copyValueOf(formularioUsuario.getTxtSenha().getPassword()),//senha
-                        formularioUsuario.getCheckMaster().isSelected()//usuário master
-                );   
-            }
-            else{
-                if(!Mensagens.confirmar(
-                        null, 
-                        usuarioNegocio.MENSAGEM_FORMULARIO_NAO_PREENCHIDO,
-                        usuarioNegocio.TITULO_MENSAGEM_FORMULARIO_NAO_PREENCHIDO,
-                        usuarioNegocio.ERRO)){
-                    break;
-                }
-            }
+        formularioUsuario.setVisible(true);
+        if(formularioUsuario.validar()){
+            usuario = new Usuario(
+                    formularioUsuario.getTxtNome().getText(),//nome
+                    formularioUsuario.getTxtUsuario().getText(),//usuário
+                    String.copyValueOf(formularioUsuario.getTxtSenha().getPassword()),//senha
+                    formularioUsuario.getCheckMaster().isSelected()//usuário master
+            );   
         }
         return usuario;
     }

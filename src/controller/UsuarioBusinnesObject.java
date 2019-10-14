@@ -100,6 +100,8 @@ public class UsuarioBusinnesObject {
         this.TITULO_MENSAGEM_LOGIN_NAO_EFETUADO = "Dados incorretos";
     }
     
+    
+    
     /**
      *
      * @param usuario Usuário selecionado
@@ -159,6 +161,7 @@ public class UsuarioBusinnesObject {
      */
     public boolean validarCpf(String cpf){
         cpf = removerCaracteresInvalidosCpf(cpf);
+        System.out.println(cpf);
         int soma = 0;
         int peso = 10;
         int resto;
