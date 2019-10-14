@@ -24,7 +24,7 @@ public class Mensagens {
      * 
      */
     public static boolean confirmar(Component pai, String mensagem, String titulo, int tipoDeMensagem){
-        return JOptionPane.showConfirmDialog(pai, mensagem, titulo, JOptionPane.YES_OPTION ,tipoDeMensagem) == 0;
+        return JOptionPane.showConfirmDialog(pai, mensagem, titulo, JOptionPane.YES_OPTION ,tipoDeMensagem) == JOptionPane.OK_OPTION;
     }
     
     /**
