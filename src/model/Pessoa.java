@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -21,7 +21,7 @@ public abstract class Pessoa {
     public Pessoa(int id, String cpf, String nome){
         this.id = id;
         this.cpf = cpf;
-    this.nome = nome;
+        this.nome = nome;
     }
     
     public int getId() {
