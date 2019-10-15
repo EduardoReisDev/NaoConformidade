@@ -8,14 +8,8 @@ package dao;
  *
  * @author leona
  */
-public interface Usuario {
-    
-    public boolean criar(model.Usuario dados);
-    public model.Usuario listarPorId(int id);
-    public boolean editar(model.Usuario dados);
-    public boolean excluir(int id);
-    public void listarTodos();
-    public boolean existeUsuarios();
+public interface UsuarioDaoInterface {
+    public boolean existeUsuariosMasters();
     public model.Usuario listarPorCpf(String cpf);
     public model.Usuario login (String usuario, String senha);
 }

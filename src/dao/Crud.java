@@ -12,11 +12,10 @@ import java.util.function.Consumer;
  * @author leona
  * @param <T> Tipo da classe value object
  */
-public interface Dao<T> {
-    public boolean salvar(T dados);
-    public void listarTodos(Consumer <?super T> resultado);
-    public void listarPorIntervalo();
-    public T listarPorId(int id);
+public interface Crud<T> {
+    public boolean criar(T dados);
+    public void lerTodos(Consumer <?super T> resultado);
+    public T lerPorId(int id);
     public boolean editar(T dados);
     public boolean excluir(int id);
 }

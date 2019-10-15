@@ -5,6 +5,8 @@
  */
 package controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import javax.swing.JOptionPane;
 import model.Usuario;
@@ -146,6 +148,22 @@ public class UsuarioBusinnesObject {
         return "Nenhum dado recebido.\nDeseja tentar novamente?\n" +(TENTATIVAS_MAXIMAS_LOGIN-tentativas) + " tentativas restentes.";
     }
     
+    public boolean validarNome(String nome){
+        return nome.length()>2;
+    }
+    
+    public boolean validarUsuario(String usuario){
+        return usuario.length()>2;
+    }
+    
+    public boolean validarSenha(char [] senha){
+        return senha.length > 3;
+    }
+    
+    public boolean verificarSenha(char [] senha, char [] confirmaSenha){
+        return Arrays.equals(senha, confirmaSenha) && confirmaSenha.length>3;
+    }
+    
     public String removerCaracteresInvalidosCpf(String cpf){
         cpf = cpf.replace(".", "");
         cpf = cpf.replace("-", "");
@@ -206,4 +224,16 @@ public class UsuarioBusinnesObject {
         return false;
     }
     
+    
+    /// teste com etapas...
+    public static ArrayList<Etapas> obterEtapas(Acao acao){
+        ArrayList<Etapas> etapas = new ArrayList<>();
+        switch (acao){
+            case ABRE_FORMULARIO_USUARIOS : {
+                etapas.add(Etapas.LOGIN_MASTER);
+                etapas.add(Etapas.ABRIR_FORMULARIO_USUARIOS);
+            }
+        }
+        return etapas;
+    }
 }

@@ -37,11 +37,11 @@ public class UsuarioController {
     }
     
     public void ListarUsuarios(Consumer<? super Usuario> resultado){
-        new UsuarioDao().listarTodos(resultado::accept);
+        new UsuarioDao().lerTodos(resultado::accept);
     }
     
     public Usuario listarPorId(int id){
-        return new UsuarioDao().listarPorId(id);
+        return new UsuarioDao().lerPorId(id);
     }
     
     public Usuario abrirFormularioLogin() {
@@ -61,11 +61,11 @@ public class UsuarioController {
      *Este método é responsável por fazer o login e verificar se o usuário logado é master
      * @return true se o usuário logado for master, se não, retorna false
      */
-    public boolean loginMaster(){
+    public Usuario loginMaster(){
         Usuario usuario = login();
         if(usuario!= null){
             if(usuario.isMaster()){
-                return true;
+                return usuario;
             }
             else{
                 Mensagens.mensagem(
@@ -75,7 +75,7 @@ public class UsuarioController {
                         usuarioNegocio.ATENCAO);
             }
         }
-        return false;
+        return null;
     }
     
     /**
@@ -229,7 +229,7 @@ public class UsuarioController {
                 usuario = formularioUsuario();
                 if(usuario!=null){//se não retornar nulo, coloca o cpf e insere no banco
                     usuario.setCpf(cpf);
-                    return new UsuarioDao().salvar(usuario);//salva no banco de dados
+                    return new UsuarioDao().criar(usuario);//salva no banco de dados
                 }
             }
         }
@@ -237,22 +237,26 @@ public class UsuarioController {
     }
     
     public boolean validarNome(String nome){
-        return nome.length()>2;
+        return usuarioNegocio.validarNome(nome);
     }
     
     public boolean validarUsuario(String usuario){
-        return usuario.length()>2;
+        return usuarioNegocio.validarUsuario(usuario);
     }
     
     public boolean validarSenha(char [] senha){
-        return senha.length > 3;
+        return usuarioNegocio.validarSenha(senha);
     }
     
     public boolean verificarSenha(char [] senha, char [] confirmaSenha){
-        return Arrays.equals(senha, confirmaSenha) && confirmaSenha.length>3;
+        return usuarioNegocio.verificarSenha(senha, confirmaSenha);
     }
     
     public boolean validarCpf(String cpf){
        return usuarioNegocio.validarCpf(cpf);
     }
+    
+    
+    
+    
 }

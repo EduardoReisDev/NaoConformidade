@@ -18,10 +18,10 @@ import java.util.function.Consumer;
  *
  * @author leona
  */
-public class UsuarioDao implements Dao<Usuario>{
+public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
 
     @Override
-    public boolean salvar(Usuario dados) {
+    public boolean criar(Usuario dados) {
         Connection conexao = new Conexao().abreConexao();
         String query = "insert into usuario ("
                 + "nome, cpf, usuario, senha, master) VALUES ( ?, ?, ?, ?, ?)";
@@ -43,14 +43,8 @@ public class UsuarioDao implements Dao<Usuario>{
         }
     }
 
-
     @Override
-    public void listarPorIntervalo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Usuario listarPorId(int id) {
+    public Usuario lerPorId(int id) {
         Connection conexao = new Conexao().abreConexao();
         Usuario usuario = null;
         try{
@@ -119,7 +113,7 @@ public class UsuarioDao implements Dao<Usuario>{
     }
 
     @Override
-    public void listarTodos(Consumer<? super Usuario> resultado) {
+    public void lerTodos(Consumer<? super Usuario> resultado) {
         String query = "select * from usuario";
         Connection conexao = new Conexao().abreConexao();
         Usuario result;
@@ -145,6 +139,7 @@ public class UsuarioDao implements Dao<Usuario>{
         }
     }
     
+    @Override
     public boolean existeUsuariosMasters(){
         Connection conexao = new Conexao().abreConexao();
         try{
@@ -163,6 +158,7 @@ public class UsuarioDao implements Dao<Usuario>{
         return false;
     }
     
+    @Override
     public Usuario listarPorCpf(String cpf){
         Connection conexao = new Conexao().abreConexao();
         Usuario usuario = null;
@@ -190,6 +186,7 @@ public class UsuarioDao implements Dao<Usuario>{
         return usuario;
     }
     
+    @Override
     public Usuario login (String usuario, String senha){
         Connection conexao = new Conexao().abreConexao();
         Usuario usuarioLogin = null;

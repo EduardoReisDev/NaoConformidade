@@ -5,8 +5,9 @@
  */
 package view;
 
+import controller.Acao;
 import controller.Controller;
-import view.gerenciar.FormUsuario;
+import java.util.function.Consumer;
 
 /**
  *
@@ -20,8 +21,9 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         controller = new Controller();
+        controller.setTelaPrincipal(this);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -273,7 +275,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-        controller.abreTelaGerenciarUsuarios(this);
+        controller.executar(Acao.ABRE_FORMULARIO_USUARIOS);
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
