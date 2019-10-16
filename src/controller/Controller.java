@@ -178,17 +178,76 @@ public class Controller {
     
     public void executar(Acao acao){
         sucessoAcoes = true;
-                RegraNegocio.obterEtapas(acao).forEach(etapa->{
-                    if(sucessoAcoes){
-                        separarEtapas(etapa);
-                    }
-                });
-                if(!sucessoAcoes){
-                    RegraNegocio.obterEtapasErros(acao).forEach(etapa->{
-                        separarEtapas(etapa);
-                    });
-                }
+        RegraNegocio.obterEtapas(acao).forEach(etapa->{
+            if(sucessoAcoes){
+                separarEtapas(etapa);
+            }
+        });
+        if(!sucessoAcoes){
+            RegraNegocio.obterEtapasErros(acao).forEach(etapa->{
+                separarEtapas(etapa);
+            });
+        }
     }
+    
+    public void separarEtapas(Etapas etapa){
+        switch (etapa){
+            case LOGIN : {
+                if(!executarEtapa(etapa)){
+                    sucessoAcoes = false;
+                }
+                break;
+            }
+            case LOGIN_MASTER : {
+                if(!executarEtapa(etapa)){
+                    sucessoAcoes = false;
+                }
+                break;
+            }
+            case ABRIR_FORMULARIO_PRINCIPAL : {
+                executarEtapa(etapa);
+                break;
+            }
+            case ABRIR_FORMULARIO_USUARIOS : {
+                executarEtapa(etapa);
+                break;
+            }
+            case SAIR : {
+                executarEtapa(etapa);
+                break;
+            }
+        }
+    }
+    
+    public boolean executarEtapa(Etapas etapa){
+        switch (etapa){
+            case LOGIN : {
+                usuario = usuarioController.login();
+                return usuario!= null;
+            }
+            case LOGIN_MASTER : {
+                usuario = usuarioController.loginMaster();
+                return usuario != null;
+            }
+            case ABRIR_FORMULARIO_PRINCIPAL : {
+                abreTelaPrincipal();
+                break;
+            }
+            case ABRIR_FORMULARIO_USUARIOS : {
+                abreTelaGerenciarUsuarios();
+                break;
+            }
+            case ABRIR_FORMULARIO_RESPONSAVEL : {
+                abreTelaResponsaveis();
+                break;
+            }
+            case SAIR : {
+                System.exit(0);
+            }
+        }
+        return false;
+    }
+    
     
     public void abreTelaNaoConformidade(){
         telaNaoConformidade = new FormNaoConformidade((Frame) componentePai, true);
@@ -238,67 +297,6 @@ public class Controller {
     
     public void abreTelaEditarUsuario(){
         telaEditarUsuario.setVisible(true);
-    }
-    
-    public void abreTelaGerenciarUsuarios(Frame formPai){
-        telaGerenciarUsuarios =  new FormUsuario(formPai, true);
-        telaGerenciarUsuarios.setLocationRelativeTo(null);
-        telaGerenciarUsuarios.inicializarTabela();
-        telaGerenciarUsuarios.setVisible(true);
-    }
-    
-    public void separarEtapas(Etapas etapa){
-        switch (etapa){
-            case LOGIN : {
-                if(!executarEtapa(etapa)){
-                    sucessoAcoes = false;
-                }
-                break;
-            }
-            case LOGIN_MASTER : {
-                if(!executarEtapa(etapa)){
-                    sucessoAcoes = false;
-                }
-                break;
-            }
-            case ABRIR_FORMULARIO_PRINCIPAL : {
-                executarEtapa(etapa);
-                break;
-            }
-            case ABRIR_FORMULARIO_USUARIOS : {
-                executarEtapa(etapa);
-                break;
-            }
-            case SAIR : {
-                executarEtapa(etapa);
-                break;
-            }
-        }
-    }
-    
-public boolean executarEtapa(Etapas etapa){
-        switch (etapa){
-            case LOGIN : {
-                usuario = usuarioController.login();
-                return usuario!= null;
-            }
-            case LOGIN_MASTER : {
-                usuario = usuarioController.loginMaster();
-                return usuario != null;
-            }
-            case ABRIR_FORMULARIO_PRINCIPAL : {
-                abreTelaPrincipal();
-                break;
-            }
-            case ABRIR_FORMULARIO_USUARIOS : {
-                abreTelaGerenciarUsuarios();
-                break;
-            }
-            case SAIR : {
-                System.exit(0);
-            }
-        }
-        return false;
     }
     
     public void inicio(){

@@ -25,6 +25,10 @@ public class RegraNegocio {
                 etapas.add(Etapas.ABRIR_FORMULARIO_USUARIOS);
                 break;
             }
+            case ABRE_FORMULARIO_RESPONSAVEL : {
+                etapas.add(Etapas.ABRIR_FORMULARIO_RESPONSAVEL);
+                break;
+            }
         }
         return etapas;
     }
