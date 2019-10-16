@@ -2,21 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/usuario/FormCpf.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/usuario/FormEditar.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/model/Pessoa.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/usuario/FormCriar.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/Principal.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/UsuarioBusinnesObject.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/dao/UsuarioDao.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/Acao.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/RegraNegocio.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/usuario/FormLogin.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/usuario/FormUsuario.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/Controller.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/Etapas.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/UsuarioController.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
