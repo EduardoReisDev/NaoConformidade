@@ -256,10 +256,14 @@ public class Controller {
     }
     
     public void abreTelaCadastroNaoConformidade(){
+        telaCadastroNaoConformidade = new CadastroNaoConformidade((Frame) componentePai, true);
+        telaCadastroNaoConformidade.setLocationRelativeTo(null);
         telaCadastroNaoConformidade.setVisible(true);
     }
     
     public void abreTelaEditarNaoConformidade(){
+        telaEditarNaoConformidade = new EditarNaoConformidade((Frame) componentePai, true);
+        telaEditarNaoConformidade.setLocationRelativeTo(null);
         telaEditarNaoConformidade.setVisible(true);
     }
     
