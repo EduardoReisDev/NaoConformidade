@@ -209,6 +209,10 @@ public class Controller {
                 executarEtapa(etapa);
                 break;
             }
+            case ABRIR_FORMULARIO_SETORES : {
+                executarEtapa(etapa);
+                break;
+            }
             case SAIR : {
                 executarEtapa(etapa);
                 break;
@@ -236,6 +240,10 @@ public class Controller {
             }
             case ABRIR_FORMULARIO_RESPONSAVEL : {
                 abreTelaResponsaveis();
+                break;
+            }
+            case ABRIR_FORMULARIO_SETORES : {
+                abreTelaSetor();
                 break;
             }
             case SAIR : {
