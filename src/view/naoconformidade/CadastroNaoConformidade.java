@@ -7,6 +7,7 @@ package view.naoconformidade;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -146,20 +147,50 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
         btnSalvar.setText("Salvar");
 
         Codigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Codigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CodigoKeyReleased(evt);
+            }
+        });
 
         Descricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Descricao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                DescricaoKeyReleased(evt);
+            }
+        });
 
         Abrangencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Abrangencia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                AbrangenciaKeyReleased(evt);
+            }
+        });
 
         Origem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Origem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                OrigemKeyReleased(evt);
+            }
+        });
 
         Responsavel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Responsavel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        Responsavel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ResponsavelKeyReleased(evt);
+            }
+        });
 
         AcaoCorrecao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         AcaoCorrecao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AcaoCorrecaoActionPerformed(evt);
+            }
+        });
+        AcaoCorrecao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                AcaoCorrecaoKeyReleased(evt);
             }
         });
 
@@ -173,6 +204,11 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
 
         Reincidencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Reincidencia.setText("Reincidência");
+        Reincidencia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ReincidenciaKeyReleased(evt);
+            }
+        });
 
         dataRegistro.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
 
@@ -343,9 +379,7 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, ex);
             }
-            System.out.println(imagem.getWidth());
-            System.out.println(imagem.getHeight());
-
+            
             float larguraAux = imagem.getWidth() / 300;
             float alturaAux = imagem.getHeight() / 300;
             int largura = 300;
@@ -385,6 +419,48 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
         }
           
     }//GEN-LAST:event_btnImgActionPerformed
+
+    private void CodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CodigoKeyReleased
+         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Descricao.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_CodigoKeyReleased
+
+    private void DescricaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescricaoKeyReleased
+         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Reincidencia.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_DescricaoKeyReleased
+
+    private void ReincidenciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReincidenciaKeyReleased
+         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Abrangencia.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_ReincidenciaKeyReleased
+
+    private void OrigemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_OrigemKeyReleased
+         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Responsavel.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_OrigemKeyReleased
+
+    private void AbrangenciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AbrangenciaKeyReleased
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Origem.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_AbrangenciaKeyReleased
+
+    private void ResponsavelKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ResponsavelKeyReleased
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            AcaoCorrecao.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_ResponsavelKeyReleased
+
+    private void AcaoCorrecaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AcaoCorrecaoKeyReleased
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            btnImg.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_AcaoCorrecaoKeyReleased
 
     /**
      * @param args the command line arguments
