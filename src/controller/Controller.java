@@ -264,6 +264,8 @@ public class Controller {
     }
     
     public void abreTelaResponsaveis(){
+        telaResponsavel = new  FormResponsavel((Frame) componentePai, true);
+        telaResponsavel.setLocationRelativeTo(null);
         telaResponsavel.setVisible(true);
     }
     
