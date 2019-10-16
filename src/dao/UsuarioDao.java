@@ -18,10 +18,10 @@ import java.util.function.Consumer;
  *
  * @author leona
  */
-public class UsuarioDao implements Dao<Usuario>{
+public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
 
     @Override
-    public boolean salvar(Usuario dados) {
+    public boolean criar(Usuario dados) {
         Connection conexao = new Conexao().abreConexao();
         String query = "insert into usuario ("
                 + "nome, cpf, usuario, senha, master) VALUES ( ?, ?, ?, ?, ?)";
@@ -43,14 +43,8 @@ public class UsuarioDao implements Dao<Usuario>{
         }
     }
 
-
     @Override
-    public void listarPorIntervalo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Usuario listarPorId(int id) {
+    public Usuario lerPorId(int id) {
         Connection conexao = new Conexao().abreConexao();
         Usuario usuario = null;
         try{
@@ -84,8 +78,8 @@ public class UsuarioDao implements Dao<Usuario>{
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, dados.getNome());
-            ps.setString(2, dados.getCpf());
-            ps.setString(3, dados.getUsuario());
+            ps.setString(2, dados.getUsuario());
+            ps.setString(3, dados.getCpf());
             ps.setString(4, dados.getSenha());
             ps.setBoolean(5, dados.isMaster());
             ps.setInt(6, dados.getId());
@@ -119,7 +113,7 @@ public class UsuarioDao implements Dao<Usuario>{
     }
 
     @Override
-    public void listarTodos(Consumer<? super Usuario> resultado) {
+    public void lerTodos(Consumer<? super Usuario> resultado) {
         String query = "select * from usuario";
         Connection conexao = new Conexao().abreConexao();
         Usuario result;
@@ -145,10 +139,11 @@ public class UsuarioDao implements Dao<Usuario>{
         }
     }
     
-    public boolean existeUsuarios(){
+    @Override
+    public boolean existeUsuariosMasters(){
         Connection conexao = new Conexao().abreConexao();
         try{
-            PreparedStatement stmt = conexao.prepareStatement("SELECT count(id) as quantidade from usuario");
+            PreparedStatement stmt = conexao.prepareStatement("SELECT count(id) as quantidade from usuario where master = true");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 return rs.getInt("quantidade")>0;
@@ -163,6 +158,7 @@ public class UsuarioDao implements Dao<Usuario>{
         return false;
     }
     
+    @Override
     public Usuario listarPorCpf(String cpf){
         Connection conexao = new Conexao().abreConexao();
         Usuario usuario = null;
@@ -190,6 +186,7 @@ public class UsuarioDao implements Dao<Usuario>{
         return usuario;
     }
     
+    @Override
     public Usuario login (String usuario, String senha){
         Connection conexao = new Conexao().abreConexao();
         Usuario usuarioLogin = null;

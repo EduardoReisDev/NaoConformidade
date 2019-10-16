@@ -5,9 +5,10 @@
  */
 package view;
 
+import controller.Acao;
 import controller.Controller;
 import view.setor.FormSetor;
-
+import java.util.function.Consumer;
 
 /**
  *
@@ -24,10 +25,10 @@ public class Principal extends javax.swing.JFrame {
         btnGerenciarNC.setContentAreaFilled(false);
         btnGerenciarNC.setOpaque(true);
         controller = new Controller();
-        
-        
-    }
 
+        controller.setTelaPrincipal(this);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -320,6 +321,11 @@ public class Principal extends javax.swing.JFrame {
     private void btnGerenciarResponsaveisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarResponsaveisActionPerformed
         controller.abreTelaResponsaveis();
     }//GEN-LAST:event_btnGerenciarResponsaveisActionPerformed
+
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        controller.executar(Acao.ABRE_FORMULARIO_USUARIOS);
+    }//GEN-LAST:event_btnListarActionPerformed
+
 
     private void btnGerenciarNCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarNCActionPerformed
         controller.abreTelaNaoConformidade();

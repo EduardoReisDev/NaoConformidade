@@ -10,14 +10,13 @@ public class NaoConformidade {
     private int id;
     private String abrangencia;
     private String acaoCorrecao;
-    private String codigo;
-    private Date DataAcontecimento;
+    private Date dataAcontecimento;
     private Date dataRegistro;
     private String descricao;
     private String imagem;
     private String origem;
-    private int reincidencia;
-    private String responsavel;
+    private boolean reincidencia;
+    private int idResponsavel;
     private int idSetor;
 
     public int getId() {
@@ -44,20 +43,12 @@ public class NaoConformidade {
         this.acaoCorrecao = acaoCorrecao;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
     public Date getDataAcontecimento() {
-        return DataAcontecimento;
+        return dataAcontecimento;
     }
 
     public void setDataAcontecimento(Date DataAcontecimento) {
-        this.DataAcontecimento = DataAcontecimento;
+        this.dataAcontecimento = DataAcontecimento;
     }
 
     public Date getDataRegistro() {
@@ -92,28 +83,28 @@ public class NaoConformidade {
         this.origem = origem;
     }
 
-    public int getReincidencia() {
+    public boolean isReincidencia() {
         return reincidencia;
     }
 
-    public void setReincidencia(int reincidencia) {
+    public void setReincidencia(boolean reincidencia) {
         this.reincidencia = reincidencia;
     }
 
-    public String getResponsavel() {
-        return responsavel;
+    public int getIdResponsavel() {
+        return idResponsavel;
     }
 
-    public void setResponsavel(String responsavel) {
-        this.responsavel = responsavel;
+    public void setIdResponsavel(int idResponsavel) {
+        this.idResponsavel = idResponsavel;
     }
 
     public int getIdSetor() {
         return idSetor;
     }
 
-    public void setIdSetor(int setorIdSetor) {
-        this.idSetor = setorIdSetor;
+    public void setIdSetor(int idSetor) {
+        this.idSetor = idSetor;
     }
 
    

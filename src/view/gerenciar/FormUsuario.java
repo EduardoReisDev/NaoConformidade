@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author leona
  */
-public class FormUsuario extends javax.swing.JDialog {
+public class FormUsuario extends javax.swing.JDialog{
     UsuarioController usuarioController;
     /**
      * Creates new form GerenciarUsuarios

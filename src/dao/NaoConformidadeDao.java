@@ -19,28 +19,27 @@ import java.util.function.Consumer;
  *
  * @author leona
  */
-public class NaoConformidadeDao implements Dao<NaoConformidade>{
+public class NaoConformidadeDao implements Crud<NaoConformidade>{
 
     @Override
-    public boolean salvar(NaoConformidade dados) {
+    public boolean criar(NaoConformidade dados) {
         Connection conexao = new Conexao().abreConexao();
-        String query = "insert into nc ("
-                + "ncCodigo, ncDescricao, ncDataregistro, ncDataacontecimento, ncReincidencia, ncAbrangencia, "
-                + "ncOrigem, ncResponsavel, ncAcaocorrecao, ncImagem, setor_idsetor) VALUES ("
-                + "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "insert into naoConformidade ("
+                + "descricao, dataRegistro, dataAcontecimento, reincidencia, abrangencia, "
+                + "origem, acaoCorrecao, caminhoImagem, idResponsavel , idSetor) VALUES ("
+                + "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
-            ps.setString(1, dados.getCodigo());
-            ps.setString(2, dados.getDescricao());
-            ps.setDate(3, new Date(dados.getDataAcontecimento().getYear(), dados.getDataAcontecimento().getMonth() , dados.getDataAcontecimento().getDay()));
-            ps.setDate(4, new Date(dados.getDataRegistro().getYear(), dados.getDataRegistro().getMonth() , dados.getDataRegistro().getDay()));
-            ps.setInt(5, dados.getReincidencia());
-            ps.setString(6, dados.getAbrangencia());
-            ps.setString(7, dados.getOrigem());
-            ps.setString(8, dados.getResponsavel());
-            ps.setString(9, dados.getAcaoCorrecao());
-            ps.setString(10, dados.getImagem());
-            ps.setInt(11, dados.getIdSetor());
+            ps.setString(1, dados.getDescricao());
+            ps.setDate(2, new Date(dados.getDataAcontecimento().getYear(), dados.getDataAcontecimento().getMonth() , dados.getDataAcontecimento().getDay()));
+            ps.setDate(3, new Date(dados.getDataRegistro().getYear(), dados.getDataRegistro().getMonth() , dados.getDataRegistro().getDay()));
+            ps.setBoolean(4, dados.isReincidencia());
+            ps.setString(5, dados.getAbrangencia());
+            ps.setString(6, dados.getOrigem());
+            ps.setString(7, dados.getAcaoCorrecao());
+            ps.setString(8, dados.getImagem());
+            ps.setInt(9, dados.getIdResponsavel());
+            ps.setInt(10, dados.getIdSetor());
             return ps.executeUpdate()>0;
         }
         catch(SQLException sqlex){
@@ -53,8 +52,8 @@ public class NaoConformidadeDao implements Dao<NaoConformidade>{
     }
 
     @Override
-    public void listarTodos(Consumer<? super NaoConformidade> resultado) {
-        String query = "select * from nc ";
+    public void lerTodos(Consumer<? super NaoConformidade> resultado) {
+        String query = "select * from naoConformidade ";
         Connection conexao = new Conexao().abreConexao();
         NaoConformidade result;
         try{
@@ -62,10 +61,10 @@ public class NaoConformidadeDao implements Dao<NaoConformidade>{
             ResultSet res = stm.executeQuery(query);
             while (res.next()){
                 result = new NaoConformidade();
-                result.setId(res.getInt("idnc"));
-                result.setDescricao(res.getString("ncDescricao"));
+                result.setId(res.getInt("id"));
+                result.setDescricao(res.getString("descricao"));
                 //result.set
-                result.setResponsavel(res.getString("ncResponsavel"));
+                result.setIdResponsavel(res.getInt("idResponsavel"));
                 
                 resultado.accept(result);
                 
@@ -80,34 +79,28 @@ public class NaoConformidadeDao implements Dao<NaoConformidade>{
     }
 
     @Override
-    public void listarPorIntervalo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public NaoConformidade listarPorId( int id) {
+    public NaoConformidade lerPorId( int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public boolean editar(NaoConformidade dados) {
     Connection conexao = new Conexao().abreConexao();
-        String query = "update nc set ncCodigo = ?, ncDescricao = ?, ncDataregistro = ?, ncDataacontecimento = ?, ncReincidencia = ?, ncAbrangencia = ?, "
-                + "ncOrigem = ?, ncResponsavel = ?, ncAcaocorrecao = ?, ncImagem = ?, setor_idsetor = ? where idnc = ?";
+        String query = "update naoConformidade set descricao = ?, dataRegistro = ?, dataAcontecimento = ?, reincidencia = ?, abrangencia = ?, "
+                + "origem = ?, acaoCorrecao = ?, caminhoImagem = ?, idResponsavel = ?, idSetor = ? where id = ?";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
-            ps.setString(1, dados.getCodigo());
-            ps.setString(2, dados.getDescricao());
-            ps.setDate(3, new Date(dados.getDataRegistro().getYear(), dados.getDataRegistro().getMonth() , dados.getDataRegistro().getDay()));
-            ps.setDate(4, new Date(dados.getDataAcontecimento().getYear(), dados.getDataAcontecimento().getMonth() , dados.getDataAcontecimento().getDay()));
-            ps.setInt(5, dados.getReincidencia());
-            ps.setString(6, dados.getAbrangencia());
-            ps.setString(7, dados.getOrigem());
-            ps.setString(8, dados.getResponsavel());
-            ps.setString(9, dados.getAcaoCorrecao());
-            ps.setString(10, dados.getImagem());
-            ps.setInt(11, dados.getIdSetor());
-            ps.setInt(12, dados.getId());
+            ps.setString(1, dados.getDescricao());
+            ps.setDate(2, new Date(dados.getDataRegistro().getYear(), dados.getDataRegistro().getMonth() , dados.getDataRegistro().getDay()));
+            ps.setDate(3, new Date(dados.getDataAcontecimento().getYear(), dados.getDataAcontecimento().getMonth() , dados.getDataAcontecimento().getDay()));
+            ps.setBoolean(4, dados.isReincidencia());
+            ps.setString(5, dados.getAbrangencia());
+            ps.setString(6, dados.getOrigem());
+            ps.setString(7, dados.getAcaoCorrecao());
+            ps.setString(8, dados.getImagem());
+            ps.setInt(9, dados.getIdResponsavel());
+            ps.setInt(10, dados.getIdSetor());
+            ps.setInt(11, dados.getId());
             
             return ps.executeUpdate()>0;
         }
@@ -123,7 +116,7 @@ public class NaoConformidadeDao implements Dao<NaoConformidade>{
     @Override
     public boolean excluir(int id) {
         Connection conexao = new Conexao().abreConexao();
-        String query = "delete from nc where idnc = ?";
+        String query = "delete from naoConformidade where id = ?";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setInt(1, id);
@@ -139,15 +132,13 @@ public class NaoConformidadeDao implements Dao<NaoConformidade>{
     }
     
     public int listarUltimoId(){
-        String query = "select max(idnc) as maxId from nc;";
+        String query = "select max(id) as maxId from naoConformidade;";
         Connection conexao = new Conexao().abreConexao();
-        NaoConformidade result;
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
             while (res.next()){
                 return res.getInt("maxId");
-                
             }
         }
         catch(SQLException e){
