@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/UsuarioBusinnesObject.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/dao/UsuarioDao.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/Controller.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/SistemaDeNaoConformidade.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/Usuarios.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/conexao/Conexao.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/Principal.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/UsuarioController.java</file>
+            <file>file:/C:/GitHub/NaoConformidade/src/view/setor/CadastroSetores.java</file>
+            <file>file:/C:/GitHub/NaoConformidade/src/view/setor/EditarSetores.java</file>
+            <file>file:/C:/GitHub/NaoConformidade/src/controller/SistemaDeNaoConformidade.java</file>
+            <file>file:/C:/GitHub/NaoConformidade/src/view/Principal.java</file>
+            <file>file:/C:/GitHub/NaoConformidade/src/view/setor/Setores.java</file>
         </group>
     </open-files>
 </project-private>

@@ -15,6 +15,19 @@ import model.Usuario;
 import java.util.Date;
 import view.Principal;
 import view.gerenciar.FormUsuario;
+import view.naoconformidade.CadastroNaoConformidade;
+import view.naoconformidade.EditarNaoConformidade;
+import view.naoconformidade.FormNaoConformidade;
+import view.responsaveis.CadastrarResponsavel;
+import view.responsaveis.EditarResponsavel;
+import view.responsaveis.FormResponsavel;
+import view.setor.CadastroSetor;
+import view.setor.EditarSetor;
+import view.setor.FormSetor;
+import view.usuario.FormCriar;
+import view.usuario.FormEditar;
+import view.usuario.FormUsuarios;
+
 /**
  *
  * @author leona
@@ -22,6 +35,24 @@ import view.gerenciar.FormUsuario;
 public class Controller {
     UsuarioController usuarioController = new UsuarioController();
     FormUsuario telaGerenciarUsuarios;
+    
+    FormNaoConformidade telaNaoConformidade;
+    CadastroNaoConformidade telaCadastroNaoConformidade;
+    EditarNaoConformidade telaEditarNaoConformidade;
+    
+    FormResponsavel telaResponsavel;
+    CadastrarResponsavel telaCadastrarResponsavel;
+    EditarResponsavel telaEditarResponsavel;
+    
+    FormSetor telaSetor;
+    CadastroSetor telaCadastrarSetor;
+    EditarSetor telaEditarSetor;
+    
+    FormUsuarios telaUsuario;
+    FormCriar telaCadastrarUsuario;
+    FormEditar telaEditarUsuario;
+    
+    
     Principal telaPrincipal;
     //<editor-fold defaultstate="collapsed" desc="comment">
 
@@ -133,6 +164,54 @@ public class Controller {
     
     public void inicio(){
         login();
+    }
+    
+    public void abreTelaNaoConformidade(){
+        telaNaoConformidade.setVisible(true);
+    }
+    
+    public void abreTelaCadastroNaoConformidade(){
+        telaCadastroNaoConformidade.setVisible(true);
+    }
+    
+    public void abreTelaEditarNaoConformidade(){
+        telaEditarNaoConformidade.setVisible(true);
+    }
+    
+    public void abreTelaResponsaveis(){
+        telaResponsavel.setVisible(true);
+    }
+    
+    public void abreTelaCadastrarResponsavel(){
+        telaCadastrarResponsavel.setVisible(true);
+    }
+    
+    public void abreTelaEditarResponsavel(){
+        telaEditarResponsavel.setVisible(true);
+    }
+    
+    public void abreTelaSetor(){
+        telaSetor.setVisible(true);
+    }
+    
+    public void abreTelaCadastrarSetor(){
+        telaCadastrarSetor.setVisible(true);
+    }
+    
+    public void abreTelaEditarSetor(){
+        telaEditarSetor.setVisible(true);
+    }
+    
+    public void abreTelaUsuario(){
+        telaUsuario.setVisible(true);
+    }
+    
+    public void abreTelaCadastrarUsuario(){
+        telaCadastrarUsuario.setVisible(true);
+    }
+    
+    public void abreTelaEditarUsuario(){
+        telaEditarUsuario.setVisible(true);
     }
     
     public void abreTelaGerenciarUsuarios(Frame formPai){
