@@ -271,22 +271,32 @@ public class Controller {
     }
     
     public void abreTelaCadastrarResponsavel(){
+        telaCadastrarResponsavel = new CadastrarResponsavel((Frame) componentePai, true);
+        telaCadastrarResponsavel.setLocationRelativeTo(null);
         telaCadastrarResponsavel.setVisible(true);
     }
     
     public void abreTelaEditarResponsavel(){
+        telaEditarResponsavel = new EditarResponsavel((Frame) componentePai, true);
+        telaEditarResponsavel.setLocationRelativeTo(null);
         telaEditarResponsavel.setVisible(true);
     }
     
     public void abreTelaSetor(){
+        telaSetor= new FormSetor((Frame) componentePai, true);
+        telaSetor.setLocationRelativeTo(null);
         telaSetor.setVisible(true);
     }
     
     public void abreTelaCadastrarSetor(){
+        telaCadastrarSetor = new CadastroSetor((Frame) componentePai, true);
+        telaCadastrarSetor.setLocationRelativeTo(null);
         telaCadastrarSetor.setVisible(true);
     }
     
     public void abreTelaEditarSetor(){
+        telaEditarSetor = new EditarSetor((Frame) componentePai, true);
+        telaEditarSetor.setLocationRelativeTo(null);
         telaEditarSetor.setVisible(true);
     }
     
@@ -297,10 +307,14 @@ public class Controller {
     }
     
     public void abreTelaCadastrarUsuario(){
+        telaCadastrarUsuario = new FormCriar((Frame) componentePai, true);
+        telaCadastrarUsuario.setLocationRelativeTo(null);
         telaCadastrarUsuario.setVisible(true);
     }
     
     public void abreTelaEditarUsuario(){
+        telaEditarUsuario = new FormEditar((Frame) componentePai, true);
+        telaEditarUsuario.setLocationRelativeTo(null);
         telaEditarUsuario.setVisible(true);
     }
     

@@ -5,11 +5,14 @@
  */
 package view.responsaveis;
 
+import controller.Controller;
+
 /**
  *
  * @author Eduardo
  */
 public class FormResponsavel extends javax.swing.JDialog {
+    Controller controller;
 
     /**
      * Creates new form Responsaveis
@@ -17,6 +20,8 @@ public class FormResponsavel extends javax.swing.JDialog {
     public FormResponsavel(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        controller = new Controller();
     }
 
     /**
@@ -249,11 +254,11 @@ public class FormResponsavel extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-
+        controller.abreTelaCadastrarResponsavel();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        controller.abreTelaEditarResponsavel();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
