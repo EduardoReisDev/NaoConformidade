@@ -7,8 +7,6 @@ package view;
 
 import controller.Acao;
 import controller.Controller;
-import view.setor.FormSetor;
-import java.util.function.Consumer;
 
 /**
  *
@@ -25,7 +23,6 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnGerenciarNC.setContentAreaFilled(false);
         btnGerenciarNC.setOpaque(true);
         controller = new Controller();
-
         controller.setComponentePai(this);
     }
     
@@ -317,19 +314,19 @@ public class FormPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGerenciarResponsaveisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarResponsaveisActionPerformed
-        controller.executar(Acao.ABRE_FORMULARIO_RESPONSAVEL);
+        controller.executar(Acao.ABRE_FORMULARIO_RESPONSAVEL, null);
     }//GEN-LAST:event_btnGerenciarResponsaveisActionPerformed
 
     private void btnGerenciarNCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarNCActionPerformed
-        controller.executar(Acao.ABRE_FORMULARIO_NAO_CONFORMIDADE);
+        controller.executar(Acao.ABRE_FORMULARIO_NAO_CONFORMIDADE, null);
     }//GEN-LAST:event_btnGerenciarNCActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        controller.executar(Acao.FECHAR);
+        controller.executar(Acao.FECHAR, null);
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnGerenciarSetoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarSetoresActionPerformed
-        controller.executar(Acao.ABRE_FORMULARIO_SETOR);
+        controller.executar(Acao.ABRE_FORMULARIO_SETOR, null);
     }//GEN-LAST:event_btnGerenciarSetoresActionPerformed
 
     private void btnGerarRelatorioMensalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarRelatorioMensalActionPerformed
@@ -337,7 +334,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGerarRelatorioMensalActionPerformed
 
     private void btnGerenciarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarUsuariosActionPerformed
-        controller.executar(Acao.ABRE_FORMULARIO_USUARIO);
+        controller.executar(Acao.ABRE_FORMULARIO_USUARIO, null);
     }//GEN-LAST:event_btnGerenciarUsuariosActionPerformed
 
 

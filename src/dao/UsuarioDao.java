@@ -140,7 +140,7 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
     }
     
     public void lerPorNome(Consumer<? super Usuario> resultado, String nome) {
-        String query = "SELECT * FROM usuario WHERE nome like '%"+nome+"%'";
+        String query = "SELECT * FROM usuario WHERE nome like '"+nome+"%'";
         Connection conexao = new Conexao().abreConexao();
         Usuario result;
         try{

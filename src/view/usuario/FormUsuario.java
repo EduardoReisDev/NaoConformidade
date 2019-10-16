@@ -30,9 +30,10 @@ public class FormUsuario extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         usuarioController = new UsuarioController();
-        controller = new Controller();
-        controller.setComponentePai(parent);
         usuarioController.setComponentePai(parent);
+        controller = new Controller();
+        controller.setUsuarioController(usuarioController);
+        controller.setComponentePai(parent);
     }
     
     DefaultTableModel modeloTabela;
@@ -56,7 +57,7 @@ public class FormUsuario extends javax.swing.JDialog {
     }
     
     public void adicionarConteudo(Usuario usuario){
-        modeloTabela.addRow(new Object[]{
+        modeloTabela.addRow(new String[]{
             String.format("%010d", usuario.getId()),
             usuario.getNome(),
             usuario.getCpf(),
@@ -75,7 +76,7 @@ public class FormUsuario extends javax.swing.JDialog {
     }
     
     public void adicionar(){
-        controller.executar(Acao.CADASTRO_USUARIO);
+        controller.executar(Acao.CADASTRO_USUARIO, null);
         inicializarTabela();
         listar();
     }
@@ -101,7 +102,7 @@ public class FormUsuario extends javax.swing.JDialog {
     private void editar(){
         int id=pegarIdDaLinhaSelecionada();
         if(id>=0){
-            usuarioController.editar(id);
+            controller.executar(Acao.EDITA_USUARIO, new Object[]{id});
         }
         else{
             exibirMensagemLinhaNaoSelecionada();
@@ -113,7 +114,7 @@ public class FormUsuario extends javax.swing.JDialog {
     private void excluir(){
         int id = pegarIdDaLinhaSelecionada();
         if(id>=0){
-            usuarioController.excluir(id);
+            controller.executar(Acao.EXCLUI_USUARIO, new Object[]{id});
         }
         else{
             exibirMensagemLinhaNaoSelecionada();
@@ -146,6 +147,7 @@ public class FormUsuario extends javax.swing.JDialog {
         btnExcuir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerenciar Usuários", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 

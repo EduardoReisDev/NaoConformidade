@@ -17,8 +17,6 @@ import view.responsaveis.FormResponsavel;
 import view.setor.CadastroSetor;
 import view.setor.EditarSetor;
 import view.setor.FormSetor;
-import view.usuario.FormCriar;
-import view.usuario.FormEditar;
 import view.usuario.FormUsuario;
 
 /**
@@ -41,16 +39,12 @@ public class Controller {
     EditarSetor telaEditarSetor;
     
     FormUsuario telaUsuario;
-    FormCriar telaCadastrarUsuario;
-    FormEditar telaEditarUsuario;
-    
-    
     FormPrincipal telaPrincipal;
 
     Component componentePai;
 
-    public Controller() {
-        this.usuarioController = new UsuarioController();
+    public void setUsuarioController(UsuarioController usuarioController){
+        this.usuarioController = usuarioController;
     }
 
     public void setComponentePai(Component componentePai) {
@@ -62,21 +56,21 @@ public class Controller {
     
     private boolean sucessoAcoes;
     
-    public void executar(Acao acao){
+    public void executar(Acao acao, Object[] parametros){
         sucessoAcoes = true;
         RegraNegocio.obterEtapas(acao).forEach(etapa->{
             if(sucessoAcoes){
-                sucessoAcoes = executarEtapa(etapa);
+                sucessoAcoes = executarEtapa(etapa, parametros);
             }
         });
         if(!sucessoAcoes){
             RegraNegocio.obterEtapasSeErro(acao).forEach(etapa->{
-                executarEtapa(etapa);
+                executarEtapa(etapa, parametros);
             });
         }
     }
     
-    private boolean executarEtapa(Etapas etapa){
+    private boolean executarEtapa(Etapas etapa, Object[] parametros){
         switch (etapa){
             case LOGIN : {
                 usuario = usuarioController.login();
@@ -95,7 +89,24 @@ public class Controller {
                 break;
             }
             case ABRIR_FORMULARIO_CADASTRO_USUARIOS : {
-                return abreTelaCadastrarUsuario();
+                return usuarioController.cadastrar();
+            }
+            case ABRIR_FORMULARIO_EDITA_USUARIOS : {
+                return usuarioController.editar((int)parametros[0]);
+            }
+            case CONFIRMAR_EXCLUSAO_USUARIO : {
+                return usuarioController.confirmarExclusao((int) parametros[0]);
+            }
+            case EXCLUIR_USUARIO : {
+                return usuarioController.excluir((int) parametros[0]);
+            }
+            case MOSTRAR_MENSAGEM_SUCESSO_EXCLIUR : {
+                usuarioController.exibirSucessoExclusao();
+                break;
+            }
+            case MOSTRAR_MENSAGEM_ERRO_EXCLIUR : {
+                usuarioController.exibirErroExclusao();
+                break;
             }
             case ABRIR_FORMULARIO_RESPONSAVEL : {
                 abreTelaResponsavel();
@@ -168,7 +179,7 @@ public class Controller {
         telaEditarSetor.setVisible(true);
     }
     
-    public void abreTelaUsuario(){
+    private void abreTelaUsuario(){
         telaUsuario = new FormUsuario((Frame) componentePai, true);
         telaUsuario.setLocationRelativeTo(null);
         telaUsuario.inicializarTabela();
@@ -176,19 +187,9 @@ public class Controller {
         telaUsuario.setVisible(true);
     }
     
-    public boolean abreTelaCadastrarUsuario(){
-        usuarioController.setComponentePai(componentePai);
-        return usuarioController.cadastrarUsuario();
-    }
-    
-    public void abreTelaEditarUsuario(){
-        telaEditarUsuario = new FormEditar((Frame) componentePai, true);
-        telaEditarUsuario.setLocationRelativeTo(null);
-        telaEditarUsuario.setVisible(true);
-    }
-    
     public void inicio(){
-        executar(Acao.INICIAR_SISTEMA);
+        setUsuarioController(new UsuarioController());
+        executar(Acao.INICIAR_SISTEMA, null);
     }
     
     private void abreTelaPrincipal(){
