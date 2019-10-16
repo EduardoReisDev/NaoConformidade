@@ -5,20 +5,108 @@
  */
 package view.usuario;
 
+import controller.UsuarioController;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Usuario;
+
 /**
  *
  * @author Eduardo
  */
-public class FormUsuarios extends javax.swing.JDialog {
-
+public class FormUsuario extends javax.swing.JDialog {
+    UsuarioController usuarioController;
     /**
-     * Creates new form Usuarios
+     * Creates new form GerenciarUsuarios
+     * @param parent
+     * @param modal
      */
-    public FormUsuarios(java.awt.Frame parent, boolean modal) {
+    public FormUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        usuarioController = new UsuarioController();
+        usuarioController.setFormPai(parent);
     }
-
+    
+    DefaultTableModel modeloTabela;
+    private final String[] colunas ={"Código", "Nome", "CPF", "Usuário", "Usuário Master"};
+    
+    public void inicializarTabela(){
+        modeloTabela = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        for(String coluna: colunas){
+            modeloTabela.addColumn(coluna);
+        }
+        tblUsuarios.setModel(modeloTabela);
+        listar();
+    }
+    
+    public void listar(){
+        usuarioController.ListarUsuarios(this::adicionarConteudo);
+    }
+    
+    public void adicionarConteudo(Usuario usuario){
+        modeloTabela.addRow(new Object[]{
+            String.format("%010d", usuario.getId()),
+            usuario.getNome(),
+            usuario.getCpf(),
+            usuario.getUsuario(),
+            converter(usuario.isMaster())
+        });
+    }
+    
+    public String converter(boolean valor){
+        if(valor){
+            return "Sim";
+        }
+        else{
+            return "Não";
+        }
+    }
+    
+    public void adicionar(){
+        usuarioController.cadastrarUsuario();
+        inicializarTabela();
+    }
+    
+    private void exibirMensagemLinhaNaoSelecionada(){
+        JOptionPane.showMessageDialog(this, "Selecione uma linha na tabela.");
+    }
+    
+   
+    private int pegarIdDaLinhaSelecionada(){
+        int linhaSelecionada=tblUsuarios.getSelectedRow();
+        if(linhaSelecionada>=0){
+            return (Integer.parseInt((String) tblUsuarios.getValueAt(linhaSelecionada, 0)));
+        }
+        return -1;
+    }
+    
+    private void editar(){
+        int id=pegarIdDaLinhaSelecionada();
+        if(id>=0){
+            usuarioController.editar(id);
+        }
+        else{
+            exibirMensagemLinhaNaoSelecionada();
+        }
+        inicializarTabela();
+    }
+    
+    private void excluir(){
+        int id = pegarIdDaLinhaSelecionada();
+        if(id>=0){
+            usuarioController.excluir(id);
+        }
+        else{
+            exibirMensagemLinhaNaoSelecionada();
+        }
+        inicializarTabela();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,18 +118,18 @@ public class FormUsuarios extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        btnNovo = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblUsuarios = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        btnNovo1 = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        btnNovo2 = new javax.swing.JButton();
+        btnExcuir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -49,14 +137,13 @@ public class FormUsuarios extends javax.swing.JDialog {
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        btnNovo.setBackground(new java.awt.Color(255, 255, 255));
-        btnNovo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar.png"))); // NOI18N
-        btnNovo.setText("Novo Usuário");
-        btnNovo.setActionCommand("Novo Usuário");
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setBackground(new java.awt.Color(255, 255, 255));
+        btnCadastrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar.png"))); // NOI18N
+        btnCadastrar.setText("Novo Usuário");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
 
@@ -66,22 +153,22 @@ public class FormUsuarios extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Usuários cadastrados");
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblUsuarios.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -98,7 +185,7 @@ public class FormUsuarios extends javax.swing.JDialog {
                 "Código", "Nome do Usuário", "CPF"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblUsuarios);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -137,13 +224,13 @@ public class FormUsuarios extends javax.swing.JDialog {
 
         jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        btnNovo1.setBackground(new java.awt.Color(255, 255, 255));
-        btnNovo1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnNovo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/editar.png"))); // NOI18N
-        btnNovo1.setText("Editar Usuário");
-        btnNovo1.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setBackground(new java.awt.Color(255, 255, 255));
+        btnEditar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/editar.png"))); // NOI18N
+        btnEditar.setText("Editar Usuário");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovo1ActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -153,26 +240,26 @@ public class FormUsuarios extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnNovo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnNovo1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        btnNovo2.setBackground(new java.awt.Color(255, 255, 255));
-        btnNovo2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnNovo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excluir.png"))); // NOI18N
-        btnNovo2.setText("Excluir Usuário");
-        btnNovo2.addActionListener(new java.awt.event.ActionListener() {
+        btnExcuir.setBackground(new java.awt.Color(255, 255, 255));
+        btnExcuir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExcuir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excluir.png"))); // NOI18N
+        btnExcuir.setText("Excluir Usuário");
+        btnExcuir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovo2ActionPerformed(evt);
+                btnExcuirActionPerformed(evt);
             }
         });
 
@@ -182,14 +269,14 @@ public class FormUsuarios extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnNovo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnExcuir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnNovo2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnExcuir, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -249,72 +336,23 @@ public class FormUsuarios extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        adicionar();
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
-    }//GEN-LAST:event_btnNovoActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        editar();
+    }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void btnNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovo1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNovo1ActionPerformed
-
-    private void btnNovo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovo2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNovo2ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FormUsuarios dialog = new FormUsuarios(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    private void btnExcuirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcuirActionPerformed
+        excluir();
+    }//GEN-LAST:event_btnExcuirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnNovo;
-    private javax.swing.JButton btnNovo1;
-    private javax.swing.JButton btnNovo2;
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcuir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -323,7 +361,7 @@ public class FormUsuarios extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblUsuarios;
     // End of variables declaration//GEN-END:variables
 }
