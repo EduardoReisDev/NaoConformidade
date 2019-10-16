@@ -15,9 +15,19 @@ public class RegraNegocio {
     public static ArrayList<Etapas> obterEtapas(Acao acao){
         ArrayList<Etapas> etapas = new ArrayList<>();
         switch (acao) {
-            case INICIO : {
+            case INICIAR_SISTEMA : {
                 etapas.add(Etapas.LOGIN);
                 etapas.add(Etapas.ABRIR_FORMULARIO_PRINCIPAL);
+            }
+        }
+        return etapas;
+    }
+    
+    public static ArrayList<Etapas> obterEtapasErros(Acao acao){
+        ArrayList<Etapas> etapas = new ArrayList<>();
+        switch (acao) {
+            case INICIAR_SISTEMA : {
+                etapas.add(Etapas.SAIR);
             }
         }
         return etapas;

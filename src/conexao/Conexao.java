@@ -4,6 +4,7 @@ package conexao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import view.Mensagens;
 
 /**
  *
@@ -13,6 +14,7 @@ public class Conexao {
     private static final String URL = "jdbc:sqlite:";
     public Connection abreConexao(){
         try{
+            //Class.forName("com.mysql.jdbc.DriverManager");
             return DriverManager.getConnection(URL+System.getProperty("user.dir")+"\\src\\banco\\Banco.db");
         }
         catch (SQLException sqlex){

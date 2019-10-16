@@ -178,12 +178,17 @@ public class Controller {
     public void executar(Acao acao){
         sucessoAcoes = true;
         switch (acao) {
-            case INICIO : {
+            case INICIAR_SISTEMA : {
                 RegraNegocio.obterEtapas(acao).forEach(etapa->{
                     if(sucessoAcoes){
                         separarEtapas(etapa);
                     }
                 });
+                if(!sucessoAcoes){
+                    RegraNegocio.obterEtapasErros(acao).forEach(etapa->{
+                        separarEtapas(etapa);
+                    });
+                }
             }
             case ABRE_FORMULARIO_USUARIOS : {
                 UsuarioBusinnesObject.obterEtapas(acao).forEach(etapa->{
@@ -273,10 +278,14 @@ public class Controller {
                 executarEtapa(etapa);
                 break;
             }
+            case SAIR : {
+                executarEtapa(etapa);
+                break;
+            }
         }
     }
     
-    public boolean executarEtapa(Etapas etapa){
+public boolean executarEtapa(Etapas etapa){
         switch (etapa){
             case LOGIN : {
                 usuario = usuarioController.login();
@@ -294,12 +303,15 @@ public class Controller {
                 abreTelaGerenciarUsuarios();
                 break;
             }
+            case SAIR : {
+                System.exit(0);
+            }
         }
         return false;
     }
     
     public void inicio(){
-        executar(Acao.INICIO);
+        executar(Acao.INICIAR_SISTEMA);
     }
     
     public void abreTelaGerenciarUsuarios(){
