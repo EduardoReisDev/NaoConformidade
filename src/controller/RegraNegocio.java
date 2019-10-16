@@ -18,6 +18,12 @@ public class RegraNegocio {
             case INICIAR_SISTEMA : {
                 etapas.add(Etapas.LOGIN);
                 etapas.add(Etapas.ABRIR_FORMULARIO_PRINCIPAL);
+                break;
+            }
+            case ABRE_FORMULARIO_USUARIOS : {
+                etapas.add(Etapas.LOGIN_MASTER);
+                etapas.add(Etapas.ABRIR_FORMULARIO_USUARIOS);
+                break;
             }
         }
         return etapas;

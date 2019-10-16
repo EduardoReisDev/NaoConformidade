@@ -224,16 +224,4 @@ public class UsuarioBusinnesObject {
         return false;
     }
     
-    
-    /// teste com etapas...
-    public static ArrayList<Etapas> obterEtapas(Acao acao){
-        ArrayList<Etapas> etapas = new ArrayList<>();
-        switch (acao){
-            case ABRE_FORMULARIO_USUARIOS : {
-                etapas.add(Etapas.LOGIN_MASTER);
-                etapas.add(Etapas.ABRIR_FORMULARIO_USUARIOS);
-            }
-        }
-        return etapas;
-    }
 }

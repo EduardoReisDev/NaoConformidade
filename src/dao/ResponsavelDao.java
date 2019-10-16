@@ -23,7 +23,7 @@ public class ResponsavelDao implements Crud<Responsavel>{
     public boolean criar(Responsavel dados) {
         Connection conexao = new Conexao().abreConexao();
         String query = "insert into responsavel ("
-                + "nome, cpf) VALUES ( ?, ?)";
+                + "nome, cpf) VALUES (?, ?)";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, dados.getNome());

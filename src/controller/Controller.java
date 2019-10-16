@@ -177,8 +177,6 @@ public class Controller {
     
     public void executar(Acao acao){
         sucessoAcoes = true;
-        switch (acao) {
-            case INICIAR_SISTEMA : {
                 RegraNegocio.obterEtapas(acao).forEach(etapa->{
                     if(sucessoAcoes){
                         separarEtapas(etapa);
@@ -189,16 +187,6 @@ public class Controller {
                         separarEtapas(etapa);
                     });
                 }
-            }
-            case ABRE_FORMULARIO_USUARIOS : {
-                UsuarioBusinnesObject.obterEtapas(acao).forEach(etapa->{
-                    if(sucessoAcoes){
-                        separarEtapas(etapa);
-                    }
-                }); 
-                break;
-            }
-        }
     }
     
     public void abreTelaNaoConformidade(){

@@ -319,7 +319,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGerenciarResponsaveisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarResponsaveisActionPerformed
-        controller.abreTelaResponsaveis();
+        controller.executar(Acao.ABRE_FORMULARIO_RESPONSAVEL);
     }//GEN-LAST:event_btnGerenciarResponsaveisActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
