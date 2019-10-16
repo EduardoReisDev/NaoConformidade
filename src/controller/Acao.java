@@ -10,5 +10,5 @@ package controller;
  * @author leona
  */
 public enum Acao {
-    INICIO, ABRE_FORMULARIO_USUARIOS;
+    INICIAR_SISTEMA, ABRE_FORMULARIO_USUARIOS, FECHAR;
 }
