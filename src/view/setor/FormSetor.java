@@ -5,11 +5,14 @@
  */
 package view.setor;
 
+import controller.Controller;
+
 /**
  *
  * @author Eduardo
  */
 public class FormSetor extends javax.swing.JDialog {
+Controller controller;
 
     /**
      * Creates new form NewJDialog
@@ -17,6 +20,9 @@ public class FormSetor extends javax.swing.JDialog {
     public FormSetor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        controller = new Controller();
+        controller.setTelaPrincipal(this);
     }
 
     /**
@@ -247,7 +253,7 @@ public class FormSetor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        
+  
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed

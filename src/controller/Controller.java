@@ -10,6 +10,7 @@ import model.NaoConformidade;
 import dao.SetorDao;
 import model.Setor;
 import dao.UsuarioDao;
+import java.awt.Component;
 import java.awt.Frame;
 import model.Usuario;
 import java.util.Date;
@@ -56,9 +57,9 @@ public class Controller {
     
     Principal telaPrincipal;
 
-    JFrame componentePai;
+    Component componentePai;
 
-    public void setTelaPrincipal(JFrame telaPrincipal) {
+    public void setTelaPrincipal(Component telaPrincipal) {
         this.componentePai = telaPrincipal;
     }
     
@@ -202,6 +203,8 @@ public class Controller {
     }
     
     public void abreTelaNaoConformidade(){
+        telaNaoConformidade = new FormNaoConformidade((Frame) componentePai, true);
+        telaNaoConformidade.setLocationRelativeTo(null);
         telaNaoConformidade.setVisible(true);
     }
     
@@ -250,10 +253,10 @@ public class Controller {
     }
     
     public void abreTelaGerenciarUsuarios(Frame formPai){
-            telaGerenciarUsuarios =  new FormUsuario(formPai, true);
-            telaGerenciarUsuarios.setLocationRelativeTo(null);
-            telaGerenciarUsuarios.inicializarTabela();
-            telaGerenciarUsuarios.setVisible(true);
+        telaGerenciarUsuarios =  new FormUsuario(formPai, true);
+        telaGerenciarUsuarios.setLocationRelativeTo(null);
+        telaGerenciarUsuarios.inicializarTabela();
+        telaGerenciarUsuarios.setVisible(true);
     }
     
     public void separarEtapas(Etapas etapa){
@@ -315,22 +318,22 @@ public boolean executarEtapa(Etapas etapa){
     }
     
     public void abreTelaGerenciarUsuarios(){
-        telaGerenciarUsuarios =  new FormUsuario(componentePai, true);
+        telaGerenciarUsuarios =  new FormUsuario((Frame) componentePai, true);
         telaGerenciarUsuarios.setLocationRelativeTo(null);
         telaGerenciarUsuarios.inicializarTabela();
         telaGerenciarUsuarios.setVisible(true);
     }
     
     private void abreTelaPrincipal(){
-        componentePai = new Principal();
-        componentePai.setLocationRelativeTo(null);
-        componentePai.setExtendedState(Principal.MAXIMIZED_BOTH);
-        componentePai.setVisible(true);
+        telaPrincipal= new Principal();
+        telaPrincipal.setLocationRelativeTo(null);
+        telaPrincipal.setExtendedState(Principal.MAXIMIZED_BOTH);
+        telaPrincipal.setVisible(true);
     }
     
     public void login(){
         abreTelaPrincipal();
-        usuarioController.setFormPai(componentePai);
+        usuarioController.setFormPai((Frame) componentePai);
         Usuario usuario = usuarioController.login();
         if(usuario!=null){
             //adiciona todo o conteúdo da tela principal
