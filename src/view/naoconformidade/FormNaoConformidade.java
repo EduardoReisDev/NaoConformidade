@@ -5,12 +5,15 @@
  */
 package view.naoconformidade;
 
+import controller.Controller;
+
 /**
  *
  * @author Eduardo
  */
 public class FormNaoConformidade extends javax.swing.JDialog {
-
+    Controller controller;
+    
     /**
      * Creates new form NaoConformidade
      */
@@ -292,11 +295,11 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnGerarPDFActionPerformed
 
     private void btnNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovo1ActionPerformed
-        // TODO add your handling code here:
+        controller.abreTelaEditarNaoConformidade();
     }//GEN-LAST:event_btnNovo1ActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:
+        controller.abreTelaCadastroNaoConformidade();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
