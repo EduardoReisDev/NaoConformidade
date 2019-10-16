@@ -210,6 +210,7 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
             }
         });
 
+        dataRegistro.setFormat(2);
         dataRegistro.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
 
         dataAcontecimento.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
