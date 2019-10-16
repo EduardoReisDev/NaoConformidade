@@ -14,12 +14,12 @@ import java.util.function.Consumer;
  *
  * @author leona
  */
-public class Principal extends javax.swing.JFrame {
+public class FormPrincipal extends javax.swing.JFrame {
     Controller controller;
     /**
      * Creates new form Principal
      */
-    public Principal() {
+    public FormPrincipal() {
         initComponents();
         
         btnGerenciarNC.setContentAreaFilled(false);

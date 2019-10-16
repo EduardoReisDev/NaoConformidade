@@ -14,7 +14,7 @@ import java.awt.Component;
 import java.awt.Frame;
 import model.Usuario;
 import java.util.Date;
-import view.Principal;
+import view.FormPrincipal;
 import view.naoconformidade.CadastroNaoConformidade;
 import view.naoconformidade.EditarNaoConformidade;
 import view.naoconformidade.FormNaoConformidade;
@@ -52,7 +52,7 @@ public class Controller {
     FormEditar telaEditarUsuario;
     
     
-    Principal telaPrincipal;
+    FormPrincipal telaPrincipal;
 
     Component componentePai;
 
@@ -239,7 +239,7 @@ public class Controller {
                 break;
             }
             case ABRIR_FORMULARIO_RESPONSAVEL : {
-                abreTelaResponsaveis();
+                abreTelaResponsavel();
                 break;
             }
             case ABRIR_FORMULARIO_SETORES : {
@@ -272,7 +272,7 @@ public class Controller {
         telaEditarNaoConformidade.setVisible(true);
     }
     
-    public void abreTelaResponsaveis(){
+    public void abreTelaResponsavel(){
         telaResponsavel = new FormResponsavel((Frame) componentePai, true);
         telaResponsavel.setLocationRelativeTo(null);
         telaResponsavel.setVisible(true);
@@ -333,21 +333,9 @@ public class Controller {
     }
     
     private void abreTelaPrincipal(){
-        telaPrincipal= new Principal();
+        telaPrincipal= new FormPrincipal();
         telaPrincipal.setLocationRelativeTo(null);
-        telaPrincipal.setExtendedState(Principal.MAXIMIZED_BOTH);
+        telaPrincipal.setExtendedState(FormPrincipal.MAXIMIZED_BOTH);
         telaPrincipal.setVisible(true);
-    }
-    
-    public void login(){
-        abreTelaPrincipal();
-        usuarioController.setFormPai((Frame) componentePai);
-        Usuario usuario = usuarioController.login();
-        if(usuario!=null){
-            //adiciona todo o conteúdo da tela principal
-        }
-        else{
-            System.exit(0);
-        }
     }
 }
