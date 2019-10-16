@@ -171,7 +171,6 @@ public class FormEditar extends javax.swing.JDialog {
         jLabel2.setText("Nome:");
 
         txtNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtNome.setText("Digite...");
         txtNome.setToolTipText("");
         txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -194,7 +193,6 @@ public class FormEditar extends javax.swing.JDialog {
         jLabel3.setText("Usuário:");
 
         txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtUsuario.setText("Digite...");
         txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtUsuarioKeyReleased(evt);
@@ -321,9 +319,9 @@ public class FormEditar extends javax.swing.JDialog {
                     .addComponent(verificacaoConfirmacaoSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtConfirmarSenha))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkMaster)
-                    .addComponent(btnSalvar))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSalvar)
+                    .addComponent(checkMaster))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

@@ -42,11 +42,10 @@ public class FormUsuario extends javax.swing.JDialog {
             modeloTabela.addColumn(coluna);
         }
         tblUsuarios.setModel(modeloTabela);
-        listar();
     }
     
     public void listar(){
-        usuarioController.ListarUsuarios(this::adicionarConteudo);
+        usuarioController.listarUsuarios(this::adicionarConteudo);
     }
     
     public void adicionarConteudo(Usuario usuario){
@@ -71,6 +70,7 @@ public class FormUsuario extends javax.swing.JDialog {
     public void adicionar(){
         usuarioController.cadastrarUsuario();
         inicializarTabela();
+        listar();
     }
     
     private void exibirMensagemLinhaNaoSelecionada(){
@@ -86,6 +86,11 @@ public class FormUsuario extends javax.swing.JDialog {
         return -1;
     }
     
+    private void buscar(){
+        inicializarTabela();
+        usuarioController.listarUsuariosPorNome(this::adicionarConteudo, txtBusca.getText());
+    }
+    
     private void editar(){
         int id=pegarIdDaLinhaSelecionada();
         if(id>=0){
@@ -95,6 +100,7 @@ public class FormUsuario extends javax.swing.JDialog {
             exibirMensagemLinhaNaoSelecionada();
         }
         inicializarTabela();
+        listar();
     }
     
     private void excluir(){
@@ -106,6 +112,7 @@ public class FormUsuario extends javax.swing.JDialog {
             exibirMensagemLinhaNaoSelecionada();
         }
         inicializarTabela();
+        listar();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -124,7 +131,7 @@ public class FormUsuario extends javax.swing.JDialog {
         tblUsuarios = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtBusca = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         btnEditar = new javax.swing.JButton();
@@ -192,8 +199,12 @@ public class FormUsuario extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Buscar Usuário");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField1.setText("Digite aqui...");
+        txtBusca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscaKeyReleased(evt);
+            }
+        });
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
@@ -206,7 +217,7 @@ public class FormUsuario extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -217,7 +228,7 @@ public class FormUsuario extends javax.swing.JDialog {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -348,6 +359,10 @@ public class FormUsuario extends javax.swing.JDialog {
         excluir();
     }//GEN-LAST:event_btnExcuirActionPerformed
 
+    private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
+        buscar();
+    }//GEN-LAST:event_txtBuscaKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCadastrar;
@@ -361,7 +376,7 @@ public class FormUsuario extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblUsuarios;
+    private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
 }

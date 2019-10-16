@@ -160,7 +160,6 @@ public class FormCriar extends javax.swing.JDialog {
         jLabel2.setText("Nome:");
 
         txtNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtNome.setText("Digite...");
         txtNome.setToolTipText("");
         txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -180,7 +179,6 @@ public class FormCriar extends javax.swing.JDialog {
         );
 
         txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtUsuario.setText("Digite...");
         txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtUsuarioKeyReleased(evt);
@@ -205,7 +203,6 @@ public class FormCriar extends javax.swing.JDialog {
         jLabel4.setText("Senha:");
 
         txtSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtSenha.setText("Digite...");
         txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSenhaKeyReleased(evt);
@@ -227,7 +224,6 @@ public class FormCriar extends javax.swing.JDialog {
         jLabel5.setText("Confirmar senha:");
 
         txtConfirmarSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtConfirmarSenha.setText("Digite...");
         txtConfirmarSenha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtConfirmarSenhaKeyReleased(evt);
@@ -313,9 +309,9 @@ public class FormCriar extends javax.swing.JDialog {
                     .addComponent(verificacaoConfirmacaoSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkMaster)
-                    .addComponent(btnSalvar))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSalvar)
+                    .addComponent(checkMaster))
                 .addContainerGap())
         );
 
@@ -366,6 +362,7 @@ public class FormCriar extends javax.swing.JDialog {
             validarEFechar();
         }
     }//GEN-LAST:event_txtConfirmarSenhaKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox checkMaster;

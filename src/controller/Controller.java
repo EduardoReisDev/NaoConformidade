@@ -289,6 +289,8 @@ public class Controller {
     public void abreTelaUsuario(){
         telaUsuario = new FormUsuario((Frame) componentePai, true);
         telaUsuario.setLocationRelativeTo(null);
+        telaUsuario.inicializarTabela();
+        telaUsuario.listar();
         telaUsuario.setVisible(true);
     }
     

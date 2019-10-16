@@ -36,8 +36,12 @@ public class UsuarioController {
         usuarioNegocio = new UsuarioBusinnesObject();
     }
     
-    public void ListarUsuarios(Consumer<? super Usuario> resultado){
+    public void listarUsuarios(Consumer<? super Usuario> resultado){
         new UsuarioDao().lerTodos(resultado::accept);
+    }
+    
+    public void listarUsuariosPorNome(Consumer<? super Usuario> resultado, String nome){
+        new UsuarioDao().lerPorNome(resultado::accept, nome);
     }
     
     public Usuario listarPorId(int id){

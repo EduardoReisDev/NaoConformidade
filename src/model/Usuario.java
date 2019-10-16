@@ -23,6 +23,7 @@ public class Usuario extends Pessoa{
     }
     
     public Usuario(String nome, String usuario, String senha, boolean master){
+        super(nome);
         this.usuario = usuario;
         this.senha = senha;
         this.master = master;

@@ -139,6 +139,33 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
         }
     }
     
+    public void lerPorNome(Consumer<? super Usuario> resultado, String nome) {
+        String query = "SELECT * FROM usuario WHERE nome like '%"+nome+"%'";
+        Connection conexao = new Conexao().abreConexao();
+        Usuario result;
+        try{
+            PreparedStatement stmt = conexao.prepareStatement(query);
+            ResultSet res = stmt.executeQuery();
+            while (res.next()){
+                result = new Usuario();
+                result.setNome(res.getString("nome"));
+                result.setId(res.getInt("id"));
+                result.setUsuario(res.getString("usuario"));
+                result.setCpf(res.getString("cpf"));
+                result.setSenha(res.getString("senha"));
+                result.setMaster(res.getBoolean("master"));
+                resultado.accept(result);
+            }
+        }
+        catch(SQLException e){
+            System.out.println("erro na listagem "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
+    }
+    
+    
     @Override
     public boolean existeUsuariosMasters(){
         Connection conexao = new Conexao().abreConexao();

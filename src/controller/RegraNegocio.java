@@ -16,7 +16,7 @@ public class RegraNegocio {
         ArrayList<Etapas> etapas = new ArrayList<>();
         switch (acao) {
             case INICIAR_SISTEMA : {
-                etapas.add(Etapas.LOGIN);
+                //etapas.add(Etapas.LOGIN);
                 etapas.add(Etapas.ABRIR_FORMULARIO_PRINCIPAL);
                 break;
             }
