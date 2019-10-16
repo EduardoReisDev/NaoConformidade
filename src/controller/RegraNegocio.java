@@ -21,7 +21,7 @@ public class RegraNegocio {
                 break;
             }
             case ABRE_FORMULARIO_USUARIO : {
-                etapas.add(Etapas.LOGIN_MASTER);
+                //etapas.add(Etapas.LOGIN_MASTER);
                 etapas.add(Etapas.ABRIR_FORMULARIO_USUARIOS);
                 break;
             }
@@ -33,11 +33,22 @@ public class RegraNegocio {
                 etapas.add(Etapas.ABRIR_FORMULARIO_SETORES);
                 break;
             }
+            case ABRE_FORMULARIO_NAO_CONFORMIDADE : {
+                etapas.add(Etapas.ABRIR_FORMULARIO_NAO_CONFORMIDADES);
+                break;
+            }
+            case CADASTRO_USUARIO : {
+                etapas.add(Etapas.ABRIR_FORMULARIO_CADASTRO_USUARIOS);
+                break;
+            }
+            case FECHAR : {
+                etapas.add(Etapas.SAIR);
+            }
         }
         return etapas;
     }
     
-    public static ArrayList<Etapas> obterEtapasErros(Acao acao){
+    public static ArrayList<Etapas> obterEtapasSeErro(Acao acao){
         ArrayList<Etapas> etapas = new ArrayList<>();
         switch (acao) {
             case INICIAR_SISTEMA : {

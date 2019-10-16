@@ -26,7 +26,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnGerenciarNC.setOpaque(true);
         controller = new Controller();
 
-        controller.setTelaPrincipal(this);
+        controller.setComponentePai(this);
     }
     
     /**
@@ -321,11 +321,11 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGerenciarResponsaveisActionPerformed
 
     private void btnGerenciarNCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarNCActionPerformed
-        controller.abreTelaNaoConformidade();
+        controller.executar(Acao.ABRE_FORMULARIO_NAO_CONFORMIDADE);
     }//GEN-LAST:event_btnGerenciarNCActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        System.exit(0);
+        controller.executar(Acao.FECHAR);
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnGerenciarSetoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarSetoresActionPerformed

@@ -4,16 +4,9 @@
  * and open the template in the editor.
  */
 package controller;
-
-import dao.NaoConformidadeDao;
-import model.NaoConformidade;
-import dao.SetorDao;
-import model.Setor;
-import dao.UsuarioDao;
 import java.awt.Component;
 import java.awt.Frame;
 import model.Usuario;
-import java.util.Date;
 import view.FormPrincipal;
 import view.naoconformidade.CadastroNaoConformidade;
 import view.naoconformidade.EditarNaoConformidade;
@@ -33,7 +26,7 @@ import view.usuario.FormUsuario;
  * @author leona
  */
 public class Controller {
-    UsuarioController usuarioController = new UsuarioController();
+    UsuarioController usuarioController;
     
     FormNaoConformidade telaNaoConformidade;
     CadastroNaoConformidade telaCadastroNaoConformidade;
@@ -56,119 +49,15 @@ public class Controller {
 
     Component componentePai;
 
-    public void setTelaPrincipal(Component telaPrincipal) {
-        this.componentePai = telaPrincipal;
+    public Controller() {
+        this.usuarioController = new UsuarioController();
+    }
+
+    public void setComponentePai(Component componentePai) {
+        this.componentePai = componentePai;
     }
     
     Usuario usuario;
-
-    //<editor-fold defaultstate="collapsed" desc="comment">
-
-    
-    public void insereUsuarioDao(){
-        Usuario usuario = new Usuario();
-        usuario.setNome("Leonardo");
-        usuario.setCpf("06543651130");
-        usuario.setUsuario("leo");
-        usuario.setSenha("123");
-        usuario.setMaster(true);
-        System.out.println(new UsuarioDao().criar(usuario));
-    }
-    
-    public void listaUsuarios(){
-        new UsuarioDao().lerTodos(usuario->{
-            System.out.println(usuario.getId());
-            System.out.println(usuario.getNome());
-            System.out.println(usuario.getUsuario());
-            System.out.println(usuario.getSenha());
-        });
-    }
-    
-    public void excluirUsuarioDao(){
-        new UsuarioDao().excluir(16);
-    }
-    
-    public void editarUsuarioDao(){
-        Usuario usuario = new Usuario();
-        usuario.setNome("Léo");
-        usuario.setUsuario("leo");
-        usuario.setSenha("123");
-        usuario.setId(2);
-        
-        System.out.println(new UsuarioDao().editar(usuario));
-    }
-    
-    public void insereSetor(){
-        Setor setor = new Setor();
-        setor.setCodigo("0001145");
-        setor.setNome("Casa das Galinhas");
-        setor.setResponsavel("Fulano das Couve");
-        
-        System.out.println(new SetorDao().criar(setor));
-    }
-    
-    public void listarSetores(){
-        new SetorDao().lerTodos(setor->{
-            System.out.println(setor.getId());
-            System.out.println(setor.getNome());
-            System.out.println(setor.getCodigo());
-            System.out.println(setor.getResponsavel());
-        });
-    }
-    
-    public void editarSetor(){
-        Setor setor = new Setor();
-        setor.setCodigo("0001145");
-        setor.setNome("Casa dos Galos");
-        setor.setResponsavel("Fulano das Couve");
-        setor.setId(1);
-        System.out.println(new SetorDao().editar(setor));
-    }
-    
-    public void excluirSetor(){
-        new SetorDao().excluir(1);
-    }
-    
-    public void salvarNaoConformidade(){
-        NaoConformidade naoConformidade = new NaoConformidade();
-        naoConformidade.setAbrangencia("xxxx");
-        naoConformidade.setAcaoCorrecao("teste");
-        naoConformidade.setDataAcontecimento(new Date(2020, 9, 24));
-        naoConformidade.setDataRegistro(new Date(19, 9, 24));
-        naoConformidade.setDescricao("uma gaiola quebrada");
-        naoConformidade.setImagem("C:\001.png");
-        naoConformidade.setOrigem("Baixa da égua");
-        naoConformidade.setReincidencia(true);
-        naoConformidade.setIdSetor(2);
-        naoConformidade.setIdResponsavel(1);
-        System.out.println(new NaoConformidadeDao().criar(naoConformidade));
-    }
-    
-    public void editarNaoConformidade(){
-        NaoConformidade naoConformidade = new NaoConformidade();
-        naoConformidade.setAbrangencia("xxxx");
-        naoConformidade.setAcaoCorrecao("teste");
-        naoConformidade.setDataAcontecimento(new Date(2020, 9, 24));
-        naoConformidade.setDataRegistro(new Date(19, 9, 24));
-        naoConformidade.setDescricao("uma gaiola quebrada");
-        naoConformidade.setIdSetor(2);
-        naoConformidade.setImagem("C:\001.png");
-        naoConformidade.setOrigem("Baixa da égua");
-        naoConformidade.setReincidencia(false);
-        naoConformidade.setIdResponsavel(1);
-        naoConformidade.setId(1);
-        System.out.println(new NaoConformidadeDao().editar(naoConformidade));
-    }
-    
-    public void listarNaoConformidades(){
-        new NaoConformidadeDao().lerTodos(naoConformidade->{
-            System.out.println(naoConformidade.getId());
-            System.out.println(naoConformidade.getIdResponsavel());
-        });
-    }
-//</editor-fold>
-    
-    
     //TESTE COM ETAPAS....
     
     private boolean sucessoAcoes;
@@ -177,50 +66,17 @@ public class Controller {
         sucessoAcoes = true;
         RegraNegocio.obterEtapas(acao).forEach(etapa->{
             if(sucessoAcoes){
-                separarEtapas(etapa);
+                sucessoAcoes = executarEtapa(etapa);
             }
         });
         if(!sucessoAcoes){
-            RegraNegocio.obterEtapasErros(acao).forEach(etapa->{
-                separarEtapas(etapa);
+            RegraNegocio.obterEtapasSeErro(acao).forEach(etapa->{
+                executarEtapa(etapa);
             });
         }
     }
     
-    public void separarEtapas(Etapas etapa){
-        switch (etapa){
-            case LOGIN : {
-                if(!executarEtapa(etapa)){
-                    sucessoAcoes = false;
-                }
-                break;
-            }
-            case LOGIN_MASTER : {
-                if(!executarEtapa(etapa)){
-                    sucessoAcoes = false;
-                }
-                break;
-            }
-            case ABRIR_FORMULARIO_PRINCIPAL : {
-                executarEtapa(etapa);
-                break;
-            }
-            case ABRIR_FORMULARIO_USUARIOS : {
-                executarEtapa(etapa);
-                break;
-            }
-            case ABRIR_FORMULARIO_SETORES : {
-                executarEtapa(etapa);
-                break;
-            }
-            case SAIR : {
-                executarEtapa(etapa);
-                break;
-            }
-        }
-    }
-    
-    public boolean executarEtapa(Etapas etapa){
+    private boolean executarEtapa(Etapas etapa){
         switch (etapa){
             case LOGIN : {
                 usuario = usuarioController.login();
@@ -238,6 +94,9 @@ public class Controller {
                 abreTelaUsuario();
                 break;
             }
+            case ABRIR_FORMULARIO_CADASTRO_USUARIOS : {
+                return abreTelaCadastrarUsuario();
+            }
             case ABRIR_FORMULARIO_RESPONSAVEL : {
                 abreTelaResponsavel();
                 break;
@@ -246,11 +105,12 @@ public class Controller {
                 abreTelaSetor();
                 break;
             }
+            
             case SAIR : {
                 System.exit(0);
             }
         }
-        return false;
+        return true;
     }
     
     
@@ -316,10 +176,9 @@ public class Controller {
         telaUsuario.setVisible(true);
     }
     
-    public void abreTelaCadastrarUsuario(){
-        telaCadastrarUsuario = new FormCriar((Frame) componentePai, true);
-        telaCadastrarUsuario.setLocationRelativeTo(null);
-        telaCadastrarUsuario.setVisible(true);
+    public boolean abreTelaCadastrarUsuario(){
+        usuarioController.setComponentePai(componentePai);
+        return usuarioController.cadastrarUsuario();
     }
     
     public void abreTelaEditarUsuario(){

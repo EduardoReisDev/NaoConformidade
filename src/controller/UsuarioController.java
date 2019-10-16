@@ -6,9 +6,9 @@
 package controller;
 
 import dao.UsuarioDao;
+import java.awt.Component;
 import java.awt.Frame;
 import model.Usuario;
-import java.util.Arrays;
 import java.util.function.Consumer;
 import view.Mensagens;
 import view.usuario.FormCriar;
@@ -22,14 +22,11 @@ import view.usuario.FormCpf;
  */
 public class UsuarioController {
     UsuarioBusinnesObject usuarioNegocio;
-    Frame formPai;
+    Component componentePai;
 
-    public Frame getFormPai() {
-        return formPai;
-    }
 
-    public void setFormPai(Frame formPai) {
-        this.formPai = formPai;
+    public void setComponentePai(Component componentePai) {
+        this.componentePai = componentePai;
     }
     
     public UsuarioController(){
@@ -49,7 +46,7 @@ public class UsuarioController {
     }
     
     public Usuario abrirFormularioLogin() {
-        FormLogin formularioLogin = new FormLogin(formPai, true);
+        FormLogin formularioLogin = new FormLogin((Frame) componentePai, true);
         formularioLogin.setLocationRelativeTo(formularioLogin);
         formularioLogin.setVisible(true);
         if(!formularioLogin.getTxtUsuario().getText().isEmpty()){
@@ -72,8 +69,7 @@ public class UsuarioController {
                 return usuario;
             }
             else{
-                Mensagens.mensagem(
-                        formPai, 
+                Mensagens.mensagem(componentePai, 
                         usuarioNegocio.MENSAGEM_SOMENTE_USUARIO_MASTER, 
                         usuarioNegocio.TITULO_MENSAGEM_SOMENTE_USUARIO_MASTER, 
                         usuarioNegocio.ATENCAO);
@@ -103,8 +99,7 @@ public class UsuarioController {
                             );
                     if(usuario == null){
                         if(usuarioNegocio.TENTATIVAS_MAXIMAS_LOGIN-tentativas > 0){
-                            if(!Mensagens.confirmar(
-                                    formPai,
+                            if(!Mensagens.confirmar(componentePai,
                                     usuarioNegocio.mensagemLoginNaoEftuado(tentativas),
                                     usuarioNegocio.TITULO_MENSAGEM_LOGIN_NAO_EFETUADO,
                                     usuarioNegocio.ATENCAO)){
@@ -128,21 +123,18 @@ public class UsuarioController {
     
     public void excluir(int id){
         Usuario usuario = listarPorId(id);
-        if(Mensagens.confirmar(
-                formPai,
+        if(Mensagens.confirmar(componentePai,
                 usuarioNegocio.mensagemExcluirUsuário(usuario),
                 usuarioNegocio.TITULO_EXCLUIR,
                 usuarioNegocio.QUESTAO)){
             if(new UsuarioDao().excluir(id)){
-                Mensagens.mensagem(
-                        formPai,
+                Mensagens.mensagem(componentePai,
                         usuarioNegocio.mensagemSucessoExcluirUsuario(usuario),
                         usuarioNegocio.TITULO_SUCESSO_EXCLUSAO,
                         usuarioNegocio.SUCESSO);
             }
             else{
-                Mensagens.mensagem(
-                        formPai,
+                Mensagens.mensagem(componentePai,
                         usuarioNegocio.mensagemErroExcluirUsuario(usuario), 
                         usuarioNegocio.TITULO_ERRO_EXCLUSAO,
                         usuarioNegocio.ERRO);
@@ -151,7 +143,7 @@ public class UsuarioController {
     }
     
     public Usuario abrirFormularioEditar(Usuario usuario) {
-        FormEditar formularioEditar = new FormEditar(formPai, true);
+        FormEditar formularioEditar = new FormEditar((Frame) componentePai, true);
         formularioEditar.setLocationRelativeTo(null);
         formularioEditar.preencherCampos(usuario);
         formularioEditar.setVisible(true);
@@ -191,7 +183,7 @@ public class UsuarioController {
      * @return Uma String contendo o cpf fornecido ou null quando o cpf fornecido não é valido ou não fornecido
      */
     private String formularioCpf(){
-        FormCpf formularioCpf = new FormCpf(formPai, true);
+        FormCpf formularioCpf = new FormCpf((Frame) componentePai, true);
         String cpf = null;
         formularioCpf.setLocationRelativeTo(null);
         formularioCpf.setVisible(true);
@@ -207,7 +199,7 @@ public class UsuarioController {
      * @return dados de usuário caso forem válidos
      */
     private Usuario formularioUsuario(){
-        FormCriar formularioUsuario = new FormCriar(formPai, true);
+        FormCriar formularioUsuario = new FormCriar((Frame) componentePai, true);
         formularioUsuario.setLocationRelativeTo(null);
         Usuario usuario = null;
         formularioUsuario.setVisible(true);

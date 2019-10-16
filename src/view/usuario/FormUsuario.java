@@ -5,7 +5,11 @@
  */
 package view.usuario;
 
+import controller.Acao;
+import controller.Controller;
 import controller.UsuarioController;
+import java.awt.Component;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Usuario;
@@ -16,6 +20,7 @@ import model.Usuario;
  */
 public class FormUsuario extends javax.swing.JDialog {
     UsuarioController usuarioController;
+    Controller controller;
     /**
      * Creates new form GerenciarUsuarios
      * @param parent
@@ -25,7 +30,9 @@ public class FormUsuario extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         usuarioController = new UsuarioController();
-        usuarioController.setFormPai(parent);
+        controller = new Controller();
+        controller.setComponentePai(parent);
+        usuarioController.setComponentePai(parent);
     }
     
     DefaultTableModel modeloTabela;
@@ -68,7 +75,7 @@ public class FormUsuario extends javax.swing.JDialog {
     }
     
     public void adicionar(){
-        usuarioController.cadastrarUsuario();
+        controller.executar(Acao.CADASTRO_USUARIO);
         inicializarTabela();
         listar();
     }

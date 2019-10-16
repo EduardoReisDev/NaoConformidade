@@ -22,7 +22,7 @@ Controller controller;
         initComponents();
         
         controller = new Controller();
-        controller.setTelaPrincipal(this);
+        controller.setComponentePai(this);
     }
 
     /**
