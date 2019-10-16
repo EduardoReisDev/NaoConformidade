@@ -3,21 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/GitHub/NaoConformidade/src/view/setor/CadastroSetores.java</file>
-            <file>file:/C:/GitHub/NaoConformidade/src/view/setor/EditarSetores.java</file>
-            <file>file:/C:/GitHub/NaoConformidade/src/controller/SistemaDeNaoConformidade.java</file>
-            <file>file:/C:/GitHub/NaoConformidade/src/view/Principal.java</file>
-            <file>file:/C:/GitHub/NaoConformidade/src/view/setor/Setores.java</file>
-=======
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/UsuarioBusinnesObject.java</file>
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/Acao.java</file>
+            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/dao/ResponsavelDao.java</file>
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/RegraNegocio.java</file>
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/Controller.java</file>
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/Etapas.java</file>
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/Principal.java</file>
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/UsuarioController.java</file>
->>>>>>> 043e8ae5da793896e083239ce32f1bd36093b567
         </group>
     </open-files>
 </project-private>

@@ -14,9 +14,7 @@ import java.awt.Component;
 import java.awt.Frame;
 import model.Usuario;
 import java.util.Date;
-import javax.swing.JFrame;
 import view.Principal;
-import view.gerenciar.FormUsuario;
 import view.naoconformidade.CadastroNaoConformidade;
 import view.naoconformidade.EditarNaoConformidade;
 import view.naoconformidade.FormNaoConformidade;
@@ -28,7 +26,7 @@ import view.setor.EditarSetor;
 import view.setor.FormSetor;
 import view.usuario.FormCriar;
 import view.usuario.FormEditar;
-import view.usuario.FormUsuarios;
+import view.usuario.FormUsuario;
 
 /**
  *
@@ -36,7 +34,6 @@ import view.usuario.FormUsuarios;
  */
 public class Controller {
     UsuarioController usuarioController = new UsuarioController();
-    FormUsuario telaGerenciarUsuarios;
     
     FormNaoConformidade telaNaoConformidade;
     CadastroNaoConformidade telaCadastroNaoConformidade;
@@ -50,7 +47,7 @@ public class Controller {
     CadastroSetor telaCadastrarSetor;
     EditarSetor telaEditarSetor;
     
-    FormUsuarios telaUsuario;
+    FormUsuario telaUsuario;
     FormCriar telaCadastrarUsuario;
     FormEditar telaEditarUsuario;
     
@@ -234,7 +231,7 @@ public class Controller {
                 break;
             }
             case ABRIR_FORMULARIO_USUARIOS : {
-                abreTelaGerenciarUsuarios();
+                abreTelaUsuario();
                 break;
             }
             case ABRIR_FORMULARIO_RESPONSAVEL : {
@@ -264,7 +261,7 @@ public class Controller {
     }
     
     public void abreTelaResponsaveis(){
-        telaResponsavel = new  FormResponsavel((Frame) componentePai, true);
+        telaResponsavel = new FormResponsavel((Frame) componentePai, true);
         telaResponsavel.setLocationRelativeTo(null);
         telaResponsavel.setVisible(true);
     }
@@ -290,6 +287,8 @@ public class Controller {
     }
     
     public void abreTelaUsuario(){
+        telaUsuario = new FormUsuario((Frame) componentePai, true);
+        telaUsuario.setLocationRelativeTo(null);
         telaUsuario.setVisible(true);
     }
     
@@ -303,13 +302,6 @@ public class Controller {
     
     public void inicio(){
         executar(Acao.INICIAR_SISTEMA);
-    }
-    
-    public void abreTelaGerenciarUsuarios(){
-        telaGerenciarUsuarios =  new FormUsuario((Frame) componentePai, true);
-        telaGerenciarUsuarios.setLocationRelativeTo(null);
-        telaGerenciarUsuarios.inicializarTabela();
-        telaGerenciarUsuarios.setVisible(true);
     }
     
     private void abreTelaPrincipal(){
