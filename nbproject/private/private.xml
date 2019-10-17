@@ -6,6 +6,7 @@
         <group>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/D:/Desktop/NaoConformidade/src/controller/NaoConformidadeController.java</file>
             <file>file:/D:/Desktop/NaoConformidade/src/view/usuario/FormUsuario.java</file>
             <file>file:/D:/Desktop/NaoConformidade/src/view/usuario/FormCriar.java</file>
@@ -15,12 +16,13 @@
             <file>file:/D:/Desktop/NaoConformidade/src/model/NaoConformidade.java</file>
 =======
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/model/NaoConformidade.java</file>
+=======
+>>>>>>> parent of 49eaf2f... 17/10/-1
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/UsuarioBusinnesObject.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/dao/NaoConformidadeDao.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/dao/UsuarioDao.java</file>
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/Acao.java</file>
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/FormPrincipal.java</file>
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/RegraNegocio.java</file>
+            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/Controller.java</file>
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/usuario/FormUsuario.java</file>
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/Etapas.java</file>
             <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/UsuarioController.java</file>

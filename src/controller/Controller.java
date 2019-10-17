@@ -41,6 +41,7 @@ public class Controller {
     EditarSetor telaEditarSetor;
     
     FormUsuario telaUsuario;
+<<<<<<< HEAD
     FormCriar telaCadastrarUsuario;
     FormEditar telaEditarUsuario;
     
@@ -53,16 +54,33 @@ public class Controller {
         this.usuarioController = new UsuarioController();
     }
 
+=======
+    FormPrincipal telaPrincipal;
+
+    Component componentePai;
+
+    public void setUsuarioController(UsuarioController usuarioController){
+        this.usuarioController = usuarioController;
+    }
+
+>>>>>>> parent of 49eaf2f... 17/10/-1
     public void setComponentePai(Component componentePai) {
         this.componentePai = componentePai;
     }
     
     Usuario usuario;
     //TESTE COM ETAPAS....
+<<<<<<< HEAD
     
     private boolean sucessoAcoes;
     
     public void executar(Acao acao){
+=======
+    
+    private boolean sucessoAcoes;
+    
+    public void executar(Acao acao, Object[] parametros){
+>>>>>>> parent of 49eaf2f... 17/10/-1
         sucessoAcoes = true;
         RegraNegocio.obterEtapas(acao).forEach(etapa->{
             if(sucessoAcoes){
@@ -168,7 +186,11 @@ public class Controller {
         telaEditarSetor.setVisible(true);
     }
     
+<<<<<<< HEAD
     public void abreTelaUsuario(){
+=======
+    private void abreTelaUsuario(){
+>>>>>>> parent of 49eaf2f... 17/10/-1
         telaUsuario = new FormUsuario((Frame) componentePai, true);
         telaUsuario.setLocationRelativeTo(null);
         telaUsuario.inicializarTabela();
@@ -176,6 +198,7 @@ public class Controller {
         telaUsuario.setVisible(true);
     }
     
+<<<<<<< HEAD
     public boolean abreTelaCadastrarUsuario(){
         usuarioController.setComponentePai(componentePai);
         return usuarioController.cadastrarUsuario();
@@ -189,6 +212,11 @@ public class Controller {
     
     public void inicio(){
         executar(Acao.INICIAR_SISTEMA);
+=======
+    public void inicio(){
+        setUsuarioController(new UsuarioController());
+        executar(Acao.INICIAR_SISTEMA, null);
+>>>>>>> parent of 49eaf2f... 17/10/-1
     }
     
     private void abreTelaPrincipal(){
