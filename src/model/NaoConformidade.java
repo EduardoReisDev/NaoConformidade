@@ -19,6 +19,24 @@ public class NaoConformidade {
     private int idResponsavel;
     private int idSetor;
 
+    public NaoConformidade(int id, String abrangencia, String acaoCorrecao, Date dataAcontecimento, Date dataRegistro, String descricao, String imagem, String origem, boolean reincidencia, int idResponsavel, int idSetor){
+        this.id = id;
+        this.abrangencia = abrangencia;
+        this.acaoCorrecao = acaoCorrecao;
+        this.dataAcontecimento = dataAcontecimento;
+        this.dataRegistro = dataRegistro;
+        this.descricao = descricao;
+        this.imagem = imagem;
+        this.origem = origem;
+        this.reincidencia = reincidencia;
+        this.idResponsavel = idResponsavel;
+        this.idSetor = idSetor;
+    }
+    
+    public NaoConformidade(){
+        
+    }
+    
     public int getId() {
         return id;
     }

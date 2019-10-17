@@ -52,7 +52,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
     }
 
     @Override
-    public void lerTodos(Consumer<? super NaoConformidade> resultado) {
+    public void listarTodos(Consumer<? super NaoConformidade> resultado) {
         String query = "select * from naoConformidade ";
         Connection conexao = new Conexao().abreConexao();
         NaoConformidade result;
@@ -60,12 +60,19 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
             while (res.next()){
-                result = new NaoConformidade();
-                result.setId(res.getInt("id"));
-                result.setDescricao(res.getString("descricao"));
-                //result.set
-                result.setIdResponsavel(res.getInt("idResponsavel"));
-                
+                result = new NaoConformidade(
+                        res.getInt("id"),
+                        res.getString("abrangencia"),
+                        res.getString("acaoCorrecao"),
+                        res.getDate("dataAcontecimento"),
+                        res.getDate("dataRegistro"),
+                        res.getString("descricao"),
+                        res.getString("caminhoImagem"),
+                        res.getString("origem"),
+                        res.getBoolean("reincidencia"),
+                        res.getInt("idResponsavel"),
+                        res.getInt("idSetor")
+                );
                 resultado.accept(result);
                 
             }
@@ -79,7 +86,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
     }
 
     @Override
-    public NaoConformidade lerPorId( int id) {
+    public NaoConformidade listarPorId( int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

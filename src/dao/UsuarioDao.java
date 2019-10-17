@@ -44,7 +44,7 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
     }
 
     @Override
-    public Usuario lerPorId(int id) {
+    public Usuario listarPorId(int id) {
         Connection conexao = new Conexao().abreConexao();
         Usuario usuario = null;
         try{
@@ -113,7 +113,7 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
     }
 
     @Override
-    public void lerTodos(Consumer<? super Usuario> resultado) {
+    public void listarTodos(Consumer<? super Usuario> resultado) {
         String query = "select * from usuario";
         Connection conexao = new Conexao().abreConexao();
         Usuario result;
@@ -140,7 +140,7 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
     }
     
     public void lerPorNome(Consumer<? super Usuario> resultado, String nome) {
-        String query = "SELECT * FROM usuario WHERE nome like '%"+nome+"%'";
+        String query = "SELECT * FROM usuario WHERE nome like '"+nome+"%'";
         Connection conexao = new Conexao().abreConexao();
         Usuario result;
         try{

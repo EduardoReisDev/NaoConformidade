@@ -25,20 +25,31 @@ public class RegraNegocio {
                 etapas.add(Etapas.ABRIR_FORMULARIO_USUARIOS);
                 break;
             }
+            case CADASTRO_USUARIO : {
+                etapas.add(Etapas.ABRIR_FORMULARIO_CADASTRO_USUARIOS);
+                break;
+            }
+            case EDITA_USUARIO : {
+                etapas.add(Etapas.ABRIR_FORMULARIO_EDITA_USUARIOS);
+                break;
+            }
+            case EXCLUI_USUARIO : {
+                etapas.add(Etapas.CONFIRMAR_EXCLUSAO_USUARIO);
+                etapas.add(Etapas.EXCLUIR_USUARIO);
+                etapas.add(Etapas.MOSTRAR_MENSAGEM_SUCESSO_EXCLIUR);
+                break;
+            }
             case ABRE_FORMULARIO_RESPONSAVEL : {
                 etapas.add(Etapas.ABRIR_FORMULARIO_RESPONSAVEL);
                 break;
             }
             case ABRE_FORMULARIO_SETOR : {
+                etapas.add(Etapas.LOGIN);
                 etapas.add(Etapas.ABRIR_FORMULARIO_SETORES);
                 break;
             }
             case ABRE_FORMULARIO_NAO_CONFORMIDADE : {
                 etapas.add(Etapas.ABRIR_FORMULARIO_NAO_CONFORMIDADES);
-                break;
-            }
-            case CADASTRO_USUARIO : {
-                etapas.add(Etapas.ABRIR_FORMULARIO_CADASTRO_USUARIOS);
                 break;
             }
             case FECHAR : {
@@ -53,6 +64,11 @@ public class RegraNegocio {
         switch (acao) {
             case INICIAR_SISTEMA : {
                 etapas.add(Etapas.SAIR);
+                break;
+            }
+            case EXCLUI_USUARIO : {
+                etapas.add(Etapas.MOSTRAR_MENSAGEM_ERRO_EXCLIUR);
+                break;
             }
         }
         return etapas;

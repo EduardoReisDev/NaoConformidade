@@ -23,28 +23,48 @@ import view.usuario.FormCpf;
 public class UsuarioController {
     UsuarioBusinnesObject usuarioNegocio;
     Component componentePai;
-
-
+    
+    private Usuario usuario;
+    
     public void setComponentePai(Component componentePai) {
         this.componentePai = componentePai;
     }
     
     public UsuarioController(){
         usuarioNegocio = new UsuarioBusinnesObject();
+        usuario = new Usuario();
     }
     
+    /**
+     *Este método é responsável por listar todos os usuários existentes no banco de dados
+     * @param resultado resultado da listagem
+     */
     public void listarUsuarios(Consumer<? super Usuario> resultado){
-        new UsuarioDao().lerTodos(resultado::accept);
+        new UsuarioDao().listarTodos(resultado::accept);
     }
     
+    /**
+     *Este método é responsável por consultar o nome do usuário no banco de dados
+     * @param resultado resulatado da listagem
+     * @param nome nome do usuário a ser consultado
+     */
     public void listarUsuariosPorNome(Consumer<? super Usuario> resultado, String nome){
         new UsuarioDao().lerPorNome(resultado::accept, nome);
     }
     
+    /**
+     *Este método faz a listagem a partir do id de usuário
+     * @param id id do usuário a ser consultado;
+     * @return dados de usuario, ou null se não for encontrado nenhum usuário
+     */
     public Usuario listarPorId(int id){
-        return new UsuarioDao().lerPorId(id);
+        return new UsuarioDao().listarPorId(id);
     }
     
+    /**
+     *Este método é responsável por abrir o formulário de login
+     * @return dados de login caso eles sejam inseridos
+     */
     public Usuario abrirFormularioLogin() {
         FormLogin formularioLogin = new FormLogin((Frame) componentePai, true);
         formularioLogin.setLocationRelativeTo(formularioLogin);
@@ -63,7 +83,7 @@ public class UsuarioController {
      * @return true se o usuário logado for master, se não, retorna false
      */
     public Usuario loginMaster(){
-        Usuario usuario = login();
+        usuario = login();
         if(usuario!= null){
             if(usuario.isMaster()){
                 return usuario;
@@ -86,9 +106,9 @@ public class UsuarioController {
      */
     public Usuario login(){
         int tentativas = 0;
-        Usuario usuario = null;
+        usuario = null;
         Usuario usuarioFormulario;
-        if(existeUsuariosMasters()){//chama o diálogo de login
+        if(verificarExistenciaDeUsuariosMasters()){//chama o diálogo de login
             while(usuario == null && tentativas < usuarioNegocio.TENTATIVAS_MAXIMAS_LOGIN){
                 tentativas++;
                 usuarioFormulario = abrirFormularioLogin();
@@ -114,34 +134,60 @@ public class UsuarioController {
             }
         }
         else{//chama o diálogo de cadastro de usuários
-            if(cadastrarUsuario()){
+            if(cadastrar()){
                 return login();
             }
         }
         return usuario;
     }
     
-    public void excluir(int id){
-        Usuario usuario = listarPorId(id);
-        if(Mensagens.confirmar(componentePai,
-                usuarioNegocio.mensagemExcluirUsuário(usuario),
-                usuarioNegocio.TITULO_EXCLUIR,
-                usuarioNegocio.QUESTAO)){
-            if(new UsuarioDao().excluir(id)){
-                Mensagens.mensagem(componentePai,
-                        usuarioNegocio.mensagemSucessoExcluirUsuario(usuario),
-                        usuarioNegocio.TITULO_SUCESSO_EXCLUSAO,
-                        usuarioNegocio.SUCESSO);
-            }
-            else{
-                Mensagens.mensagem(componentePai,
-                        usuarioNegocio.mensagemErroExcluirUsuario(usuario), 
-                        usuarioNegocio.TITULO_ERRO_EXCLUSAO,
-                        usuarioNegocio.ERRO);
-            }
-        }
+    /**
+     *Este método é responsável por excluir o usuario do banco de dados
+     * @param id id do usuário a ser excluído
+     * @return true se foi excluído com sucesso ou false, se não
+     */
+    public boolean excluir(int id){
+        return new UsuarioDao().excluir(id);
     }
     
+    /**
+     *
+     * @param id id do usuário a ser excluído
+     * @return true se foi confirmada a exclusão, false se não
+     */
+    public boolean confirmarExclusao(int id){
+        usuario = listarPorId(id);
+        return Mensagens.confirmar(componentePai,
+                usuarioNegocio.mensagemExcluirUsuário(usuario),
+                usuarioNegocio.TITULO_EXCLUIR,
+                usuarioNegocio.QUESTAO);
+    }
+    
+    /**
+     *Este método mostra uma mensagem de sucesso ao excluir
+     */
+    public void exibirSucessoExclusao(){
+        Mensagens.mensagem(componentePai,
+                usuarioNegocio.mensagemSucessoExcluirUsuario(usuario),
+                usuarioNegocio.TITULO_SUCESSO_EXCLUSAO,
+                usuarioNegocio.SUCESSO);
+    }
+    
+    /**
+     *Este método mostra uma mensagem de erro ao excluir
+     */
+    public void exibirErroExclusao(){
+        Mensagens.mensagem(componentePai,
+                usuarioNegocio.mensagemErroExcluirUsuario(usuario), 
+                usuarioNegocio.TITULO_ERRO_EXCLUSAO,
+                usuarioNegocio.ERRO);
+    }
+    
+    /**
+     *
+     * @param usuario dados de usuário que serão utilizados para popular o formulário
+     * @return se as informações inseridas no formulario de forma correta, retorna elas, se não, null 
+     */
     public Usuario abrirFormularioEditar(Usuario usuario) {
         FormEditar formularioEditar = new FormEditar((Frame) componentePai, true);
         formularioEditar.setLocationRelativeTo(null);
@@ -158,23 +204,28 @@ public class UsuarioController {
         return null;
     }  
     
+    /**
+     *Este método é responsável por editar os dados de usuário no banco de dados 
+     * @param id id do usuário a ser editado
+     * @return true se foi editado com sucesso, false se não
+     */
     public boolean editar(int id){
-        Usuario usuarioEditar = null;
+        Usuario usuarioEditar;
         Usuario usuarioSelecionado = listarPorId(id);
-            usuarioEditar = abrirFormularioEditar(usuarioSelecionado);//pega os dados do formulário
-            if(usuarioEditar!=null){//se não, coloca o cpf e o id e insere no banco
-                usuarioEditar.setCpf(usuarioSelecionado.getCpf());//pega o cpf do usuário selecionado
-                usuarioEditar.setId(usuarioSelecionado.getId());//peda o id do usuário selecionado
-                return new UsuarioDao().editar(usuarioEditar);//salva no banco de dados
-            } 
+        usuarioEditar = abrirFormularioEditar(usuarioSelecionado);//pega os dados do formulário
+        if(usuarioEditar!=null){//se não, coloca o cpf e o id e insere no banco
+            usuarioEditar.setCpf(usuarioSelecionado.getCpf());//pega o cpf do usuário selecionado
+            usuarioEditar.setId(usuarioSelecionado.getId());//peda o id do usuário selecionado
+            return new UsuarioDao().editar(usuarioEditar);//salva no banco de dados
+        } 
         return false;
     }
   
     /**
-     * Este método é responsável por verificar se existem usuários no banco de dados.
-     * @return true quando existe e false quando não existe usuários armazenados.
+     * Este método é responsável por verificar se existem usuários masters no banco de dados.
+     * @return true quando existe e false quando não existe usuários masters armazenados.
      */
-    public boolean existeUsuariosMasters(){
+    public boolean verificarExistenciaDeUsuariosMasters(){
         return new UsuarioDao().existeUsuariosMasters();
     }
     
@@ -184,10 +235,9 @@ public class UsuarioController {
      */
     private String formularioCpf(){
         FormCpf formularioCpf = new FormCpf((Frame) componentePai, true);
-        String cpf = null;
         formularioCpf.setLocationRelativeTo(null);
         formularioCpf.setVisible(true);
-        cpf = usuarioNegocio.removerCaracteresInvalidosCpf(formularioCpf.getTxtCpf().getText());
+        String cpf = usuarioNegocio.removerCaracteresInvalidosCpf(formularioCpf.getTxtCpf().getText());
         if(usuarioNegocio.validarCpf(cpf)){
             return cpf;
         }
@@ -201,7 +251,7 @@ public class UsuarioController {
     private Usuario formularioUsuario(){
         FormCriar formularioUsuario = new FormCriar((Frame) componentePai, true);
         formularioUsuario.setLocationRelativeTo(null);
-        Usuario usuario = null;
+        usuario = null;
         formularioUsuario.setVisible(true);
         if(formularioUsuario.validar()){
             usuario = new Usuario(
@@ -214,10 +264,14 @@ public class UsuarioController {
         return usuario;
     }
     
-    public boolean cadastrarUsuario(){
+    /**
+     *Este método é responsável por cadastrar um novo usuário
+     * @return true se feito com sucesso, false se não
+     */
+    public boolean cadastrar(){
         String cpf = formularioCpf();
         if(cpf != null){//se retornou um cpf
-            Usuario usuario = new UsuarioDao().listarPorCpf(cpf);
+            usuario = new UsuarioDao().listarPorCpf(cpf);
             if(usuario != null){//verifica no banco se existe um usuário com o mesmo cpf
                 editar(usuario.getId());
             }
@@ -232,27 +286,49 @@ public class UsuarioController {
         return false;
     }
     
+    /**
+     *Este método valida o nome de acordo com as regras de negócio
+     * @param nome nome do usuário
+     * @return true se válido, se não, false
+     */
     public boolean validarNome(String nome){
         return usuarioNegocio.validarNome(nome);
     }
     
+    /**
+     *Este método valida o nome de usuario de acordo com as regras de negócio
+     * @param usuario nome de usuário
+     * @return true se válido, se não, false
+     */
     public boolean validarUsuario(String usuario){
         return usuarioNegocio.validarUsuario(usuario);
     }
     
+    /**
+     *Este método valida a senha de acordo com as regras de negócio
+     * @param senha senha do usuário
+     * @return true se válido, se não, false
+     */
     public boolean validarSenha(char [] senha){
         return usuarioNegocio.validarSenha(senha);
     }
     
+    /**
+     *Este método valida e confirma as duas senhas de acordo com as regras de negócio
+     * @param senha senha do usuário
+     * @param confirmaSenha confirmação da senha
+     * @return true se válido, se não, false
+     */
     public boolean verificarSenha(char [] senha, char [] confirmaSenha){
         return usuarioNegocio.verificarSenha(senha, confirmaSenha);
     }
     
+    /**
+     *Este método é responsável por fazer a validação aritmética do cpf
+     * @param cpf cpf a ser validado
+     * @return true se válido, se não, false
+     */
     public boolean validarCpf(String cpf){
        return usuarioNegocio.validarCpf(cpf);
     }
-    
-    
-    
-    
 }
