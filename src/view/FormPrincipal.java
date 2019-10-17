@@ -17,12 +17,13 @@ public class FormPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    public FormPrincipal(Controller controller) {
+    public FormPrincipal() {
         initComponents();
+        
         btnGerenciarNC.setContentAreaFilled(false);
         btnGerenciarNC.setOpaque(true);
-        this.controller = controller;
-        this.controller.setComponentePai(this);
+        controller = new Controller();
+        controller.setComponentePai(this);
     }
     
     /**
