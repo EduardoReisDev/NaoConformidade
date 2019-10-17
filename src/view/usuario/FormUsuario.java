@@ -31,14 +31,20 @@ public class FormUsuario extends javax.swing.JDialog {
         initComponents();
         usuarioController = new UsuarioController();
 <<<<<<< HEAD
+<<<<<<< HEAD
         controller = new Controller();
         controller.setComponentePai(parent);
         usuarioController.setComponentePai(parent);
 =======
+=======
+>>>>>>> parent of 49eaf2f... 17/10/-1
         usuarioController.setComponentePai(parent);
         controller = new Controller();
         controller.setUsuarioController(usuarioController);
         controller.setComponentePai(parent);
+<<<<<<< HEAD
+>>>>>>> parent of 49eaf2f... 17/10/-1
+=======
 >>>>>>> parent of 49eaf2f... 17/10/-1
     }
     
@@ -64,8 +70,11 @@ public class FormUsuario extends javax.swing.JDialog {
     
     public void adicionarConteudo(Usuario usuario){
 <<<<<<< HEAD
+<<<<<<< HEAD
         modeloTabela.addRow(new Object[]{
 =======
+=======
+>>>>>>> parent of 49eaf2f... 17/10/-1
         modeloTabela.addRow(new String[]{
 >>>>>>> parent of 49eaf2f... 17/10/-1
             String.format("%010d", usuario.getId()),
@@ -90,6 +99,9 @@ public class FormUsuario extends javax.swing.JDialog {
         controller.executar(Acao.CADASTRO_USUARIO);
 =======
         controller.executar(Acao.CADASTRO_USUARIO, null);
+<<<<<<< HEAD
+>>>>>>> parent of 49eaf2f... 17/10/-1
+=======
 >>>>>>> parent of 49eaf2f... 17/10/-1
         inicializarTabela();
         listar();

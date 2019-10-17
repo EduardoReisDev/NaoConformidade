@@ -42,6 +42,7 @@ public class Controller {
     
     FormUsuario telaUsuario;
 <<<<<<< HEAD
+<<<<<<< HEAD
     FormCriar telaCadastrarUsuario;
     FormEditar telaEditarUsuario;
     
@@ -55,6 +56,8 @@ public class Controller {
     }
 
 =======
+=======
+>>>>>>> parent of 49eaf2f... 17/10/-1
     FormPrincipal telaPrincipal;
 
     Component componentePai;
@@ -63,6 +66,9 @@ public class Controller {
         this.usuarioController = usuarioController;
     }
 
+<<<<<<< HEAD
+>>>>>>> parent of 49eaf2f... 17/10/-1
+=======
 >>>>>>> parent of 49eaf2f... 17/10/-1
     public void setComponentePai(Component componentePai) {
         this.componentePai = componentePai;
@@ -71,11 +77,14 @@ public class Controller {
     Usuario usuario;
     //TESTE COM ETAPAS....
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     private boolean sucessoAcoes;
     
     public void executar(Acao acao){
 =======
+=======
+>>>>>>> parent of 49eaf2f... 17/10/-1
     
     private boolean sucessoAcoes;
     
@@ -187,7 +196,11 @@ public class Controller {
     }
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void abreTelaUsuario(){
+=======
+    private void abreTelaUsuario(){
+>>>>>>> parent of 49eaf2f... 17/10/-1
 =======
     private void abreTelaUsuario(){
 >>>>>>> parent of 49eaf2f... 17/10/-1
@@ -198,6 +211,7 @@ public class Controller {
         telaUsuario.setVisible(true);
     }
     
+<<<<<<< HEAD
 <<<<<<< HEAD
     public boolean abreTelaCadastrarUsuario(){
         usuarioController.setComponentePai(componentePai);
@@ -225,4 +239,17 @@ public class Controller {
         telaPrincipal.setExtendedState(FormPrincipal.MAXIMIZED_BOTH);
         telaPrincipal.setVisible(true);
     }
+=======
+    public void inicio(){
+        setUsuarioController(new UsuarioController());
+        executar(Acao.INICIAR_SISTEMA, null);
+    }
+    
+    private void abreTelaPrincipal(){
+        telaPrincipal= new FormPrincipal();
+        telaPrincipal.setLocationRelativeTo(null);
+        telaPrincipal.setExtendedState(FormPrincipal.MAXIMIZED_BOTH);
+        telaPrincipal.setVisible(true);
+    }
+>>>>>>> parent of 49eaf2f... 17/10/-1
 }
