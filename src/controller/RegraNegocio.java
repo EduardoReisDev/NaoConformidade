@@ -52,6 +52,10 @@ public class RegraNegocio {
                 etapas.add(Etapas.ABRIR_FORMULARIO_NAO_CONFORMIDADES);
                 break;
             }
+            case CADASTRO_NAO_CONFORMIDADE : {
+                etapas.add(Etapas.ABRIR_FORMULARIO_CADASTRO_NAO_CONFORMIDADE);
+                break;
+            }
             case FECHAR : {
                 etapas.add(Etapas.SAIR);
             }

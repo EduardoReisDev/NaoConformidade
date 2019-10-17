@@ -21,6 +21,7 @@ public class Controller {
     private Component componentePai;
     private UsuarioController usuarioController;
     private ResposavelController resposavelController;
+    private NaoConformidadeController naoConformidadeController;
     private Usuario usuario;
     
     private boolean sucessoAcoes;
@@ -34,6 +35,7 @@ public class Controller {
     
     public Controller(){
         resposavelController = new ResposavelController();
+        naoConformidadeController = new NaoConformidadeController();
     }
     
     public void setUsuarioController(UsuarioController usuarioController){
@@ -42,6 +44,14 @@ public class Controller {
 
     public UsuarioController getUsuarioController() {
         return usuarioController;
+    }
+
+    public NaoConformidadeController getNaoConformidadeController() {
+        return naoConformidadeController;
+    }
+
+    public void setNaoConformidadeController(NaoConformidadeController naoConformidadeController) {
+        this.naoConformidadeController = naoConformidadeController;
     }
 
     public void setComponentePai(Component componentePai) {
@@ -120,6 +130,10 @@ public class Controller {
             }
             case ABRIR_FORMULARIO_NAO_CONFORMIDADES : {
                 abreTelaNaoConformidade();
+                break;
+            }
+            case ABRIR_FORMULARIO_CADASTRO_NAO_CONFORMIDADE : {
+                naoConformidadeController.cadastrar();
                 break;
             }
             case SAIR : {

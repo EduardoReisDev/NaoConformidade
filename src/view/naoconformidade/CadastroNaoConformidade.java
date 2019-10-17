@@ -5,6 +5,8 @@
  */
 package view.naoconformidade;
 
+import controller.Controller;
+import controller.NaoConformidadeController;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -22,15 +24,19 @@ import datechooser.beans.DateChooserCombo;
  * @author Eduardo
  */
 public class CadastroNaoConformidade extends javax.swing.JDialog {
-
+    NaoConformidadeController naoConformidadeController;
     /**
      * Creates new form CadastroNaoConformidade
      * @param parent
      * @param modal
+     * @param controller
      */
+
     public CadastroNaoConformidade(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        naoConformidadeController = new NaoConformidadeController();
+        naoConformidadeController.setComponentePai(this);
     }
 
     /**
@@ -147,6 +153,11 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
 
         btnSalvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         Codigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Codigo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -376,7 +387,7 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        Codigo.requestFocusInWindow();
+        
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void btnImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImgActionPerformed
@@ -437,9 +448,7 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnImgActionPerformed
 
     private void CodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CodigoKeyReleased
-         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            Descricao.requestFocusInWindow();
-        }
+         
     }//GEN-LAST:event_CodigoKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -448,13 +457,13 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
 
     private void DescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescricaoKeyPressed
           if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            Reincidencia.requestFocusInWindow();
+            Abrangencia.requestFocusInWindow();
         }
     }//GEN-LAST:event_DescricaoKeyPressed
 
     private void AbrangenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AbrangenciaKeyPressed
           if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            Reincidencia.requestFocusInWindow();
+            Origem.requestFocusInWindow();
         }
     }//GEN-LAST:event_AbrangenciaKeyPressed
 
@@ -488,48 +497,13 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnImgKeyPressed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroNaoConformidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroNaoConformidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroNaoConformidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroNaoConformidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        if(naoConformidadeController.validarDescricao(Descricao.getText())){
+            Descricao.requestFocus();
+            naoConformidadeController.obrigatorio(this);
+            
         }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CadastroNaoConformidade dialog = new CadastroNaoConformidade(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
+    }//GEN-LAST:event_btnSalvarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Abrangencia;
     private javax.swing.JTextField AcaoCorrecao;

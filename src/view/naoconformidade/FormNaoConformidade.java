@@ -5,6 +5,7 @@
  */
 package view.naoconformidade;
 
+import controller.Acao;
 import controller.Controller;
 
 /**
@@ -300,7 +301,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnNovo1ActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        //controller.abreTelaCadastroNaoConformidade();
+       controller.executar(Acao.CADASTRO_NAO_CONFORMIDADE, null);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
