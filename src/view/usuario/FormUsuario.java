@@ -7,6 +7,9 @@ package view.usuario;
 
 import controller.Acao;
 import controller.Controller;
+import controller.UsuarioController;
+import java.awt.Component;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Usuario;
@@ -16,27 +19,26 @@ import model.Usuario;
  * @author Eduardo
  */
 public class FormUsuario extends javax.swing.JDialog {
+    UsuarioController usuarioController;
     Controller controller;
-    DefaultTableModel modeloTabela;
-    private final String[] colunas ={"Código", "Nome", "CPF", "Usuário", "Usuário Master"};
     /**
      * Creates new form GerenciarUsuarios
      * @param parent
      * @param modal
      */
-    public FormUsuario(java.awt.Frame parent, boolean modal, Controller controller) {
+    public FormUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.controller = controller;
-        criarEstruturaTabelaEListarTodos();
+        usuarioController = new UsuarioController();
+        controller = new Controller();
+        controller.setComponentePai(parent);
+        usuarioController.setComponentePai(parent);
     }
     
-    private void criarEstruturaTabelaEListarTodos(){
-        criarEstrurturaTabela();
-        controller.getUsuarioController().listarUsuarios(this::popularTabela);
-    }
+    DefaultTableModel modeloTabela;
+    private final String[] colunas ={"Código", "Nome", "CPF", "Usuário", "Usuário Master"};
     
-    public void criarEstrurturaTabela(){
+    public void inicializarTabela(){
         modeloTabela = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -49,8 +51,12 @@ public class FormUsuario extends javax.swing.JDialog {
         tblUsuarios.setModel(modeloTabela);
     }
     
-    private void popularTabela(Usuario usuario){
-        modeloTabela.addRow(new String[]{
+    public void listar(){
+        usuarioController.listarUsuarios(this::adicionarConteudo);
+    }
+    
+    public void adicionarConteudo(Usuario usuario){
+        modeloTabela.addRow(new Object[]{
             String.format("%010d", usuario.getId()),
             usuario.getNome(),
             usuario.getCpf(),
@@ -69,8 +75,9 @@ public class FormUsuario extends javax.swing.JDialog {
     }
     
     public void adicionar(){
-        controller.executar(Acao.CADASTRO_USUARIO, null);
-        criarEstruturaTabelaEListarTodos();
+        controller.executar(Acao.CADASTRO_USUARIO);
+        inicializarTabela();
+        listar();
     }
     
     private void exibirMensagemLinhaNaoSelecionada(){
@@ -86,31 +93,33 @@ public class FormUsuario extends javax.swing.JDialog {
         return -1;
     }
     
-    private void criarEstruturaTabelaEBuscar(){
-        criarEstrurturaTabela();
-        controller.getUsuarioController().listarUsuariosPorNome(this::popularTabela, txtBusca.getText());
+    private void buscar(){
+        inicializarTabela();
+        usuarioController.listarUsuariosPorNome(this::adicionarConteudo, txtBusca.getText());
     }
     
     private void editar(){
         int id=pegarIdDaLinhaSelecionada();
         if(id>=0){
-            controller.executar(Acao.EDITA_USUARIO, new Object[]{id});
+            usuarioController.editar(id);
         }
         else{
             exibirMensagemLinhaNaoSelecionada();
         }
-        criarEstruturaTabelaEListarTodos();
+        inicializarTabela();
+        listar();
     }
     
     private void excluir(){
         int id = pegarIdDaLinhaSelecionada();
         if(id>=0){
-            controller.executar(Acao.EXCLUI_USUARIO, new Object[]{id});
+            usuarioController.excluir(id);
         }
         else{
             exibirMensagemLinhaNaoSelecionada();
         }
-        criarEstruturaTabelaEListarTodos();
+        inicializarTabela();
+        listar();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -137,7 +146,6 @@ public class FormUsuario extends javax.swing.JDialog {
         btnExcuir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerenciar Usuários", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
@@ -359,7 +367,7 @@ public class FormUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnExcuirActionPerformed
 
     private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
-        criarEstruturaTabelaEBuscar();
+        buscar();
     }//GEN-LAST:event_txtBuscaKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

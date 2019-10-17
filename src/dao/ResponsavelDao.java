@@ -40,11 +40,11 @@ public class ResponsavelDao implements Crud<Responsavel>{
     }
 
     @Override
-    public void listarTodos(Consumer<? super Responsavel> resultado) {
+    public void lerTodos(Consumer<? super Responsavel> resultado) {
         Connection conexao = new Conexao().abreConexao();
-        Responsavel responsavel;
+        Responsavel responsavel = null;
         try{
-            PreparedStatement stmt = conexao.prepareStatement("select * from responsavel");
+            PreparedStatement stmt = conexao.prepareStatement("select * from usuario");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 responsavel = new Responsavel(
@@ -64,7 +64,7 @@ public class ResponsavelDao implements Crud<Responsavel>{
     }
 
     @Override
-    public Responsavel listarPorId(int id) {
+    public Responsavel lerPorId(int id) {
         Connection conexao = new Conexao().abreConexao();
         Responsavel responsavel = null;
         try{

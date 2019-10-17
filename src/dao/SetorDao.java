@@ -42,7 +42,7 @@ public class SetorDao implements Crud<Setor>{
     }
 
     @Override
-    public void listarTodos(Consumer<? super Setor> resultado) {
+    public void lerTodos(Consumer<? super Setor> resultado) {
         String query = "select * from setor";
         Connection conexao = new Conexao().abreConexao();
         Setor result;
@@ -68,7 +68,7 @@ public class SetorDao implements Crud<Setor>{
 
 
     @Override
-    public Setor listarPorId(int id) {
+    public Setor lerPorId(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

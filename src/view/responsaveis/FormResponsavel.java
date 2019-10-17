@@ -6,8 +6,6 @@
 package view.responsaveis;
 
 import controller.Controller;
-import javax.swing.table.DefaultTableModel;
-import model.Responsavel;
 
 /**
  *
@@ -15,49 +13,17 @@ import model.Responsavel;
  */
 public class FormResponsavel extends javax.swing.JDialog {
     Controller controller;
-    private final String [] colunas;
-    DefaultTableModel modeloTabela;
+
     /**
      * Creates new form Responsaveis
      */
-    public FormResponsavel(java.awt.Frame parent, boolean modal, Controller controller) {
+    public FormResponsavel(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.colunas = new String[]{"Código", "Nome", "CPF"};
         initComponents();
-        this.controller = controller;
-        criarEstruturaTabelaEListarTodos();
+        
+        controller = new Controller();
     }
 
-    private void criarEstruturaTabelaEListarTodos(){
-        criarEstruturaTabela();
-        controller.getResposavelController().listarTodos(this::popularTabela);
-    }
-    
-    private void criarEstruturaTabela(){
-        modeloTabela = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        for(String col : colunas){
-            modeloTabela.addColumn(col);
-        }
-        tblResponsaveis.setModel(modeloTabela);
-    }
-    
-    private void popularTabela(Responsavel responsavel){
-        modeloTabela.addRow(new String[]{
-            String.format("%010d", responsavel.getId()),
-            responsavel.getNome(),
-            responsavel.getCpf()
-        });
-    }
-    
-    private void criarEstruturaTabelaEBuscar(){
-        
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,7 +38,7 @@ public class FormResponsavel extends javax.swing.JDialog {
         btnCadastrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblResponsaveis = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -118,8 +84,8 @@ public class FormResponsavel extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Responsáveis cadastrados");
 
-        tblResponsaveis.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tblResponsaveis.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -136,7 +102,7 @@ public class FormResponsavel extends javax.swing.JDialog {
                 "Código", "Nome do Responsável", "CPF"
             }
         ));
-        jScrollPane1.setViewportView(tblResponsaveis);
+        jScrollPane1.setViewportView(jTable1);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -144,14 +110,10 @@ public class FormResponsavel extends javax.swing.JDialog {
         jLabel2.setText("Buscar Responsável");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField1.setText("Digite aqui...");
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -292,20 +254,61 @@ public class FormResponsavel extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        //controller.abreTelaCadastrarResponsavel();
+        controller.abreTelaCadastrarResponsavel();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        //controller.abreTelaEditarResponsavel();
+        controller.abreTelaEditarResponsavel();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FormResponsavel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FormResponsavel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FormResponsavel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FormResponsavel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                FormResponsavel dialog = new FormResponsavel(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
@@ -320,7 +323,7 @@ public class FormResponsavel extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tblResponsaveis;
     // End of variables declaration//GEN-END:variables
 }
