@@ -14,8 +14,8 @@ import java.util.function.Consumer;
  */
 public interface Crud<T> {
     public boolean criar(T dados);
-    public void lerTodos(Consumer <?super T> resultado);
-    public T lerPorId(int id);
+    public void listarTodos(Consumer <?super T> resultado);
+    public T listarPorId(int id);
     public boolean editar(T dados);
     public boolean excluir(int id);
 }

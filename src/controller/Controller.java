@@ -8,14 +8,8 @@ import java.awt.Component;
 import java.awt.Frame;
 import model.Usuario;
 import view.FormPrincipal;
-import view.naoconformidade.CadastroNaoConformidade;
-import view.naoconformidade.EditarNaoConformidade;
 import view.naoconformidade.FormNaoConformidade;
-import view.responsaveis.CadastrarResponsavel;
-import view.responsaveis.EditarResponsavel;
 import view.responsaveis.FormResponsavel;
-import view.setor.CadastroSetor;
-import view.setor.EditarSetor;
 import view.setor.FormSetor;
 import view.usuario.FormUsuario;
 
@@ -24,38 +18,46 @@ import view.usuario.FormUsuario;
  * @author leona
  */
 public class Controller {
-    UsuarioController usuarioController;
+    private Component componentePai;
+    private UsuarioController usuarioController;
+    private ResposavelController resposavelController;
+    private Usuario usuario;
+    
+    private boolean sucessoAcoes;
     
     FormNaoConformidade telaNaoConformidade;
-    CadastroNaoConformidade telaCadastroNaoConformidade;
-    EditarNaoConformidade telaEditarNaoConformidade;
-    
     FormResponsavel telaResponsavel;
-    CadastrarResponsavel telaCadastrarResponsavel;
-    EditarResponsavel telaEditarResponsavel;
-    
     FormSetor telaSetor;
-    CadastroSetor telaCadastrarSetor;
-    EditarSetor telaEditarSetor;
-    
     FormUsuario telaUsuario;
     FormPrincipal telaPrincipal;
-
-    Component componentePai;
-
+    
+    
+    public Controller(){
+        resposavelController = new ResposavelController();
+    }
+    
     public void setUsuarioController(UsuarioController usuarioController){
         this.usuarioController = usuarioController;
+    }
+
+    public UsuarioController getUsuarioController() {
+        return usuarioController;
     }
 
     public void setComponentePai(Component componentePai) {
         this.componentePai = componentePai;
     }
+
+    public ResposavelController getResposavelController() {
+        return resposavelController;
+    }
+
+    public void setResposavelController(ResposavelController resposavelController) {
+        this.resposavelController = resposavelController;
+    }
     
-    Usuario usuario;
-    //TESTE COM ETAPAS....
     
-    private boolean sucessoAcoes;
-    
+   
     public void executar(Acao acao, Object[] parametros){
         sucessoAcoes = true;
         RegraNegocio.obterEtapas(acao).forEach(etapa->{
@@ -77,8 +79,8 @@ public class Controller {
                 return usuario!= null;
             }
             case LOGIN_MASTER : {
-                usuario = usuarioController.loginMaster();
-                return usuario != null;
+                usuarioController.loginMaster();
+                //return usuario != null;
             }
             case ABRIR_FORMULARIO_PRINCIPAL : {
                 abreTelaPrincipal();
@@ -116,7 +118,10 @@ public class Controller {
                 abreTelaSetor();
                 break;
             }
-            
+            case ABRIR_FORMULARIO_NAO_CONFORMIDADES : {
+                abreTelaNaoConformidade();
+                break;
+            }
             case SAIR : {
                 System.exit(0);
             }
@@ -125,77 +130,40 @@ public class Controller {
     }
     
     
-    public void abreTelaNaoConformidade(){
-        telaNaoConformidade = new FormNaoConformidade((Frame) componentePai, true);
+    private void abreTelaNaoConformidade(){
+        telaNaoConformidade = new FormNaoConformidade((Frame) componentePai, true, this);
         telaNaoConformidade.setLocationRelativeTo(null);
         telaNaoConformidade.setVisible(true);
     }
     
-    public void abreTelaCadastroNaoConformidade(){
-        telaCadastroNaoConformidade = new CadastroNaoConformidade((Frame) componentePai, true);
-        telaCadastroNaoConformidade.setLocationRelativeTo(null);
-        telaCadastroNaoConformidade.setVisible(true);
-    }
-    
-    public void abreTelaEditarNaoConformidade(){
-        telaEditarNaoConformidade = new EditarNaoConformidade((Frame) componentePai, true);
-        telaEditarNaoConformidade.setLocationRelativeTo(null);
-        telaEditarNaoConformidade.setVisible(true);
-    }
-    
-    public void abreTelaResponsavel(){
-        telaResponsavel = new FormResponsavel((Frame) componentePai, true);
+    private void abreTelaResponsavel(){
+        telaResponsavel = new FormResponsavel((Frame) componentePai, true, this);
         telaResponsavel.setLocationRelativeTo(null);
         telaResponsavel.setVisible(true);
     }
     
-    public void abreTelaCadastrarResponsavel(){
-        telaCadastrarResponsavel = new CadastrarResponsavel((Frame) componentePai, true);
-        telaCadastrarResponsavel.setLocationRelativeTo(null);
-        telaCadastrarResponsavel.setVisible(true);
-    }
-    
-    public void abreTelaEditarResponsavel(){
-        telaEditarResponsavel = new EditarResponsavel((Frame) componentePai, true);
-        telaEditarResponsavel.setLocationRelativeTo(null);
-        telaEditarResponsavel.setVisible(true);
-    }
-    
-    public void abreTelaSetor(){
-        telaSetor= new FormSetor((Frame) componentePai, true);
+    private void abreTelaSetor(){
+        telaSetor= new FormSetor((Frame) componentePai, true, this);
         telaSetor.setLocationRelativeTo(null);
         telaSetor.setVisible(true);
     }
     
-    public void abreTelaCadastrarSetor(){
-        telaCadastrarSetor = new CadastroSetor((Frame) componentePai, true);
-        telaCadastrarSetor.setLocationRelativeTo(null);
-        telaCadastrarSetor.setVisible(true);
-    }
-    
-    public void abreTelaEditarSetor(){
-        telaEditarSetor = new EditarSetor((Frame) componentePai, true);
-        telaEditarSetor.setLocationRelativeTo(null);
-        telaEditarSetor.setVisible(true);
-    }
-    
     private void abreTelaUsuario(){
-        telaUsuario = new FormUsuario((Frame) componentePai, true);
+        telaUsuario = new FormUsuario((Frame) componentePai, true, this);
         telaUsuario.setLocationRelativeTo(null);
-        telaUsuario.inicializarTabela();
-        telaUsuario.listar();
         telaUsuario.setVisible(true);
+    }
+    
+    private void abreTelaPrincipal(){
+        telaPrincipal= new FormPrincipal(this);
+        telaPrincipal.setLocationRelativeTo(null);
+        //telaPrincipal.setTitle();
+        telaPrincipal.setExtendedState(FormPrincipal.MAXIMIZED_BOTH);
+        telaPrincipal.setVisible(true);
     }
     
     public void inicio(){
         setUsuarioController(new UsuarioController());
         executar(Acao.INICIAR_SISTEMA, null);
-    }
-    
-    private void abreTelaPrincipal(){
-        telaPrincipal= new FormPrincipal();
-        telaPrincipal.setLocationRelativeTo(null);
-        telaPrincipal.setExtendedState(FormPrincipal.MAXIMIZED_BOTH);
-        telaPrincipal.setVisible(true);
     }
 }

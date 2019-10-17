@@ -44,6 +44,7 @@ public class RegraNegocio {
                 break;
             }
             case ABRE_FORMULARIO_SETOR : {
+                etapas.add(Etapas.LOGIN);
                 etapas.add(Etapas.ABRIR_FORMULARIO_SETORES);
                 break;
             }

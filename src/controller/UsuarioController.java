@@ -40,7 +40,7 @@ public class UsuarioController {
      * @param resultado resultado da listagem
      */
     public void listarUsuarios(Consumer<? super Usuario> resultado){
-        new UsuarioDao().lerTodos(resultado::accept);
+        new UsuarioDao().listarTodos(resultado::accept);
     }
     
     /**
@@ -58,7 +58,7 @@ public class UsuarioController {
      * @return dados de usuario, ou null se não for encontrado nenhum usuário
      */
     public Usuario listarPorId(int id){
-        return new UsuarioDao().lerPorId(id);
+        return new UsuarioDao().listarPorId(id);
     }
     
     /**

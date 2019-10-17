@@ -7,9 +7,6 @@ package view.usuario;
 
 import controller.Acao;
 import controller.Controller;
-import controller.UsuarioController;
-import java.awt.Component;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Usuario;
@@ -19,27 +16,27 @@ import model.Usuario;
  * @author Eduardo
  */
 public class FormUsuario extends javax.swing.JDialog {
-    UsuarioController usuarioController;
     Controller controller;
+    DefaultTableModel modeloTabela;
+    private final String[] colunas ={"Código", "Nome", "CPF", "Usuário", "Usuário Master"};
     /**
      * Creates new form GerenciarUsuarios
      * @param parent
      * @param modal
      */
-    public FormUsuario(java.awt.Frame parent, boolean modal) {
+    public FormUsuario(java.awt.Frame parent, boolean modal, Controller controller) {
         super(parent, modal);
         initComponents();
-        usuarioController = new UsuarioController();
-        usuarioController.setComponentePai(parent);
-        controller = new Controller();
-        controller.setUsuarioController(usuarioController);
-        controller.setComponentePai(parent);
+        this.controller = controller;
+        criarEstruturaTabelaEListarTodos();
     }
     
-    DefaultTableModel modeloTabela;
-    private final String[] colunas ={"Código", "Nome", "CPF", "Usuário", "Usuário Master"};
+    private void criarEstruturaTabelaEListarTodos(){
+        criarEstrurturaTabela();
+        controller.getUsuarioController().listarUsuarios(this::popularTabela);
+    }
     
-    public void inicializarTabela(){
+    public void criarEstrurturaTabela(){
         modeloTabela = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -52,11 +49,7 @@ public class FormUsuario extends javax.swing.JDialog {
         tblUsuarios.setModel(modeloTabela);
     }
     
-    public void listar(){
-        usuarioController.listarUsuarios(this::adicionarConteudo);
-    }
-    
-    public void adicionarConteudo(Usuario usuario){
+    private void popularTabela(Usuario usuario){
         modeloTabela.addRow(new String[]{
             String.format("%010d", usuario.getId()),
             usuario.getNome(),
@@ -77,8 +70,7 @@ public class FormUsuario extends javax.swing.JDialog {
     
     public void adicionar(){
         controller.executar(Acao.CADASTRO_USUARIO, null);
-        inicializarTabela();
-        listar();
+        criarEstruturaTabelaEListarTodos();
     }
     
     private void exibirMensagemLinhaNaoSelecionada(){
@@ -94,9 +86,9 @@ public class FormUsuario extends javax.swing.JDialog {
         return -1;
     }
     
-    private void buscar(){
-        inicializarTabela();
-        usuarioController.listarUsuariosPorNome(this::adicionarConteudo, txtBusca.getText());
+    private void criarEstruturaTabelaEBuscar(){
+        criarEstrurturaTabela();
+        controller.getUsuarioController().listarUsuariosPorNome(this::popularTabela, txtBusca.getText());
     }
     
     private void editar(){
@@ -107,8 +99,7 @@ public class FormUsuario extends javax.swing.JDialog {
         else{
             exibirMensagemLinhaNaoSelecionada();
         }
-        inicializarTabela();
-        listar();
+        criarEstruturaTabelaEListarTodos();
     }
     
     private void excluir(){
@@ -119,8 +110,7 @@ public class FormUsuario extends javax.swing.JDialog {
         else{
             exibirMensagemLinhaNaoSelecionada();
         }
-        inicializarTabela();
-        listar();
+        criarEstruturaTabelaEListarTodos();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -369,7 +359,7 @@ public class FormUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnExcuirActionPerformed
 
     private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
-        buscar();
+        criarEstruturaTabelaEBuscar();
     }//GEN-LAST:event_txtBuscaKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
