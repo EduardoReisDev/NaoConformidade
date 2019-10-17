@@ -43,6 +43,7 @@ public class Controller {
     FormUsuario telaUsuario;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     FormCriar telaCadastrarUsuario;
     FormEditar telaEditarUsuario;
     
@@ -58,6 +59,8 @@ public class Controller {
 =======
 =======
 >>>>>>> parent of 49eaf2f... 17/10/-1
+=======
+>>>>>>> parent of 49eaf2f... 17/10/-1
     FormPrincipal telaPrincipal;
 
     Component componentePai;
@@ -67,6 +70,9 @@ public class Controller {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 49eaf2f... 17/10/-1
+=======
 >>>>>>> parent of 49eaf2f... 17/10/-1
 =======
 >>>>>>> parent of 49eaf2f... 17/10/-1
@@ -78,11 +84,14 @@ public class Controller {
     //TESTE COM ETAPAS....
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     private boolean sucessoAcoes;
     
     public void executar(Acao acao){
 =======
+=======
+>>>>>>> parent of 49eaf2f... 17/10/-1
 =======
 >>>>>>> parent of 49eaf2f... 17/10/-1
     
@@ -197,7 +206,11 @@ public class Controller {
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void abreTelaUsuario(){
+=======
+    private void abreTelaUsuario(){
+>>>>>>> parent of 49eaf2f... 17/10/-1
 =======
     private void abreTelaUsuario(){
 >>>>>>> parent of 49eaf2f... 17/10/-1
@@ -211,6 +224,7 @@ public class Controller {
         telaUsuario.setVisible(true);
     }
     
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public boolean abreTelaCadastrarUsuario(){
@@ -231,6 +245,11 @@ public class Controller {
         setUsuarioController(new UsuarioController());
         executar(Acao.INICIAR_SISTEMA, null);
 >>>>>>> parent of 49eaf2f... 17/10/-1
+=======
+    public void inicio(){
+        setUsuarioController(new UsuarioController());
+        executar(Acao.INICIAR_SISTEMA, null);
+>>>>>>> parent of 49eaf2f... 17/10/-1
     }
     
     private void abreTelaPrincipal(){
@@ -239,6 +258,7 @@ public class Controller {
         telaPrincipal.setExtendedState(FormPrincipal.MAXIMIZED_BOTH);
         telaPrincipal.setVisible(true);
     }
+<<<<<<< HEAD
 =======
     public void inicio(){
         setUsuarioController(new UsuarioController());
@@ -251,5 +271,7 @@ public class Controller {
         telaPrincipal.setExtendedState(FormPrincipal.MAXIMIZED_BOTH);
         telaPrincipal.setVisible(true);
     }
+>>>>>>> parent of 49eaf2f... 17/10/-1
+=======
 >>>>>>> parent of 49eaf2f... 17/10/-1
 }
