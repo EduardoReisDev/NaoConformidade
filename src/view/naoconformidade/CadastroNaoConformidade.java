@@ -5,7 +5,6 @@
  */
 package view.naoconformidade;
 
-import controller.NaoConformidadeController;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -22,7 +21,7 @@ import javax.swing.JOptionPane;
  * @author Eduardo
  */
 public class CadastroNaoConformidade extends javax.swing.JDialog {
-    NaoConformidadeController NCController = new NaoConformidadeController();
+
     /**
      * Creates new form CadastroNaoConformidade
      * @param parent
@@ -31,11 +30,6 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
     public CadastroNaoConformidade(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(this);
-        Descricao.requestFocusInWindow();
-    }
-    public void obrigatorio(){
-        JOptionPane.showMessageDialog(this, "Preencha este campo!","ATENÇÃO",JOptionPane.WARNING_MESSAGE);
     }
 
     /**
@@ -151,48 +145,52 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
 
         btnSalvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
+
+        Codigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Codigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CodigoKeyReleased(evt);
             }
         });
 
-        Codigo.setEditable(false);
-        Codigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         Descricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Descricao.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                DescricaoKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                DescricaoKeyReleased(evt);
             }
         });
 
         Abrangencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Abrangencia.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                AbrangenciaKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                AbrangenciaKeyReleased(evt);
             }
         });
 
         Origem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Origem.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                OrigemKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                OrigemKeyReleased(evt);
             }
         });
 
         Responsavel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Responsavel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "teste", "talvez" }));
+        Responsavel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
         Responsavel.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                ResponsavelKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ResponsavelKeyReleased(evt);
             }
         });
 
         AcaoCorrecao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        AcaoCorrecao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AcaoCorrecaoActionPerformed(evt);
+            }
+        });
         AcaoCorrecao.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                AcaoCorrecaoKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                AcaoCorrecaoKeyReleased(evt);
             }
         });
 
@@ -203,20 +201,12 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
                 btnImgActionPerformed(evt);
             }
         });
-        btnImg.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnImgKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                btnImgKeyReleased(evt);
-            }
-        });
 
         Reincidencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Reincidencia.setText("Reincidência");
         Reincidencia.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                ReincidenciaKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ReincidenciaKeyReleased(evt);
             }
         });
 
@@ -238,91 +228,85 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dataAcontecimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel7)
+                    .addComponent(AcaoCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel3)
                             .addGap(63, 63, 63)
                             .addComponent(jLabel4))
-                        .addComponent(Descricao)
+                        .addComponent(Descricao, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                         .addComponent(jLabel2)
-                        .addComponent(Codigo)
+                        .addComponent(Codigo, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                         .addComponent(jLabel6)
-                        .addComponent(Abrangencia)
-                        .addComponent(Origem)
+                        .addComponent(Abrangencia, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                        .addComponent(Origem, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addGap(0, 112, Short.MAX_VALUE))
-                                .addComponent(Responsavel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(101, 101, 101))
+                                .addComponent(Responsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel9))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Reincidencia))
                         .addComponent(jLabel1))
-                    .addComponent(AcaoCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Reincidencia))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10)
-                        .addGap(205, 205, 205))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(btnImg)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(visualizaImg, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(296, 296, 296)
-                .addComponent(btnSalvar)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSalvar)
+                            .addComponent(btnImg)
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(visualizaImg, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(4, 4, 4)
+                .addComponent(Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(2, 2, 2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dataAcontecimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Abrangencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Origem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnImg, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addGap(4, 4, 4)
-                        .addComponent(Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dataAcontecimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Abrangencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Origem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
+                        .addGap(28, 28, 28)
+                        .addComponent(Reincidencia))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Responsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9)
-                        .addGap(3, 3, 3)
-                        .addComponent(AcaoCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(visualizaImg, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Reincidencia)
-                .addGap(77, 77, 77)
-                .addComponent(btnSalvar))
+                        .addComponent(jLabel9)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AcaoCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnImg)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalvar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 11, Short.MAX_VALUE)
+                        .addComponent(visualizaImg, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -331,15 +315,15 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -504,6 +488,10 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
 >>>>>>> 49eaf2f38da8bbbbdf730b5e2b1e677aca898e77
     }// </editor-fold>//GEN-END:initComponents
 
+    private void AcaoCorrecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcaoCorrecaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AcaoCorrecaoActionPerformed
+
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         btnImg.requestFocusInWindow();
     }//GEN-LAST:event_jLabel10MouseClicked
@@ -537,7 +525,7 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-
+        Codigo.requestFocusInWindow();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void btnImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImgActionPerformed
@@ -597,75 +585,47 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
           
     }//GEN-LAST:event_btnImgActionPerformed
 
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        System.out.println(Descricao.getText());
-        System.out.println(Abrangencia.getText());
-        System.out.println(Origem.getText());
-        System.out.println(AcaoCorrecao.getText());
-    }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void DescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescricaoKeyPressed
-        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            if(!NCController.validarDescricao(Descricao.getText())){
-                
-                obrigatorio();
-            }
-            else{
-                System.out.println(Descricao.getText());
-                Abrangencia.requestFocusInWindow();
-            }
-        }
-    }//GEN-LAST:event_DescricaoKeyPressed
-
-    private void AbrangenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AbrangenciaKeyPressed
-          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-              if(NCController.validarAbrangencia(Abrangencia.getText())){
-                  obrigatorio();
-              }
-              else{
-                  Origem.requestFocusInWindow();
-              }
-        }
-    }//GEN-LAST:event_AbrangenciaKeyPressed
-
-    private void OrigemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_OrigemKeyPressed
+    private void CodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CodigoKeyReleased
          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            if(NCController.validarOrigem(Origem.getText())){
-                obrigatorio();
-            }
-            else{
-                Responsavel.requestFocusInWindow();
-            }
+            Descricao.requestFocusInWindow();
         }
-    }//GEN-LAST:event_OrigemKeyPressed
+    }//GEN-LAST:event_CodigoKeyReleased
 
-    private void ResponsavelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ResponsavelKeyPressed
+    private void DescricaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescricaoKeyReleased
          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
             Reincidencia.requestFocusInWindow();
         }
-    }//GEN-LAST:event_ResponsavelKeyPressed
+    }//GEN-LAST:event_DescricaoKeyReleased
 
-    private void AcaoCorrecaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AcaoCorrecaoKeyPressed
+    private void ReincidenciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReincidenciaKeyReleased
+         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Abrangencia.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_ReincidenciaKeyReleased
+
+    private void OrigemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_OrigemKeyReleased
+         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Responsavel.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_OrigemKeyReleased
+
+    private void AbrangenciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AbrangenciaKeyReleased
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Origem.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_AbrangenciaKeyReleased
+
+    private void ResponsavelKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ResponsavelKeyReleased
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            AcaoCorrecao.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_ResponsavelKeyReleased
+
+    private void AcaoCorrecaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AcaoCorrecaoKeyReleased
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
             btnImg.requestFocusInWindow();
         }
-    }//GEN-LAST:event_AcaoCorrecaoKeyPressed
-
-    private void ReincidenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReincidenciaKeyPressed
-         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            AcaoCorrecao.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_ReincidenciaKeyPressed
-
-    private void btnImgKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnImgKeyReleased
-         
-    }//GEN-LAST:event_btnImgKeyReleased
-
-    private void btnImgKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnImgKeyPressed
-        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            btnSalvar.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_btnImgKeyPressed
+    }//GEN-LAST:event_AcaoCorrecaoKeyReleased
 
     /**
      * @param args the command line arguments
