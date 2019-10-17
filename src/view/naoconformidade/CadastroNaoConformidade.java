@@ -160,9 +160,6 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 DescricaoKeyPressed(evt);
             }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                DescricaoKeyReleased(evt);
-            }
         });
 
         Abrangencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -170,18 +167,12 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 AbrangenciaKeyPressed(evt);
             }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                AbrangenciaKeyReleased(evt);
-            }
         });
 
         Origem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Origem.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 OrigemKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                OrigemKeyReleased(evt);
             }
         });
 
@@ -191,23 +182,12 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 ResponsavelKeyPressed(evt);
             }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                ResponsavelKeyReleased(evt);
-            }
         });
 
         AcaoCorrecao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        AcaoCorrecao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AcaoCorrecaoActionPerformed(evt);
-            }
-        });
         AcaoCorrecao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 AcaoCorrecaoKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                AcaoCorrecaoKeyReleased(evt);
             }
         });
 
@@ -218,12 +198,17 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
                 btnImgActionPerformed(evt);
             }
         });
+        btnImg.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnImgKeyPressed(evt);
+            }
+        });
 
         Reincidencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Reincidencia.setText("Reincidência");
         Reincidencia.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                ReincidenciaKeyReleased(evt);
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ReincidenciaKeyPressed(evt);
             }
         });
 
@@ -358,10 +343,6 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AcaoCorrecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcaoCorrecaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AcaoCorrecaoActionPerformed
-
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         btnImg.requestFocusInWindow();
     }//GEN-LAST:event_jLabel10MouseClicked
@@ -461,65 +442,51 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_CodigoKeyReleased
 
-    private void DescricaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescricaoKeyReleased
-         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            Reincidencia.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_DescricaoKeyReleased
-
-    private void ReincidenciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReincidenciaKeyReleased
-         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            Abrangencia.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_ReincidenciaKeyReleased
-
-    private void OrigemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_OrigemKeyReleased
-         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            Responsavel.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_OrigemKeyReleased
-
-    private void AbrangenciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AbrangenciaKeyReleased
-        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            Origem.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_AbrangenciaKeyReleased
-
-    private void ResponsavelKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ResponsavelKeyReleased
-        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            AcaoCorrecao.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_ResponsavelKeyReleased
-
-    private void AcaoCorrecaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AcaoCorrecaoKeyReleased
-        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            btnImg.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_AcaoCorrecaoKeyReleased
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void DescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescricaoKeyPressed
-        // TODO add your handling code here:
+          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Reincidencia.requestFocusInWindow();
+        }
     }//GEN-LAST:event_DescricaoKeyPressed
 
     private void AbrangenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AbrangenciaKeyPressed
-        // TODO add your handling code here:
+          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Reincidencia.requestFocusInWindow();
+        }
     }//GEN-LAST:event_AbrangenciaKeyPressed
 
     private void OrigemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_OrigemKeyPressed
-        // TODO add your handling code here:
+          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Reincidencia.requestFocusInWindow();
+        }
     }//GEN-LAST:event_OrigemKeyPressed
 
     private void ResponsavelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ResponsavelKeyPressed
-        // TODO add your handling code here:
+          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Reincidencia.requestFocusInWindow();
+        }
     }//GEN-LAST:event_ResponsavelKeyPressed
 
     private void AcaoCorrecaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AcaoCorrecaoKeyPressed
-        // TODO add your handling code here:
+          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Reincidencia.requestFocusInWindow();
+        }
     }//GEN-LAST:event_AcaoCorrecaoKeyPressed
+
+    private void ReincidenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReincidenciaKeyPressed
+          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Reincidencia.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_ReincidenciaKeyPressed
+
+    private void btnImgKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnImgKeyPressed
+          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            Reincidencia.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_btnImgKeyPressed
 
     /**
      * @param args the command line arguments
