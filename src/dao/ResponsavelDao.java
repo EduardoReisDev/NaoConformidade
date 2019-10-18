@@ -62,6 +62,30 @@ public class ResponsavelDao implements Crud<Responsavel>{
             Conexao.fechaConexao(conexao);
         }
     }
+    
+    public void listarPorNome(Consumer<? super Responsavel> resultado, String nome) {
+        String query = "SELECT * FROM responsavel WHERE nome like '"+nome+"%'";
+        Connection conexao = new Conexao().abreConexao();
+        Responsavel responsavel = null;
+        try{
+            PreparedStatement stmt = conexao.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                responsavel = new Responsavel(
+                        rs.getInt("id"), 
+                        rs.getString("cpf"),
+                        rs.getString("nome")
+                );
+                resultado.accept(responsavel);
+            }
+        }
+        catch (SQLException e){
+            System.out.println("erro na busca "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
+    }
 
     @Override
     public Responsavel listarPorId(int id) {

@@ -19,6 +19,7 @@ import view.usuario.FormUsuario;
  */
 public class Controller {
     private Component componentePai;
+    private DadosController dadosController;
     private UsuarioController usuarioController;
     private ResposavelController resposavelController;
     private Usuario usuario;
@@ -33,8 +34,15 @@ public class Controller {
     
     
     public Controller(){
+        dadosController =  new DadosController();
         resposavelController = new ResposavelController();
+        usuarioController = new UsuarioController();
     }
+
+    public DadosController getDadosController() {
+        return dadosController;
+    }
+    
     
     public void setUsuarioController(UsuarioController usuarioController){
         this.usuarioController = usuarioController;
@@ -163,7 +171,7 @@ public class Controller {
     }
     
     public void inicio(){
-        setUsuarioController(new UsuarioController());
+        new DadosController().verificarBanco();
         executar(Acao.INICIAR_SISTEMA, null);
     }
 }

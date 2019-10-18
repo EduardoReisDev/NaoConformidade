@@ -18,7 +18,7 @@ public class ResposavelController {
         new ResponsavelDao().listarTodos(responsavel::accept);
     }
     public void listarPorNome(Consumer <?super Responsavel> responsavel, String nome){
-        
+        new ResponsavelDao().listarPorNome(responsavel::accept, nome);
     }
     public Responsavel listarPorId(int id){
         return new ResponsavelDao().listarPorId(id);

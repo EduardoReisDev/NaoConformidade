@@ -7,7 +7,6 @@ package view;
 
 import controller.Acao;
 import controller.Controller;
-import controller.UsuarioController;
 
 /**
  *
@@ -47,13 +46,23 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnGerenciarSetores = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btnGerarRelatorioMensal = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         btnGerenciarUsuarios = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        menuImportar = new javax.swing.JMenuItem();
+        menuExportar = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        menuSair = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        menuAjuda = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        menuSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Gerenciamento de Não Conformidades");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -221,9 +230,6 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Sistema de Gerenciamento de Não Conformidades");
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Últimas Não Conformidades");
 
@@ -258,6 +264,48 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jMenu2.setText("Arquivo");
+
+        menuImportar.setText("Importar Banco de dados");
+        menuImportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuImportarActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuImportar);
+
+        menuExportar.setText("Exportar Banco de dados");
+        menuExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuExportarActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuExportar);
+        jMenu2.add(jSeparator1);
+
+        menuSair.setText("Sair");
+        menuSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSairActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuSair);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu1.setText("Ajuda");
+
+        menuAjuda.setText("Ajuda");
+        jMenu1.add(menuAjuda);
+        jMenu1.add(jSeparator2);
+
+        menuSobre.setText("Sobre");
+        jMenu1.add(menuSobre);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -272,7 +320,6 @@ public class FormPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -291,9 +338,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(19, 19, 19)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -337,6 +382,18 @@ public class FormPrincipal extends javax.swing.JFrame {
         controller.executar(Acao.ABRE_FORMULARIO_USUARIO, null);
     }//GEN-LAST:event_btnGerenciarUsuariosActionPerformed
 
+    private void menuImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuImportarActionPerformed
+        controller.getDadosController().importarBanco();
+    }//GEN-LAST:event_menuImportarActionPerformed
+
+    private void menuExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExportarActionPerformed
+        controller.getDadosController().exportarBanco();
+    }//GEN-LAST:event_menuExportarActionPerformed
+
+    private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_menuSairActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGerarRelatorioMensal;
@@ -345,9 +402,11 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnGerenciarSetores;
     private javax.swing.JButton btnGerenciarUsuarios;
     private javax.swing.JButton btnSair;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -355,6 +414,13 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JMenuItem menuAjuda;
+    private javax.swing.JMenuItem menuExportar;
+    private javax.swing.JMenuItem menuImportar;
+    private javax.swing.JMenuItem menuSair;
+    private javax.swing.JMenuItem menuSobre;
     // End of variables declaration//GEN-END:variables
 }
