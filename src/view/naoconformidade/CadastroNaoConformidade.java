@@ -35,6 +35,7 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
     public CadastroNaoConformidade(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        Descricao.requestFocus();
         naoConformidadeController = new NaoConformidadeController();
         naoConformidadeController.setComponentePai(this);
     }
@@ -81,11 +82,6 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Código");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Descrição");
@@ -159,12 +155,8 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
             }
         });
 
+        Codigo.setEditable(false);
         Codigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Codigo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                CodigoKeyReleased(evt);
-            }
-        });
 
         Descricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Descricao.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -386,10 +378,6 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
         Descricao.requestFocusInWindow();
     }//GEN-LAST:event_jLabel2MouseClicked
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        
-    }//GEN-LAST:event_jLabel1MouseClicked
-
     private void btnImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImgActionPerformed
         JFileChooser file = new JFileChooser();
         file.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -447,41 +435,57 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
           
     }//GEN-LAST:event_btnImgActionPerformed
 
-    private void CodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CodigoKeyReleased
-         
-    }//GEN-LAST:event_CodigoKeyReleased
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void DescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescricaoKeyPressed
-          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            Abrangencia.requestFocusInWindow();
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+           if(naoConformidadeController.validarTexto(Descricao.getText())){
+                naoConformidadeController.obrigatorio(this);  
+            } 
+            else{
+                Abrangencia.requestFocus();
+            }
         }
     }//GEN-LAST:event_DescricaoKeyPressed
 
     private void AbrangenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AbrangenciaKeyPressed
-          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            Origem.requestFocusInWindow();
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            if(naoConformidadeController.validarTexto(Abrangencia.getText())){
+                naoConformidadeController.obrigatorio(this);  
+            } 
+            else{
+            Origem.requestFocus();
+            }
         }
     }//GEN-LAST:event_AbrangenciaKeyPressed
 
     private void OrigemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_OrigemKeyPressed
-          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            Reincidencia.requestFocusInWindow();
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            if(naoConformidadeController.validarTexto(Origem.getText())){
+                naoConformidadeController.obrigatorio(this);  
+            } 
+            else{
+            Reincidencia.requestFocus();
+            }
         }
     }//GEN-LAST:event_OrigemKeyPressed
 
     private void ResponsavelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ResponsavelKeyPressed
-          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
             Reincidencia.requestFocusInWindow();
         }
     }//GEN-LAST:event_ResponsavelKeyPressed
 
     private void AcaoCorrecaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AcaoCorrecaoKeyPressed
-          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            if(naoConformidadeController.validarTexto(Origem.getText())){
+                naoConformidadeController.obrigatorio(this);  
+            } 
+            else{
             Reincidencia.requestFocusInWindow();
+            }
         }
     }//GEN-LAST:event_AcaoCorrecaoKeyPressed
 
@@ -498,10 +502,21 @@ public class CadastroNaoConformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnImgKeyPressed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(naoConformidadeController.validarDescricao(Descricao.getText())){
+        if(naoConformidadeController.validarTexto(Descricao.getText())){
             Descricao.requestFocus();
-            naoConformidadeController.obrigatorio(this);
-            
+            naoConformidadeController.obrigatorio(this); 
+        }
+        else if(naoConformidadeController.validarTexto(Abrangencia.getText())){
+            Abrangencia.requestFocus();
+            naoConformidadeController.obrigatorio(this); 
+        }
+        else if(naoConformidadeController.validarTexto(Origem.getText())){
+            Origem.requestFocus();
+            naoConformidadeController.obrigatorio(this); 
+        }
+        else if(naoConformidadeController.validarTexto(AcaoCorrecao.getText())){
+            AcaoCorrecao.requestFocus();
+            naoConformidadeController.obrigatorio(this); 
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

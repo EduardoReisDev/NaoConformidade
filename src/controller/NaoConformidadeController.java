@@ -8,6 +8,7 @@ package controller;
 import java.awt.Component;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
+import view.Mensagens;
 import view.naoconformidade.CadastroNaoConformidade;
 
 /**
@@ -26,20 +27,12 @@ public class NaoConformidadeController {
     }
     
     
-    public boolean validarDescricao(String nome){
-        return nome.equals(""); 
+    public boolean validarTexto(String texto){
+        return texto.equals(""); 
     }
-    public boolean validarAbrangencia(String descricao){
-        return descricao.equals("");
-    }
-    public boolean validarOrigem(String origem){
-        return origem.equals(""); 
-    }
-    public boolean validarAcaoCorrecao(String acaoCorrecao){
-        return acaoCorrecao.equals(""); 
-    }
+    
     public void obrigatorio(Component componentePai){
-        JOptionPane.showMessageDialog(componentePai, "Preencha este campo");
+        Mensagens.mensagem(componentePai, "Preencha este campo!", "ATENÇÃO!", 2);
     }
 
     void cadastrar() {
