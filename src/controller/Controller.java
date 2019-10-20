@@ -172,6 +172,18 @@ public class Controller {
     
     public void inicio(){
         new DadosController().verificarBanco();
+        long idTrhreadPrincipal = Thread.currentThread().getId();
+        Thread thread = Thread.currentThread(); 
+        /*new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Em outra Thread");
+                thread.resume();
+            }
+        }).start();
+        thread.suspend();
+        System.out.println("na thread principal");
+          */     
         executar(Acao.INICIAR_SISTEMA, null);
     }
 }

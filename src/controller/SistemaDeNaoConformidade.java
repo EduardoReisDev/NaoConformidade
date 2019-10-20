@@ -36,8 +36,8 @@ public class SistemaDeNaoConformidade {
         
         //Splash.splash();
        //java.awt.EventQueue.invokeLater(new Controller()::inicio);
-       //new Controller().inicio();
-       new DadosController().exportarBanco();
+       new Controller().inicio();
+       //new DadosController().exportarBanco();
         
     }
     
