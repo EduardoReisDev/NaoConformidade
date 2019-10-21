@@ -1,11 +1,8 @@
+    package controller;
 
- package controller;
-
-import  java.awt.Component ;
-import  java.awt.Frame ;
-import  javax.swing.JOptionPane ;
-import  view.Mensagens ;
-import  view.naoconformidade.CadastroNaoConformidade ;
+    import  java.awt.Component ;
+    import  view.Mensagens ;
+    import view.naoconformidade.CadatroNaoCoformidade;
 
     public class NaoConformidadeController {
     Component componentePai;
@@ -19,18 +16,19 @@ import  view.naoconformidade.CadastroNaoConformidade ;
     }
     
     
-     public boolean validarTexto( String texto ) { 
+     public boolean validarTexto(String texto) { 
         return texto.equals("");
     }
     
     public  void  obrigatorio( Component  componentePai ) {
-        Mensagens.mensagem (componentePai, " Preencha este campo! " , " ATENÇÃO! " , 2 );
+        Mensagens.mensagem(componentePai," Preencha este campo! "," ATENÇÃO! ", 2 );
     }
 
-    void  cadastrar () {
-        CadastroNaoConformidade telaCadastro =  new  CadastroNaoConformidade (( Frame ) componentePai, true );
-        telaCadastro . setLocationRelativeTo (componentePai);
-        telaCadastro . setVisible ( true );
+    public static void  cadastrar () {
+        CadatroNaoCoformidade cadatroNaoCoformidade;
+        cadatroNaoCoformidade = new CadatroNaoCoformidade(null, true);
+        cadatroNaoCoformidade.setLocationRelativeTo(null);
+        cadatroNaoCoformidade.setVisible(true);
     }
 
     

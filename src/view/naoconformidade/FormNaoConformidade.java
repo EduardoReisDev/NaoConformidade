@@ -6,6 +6,7 @@
 package view.naoconformidade;
 
 import controller.Controller;
+import controller.NaoConformidadeController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -323,7 +324,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnNovo1ActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        //controller.abreTelaCadastroNaoConformidade();
+        NaoConformidadeController.cadastrar();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
