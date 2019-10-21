@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.function.Consumer;
 import model.Responsavel;
 
@@ -149,6 +150,25 @@ public class ResponsavelDao implements Crud<Responsavel>{
         finally{
             Conexao.fechaConexao(conexao);
         }
+    }
+
+    public int getLastId() {
+        String query = "select max(id) as maxId from responsavel;";
+        Connection conexao = new Conexao().abreConexao();
+        try{
+            Statement stm = conexao.createStatement();
+            ResultSet res = stm.executeQuery(query);
+            while (res.next()){
+                return res.getInt("maxId");
+            }
+        }
+        catch(SQLException e){
+            System.out.println("erro na listagem "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
+        return 0; 
     }
     
 }

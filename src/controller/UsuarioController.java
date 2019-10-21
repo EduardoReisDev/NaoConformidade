@@ -30,6 +30,10 @@ public class UsuarioController {
         this.componentePai = componentePai;
     }
     
+    public void exibir(){
+        System.out.println(componentePai);
+    }
+    
     public UsuarioController(){
         usuarioNegocio = new UsuarioBusinnesObject();
         usuario = new Usuario();
@@ -188,7 +192,8 @@ public class UsuarioController {
      * @param usuario dados de usuário que serão utilizados para popular o formulário
      * @return se as informações inseridas no formulario de forma correta, retorna elas, se não, null 
      */
-    public Usuario abrirFormularioEditar(Usuario usuario) {
+    public Usuario abrirFormEditar(Usuario usuario) {
+        System.out.println(componentePai);
         FormEditar formularioEditar = new FormEditar((Frame) componentePai, true);
         formularioEditar.setLocationRelativeTo(null);
         formularioEditar.preencherCampos(usuario);
@@ -212,7 +217,7 @@ public class UsuarioController {
     public boolean editar(int id){
         Usuario usuarioEditar;
         Usuario usuarioSelecionado = listarPorId(id);
-        usuarioEditar = abrirFormularioEditar(usuarioSelecionado);//pega os dados do formulário
+        usuarioEditar = abrirFormEditar(usuarioSelecionado);//pega os dados do formulário
         if(usuarioEditar!=null){//se não, coloca o cpf e o id e insere no banco
             usuarioEditar.setCpf(usuarioSelecionado.getCpf());//pega o cpf do usuário selecionado
             usuarioEditar.setId(usuarioSelecionado.getId());//peda o id do usuário selecionado
@@ -233,7 +238,7 @@ public class UsuarioController {
      * Este método é responsável por abrir o formulário de cpf e retornar o cpf inserido
      * @return Uma String contendo o cpf fornecido ou null quando o cpf fornecido não é valido ou não fornecido
      */
-    private String formularioCpf(){
+    private String abrirFormCpf(){
         FormCpf formularioCpf = new FormCpf((Frame) componentePai, true);
         formularioCpf.setLocationRelativeTo(null);
         formularioCpf.setVisible(true);
@@ -248,7 +253,7 @@ public class UsuarioController {
      * Este método é responsável por abrir o formulário de cadastro de usuário e retornar os dados inseridos
      * @return dados de usuário caso forem válidos
      */
-    private Usuario formularioUsuario(){
+    private Usuario abrirFormCadastro(){
         FormCriar formularioUsuario = new FormCriar((Frame) componentePai, true);
         formularioUsuario.setLocationRelativeTo(null);
         usuario = null;
@@ -269,14 +274,14 @@ public class UsuarioController {
      * @return true se feito com sucesso, false se não
      */
     public boolean cadastrar(){
-        String cpf = formularioCpf();
+        String cpf = abrirFormCpf();
         if(cpf != null){//se retornou um cpf
             usuario = new UsuarioDao().listarPorCpf(cpf);
             if(usuario != null){//verifica no banco se existe um usuário com o mesmo cpf
                 editar(usuario.getId());
             }
             else{
-                usuario = formularioUsuario();
+                usuario = abrirFormCadastro();
                 if(usuario!=null){//se não retornar nulo, coloca o cpf e insere no banco
                     usuario.setCpf(cpf);
                     return new UsuarioDao().criar(usuario);//salva no banco de dados

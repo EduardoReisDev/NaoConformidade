@@ -82,18 +82,29 @@ public class DadosController {
         }
     }
     
-    public boolean importarBanco(){
-        String caminhoArquivoImportado = arquivoController.obterCaminhoEntrada();
+    public boolean importarBanco(boolean forcarSelecao){
+        String caminhoArquivoImportado = arquivoController.obterCaminhoEntrada(forcarSelecao);
         if(caminhoArquivoImportado != null){
             while(!isEstruturaValida(caminhoArquivoImportado)){
-                if(!Mensagens.confirmar(componentePai, "O arquivo selecionado não corresponde à base de "
-                        + "dados do Sistema de Gerenciamento de Não Conformidade."
-                        + "\nTentar novamente?\nSe não, um novo banco de dados será criado.", 
-                        "Sistema de Gerenciamento de Não Conformidade - "
-                        + "Arquivo selecionado não correspondente", JOptionPane.INFORMATION_MESSAGE)){
-                    break;
+                if(forcarSelecao){
+                    if(!Mensagens.confirmar(componentePai, "O arquivo selecionado não corresponde à base de "
+                            + "dados do Sistema de Gerenciamento de Não Conformidade."
+                            + "\nTentar novamente?\nSe não, um novo banco de dados será criado.", 
+                            "Sistema de Gerenciamento de Não Conformidade - "
+                            + "Arquivo selecionado não correspondente", JOptionPane.INFORMATION_MESSAGE)){
+                        break;
+                    }
                 }
-                caminhoArquivoImportado = arquivoController.obterCaminhoEntrada();
+                else{
+                    if(!Mensagens.confirmar(componentePai, "O arquivo selecionado não corresponde à base de "
+                            + "dados do Sistema de Gerenciamento de Não Conformidade."
+                            + "\nTentar novamente?", 
+                            "Sistema de Gerenciamento de Não Conformidade - "
+                            + "Arquivo selecionado não correspondente", JOptionPane.INFORMATION_MESSAGE)){
+                        break;
+                    }
+                }
+                caminhoArquivoImportado = arquivoController.obterCaminhoEntrada(forcarSelecao);
             }
             if(isEstruturaValida(caminhoArquivoImportado)){//se o arquivo é válido, copia ele pro diretório do sistema
                 arquivoController.copiarArquivo(caminhoArquivoImportado, caminho);
@@ -104,7 +115,7 @@ public class DadosController {
     }
     
     private void importarOuCriarBanco(){
-        if(!importarBanco()){
+        if(!importarBanco(true)){
             criarBanco();
         }
     }

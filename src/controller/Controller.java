@@ -7,6 +7,7 @@ package controller;
 import java.awt.Component;
 import java.awt.Frame;
 import model.Usuario;
+import view.DialogoConfirmaSair;
 import view.FormPrincipal;
 import view.naoconformidade.FormNaoConformidade;
 import view.responsaveis.FormResponsavel;
@@ -31,14 +32,21 @@ public class Controller {
     FormSetor telaSetor;
     FormUsuario telaUsuario;
     FormPrincipal telaPrincipal;
-    
-    
+    PropriedadesController propriedadesController;
+    DialogoConfirmaSair dialogoConfirmaSair;
+            
     public Controller(){
         dadosController =  new DadosController();
         resposavelController = new ResposavelController();
         usuarioController = new UsuarioController();
+        propriedadesController = new PropriedadesController(System.getProperty("user.dir")+"\\configuracoes.ini");
     }
 
+    
+    public void exibir(){
+        System.out.println(componentePai);
+    }
+    
     public DadosController getDadosController() {
         return dadosController;
     }
@@ -131,7 +139,7 @@ public class Controller {
                 break;
             }
             case SAIR : {
-                System.exit(0);
+                fechar();
             }
         }
         return true;
@@ -156,7 +164,7 @@ public class Controller {
         telaSetor.setVisible(true);
     }
     
-    private void abreTelaUsuario(){
+    public void abreTelaUsuario(){
         telaUsuario = new FormUsuario((Frame) componentePai, true, this);
         telaUsuario.setLocationRelativeTo(null);
         telaUsuario.setVisible(true);
@@ -168,6 +176,27 @@ public class Controller {
         //telaPrincipal.setTitle();
         telaPrincipal.setExtendedState(FormPrincipal.MAXIMIZED_BOTH);
         telaPrincipal.setVisible(true);
+    }
+    
+    public void setConfirmarFechar(boolean opcao){
+        propriedadesController.escrever("confirmar.fechar", String.valueOf(opcao));
+    }
+    
+    public void fechar(){
+        if(Boolean.parseBoolean(propriedadesController.ler("confirmar.fechar"))){
+            dialogoConfirmaSair = new DialogoConfirmaSair((Frame) componentePai, true);
+            dialogoConfirmaSair.setLocationRelativeTo(null);
+            dialogoConfirmaSair.setVisible(true);
+            if(dialogoConfirmaSair.isNaoMostrarNovamente()){
+                propriedadesController.escrever("confirmar.fechar", "false");
+            }
+            if(dialogoConfirmaSair.isSair()){
+                System.exit(0);
+            }
+        }
+        else{
+            System.exit(0);
+        }
     }
     
     public void inicio(){

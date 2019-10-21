@@ -56,6 +56,10 @@ public class FormPrincipal extends javax.swing.JFrame {
         menuExportar = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menuSair = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        menuConfirmar = new javax.swing.JMenuItem();
+        munuNaoConfirmar = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         menuAjuda = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
@@ -293,6 +297,30 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setText("Opções");
+
+        jMenu4.setText("Confirmar antes de sair");
+
+        menuConfirmar.setText("Confirmar");
+        menuConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConfirmarActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuConfirmar);
+
+        munuNaoConfirmar.setText("Não Confirmar");
+        munuNaoConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                munuNaoConfirmarActionPerformed(evt);
+            }
+        });
+        jMenu4.add(munuNaoConfirmar);
+
+        jMenu3.add(jMenu4);
+
+        jMenuBar1.add(jMenu3);
+
         jMenu1.setText("Ajuda");
 
         menuAjuda.setText("Ajuda");
@@ -380,10 +408,11 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void btnGerenciarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarUsuariosActionPerformed
         controller.executar(Acao.ABRE_FORMULARIO_USUARIO, null);
+       // controller.abreTelaUsuario();
     }//GEN-LAST:event_btnGerenciarUsuariosActionPerformed
 
     private void menuImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuImportarActionPerformed
-        controller.getDadosController().importarBanco();
+        controller.getDadosController().importarBanco(false);
     }//GEN-LAST:event_menuImportarActionPerformed
 
     private void menuExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExportarActionPerformed
@@ -393,6 +422,14 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_menuSairActionPerformed
+
+    private void munuNaoConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_munuNaoConfirmarActionPerformed
+        controller.setConfirmarFechar(false);
+    }//GEN-LAST:event_munuNaoConfirmarActionPerformed
+
+    private void menuConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConfirmarActionPerformed
+        controller.setConfirmarFechar(true);
+    }//GEN-LAST:event_menuConfirmarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -406,6 +443,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -418,9 +457,11 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JMenuItem menuAjuda;
+    private javax.swing.JMenuItem menuConfirmar;
     private javax.swing.JMenuItem menuExportar;
     private javax.swing.JMenuItem menuImportar;
     private javax.swing.JMenuItem menuSair;
     private javax.swing.JMenuItem menuSobre;
+    private javax.swing.JMenuItem munuNaoConfirmar;
     // End of variables declaration//GEN-END:variables
 }

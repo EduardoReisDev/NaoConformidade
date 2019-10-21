@@ -34,8 +34,8 @@ public class ArquivoController {
     private File arquivoEntrada;
     private File arquivoSaida;
     
-    public String obterCaminhoEntrada(){
-        escolherArquivoOrigem();
+    public String obterCaminhoEntrada(boolean forcarSelecao){
+        escolherArquivoOrigem(forcarSelecao);
         if(arquivoEntrada != null){
             return arquivoEntrada.getAbsolutePath();
         }
@@ -95,16 +95,21 @@ public class ArquivoController {
         }.execute();
     }
     
-    private void escolherArquivoOrigem(){
+    private void escolherArquivoOrigem(boolean forcarSelecao){
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivo de banco de dados", "db"));
         fileChooser.setAcceptAllFileFilterUsed(false);
         while(fileChooser.showOpenDialog(null) != JFileChooser.APPROVE_OPTION){
-            if(!Mensagens.confirmar(null, "Nenhum arquivo selecionado!\nTentar novamente?\n"
-                    + "Se não, um novo banco de dados será criado.", 
-                    "Sistema de Gerenciamento de Não Conformidade - "
-                            + "Nenhum arquivo selecionado", JOptionPane.INFORMATION_MESSAGE)){
+            if(forcarSelecao){
+                if(!Mensagens.confirmar(null, "Nenhum arquivo selecionado!\nTentar novamente?\n"
+                        + "Se não, um novo banco de dados será criado.", 
+                        "Sistema de Gerenciamento de Não Conformidade - "
+                                + "Nenhum arquivo selecionado", JOptionPane.INFORMATION_MESSAGE)){
+                    break;
+                }
+            }
+            else{
                 break;
             }
         }
