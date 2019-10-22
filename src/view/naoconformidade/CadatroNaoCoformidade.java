@@ -17,19 +17,38 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import model.NaoConformidade;
 
 /**
  *
  * @author Ricardo
  */
 public class CadatroNaoCoformidade extends javax.swing.JDialog {
-    NaoConformidadeController NCController = new controller.NaoConformidadeController();
+    NaoConformidadeController nCController = new controller.NaoConformidadeController();
 
     /** Creates new form cadatroNaoCoformidade */
     public CadatroNaoCoformidade(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+    
+    public boolean validarDados(){
+        if(!nCController.validarTexto(descricao.getText())){
+                descricao.requestFocus();
+                nCController.obrigatorio(this);
+            }
+        else if(!nCController.validarTexto(abrangencia.getText())){
+                abrangencia.requestFocus();
+                nCController.obrigatorio(this);
+            }
+        else if(!nCController.validarTexto(origem.getText())){
+                origem.requestFocus();
+                nCController.obrigatorio(this);
+            }
+        else if(!nCController.validarTexto(acaoCorrecao.getText())){
+                acaoCorrecao.requestFocus();
+                nCController.obrigatorio(this);
+            }
+        return false;
     }
 
     /** This method is called from within the constructor to
@@ -44,7 +63,7 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        dataRegistro = new javax.swing.JLabel();
+        labelx = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -53,17 +72,17 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
         Codigo = new javax.swing.JTextField();
-        Descricao = new javax.swing.JTextField();
-        Abrangencia = new javax.swing.JTextField();
-        Origem = new javax.swing.JTextField();
+        descricao = new javax.swing.JTextField();
+        abrangencia = new javax.swing.JTextField();
+        origem = new javax.swing.JTextField();
         Responsavel = new javax.swing.JComboBox<>();
-        AcaoCorrecao = new javax.swing.JTextField();
+        acaoCorrecao = new javax.swing.JTextField();
         btnImg = new javax.swing.JButton();
-        Reincidencia = new javax.swing.JCheckBox();
+        reincidencia = new javax.swing.JCheckBox();
         visualizaImg = new javax.swing.JLabel();
-        dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
+        dataRegistro = new datechooser.beans.DateChooserCombo();
         dataAcontecimento = new datechooser.beans.DateChooserCombo();
-        jButton1 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -88,12 +107,12 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
             }
         });
 
-        dataRegistro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        dataRegistro.setText("Data de Registro");
-        dataRegistro.setName("dataRegistro"); // NOI18N
-        dataRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
+        labelx.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelx.setText("Data de Registro");
+        labelx.setName("labelx"); // NOI18N
+        labelx.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dataRegistroMouseClicked(evt);
+                labelxMouseClicked(evt);
             }
         });
 
@@ -164,27 +183,27 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
         Codigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Codigo.setName("Codigo"); // NOI18N
 
-        Descricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Descricao.setName("Descricao"); // NOI18N
-        Descricao.addKeyListener(new java.awt.event.KeyAdapter() {
+        descricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        descricao.setName("descricao"); // NOI18N
+        descricao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                DescricaoKeyPressed(evt);
+                descricaoKeyPressed(evt);
             }
         });
 
-        Abrangencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Abrangencia.setName("Abrangencia"); // NOI18N
-        Abrangencia.addKeyListener(new java.awt.event.KeyAdapter() {
+        abrangencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        abrangencia.setName("abrangencia"); // NOI18N
+        abrangencia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                AbrangenciaKeyPressed(evt);
+                abrangenciaKeyPressed(evt);
             }
         });
 
-        Origem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Origem.setName("Origem"); // NOI18N
-        Origem.addKeyListener(new java.awt.event.KeyAdapter() {
+        origem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        origem.setName("origem"); // NOI18N
+        origem.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                OrigemKeyPressed(evt);
+                origemKeyPressed(evt);
             }
         });
 
@@ -197,11 +216,11 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
             }
         });
 
-        AcaoCorrecao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        AcaoCorrecao.setName("AcaoCorrecao"); // NOI18N
-        AcaoCorrecao.addKeyListener(new java.awt.event.KeyAdapter() {
+        acaoCorrecao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        acaoCorrecao.setName("acaoCorrecao"); // NOI18N
+        acaoCorrecao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                AcaoCorrecaoKeyPressed(evt);
+                acaoCorrecaoKeyPressed(evt);
             }
         });
 
@@ -217,32 +236,29 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 btnImgKeyPressed(evt);
             }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                btnImgKeyReleased(evt);
-            }
         });
 
-        Reincidencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Reincidencia.setText("Reincidência");
-        Reincidencia.setName("Reincidencia"); // NOI18N
-        Reincidencia.addKeyListener(new java.awt.event.KeyAdapter() {
+        reincidencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        reincidencia.setText("Reincidência");
+        reincidencia.setName("reincidencia"); // NOI18N
+        reincidencia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                ReincidenciaKeyPressed(evt);
+                reincidenciaKeyPressed(evt);
             }
         });
 
         visualizaImg.setName("visualizaImg"); // NOI18N
 
-        dateChooserCombo1.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
+        dataRegistro.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
 
         dataAcontecimento.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Cancelar");
-        jButton1.setName("jButton1"); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setName("btnCancelar"); // NOI18N
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -256,22 +272,22 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
                     .addComponent(jLabel9)
                     .addComponent(jLabel7)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(dataRegistro)
+                        .addComponent(labelx)
                         .addGap(59, 59, 59)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dataAcontecimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)))
                     .addComponent(jLabel2)
-                    .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel1)
-                    .addComponent(AcaoCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Reincidencia)
+                    .addComponent(acaoCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(reincidencia)
                     .addComponent(jLabel6)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(Origem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-                        .addComponent(Abrangencia, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(Descricao, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(origem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                        .addComponent(abrangencia, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(descricao, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(Codigo, javax.swing.GroupLayout.Alignment.LEADING))
                     .addComponent(Responsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
@@ -291,7 +307,7 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
                 .addGap(296, 296, 296)
                 .addComponent(btnSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnCancelar)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -309,23 +325,23 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addGap(4, 4, 4)
-                        .addComponent(Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dataRegistro)
+                            .addComponent(labelx)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dataAcontecimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Abrangencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(abrangencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Origem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(origem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -333,14 +349,14 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addGap(3, 3, 3)
-                        .addComponent(AcaoCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(acaoCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(visualizaImg, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Reincidencia)
+                .addComponent(reincidencia)
                 .addGap(77, 77, 77)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
-                    .addComponent(jButton1)))
+                    .addComponent(btnCancelar)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -368,23 +384,23 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        Descricao.requestFocusInWindow();
+        descricao.requestFocusInWindow();
     }//GEN-LAST:event_jLabel2MouseClicked
 
-    private void dataRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dataRegistroMouseClicked
-        dataRegistro.requestFocusInWindow();
-    }//GEN-LAST:event_dataRegistroMouseClicked
+    private void labelxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelxMouseClicked
+        labelx.requestFocusInWindow();
+    }//GEN-LAST:event_labelxMouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         dataAcontecimento.requestFocusInWindow();
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        Abrangencia.requestFocusInWindow();
+        abrangencia.requestFocusInWindow();
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        Origem.requestFocusInWindow();
+        origem.requestFocusInWindow();
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
@@ -392,7 +408,7 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-        AcaoCorrecao.requestFocusInWindow();
+        acaoCorrecao.requestFocusInWindow();
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
@@ -400,58 +416,66 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        System.out.println(Descricao.getText());
-        System.out.println(Abrangencia.getText());
-        System.out.println(Origem.getText());
-        System.out.println(AcaoCorrecao.getText());
+        System.out.println(dataRegistro.getCurrent().getTime());
+        if(!validarDados()){
+        
+        }
+        else{
+            nCController.salvar();
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void DescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescricaoKeyPressed
+    private void descricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descricaoKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            if(!NCController.validarTexto(Descricao.getText())){
+            if(!nCController.validarTexto(descricao.getText())){
 
-                NCController.obrigatorio(this);;
+                nCController.obrigatorio(this);
             }
             else{
-                System.out.println(Descricao.getText());
-                Abrangencia.requestFocusInWindow();
+                System.out.println(descricao.getText());
+                abrangencia.requestFocusInWindow();
             }
         }
-    }//GEN-LAST:event_DescricaoKeyPressed
+    }//GEN-LAST:event_descricaoKeyPressed
 
-    private void AbrangenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AbrangenciaKeyPressed
+    private void abrangenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_abrangenciaKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            if(NCController.validarTexto(Abrangencia.getText())){
-                NCController.obrigatorio(this);;
+            if(!nCController.validarTexto(abrangencia.getText())){
+                nCController.obrigatorio(this);
             }
             else{
-                Origem.requestFocusInWindow();
+                origem.requestFocusInWindow();
             }
         }
-    }//GEN-LAST:event_AbrangenciaKeyPressed
+    }//GEN-LAST:event_abrangenciaKeyPressed
 
-    private void OrigemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_OrigemKeyPressed
+    private void origemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_origemKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            if(NCController.validarTexto(Origem.getText())){
-                NCController.obrigatorio(this);;
+            if(!nCController.validarTexto(origem.getText())){
+                nCController.obrigatorio(this);
             }
             else{
                 Responsavel.requestFocusInWindow();
             }
         }
-    }//GEN-LAST:event_OrigemKeyPressed
+    }//GEN-LAST:event_origemKeyPressed
 
     private void ResponsavelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ResponsavelKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            Reincidencia.requestFocusInWindow();
+            reincidencia.requestFocusInWindow();
         }
     }//GEN-LAST:event_ResponsavelKeyPressed
 
-    private void AcaoCorrecaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AcaoCorrecaoKeyPressed
+    private void acaoCorrecaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_acaoCorrecaoKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            btnImg.requestFocusInWindow();
+            if(!nCController.validarTexto(acaoCorrecao.getText())){
+                nCController.obrigatorio(this);
+            }
+            else{
+                btnImg.requestFocusInWindow();
+            }
         }
-    }//GEN-LAST:event_AcaoCorrecaoKeyPressed
+    }//GEN-LAST:event_acaoCorrecaoKeyPressed
 
     private void btnImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImgActionPerformed
         JFileChooser file = new JFileChooser();
@@ -516,34 +540,27 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnImgKeyPressed
 
-    private void btnImgKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnImgKeyReleased
-
-    }//GEN-LAST:event_btnImgKeyReleased
-
-    private void ReincidenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReincidenciaKeyPressed
+    private void reincidenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_reincidenciaKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            AcaoCorrecao.requestFocusInWindow();
+            acaoCorrecao.requestFocusInWindow();
         }
-    }//GEN-LAST:event_ReincidenciaKeyPressed
+    }//GEN-LAST:event_reincidenciaKeyPressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Abrangencia;
-    private javax.swing.JTextField AcaoCorrecao;
-    private javax.swing.JTextField Codigo;
-    private javax.swing.JTextField Descricao;
-    private javax.swing.JTextField Origem;
-    private javax.swing.JCheckBox Reincidencia;
-    private javax.swing.JComboBox<String> Responsavel;
-    private javax.swing.JButton btnImg;
-    private javax.swing.JButton btnSalvar;
-    private datechooser.beans.DateChooserCombo dataAcontecimento;
-    private javax.swing.JLabel dataRegistro;
-    private datechooser.beans.DateChooserCombo dateChooserCombo1;
-    private javax.swing.JButton jButton1;
+    public javax.swing.JTextField Codigo;
+    public javax.swing.JComboBox<String> Responsavel;
+    public javax.swing.JTextField abrangencia;
+    public javax.swing.JTextField acaoCorrecao;
+    private javax.swing.JButton btnCancelar;
+    public javax.swing.JButton btnImg;
+    public javax.swing.JButton btnSalvar;
+    public datechooser.beans.DateChooserCombo dataAcontecimento;
+    public datechooser.beans.DateChooserCombo dataRegistro;
+    public javax.swing.JTextField descricao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -553,6 +570,9 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelx;
+    public javax.swing.JTextField origem;
+    public javax.swing.JCheckBox reincidencia;
     private javax.swing.JLabel visualizaImg;
     // End of variables declaration//GEN-END:variables
 

@@ -324,6 +324,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnNovo1ActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        NaoConformidadeController NaoConformidadeController = new NaoConformidadeController();
         NaoConformidadeController.cadastrar();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
