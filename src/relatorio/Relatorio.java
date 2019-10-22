@@ -29,7 +29,7 @@ import java.io.FileNotFoundException;
  * @author leona
  */
 public class Relatorio {
-    static String dest = "c:\\users\\leona\\testepdf\\teste.pdf";
+    static String dest = "d:\\users\\ricardo\\testepdf\\teste.pdf";
     private Document documento;
     private PdfDocument pdf;
     
