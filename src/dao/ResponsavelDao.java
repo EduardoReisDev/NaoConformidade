@@ -121,8 +121,8 @@ public class ResponsavelDao implements Crud<Responsavel>{
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, dados.getNome());
-            ps.setString(3, dados.getCpf());
-            ps.setInt(6, dados.getId());
+            ps.setString(2, dados.getCpf());
+            ps.setInt(3, dados.getId());
             return ps.executeUpdate()>0;
         }
         catch(SQLException e){

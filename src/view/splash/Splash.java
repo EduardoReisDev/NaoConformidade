@@ -29,8 +29,11 @@ public class Splash extends JWindow {
         JLabel label = new JLabel(new ImageIcon(System.getProperty("user.dir")+"//src//view//splash//gif.gif"));
         JLabel copyrt = new JLabel
                 ("Ⓒ2019 Universidade Estadual de Goiás - Câmpus Itaberaí", JLabel.CENTER);
+        JLabel textoTeste = new JLabel("asadadf");
+        textoTeste.setBounds(x, y, 50, 20);
         copyrt.setFont(new Font("Sans-Serif", Font.BOLD, 16));
-        content.add(label, BorderLayout.CENTER);
+        content.add(label);
+        content.add(textoTeste,BorderLayout.CENTER);
         content.add(copyrt, BorderLayout.SOUTH);
         content.setBorder(BorderFactory.createLineBorder(Color.gray, 1));        
         // Torna visível
@@ -49,5 +52,9 @@ public class Splash extends JWindow {
         // Mostra uma imagem com o título da aplicação
         Splash splash = new Splash(5000);
         splash.showSplashAndExit();        
+    }
+    public static void main(String[] args) {
+        Splash splash = new Splash(5000);
+        splash.showSplashAndExit(); 
     }
 }

@@ -5,8 +5,14 @@
  */
 package view;
 
-import controller.Acao;
 import controller.Controller;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
+import javax.swing.SwingWorker;
 
 /**
  *
@@ -23,6 +29,27 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnGerenciarNC.setOpaque(true);
         this.controller = controller;
         this.controller.setComponentePai(this);
+    }
+    
+    @Override
+    protected JRootPane createRootPane() {
+        // Definindo o ActionListener
+        ActionListener actionListener = (ActionEvent e) -> {
+            fechar();
+        };
+        // Definindo o KeyStroke
+        KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
+        // Criando uma instancia de JRootPane
+        JRootPane rootPane = new JRootPane();
+        // Registrando o KeyStroke enquanto o JDialog estiver em foco
+        rootPane.registerKeyboardAction(
+        actionListener, stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
+        // Retornando o novo e modificado JRootPane
+        return rootPane;
+    }
+    
+    private void fechar(){
+        controller.fechar();
     }
     
     /**
@@ -387,19 +414,19 @@ public class FormPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGerenciarResponsaveisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarResponsaveisActionPerformed
-        controller.executar(Acao.ABRE_FORMULARIO_RESPONSAVEL, null);
+        controller.abreTelaResponsavel();
     }//GEN-LAST:event_btnGerenciarResponsaveisActionPerformed
 
     private void btnGerenciarNCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarNCActionPerformed
-        controller.executar(Acao.ABRE_FORMULARIO_NAO_CONFORMIDADE, null);
+        controller.abreTelaNaoConformidade();
     }//GEN-LAST:event_btnGerenciarNCActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        controller.executar(Acao.FECHAR, null);
+        fechar();
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnGerenciarSetoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarSetoresActionPerformed
-        controller.executar(Acao.ABRE_FORMULARIO_SETOR, null);
+        controller.abreTelaSetor();
     }//GEN-LAST:event_btnGerenciarSetoresActionPerformed
 
     private void btnGerarRelatorioMensalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarRelatorioMensalActionPerformed
@@ -407,16 +434,27 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGerarRelatorioMensalActionPerformed
 
     private void btnGerenciarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarUsuariosActionPerformed
-        controller.executar(Acao.ABRE_FORMULARIO_USUARIO, null);
-       // controller.abreTelaUsuario();
+        controller.abreTelaUsuario();
     }//GEN-LAST:event_btnGerenciarUsuariosActionPerformed
 
     private void menuImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuImportarActionPerformed
-        controller.getDadosController().importarBanco(false);
+        new SwingWorker() {
+            @Override
+            protected Object doInBackground() throws Exception {
+                controller.getDadosController().importarBanco(false);
+                return null;
+            }
+        }.execute();
     }//GEN-LAST:event_menuImportarActionPerformed
 
     private void menuExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExportarActionPerformed
-        controller.getDadosController().exportarBanco();
+        new SwingWorker() {
+            @Override
+            protected Object doInBackground() throws Exception {
+                controller.getDadosController().exportarBanco();
+                return null;
+            }
+        }.execute();
     }//GEN-LAST:event_menuExportarActionPerformed
 
     private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed

@@ -10,29 +10,39 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import javax.swing.JCheckBox;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
-import javax.swing.JPasswordField;
 import javax.swing.JRootPane;
-import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
  * @author leona
  */
-public class FormCriar extends javax.swing.JDialog {
+public class FormCadastrar extends javax.swing.JDialog {
     private boolean dadosValidos = false;
     UsuarioController usuarioController;
+    MaskFormatter mascaraCpf;
     /**
      * Creates new form CadastrarUsuario
      * @param parent
      * @param modal
      */
-    public FormCriar(java.awt.Frame parent, boolean modal) {
+    public FormCadastrar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         usuarioController = new UsuarioController();
+        try {
+            mascaraCpf = new MaskFormatter("###.###.###-##");
+            mascaraCpf.setPlaceholderCharacter('_');
+            txtCpf.setFormatterFactory(new DefaultFormatterFactory(mascaraCpf));
+        } catch (ParseException ex) {
+            Logger.getLogger(FormCadastrar.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
     
     @Override
@@ -52,22 +62,18 @@ public class FormCriar extends javax.swing.JDialog {
         return rootPane;
     }
 
-    public JCheckBox getCheckMaster() {
-        return checkMaster;
+    private boolean validarCpf(){
+        return usuarioController.validarCpf(txtCpf.getText());
     }
-
-    public JTextField getTxtNome() {
-        return txtNome;
+    
+    private boolean verificarCpf(){
+        if(validarCpf()){
+            System.out.println(usuarioController.verificarExistenciaCpf(txtCpf.getText()));
+            return !usuarioController.verificarExistenciaCpf(txtCpf.getText());
+        }
+        return false;
     }
-
-    public JPasswordField getTxtSenha() {
-        return txtSenha;
-    }
-
-    public JTextField getTxtUsuario() {
-        return txtUsuario;
-    }
-
+    
     private boolean validarNome(){
         return usuarioController.validarNome(txtNome.getText());
     }
@@ -85,11 +91,28 @@ public class FormCriar extends javax.swing.JDialog {
     }
     
     public boolean validar(){
-        return (verificarSenha() && validarNome() && validarUsuario()&& validarSenha() && dadosValidos);
+        return (verificarSenha() && validarNome() && validarUsuario()&& validarSenha() && validarCpf() 
+                && verificarCpf() && dadosValidos);
     }
     
     private void validarEFechar(){
         boolean valido = true;
+        if(validarCpf()){
+            verificacaoCpf.setBackground(Color.GREEN);
+        }
+        else{
+            verificacaoCpf.setBackground(Color.red);
+            txtCpf.requestFocusInWindow();
+            valido = false;
+        }
+        if(verificarCpf()){
+            verificacaoCpf.setBackground(Color.GREEN);
+        }
+        else{
+            verificacaoCpf.setBackground(Color.red);
+            txtCpf.requestFocusInWindow();
+            valido = false;
+        }
         if(validarNome()){
             verificacaoNome.setBackground(Color.green);
         }
@@ -128,6 +151,13 @@ public class FormCriar extends javax.swing.JDialog {
         }
     }
     
+    private void enterCampoCpf(){
+        validarEFechar();
+        if(validarCpf()){
+            txtNome.requestFocusInWindow();
+        }
+    }
+    
     private void enterCampoNome(){
         validarEFechar();
         if(validarNome()){
@@ -148,6 +178,7 @@ public class FormCriar extends javax.swing.JDialog {
             txtConfirmarSenha.requestFocusInWindow();
         }
     }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -173,6 +204,9 @@ public class FormCriar extends javax.swing.JDialog {
         verificacaoConfirmacaoSenha = new javax.swing.JPanel();
         checkMaster = new javax.swing.JCheckBox();
         btnSalvar = new javax.swing.JButton();
+        txtCpf = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
+        verificacaoCpf = new javax.swing.JPanel();
 
         setResizable(false);
 
@@ -274,6 +308,26 @@ public class FormCriar extends javax.swing.JDialog {
             }
         });
 
+        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCpfKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("CPF:");
+
+        javax.swing.GroupLayout verificacaoCpfLayout = new javax.swing.GroupLayout(verificacaoCpf);
+        verificacaoCpf.setLayout(verificacaoCpfLayout);
+        verificacaoCpfLayout.setHorizontalGroup(
+            verificacaoCpfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 24, Short.MAX_VALUE)
+        );
+        verificacaoCpfLayout.setVerticalGroup(
+            verificacaoCpfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -282,31 +336,46 @@ public class FormCriar extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(checkMaster)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSalvar))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(checkMaster)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSalvar))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(verificacaoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(verificacaoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(verificacaoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(verificacaoConfirmacaoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(verificacaoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(verificacaoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(verificacaoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(verificacaoConfirmacaoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(verificacaoCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 10, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(verificacaoCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -385,19 +454,28 @@ public class FormCriar extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtConfirmarSenhaKeyReleased
 
+    private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            enterCampoCpf();
+        }
+    }//GEN-LAST:event_txtCpfKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JCheckBox checkMaster;
+    public javax.swing.JCheckBox checkMaster;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField txtConfirmarSenha;
-    private javax.swing.JTextField txtNome;
-    private javax.swing.JPasswordField txtSenha;
-    private javax.swing.JTextField txtUsuario;
+    public javax.swing.JPasswordField txtConfirmarSenha;
+    public javax.swing.JFormattedTextField txtCpf;
+    public javax.swing.JTextField txtNome;
+    public javax.swing.JPasswordField txtSenha;
+    public javax.swing.JTextField txtUsuario;
     private javax.swing.JPanel verificacaoConfirmacaoSenha;
+    private javax.swing.JPanel verificacaoCpf;
     private javax.swing.JPanel verificacaoNome;
     private javax.swing.JPanel verificacaoSenha;
     private javax.swing.JPanel verificacaoUsuario;

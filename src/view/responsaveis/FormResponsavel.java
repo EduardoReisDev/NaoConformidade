@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +26,9 @@ public class FormResponsavel extends javax.swing.JDialog {
     DefaultTableModel modeloTabela;
     /**
      * Creates new form Responsaveis
+     * @param parent
+     * @param modal
+     * @param controller
      */
     public FormResponsavel(java.awt.Frame parent, boolean modal, Controller controller) {
         super(parent, modal);
@@ -81,6 +85,43 @@ public class FormResponsavel extends javax.swing.JDialog {
         criarEstruturaTabela();
         controller.getResposavelController().listarPorNome(this::popularTabela, txtBusca.getText());
     }
+    
+    
+    private int pegarIdDaLinhaSelecionada(){
+        int linhaSelecionada=tblResponsaveis.getSelectedRow();
+        if(linhaSelecionada>=0){
+            return (Integer.parseInt((String) tblResponsaveis.getValueAt(linhaSelecionada, 0)));
+        }
+        return -1;
+    }
+    
+    private void editar(){
+        int id = pegarIdDaLinhaSelecionada();
+        if(id > 0){
+            controller.getResposavelController().editar(id);
+            criarEstruturaTabelaEListarTodos();
+        }
+        else{
+            exibirMensagemLinhaNaoSelecionada();
+        }
+    }
+    
+    
+    private void excluir() {
+        int id = pegarIdDaLinhaSelecionada();
+        if(id > 0){
+            controller.getResposavelController().excluir(id);
+            criarEstruturaTabelaEListarTodos();
+        }
+        else{
+            exibirMensagemLinhaNaoSelecionada();
+        }
+    }
+    
+    private void exibirMensagemLinhaNaoSelecionada(){
+        JOptionPane.showMessageDialog(this, "Selecione uma linha na tabela.");
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -168,6 +209,11 @@ public class FormResponsavel extends javax.swing.JDialog {
         jLabel2.setText("Buscar Responsável");
 
         txtBusca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscaKeyReleased(evt);
+            }
+        });
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
@@ -316,20 +362,25 @@ public class FormResponsavel extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        controller.getResposavelController().cadastrarResponsavel();
+        controller.getResposavelController().cadastrar();
+        criarEstruturaTabelaEListarTodos();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        //controller.abreTelaEditarResponsavel();
+        editar();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        excluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         criarEstruturaTabelaEBuscar();
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
+        criarEstruturaTabelaEBuscar();
+    }//GEN-LAST:event_txtBuscaKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

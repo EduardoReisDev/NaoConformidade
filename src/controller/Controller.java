@@ -12,6 +12,7 @@ import view.FormPrincipal;
 import view.naoconformidade.FormNaoConformidade;
 import view.responsaveis.FormResponsavel;
 import view.setor.FormSetor;
+import view.splash.Splas;
 import view.usuario.FormUsuario;
 
 /**
@@ -42,20 +43,14 @@ public class Controller {
         propriedadesController = new PropriedadesController(System.getProperty("user.dir")+"\\configuracoes.ini");
     }
 
-    
-    public void exibir(){
-        System.out.println(componentePai);
+    public void verificarBancoDeDados(){
+        dadosController.verificarBanco();
     }
     
     public DadosController getDadosController() {
         return dadosController;
     }
     
-    
-    public void setUsuarioController(UsuarioController usuarioController){
-        this.usuarioController = usuarioController;
-    }
-
     public UsuarioController getUsuarioController() {
         return usuarioController;
     }
@@ -68,103 +63,27 @@ public class Controller {
         return resposavelController;
     }
 
-    public void setResposavelController(ResposavelController resposavelController) {
-        this.resposavelController = resposavelController;
-    }
     
-    
-   
-    public void executar(Acao acao, Object[] parametros){
-        sucessoAcoes = true;
-        RegraNegocio.obterEtapas(acao).forEach(etapa->{
-            if(sucessoAcoes){
-                sucessoAcoes = executarEtapa(etapa, parametros);
-            }
-        });
-        if(!sucessoAcoes){
-            RegraNegocio.obterEtapasSeErro(acao).forEach(etapa->{
-                executarEtapa(etapa, parametros);
-            });
-        }
-    }
-    
-    private boolean executarEtapa(Etapas etapa, Object[] parametros){
-        switch (etapa){
-            case LOGIN : {
-                usuario = usuarioController.login();
-                return usuario!= null;
-            }
-            case LOGIN_MASTER : {
-                usuarioController.loginMaster();
-                //return usuario != null;
-            }
-            case ABRIR_FORMULARIO_PRINCIPAL : {
-                abreTelaPrincipal();
-                break;
-            }
-            case ABRIR_FORMULARIO_USUARIOS : {
-                abreTelaUsuario();
-                break;
-            }
-            case ABRIR_FORMULARIO_CADASTRO_USUARIOS : {
-                return usuarioController.cadastrar();
-            }
-            case ABRIR_FORMULARIO_EDITA_USUARIOS : {
-                return usuarioController.editar((int)parametros[0]);
-            }
-            case CONFIRMAR_EXCLUSAO_USUARIO : {
-                return usuarioController.confirmarExclusao((int) parametros[0]);
-            }
-            case EXCLUIR_USUARIO : {
-                return usuarioController.excluir((int) parametros[0]);
-            }
-            case MOSTRAR_MENSAGEM_SUCESSO_EXCLIUR : {
-                usuarioController.exibirSucessoExclusao();
-                break;
-            }
-            case MOSTRAR_MENSAGEM_ERRO_EXCLIUR : {
-                usuarioController.exibirErroExclusao();
-                break;
-            }
-            case ABRIR_FORMULARIO_RESPONSAVEL : {
-                abreTelaResponsavel();
-                break;
-            }
-            case ABRIR_FORMULARIO_SETORES : {
-                abreTelaSetor();
-                break;
-            }
-            case ABRIR_FORMULARIO_NAO_CONFORMIDADES : {
-                abreTelaNaoConformidade();
-                break;
-            }
-            case SAIR : {
-                fechar();
-            }
-        }
-        return true;
-    }
-    
-    
-    private void abreTelaNaoConformidade(){
+    public void abreTelaNaoConformidade(){
         telaNaoConformidade = new FormNaoConformidade((Frame) componentePai, true, this);
         telaNaoConformidade.setLocationRelativeTo(null);
         telaNaoConformidade.setVisible(true);
     }
     
-    private void abreTelaResponsavel(){
+    public void abreTelaResponsavel(){
         telaResponsavel = new FormResponsavel((Frame) componentePai, true, this);
         telaResponsavel.setLocationRelativeTo(null);
         telaResponsavel.setVisible(true);
     }
     
-    private void abreTelaSetor(){
+    public void abreTelaSetor(){
         telaSetor= new FormSetor((Frame) componentePai, true, this);
         telaSetor.setLocationRelativeTo(null);
         telaSetor.setVisible(true);
     }
     
     public void abreTelaUsuario(){
+        usuarioController.setComponentePai(componentePai);
         telaUsuario = new FormUsuario((Frame) componentePai, true, this);
         telaUsuario.setLocationRelativeTo(null);
         telaUsuario.setVisible(true);
@@ -200,19 +119,7 @@ public class Controller {
     }
     
     public void inicio(){
-        new DadosController().verificarBanco();
-        long idTrhreadPrincipal = Thread.currentThread().getId();
-        Thread thread = Thread.currentThread(); 
-        /*new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Em outra Thread");
-                thread.resume();
-            }
-        }).start();
-        thread.suspend();
-        System.out.println("na thread principal");
-          */     
-        executar(Acao.INICIAR_SISTEMA, null);
+        new Splas();
+        abreTelaPrincipal();
     }
 }

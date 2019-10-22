@@ -8,21 +8,25 @@ package controller;
 import dao.UsuarioDao;
 import java.awt.Component;
 import java.awt.Frame;
+import java.util.Arrays;
 import model.Usuario;
 import java.util.function.Consumer;
 import view.Mensagens;
-import view.usuario.FormCriar;
+import view.usuario.FormCadastrar;
 import view.usuario.FormEditar;
 import view.usuario.FormLogin;
-import view.usuario.FormCpf;
 
 /**
  *
  * @author leona
  */
 public class UsuarioController {
-    UsuarioBusinnesObject usuarioNegocio;
-    Component componentePai;
+    /**
+     *Tentativas máximas de tentar fazer login
+     */
+    public final int TENTATIVAS_MAXIMAS_LOGIN;
+    private Resources rsc;
+    private Component componentePai;
     
     private Usuario usuario;
     
@@ -30,12 +34,9 @@ public class UsuarioController {
         this.componentePai = componentePai;
     }
     
-    public void exibir(){
-        System.out.println(componentePai);
-    }
-    
     public UsuarioController(){
-        usuarioNegocio = new UsuarioBusinnesObject();
+        rsc = new Resources();
+        this.TENTATIVAS_MAXIMAS_LOGIN = 3;
         usuario = new Usuario();
     }
     
@@ -63,6 +64,10 @@ public class UsuarioController {
      */
     public Usuario listarPorId(int id){
         return new UsuarioDao().listarPorId(id);
+    }
+    
+    public boolean verificarExistenciaCpf(String cpf) {
+        return new UsuarioDao().listarPorCpf(rsc.removerCaracteresInvalidosCpf(cpf)) != null;
     }
     
     /**
@@ -94,9 +99,9 @@ public class UsuarioController {
             }
             else{
                 Mensagens.mensagem(componentePai, 
-                        usuarioNegocio.MENSAGEM_SOMENTE_USUARIO_MASTER, 
-                        usuarioNegocio.TITULO_MENSAGEM_SOMENTE_USUARIO_MASTER, 
-                        usuarioNegocio.ATENCAO);
+                        rsc.MENSAGEM_SOMENTE_USUARIO_MASTER, 
+                        rsc.TITULO_MENSAGEM_SOMENTE_USUARIO_MASTER, 
+                        rsc.ATENCAO);
             }
         }
         return null;
@@ -113,20 +118,20 @@ public class UsuarioController {
         usuario = null;
         Usuario usuarioFormulario;
         if(verificarExistenciaDeUsuariosMasters()){//chama o diálogo de login
-            while(usuario == null && tentativas < usuarioNegocio.TENTATIVAS_MAXIMAS_LOGIN){
+            while(usuario == null && tentativas < TENTATIVAS_MAXIMAS_LOGIN){
                 tentativas++;
                 usuarioFormulario = abrirFormularioLogin();
                 if(usuarioFormulario!=null){
                     usuario = new UsuarioDao().login(
-                            usuarioFormulario.getUsuario(), 
-                            usuarioFormulario.getSenha()
+                                    usuarioFormulario.getUsuario(), 
+                                    usuarioFormulario.getSenha()
                             );
                     if(usuario == null){
-                        if(usuarioNegocio.TENTATIVAS_MAXIMAS_LOGIN-tentativas > 0){
+                        if(TENTATIVAS_MAXIMAS_LOGIN-tentativas > 0){
                             if(!Mensagens.confirmar(componentePai,
-                                    usuarioNegocio.mensagemLoginNaoEftuado(tentativas),
-                                    usuarioNegocio.TITULO_MENSAGEM_LOGIN_NAO_EFETUADO,
-                                    usuarioNegocio.ATENCAO)){
+                                    mensagemLoginNaoEftuado(tentativas),
+                                    rsc.TITULO_MENSAGEM_LOGIN_NAO_EFETUADO,
+                                    rsc.ATENCAO)){
                                 break;
                             }
                         }
@@ -151,7 +156,17 @@ public class UsuarioController {
      * @return true se foi excluído com sucesso ou false, se não
      */
     public boolean excluir(int id){
-        return new UsuarioDao().excluir(id);
+        if(confirmarExclusao(id)){
+            if(new UsuarioDao().excluir(id)){
+                exibirSucessoExclusao();
+                return true;
+            }
+            else{
+                exibirErroExclusao();
+                return false;
+            }
+        }
+        return false;
     }
     
     /**
@@ -162,9 +177,9 @@ public class UsuarioController {
     public boolean confirmarExclusao(int id){
         usuario = listarPorId(id);
         return Mensagens.confirmar(componentePai,
-                usuarioNegocio.mensagemExcluirUsuário(usuario),
-                usuarioNegocio.TITULO_EXCLUIR,
-                usuarioNegocio.QUESTAO);
+                mensagemExcluirUsuario(usuario),
+                rsc.TITULO_EXCLUIR_USUARIO,
+                rsc.QUESTAO);
     }
     
     /**
@@ -172,9 +187,9 @@ public class UsuarioController {
      */
     public void exibirSucessoExclusao(){
         Mensagens.mensagem(componentePai,
-                usuarioNegocio.mensagemSucessoExcluirUsuario(usuario),
-                usuarioNegocio.TITULO_SUCESSO_EXCLUSAO,
-                usuarioNegocio.SUCESSO);
+                mensagemSucessoExcluirUsuario(usuario),
+                rsc.TITULO_SUCESSO_EXCLUSAO_USUARIO,
+                rsc.SUCESSO);
     }
     
     /**
@@ -182,9 +197,9 @@ public class UsuarioController {
      */
     public void exibirErroExclusao(){
         Mensagens.mensagem(componentePai,
-                usuarioNegocio.mensagemErroExcluirUsuario(usuario), 
-                usuarioNegocio.TITULO_ERRO_EXCLUSAO,
-                usuarioNegocio.ERRO);
+                mensagemErroExcluirUsuario(usuario), 
+                rsc.TITULO_ERRO_EXCLUSAO_USUARIO,
+                rsc.ERRO);
     }
     
     /**
@@ -193,14 +208,15 @@ public class UsuarioController {
      * @return se as informações inseridas no formulario de forma correta, retorna elas, se não, null 
      */
     public Usuario abrirFormEditar(Usuario usuario) {
-        System.out.println(componentePai);
         FormEditar formularioEditar = new FormEditar((Frame) componentePai, true);
         formularioEditar.setLocationRelativeTo(null);
         formularioEditar.preencherCampos(usuario);
         formularioEditar.setVisible(true);
         if(formularioEditar.validar()){
             return new Usuario(
+                    usuario.getId(),
                     formularioEditar.getTxtNome().getText(),//nome
+                    usuario.getCpf(),
                     formularioEditar.getTxtUsuario().getText(),//usuário
                     String.copyValueOf(formularioEditar.getTxtSenha().getPassword()),//senha
                     formularioEditar.getCheckMaster().isSelected()//usuário master
@@ -215,13 +231,10 @@ public class UsuarioController {
      * @return true se foi editado com sucesso, false se não
      */
     public boolean editar(int id){
-        Usuario usuarioEditar;
-        Usuario usuarioSelecionado = listarPorId(id);
-        usuarioEditar = abrirFormEditar(usuarioSelecionado);//pega os dados do formulário
-        if(usuarioEditar!=null){//se não, coloca o cpf e o id e insere no banco
-            usuarioEditar.setCpf(usuarioSelecionado.getCpf());//pega o cpf do usuário selecionado
-            usuarioEditar.setId(usuarioSelecionado.getId());//peda o id do usuário selecionado
-            return new UsuarioDao().editar(usuarioEditar);//salva no banco de dados
+        usuario = listarPorId(id);
+        usuario = abrirFormEditar(usuario);//pega os dados do formulário
+        if(usuario!=null){//se não, coloca o cpf e o id e insere no banco
+           return new UsuarioDao().editar(usuario);//salva no banco de dados
         } 
         return false;
     }
@@ -235,35 +248,22 @@ public class UsuarioController {
     }
     
     /**
-     * Este método é responsável por abrir o formulário de cpf e retornar o cpf inserido
-     * @return Uma String contendo o cpf fornecido ou null quando o cpf fornecido não é valido ou não fornecido
-     */
-    private String abrirFormCpf(){
-        FormCpf formularioCpf = new FormCpf((Frame) componentePai, true);
-        formularioCpf.setLocationRelativeTo(null);
-        formularioCpf.setVisible(true);
-        String cpf = usuarioNegocio.removerCaracteresInvalidosCpf(formularioCpf.getTxtCpf().getText());
-        if(usuarioNegocio.validarCpf(cpf)){
-            return cpf;
-        }
-        return null;
-    }
-    
-    /**
      * Este método é responsável por abrir o formulário de cadastro de usuário e retornar os dados inseridos
      * @return dados de usuário caso forem válidos
      */
     private Usuario abrirFormCadastro(){
-        FormCriar formularioUsuario = new FormCriar((Frame) componentePai, true);
-        formularioUsuario.setLocationRelativeTo(null);
+        FormCadastrar formCadastro = new FormCadastrar((Frame) componentePai, true);
+        formCadastro.setLocationRelativeTo(null);
         usuario = null;
-        formularioUsuario.setVisible(true);
-        if(formularioUsuario.validar()){
+        formCadastro.setVisible(true);
+        if(formCadastro.validar()){
             usuario = new Usuario(
-                    formularioUsuario.getTxtNome().getText(),//nome
-                    formularioUsuario.getTxtUsuario().getText(),//usuário
-                    String.copyValueOf(formularioUsuario.getTxtSenha().getPassword()),//senha
-                    formularioUsuario.getCheckMaster().isSelected()//usuário master
+                    0,//id (não será utilizado) 
+                    formCadastro.txtNome.getText(),//nome
+                    rsc.removerCaracteresInvalidosCpf(formCadastro.txtCpf.getText()),//cpf
+                    formCadastro.txtUsuario.getText(),//usuário
+                    String.copyValueOf(formCadastro.txtSenha.getPassword()),//senha
+                    formCadastro.checkMaster.isSelected()//usuário master
             );   
         }
         return usuario;
@@ -274,21 +274,58 @@ public class UsuarioController {
      * @return true se feito com sucesso, false se não
      */
     public boolean cadastrar(){
-        String cpf = abrirFormCpf();
-        if(cpf != null){//se retornou um cpf
-            usuario = new UsuarioDao().listarPorCpf(cpf);
-            if(usuario != null){//verifica no banco se existe um usuário com o mesmo cpf
-                editar(usuario.getId());
-            }
-            else{
-                usuario = abrirFormCadastro();
-                if(usuario!=null){//se não retornar nulo, coloca o cpf e insere no banco
-                    usuario.setCpf(cpf);
-                    return new UsuarioDao().criar(usuario);//salva no banco de dados
-                }
-            }
+        usuario = abrirFormCadastro();
+        if(usuario!=null){//se não retornar nulo, insere no banco
+            return new UsuarioDao().criar(usuario);//salva no banco de dados
         }
         return false;
+    }
+    
+     
+    /**
+     *
+     * @param usuario Usuário selecionado
+     * @return Uma mensagem contendo as informações do usuário
+     */
+    public String mensagemExcluirUsuario(Usuario usuario){
+        return "Tem certeza que deseja excluir o usuário " + usuario.getNome() + "?";
+    }
+    
+    /**
+     *
+     * @param usuario Usuário excluído
+     * @return Uma mensagem de sucesso
+     */
+    public String mensagemSucessoExcluirUsuario(Usuario usuario){
+        return "Sucesso ao excluir o usuário " + usuario.getNome() + "!";
+    }
+    
+    /**
+     *
+     * @param usuario Usuário excluído
+     * @return Uma mensagem de erro
+     */
+    public String mensagemErroExcluirUsuario(Usuario usuario){
+        return "Erro ao excluir o usuário " + usuario.getNome() + "!";
+    }
+    
+    /**
+     *
+     * @param tentativas tentativas feitas até então
+     * @return Uma mensagem de erro
+     */
+    public String mensagemLoginNaoEftuado(int tentativas){
+        return "Os dados informados não correspondem a nenhum usuário salvo."
+                + "\nDeseja tentar novamente?\n"+(TENTATIVAS_MAXIMAS_LOGIN-tentativas) + " tentativas restentes.";
+    }
+    
+    /**
+    *
+    * @param tentativas tentativas feitas até então
+    * @return Uma mensagem de erro
+    */
+    public String mensagemCredenciaisNaoFornecidas(int tentativas){
+        return "Nenhum dado recebido.\nDeseja tentar novamente?\n" +(TENTATIVAS_MAXIMAS_LOGIN-tentativas) + " tentativas restentes.";
     }
     
     /**
@@ -297,7 +334,7 @@ public class UsuarioController {
      * @return true se válido, se não, false
      */
     public boolean validarNome(String nome){
-        return usuarioNegocio.validarNome(nome);
+        return nome.length()>2;
     }
     
     /**
@@ -306,7 +343,7 @@ public class UsuarioController {
      * @return true se válido, se não, false
      */
     public boolean validarUsuario(String usuario){
-        return usuarioNegocio.validarUsuario(usuario);
+        return usuario.length()>2;
     }
     
     /**
@@ -315,7 +352,7 @@ public class UsuarioController {
      * @return true se válido, se não, false
      */
     public boolean validarSenha(char [] senha){
-        return usuarioNegocio.validarSenha(senha);
+        return senha.length > 3;
     }
     
     /**
@@ -325,7 +362,7 @@ public class UsuarioController {
      * @return true se válido, se não, false
      */
     public boolean verificarSenha(char [] senha, char [] confirmaSenha){
-        return usuarioNegocio.verificarSenha(senha, confirmaSenha);
+        return Arrays.equals(senha, confirmaSenha) && confirmaSenha.length>3;
     }
     
     /**
@@ -334,6 +371,6 @@ public class UsuarioController {
      * @return true se válido, se não, false
      */
     public boolean validarCpf(String cpf){
-       return usuarioNegocio.validarCpf(cpf);
+       return rsc.validarCpf(cpf);
     }
 }

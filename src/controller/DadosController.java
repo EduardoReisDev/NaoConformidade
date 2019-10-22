@@ -34,28 +34,23 @@ public class DadosController {
         this.caminho = System.getProperty("user.dir")+"\\banco\\Banco.db";
         listaEstruturaImportado = new ArrayList<>(4);
         listaEstrutura = new ArrayList<>(4);
-        listaEstrutura.add("CREATE TABLE responsavel (id INTEGER PRIMARY KEY "
-                + "AUTOINCREMENT NOT NULL, nome VARCHAR (255) NOT NULL, "
+        listaEstrutura.add("CREATE TABLE responsavel (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                + "nome VARCHAR (255) NOT NULL, "
                 + "cpf VARCHAR (11) NOT NULL)");
-        listaEstrutura.add("CREATE TABLE setor (id INTEGER NOT NULL PRIMARY KEY "
-                + "AUTOINCREMENT, nome VARCHAR (255) NOT NULL, "
+        listaEstrutura.add("CREATE TABLE setor (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
+                + "nome VARCHAR (255) NOT NULL, "
                 + "idResponsavel INTEGER NOT NULL REFERENCES responsavel (id) "
                 + "ON DELETE RESTRICT ON UPDATE CASCADE)");
-        listaEstrutura.add("CREATE TABLE naoConformidade (id INTEGER NOT NULL PRIMARY "
-                + "KEY AUTOINCREMENT, descricao VARCHAR (255) NOT NULL, "
-                + "dataRegistro DATE NOT NULL, dataAcontecimento DATE NOT NULL, "
-                + "reincidencia BOOLEAN NOT NULL, abrangencia VARCHAR (255), "
-                + "origem VARCHAR (255), acaoCorrecao VARCHAR (255), "
-                + "caminhoImagem VARCHAR (255), idSetor INTEGER NOT NULL "
-                + "REFERENCES setor (id) ON DELETE RESTRICT ON UPDATE CASCADE, "
-                + "idResponsavel INTEGER REFERENCES responsavel (id) "
-                + "ON DELETE RESTRICT ON UPDATE CASCADE NOT NULL, "
-                + "FOREIGN KEY (idSetor) REFERENCES setor (idsetor) "
-                + "ON DELETE NO ACTION ON UPDATE NO ACTION)");
-        listaEstrutura.add("CREATE TABLE usuario (id INTEGER NOT NULL PRIMARY KEY "
-                + "AUTOINCREMENT, nome VARCHAR (100) NOT NULL, cpf VARCHAR (15) NOT NULL, "
-                + "usuario VARCHAR (255) NOT NULL, senha VARCHAR (255) NOT NULL, "
-                + "master BOOLEAN NOT NULL)");
+        listaEstrutura.add("CREATE TABLE usuario (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
+                + "nome VARCHAR (100) NOT NULL, cpf VARCHAR (15) NOT NULL, usuario VARCHAR (255) NOT NULL, "
+                + "senha VARCHAR (255) NOT NULL, master BOOLEAN NOT NULL)");
+        listaEstrutura.add("CREATE TABLE naoConformidade (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
+                + "descricao VARCHAR (255) NOT NULL, dataRegistro DATE NOT NULL, "
+                + "dataAcontecimento DATE NOT NULL, reincidencia BOOLEAN NOT NULL, "
+                + "abrangencia VARCHAR (255), origem VARCHAR (255), acaoCorrecao VARCHAR (255), "
+                + "caminhoImagem VARCHAR (255), idSetor INTEGER REFERENCES setor (id) "
+                + "ON DELETE RESTRICT ON UPDATE CASCADE NOT NULL, idResponsavel INTEGER REFERENCES responsavel (id) "
+                + "ON DELETE RESTRICT ON UPDATE CASCADE NOT NULL)");
     }
     
     

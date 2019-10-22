@@ -5,9 +5,8 @@
  */
 package view.usuario;
 
-import controller.Acao;
+
 import controller.Controller;
-import controller.UsuarioController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -30,6 +29,7 @@ public class FormUsuario extends javax.swing.JDialog {
      * Creates new form GerenciarUsuarios
      * @param parent
      * @param modal
+     * @param controller
      */
     public FormUsuario(java.awt.Frame parent, boolean modal, Controller controller) {
         super(parent, modal);
@@ -93,7 +93,7 @@ public class FormUsuario extends javax.swing.JDialog {
     }
     
     public void adicionar(){
-        controller.executar(Acao.CADASTRO_USUARIO, null);
+        controller.getUsuarioController().cadastrar();
         criarEstruturaTabelaEListarTodos();
     }
     
@@ -118,7 +118,7 @@ public class FormUsuario extends javax.swing.JDialog {
     private void editar(){
         int id=pegarIdDaLinhaSelecionada();
         if(id>=0){
-            controller.executar(Acao.EDITA_USUARIO, new Object[]{id});
+            controller.getUsuarioController().editar(id);
         }
         else{
             exibirMensagemLinhaNaoSelecionada();
@@ -129,7 +129,7 @@ public class FormUsuario extends javax.swing.JDialog {
     private void excluir(){
         int id = pegarIdDaLinhaSelecionada();
         if(id>=0){
-            controller.executar(Acao.EXCLUI_USUARIO, new Object[]{id});
+            controller.getUsuarioController().excluir(id);
         }
         else{
             exibirMensagemLinhaNaoSelecionada();

@@ -61,16 +61,15 @@ public class ArquivoController {
     }
     
     private void copiarArquivo(){
-        new SwingWorker<Object, Object>() {
-            @Override
-            protected Object doInBackground() throws Exception {
+       // new SwingWorker<Object, Object>() {
+            //@Override
+           // protected Object doInBackground() throws Exception {
                 dialogCopia = new DialogoCopiar();
                 dialogCopia.setLocationRelativeTo(null);
                 dialogCopia.setVisible(true);
                 try {
                     if(!arquivoSaida.exists()){
-                        File arquivoAux = new File(arquivoSaida.getParent());
-                        arquivoAux.mkdirs();
+                        arquivoSaida.getParentFile().mkdirs();
                         arquivoSaida.createNewFile();
                     }
                     entrada = new FileInputStream(arquivoEntrada);
@@ -90,9 +89,9 @@ public class ArquivoController {
                 } catch (IOException | InterruptedException ex) {
                     Logger.getLogger(DadosController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                return null;
-            }
-        }.execute();
+                //return null;
+           // }
+       // }.execute();
     }
     
     private void escolherArquivoOrigem(boolean forcarSelecao){
@@ -153,11 +152,11 @@ public class ArquivoController {
     }
     
     public void criarArquivo(String caminho){
-        if(!arquivoSaida.exists()){
-            File arquivoAux = new File(arquivoSaida.getParent());
-            arquivoAux.mkdirs();
+        File arquivo = new File(caminho);
+        if(!arquivo.exists()){
+            arquivo.getParentFile().mkdir();
             try {
-                arquivoSaida.createNewFile();
+                arquivo.createNewFile();
             } catch (IOException ex) {
                 Logger.getLogger(DadosController.class.getName()).log(Level.SEVERE, null, ex);
             }
