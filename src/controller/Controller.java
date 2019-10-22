@@ -12,7 +12,7 @@ import view.FormPrincipal;
 import view.naoconformidade.FormNaoConformidade;
 import view.responsaveis.FormResponsavel;
 import view.setor.FormSetor;
-import view.splash.Splas;
+import view.splash.Splash;
 import view.usuario.FormUsuario;
 
 /**
@@ -45,6 +45,10 @@ public class Controller {
 
     public void verificarBancoDeDados(){
         dadosController.verificarBanco();
+    }
+    
+    public void verificaArquivoDeConfiguracoes(){
+        propriedadesController.ler("Boas vindas");
     }
     
     public DadosController getDadosController() {
@@ -119,7 +123,7 @@ public class Controller {
     }
     
     public void inicio(){
-        new Splas();
+        //new Splash();
         abreTelaPrincipal();
     }
 }

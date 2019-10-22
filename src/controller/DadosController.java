@@ -110,7 +110,14 @@ public class DadosController {
     }
     
     private void importarOuCriarBanco(){
-        if(!importarBanco(true)){
+        if(Mensagens.confirmar(componentePai, "Nenhuma base de dados encontrada.\n"
+                + "Deseja importar uma existente?\n"
+                + "Se não, uma nova será criada.", "Base de dados não encontrada", 0)){
+            if(!importarBanco(true)){
+                criarBanco();
+            }
+        }
+        else{
             criarBanco();
         }
     }

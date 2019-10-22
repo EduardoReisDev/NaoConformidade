@@ -68,7 +68,6 @@ public class FormCadastrar extends javax.swing.JDialog {
     
     private boolean verificarCpf(){
         if(validarCpf()){
-            System.out.println(usuarioController.verificarExistenciaCpf(txtCpf.getText()));
             return !usuarioController.verificarExistenciaCpf(txtCpf.getText());
         }
         return false;
@@ -358,14 +357,11 @@ public class FormCadastrar extends javax.swing.JDialog {
                             .addComponent(verificacaoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(verificacaoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(verificacaoConfirmacaoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(verificacaoCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 10, Short.MAX_VALUE))))
+                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(verificacaoCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,30 +427,35 @@ public class FormCadastrar extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
+        validar();
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             enterCampoNome();
         }
     }//GEN-LAST:event_txtNomeKeyReleased
 
     private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
+        validar();
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             enterCampoUsuario();
         }
     }//GEN-LAST:event_txtUsuarioKeyReleased
 
     private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
+        validar();
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             enterCampoSenha();
         }
     }//GEN-LAST:event_txtSenhaKeyReleased
 
     private void txtConfirmarSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarSenhaKeyReleased
+        validar();
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             validarEFechar();
         }
     }//GEN-LAST:event_txtConfirmarSenhaKeyReleased
 
     private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
+        validar();
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             enterCampoCpf();
         }

@@ -17,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import view.DialogoCopiar;
 import view.Mensagens;
@@ -120,7 +119,7 @@ public class ArquivoController {
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivo de banco de dados", "db"));
         fileChooser.setAcceptAllFileFilterUsed(false);
-        fileChooser.setSelectedFile(new File("Banco de dados "+getDataEHora()+".db"));
+        fileChooser.setSelectedFile(new File("Banco de dados exportado em "+getDataEHora()+".db"));
         if(fileChooser.showSaveDialog(null) != JFileChooser.APPROVE_OPTION){
             fileChooser.setSelectedFile(null);
         }
