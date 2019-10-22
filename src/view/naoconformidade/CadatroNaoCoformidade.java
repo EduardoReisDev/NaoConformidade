@@ -7,16 +7,7 @@
 package view.naoconformidade;
 
 import controller.NaoConformidadeController;
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -478,60 +469,7 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_acaoCorrecaoKeyPressed
 
     private void btnImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImgActionPerformed
-        JFileChooser file = new JFileChooser();
-        file.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        int i= file.showOpenDialog(null);
-        if (i==1){
-            System.out.println("Nada pegado!");
-            visualizaImg.setIcon(null);
-        } else {
-            File arquivo = file.getSelectedFile();
-            System.out.println((arquivo.getPath()));
-            BufferedImage imagem = null;
-            try {
-                imagem = ImageIO.read(arquivo);
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, ex);
-            }
-
-            float larguraAux = imagem.getWidth() / 300;
-            float alturaAux = imagem.getHeight() / 300;
-            int largura = 300;
-            int altura = 300;
-            int larguraFinal;
-            int alturaFinal;
-
-            BufferedImage new_img = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
-            Graphics2D g = new_img.createGraphics();
-            g.setColor(Color.WHITE);
-            g.fillRect(0, 0, 300, 300);
-
-            //primeira divisão
-            if(imagem.getWidth() > imagem.getHeight()){ // se a largura é maior que a altura, usa a constante de calculo da largura
-                larguraFinal = (int)(imagem.getWidth()/larguraAux);
-                alturaFinal = (int) (imagem.getHeight()/larguraAux);
-            }
-            else { //se não, usa a constante de cálculo da altura
-                larguraFinal = (int)(imagem.getWidth()/alturaAux);
-                alturaFinal = (int) (imagem.getHeight()/alturaAux);
-            }
-
-            g.drawImage(imagem, (largura - larguraFinal)/2 ,(altura - alturaFinal)/2, larguraFinal, alturaFinal, null);
-            ImageIcon icon = new ImageIcon(new_img);
-            visualizaImg.setIcon(icon);
-
-            /*try {
-                String aux= "D:\\Desktop\\teste.png";
-                ImageIO.write(new_img, "png", new File(aux));
-                ImageIcon icon = new ImageIcon(new_img);
-                visualizaImg.setIcon(icon);
-                visualizaImg.setText("");
-
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, ex);
-            }*/
-        }
-
+        visualizaImg.setIcon(nCController.imagem());
     }//GEN-LAST:event_btnImgActionPerformed
 
     private void btnImgKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnImgKeyPressed
