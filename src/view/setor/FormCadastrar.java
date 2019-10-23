@@ -5,15 +5,19 @@
  */
 package view.setor;
 
+import java.lang.String;
 import controller.SetorController;
+import dao.ResponsavelDao;
 import dao.SetorDao;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.function.Consumer;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
+import model.Responsavel;
 import model.Setor;
 
 /**
@@ -82,7 +86,6 @@ public class FormCadastrar extends javax.swing.JDialog {
         jLabel3.setText("Nome do Setor");
 
         ResponsavelSetor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        ResponsavelSetor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Usuário 1", "Usuário 2", "Usuário 3" }));
         ResponsavelSetor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ResponsavelSetorActionPerformed(evt);
@@ -168,7 +171,11 @@ public class FormCadastrar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ResponsavelSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResponsavelSetorActionPerformed
-        // TODO add your handling code here:
+        ResponsavelDao dao = new ResponsavelDao();
+        
+        for(Responsavel r: dao.listarPorNome(String nome)){
+            ResponsavelSetor.addItem(r);
+        }
     }//GEN-LAST:event_ResponsavelSetorActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
