@@ -6,6 +6,7 @@
 package view;
 
 import controller.Controller;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -25,6 +26,7 @@ public class FormPrincipal extends javax.swing.JFrame {
      */
     public FormPrincipal(Controller controller) {
         initComponents();
+        setIcon();
         btnGerenciarNC.setContentAreaFilled(false);
         btnGerenciarNC.setOpaque(true);
         this.controller = controller;
@@ -94,6 +96,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gerenciamento de Não Conformidades");
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -294,6 +297,9 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addComponent(btnGerenciarUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jMenuBar1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jMenu2.setText("Arquivo");
 
@@ -502,4 +508,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuSobre;
     private javax.swing.JMenuItem munuNaoConfirmar;
     // End of variables declaration//GEN-END:variables
+
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/ueg.png")));
+    }
 }

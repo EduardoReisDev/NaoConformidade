@@ -3,18 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/Resources.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/relatorio/Relatorio.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/usuario/FormCadastrar.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/splash/Splash.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/NaoConformidadeController.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/dao/UsuarioDao.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/FormPrincipal.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/Controller.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/SistemaDeNaoConformidade.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/DadosController.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/controller/ArquivoController.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/naoconformidade/CadatroNaoCoformidade.java</file>
+            <file>file:/D:/Desktop/NaoConformidade/src/controller/NaoConformidadeController.java</file>
+            <file>file:/D:/Desktop/NaoConformidade/src/view/naoconformidade/CadatroNaoCoformidade.java</file>
         </group>
     </open-files>
 </project-private>

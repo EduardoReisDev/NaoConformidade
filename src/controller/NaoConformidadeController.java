@@ -7,8 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -24,6 +22,7 @@ import model.NaoConformidade;
         Component componentePai;
         String novoCaminho = null;
         NaoConformidadeDao naoConformidadeDao = new NaoConformidadeDao();
+        NaoConformidade naoConformidade = new NaoConformidade();
 
     public  Component  getComponentePai () {
         return componentePai;
@@ -103,7 +102,7 @@ import model.NaoConformidade;
                 k.fillRect(0, 0, larguraFim, alturaFim);
                 k.drawImage(imagem, 0,0, larguraFim, alturaFim, null);
                 try {
-                    System.out.println(novoCaminho = String.valueOf("imagens não conformidades/imagem de não conformidade"+(naoConformidadeDao.getLastId()+1))+"png");
+                    System.out.println(novoCaminho = String.valueOf("imagens não conformidades/imagem de não conformidade"+(cadatroNaoCoformidade.Codigo.getText()))+".png");
                     File arquivoX = new File(novoCaminho);
                     arquivoX.getParentFile().mkdirs();
                     ImageIO.write(imagemNova, "png", arquivoX) ;
@@ -120,11 +119,11 @@ import model.NaoConformidade;
     }
     
     public boolean validarTexto(String texto) { 
-        return texto.length()>0;
+        return texto.length()>2;
     }
     
     public  void  obrigatorio( Component  componentePai ) {
-        Mensagens.mensagem(componentePai," Preencha este campo! "," ATENÇÃO! ", 2 );
+        Mensagens.mensagem(componentePai,"Preencha este campo corretamente!\nMínimo 3 caracteres! "," Atenção! ", 2 );
     }
 
     public NaoConformidade cadastrar () {
@@ -137,7 +136,7 @@ import model.NaoConformidade;
     }
     public void salvar(){
         
-        NaoConformidade naoConformidade = new NaoConformidade();
+        naoConformidade.setId(Integer.parseInt(cadatroNaoCoformidade.Codigo.getText()));
         naoConformidade.setDescricao(cadatroNaoCoformidade.descricao.getText());
         naoConformidade.setAbrangencia(cadatroNaoCoformidade.abrangencia.getText());
         naoConformidade.setOrigem(cadatroNaoCoformidade.origem.getText());
@@ -150,10 +149,7 @@ import model.NaoConformidade;
             JOptionPane.showMessageDialog(componentePai, "nao");
         }
         else {
-            JOptionPane.showMessageDialog(componentePai, "foi");
+            JOptionPane.showMessageDialog(componentePai, "Dados cadastrados com sucesso!","Sucesso!",1);
         }
     }
-
-    
-    
 }

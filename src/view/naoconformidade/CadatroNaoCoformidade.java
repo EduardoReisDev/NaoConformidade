@@ -7,8 +7,8 @@
 package view.naoconformidade;
 
 import controller.NaoConformidadeController;
+import dao.NaoConformidadeDao;
 import java.awt.event.KeyEvent;
-import model.NaoConformidade;
 
 /**
  *
@@ -16,11 +16,13 @@ import model.NaoConformidade;
  */
 public class CadatroNaoCoformidade extends javax.swing.JDialog {
     NaoConformidadeController nCController;
+    NaoConformidadeDao naoConformidadeDao = new NaoConformidadeDao();
 
     /** Creates new form cadatroNaoCoformidade */
     public CadatroNaoCoformidade(java.awt.Frame parent, boolean modal, NaoConformidadeController nController) {
         super(parent, modal);
         initComponents();
+        Codigo.setText(String.valueOf((naoConformidadeDao.getLastId()+1)));
         this.nCController = nController;
     }
     
@@ -28,24 +30,25 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
         if(!nCController.validarTexto(descricao.getText())){
                 descricao.requestFocus();
                 nCController.obrigatorio(this);
+                return true;
             }
         else if(!nCController.validarTexto(abrangencia.getText())){
                 abrangencia.requestFocus();
                 nCController.obrigatorio(this);
+                return true;
             }
         else if(!nCController.validarTexto(origem.getText())){
                 origem.requestFocus();
                 nCController.obrigatorio(this);
+                return true;
             }
         else if(!nCController.validarTexto(acaoCorrecao.getText())){
                 acaoCorrecao.requestFocus();
                 nCController.obrigatorio(this);
+                return true;
             }
         return false;
-    }
-
-    
-    
+    }    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -420,11 +423,9 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     private void descricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descricaoKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
             if(!nCController.validarTexto(descricao.getText())){
-
                 nCController.obrigatorio(this);
             }
             else{
-                System.out.println(descricao.getText());
                 abrangencia.requestFocusInWindow();
             }
         }
