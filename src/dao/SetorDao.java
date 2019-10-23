@@ -24,7 +24,7 @@ public class SetorDao implements Crud<Setor>{
     public boolean criar(Setor dados) {
         Connection conexao = new Conexao().abreConexao();
         String query = "insert into setor ("
-                + "setorCodigo, setorNome, setorResponsavel) VALUES ( ?, ?, ?)";
+                + "id, nome, idResponsavel) VALUES ( ?, ?, ?)";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, dados.getCodigo());
@@ -51,10 +51,9 @@ public class SetorDao implements Crud<Setor>{
             ResultSet res = stm.executeQuery(query);
             while (res.next()){
                 result = new Setor();
-                result.setNome(res.getString("setorNome"));
-                result.setId(res.getInt("idsetor"));
-                result.setCodigo(res.getString("setorCodigo"));
-                result.setResponsavel(res.getString("setorResponsavel"));
+                result.setNome(res.getString("nome"));
+                result.setId(res.getInt("id"));
+                result.setResponsavel(res.getString("idResponsavel"));
                 resultado.accept(result);
             }
         }
