@@ -8,18 +8,20 @@ package view.naoconformidade;
 
 import controller.NaoConformidadeController;
 import java.awt.event.KeyEvent;
+import model.NaoConformidade;
 
 /**
  *
  * @author Ricardo
  */
 public class CadatroNaoCoformidade extends javax.swing.JDialog {
-    NaoConformidadeController nCController = new controller.NaoConformidadeController();
+    NaoConformidadeController nCController;
 
     /** Creates new form cadatroNaoCoformidade */
-    public CadatroNaoCoformidade(java.awt.Frame parent, boolean modal) {
+    public CadatroNaoCoformidade(java.awt.Frame parent, boolean modal, NaoConformidadeController nController) {
         super(parent, modal);
         initComponents();
+        this.nCController = nController;
     }
     
     public boolean validarDados(){
@@ -42,6 +44,8 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
         return false;
     }
 
+    
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -409,9 +413,6 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         System.out.println(dataRegistro.getCurrent().getTime());
         if(!validarDados()){
-        
-        }
-        else{
             nCController.salvar();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
