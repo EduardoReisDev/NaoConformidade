@@ -150,6 +150,7 @@ import view.naoconformidade.CadatroNaoCoformidade;
         }
         else {
             JOptionPane.showMessageDialog(componentePai, "Dados cadastrados com sucesso!","Sucesso!",1);
+            cadastroNaoCoformidade.dispose();
         }
     }
 }
