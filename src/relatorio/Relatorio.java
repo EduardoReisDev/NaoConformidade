@@ -13,6 +13,7 @@ import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.xmp.impl.Utils;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Cell;
@@ -80,7 +81,7 @@ public class Relatorio {
         PdfWriter writer = new PdfWriter(dest);
         pdf = new PdfDocument(writer);
         documento = new Document(pdf, PageSize.A4);
-        documento.setMargins(30, 20, 20, 30);
+        documento.setMargins(, 20, 20, 30);
     }
     
     public static void main(String[] args) throws FileNotFoundException {
