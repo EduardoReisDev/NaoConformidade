@@ -156,6 +156,11 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
         }
         return 0; 
     }
+
+    @Override
+    public int getLastId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
      public int getLastId() {
         String query = "select max(id) as maxId from naoConformidade;";

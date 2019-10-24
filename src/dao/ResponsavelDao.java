@@ -20,6 +20,31 @@ import model.Responsavel;
  */
 public class ResponsavelDao implements Crud<Responsavel>{
 
+    public Responsavel listarPorCpf(String cpf){
+        Connection conexao = new Conexao().abreConexao();
+        Responsavel responsavel = null;
+        try{
+            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM responsavel WHERE cpf = ? ");
+            stmt.setString(1, cpf);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                responsavel = new Responsavel(
+                        rs.getInt("id"),
+                        rs.getString("cpf"),
+                        rs.getString("nome")
+                );
+            }
+            return responsavel;
+        }
+        catch (SQLException e){
+            System.out.println("erro na busca "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
+        return responsavel;
+    }
+    
     @Override
     public boolean criar(Responsavel dados) {
         Connection conexao = new Conexao().abreConexao();

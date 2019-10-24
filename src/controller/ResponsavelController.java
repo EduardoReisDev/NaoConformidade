@@ -18,13 +18,12 @@ import view.responsaveis.FormEditar;
  *
  * @author leona
  */
-public class ResposavelController {
+public class ResponsavelController {
     private Component componentePai; 
     private Responsavel responsavel;
-    private Resources rsc;
 
-    public ResposavelController() {
-        this.rsc = new Resources();
+    public ResponsavelController() {
+        
     }
     
     
@@ -42,23 +41,14 @@ public class ResposavelController {
         return new ResponsavelDao().getLastId();
     }
     
-    private Responsavel abrirFormCadastro(){
-        FormCadastrar formCadastro = new FormCadastrar((Frame) componentePai, true);
+    public void abrirFormCadastro(){
+        FormCadastrar formCadastro = new FormCadastrar((Frame) componentePai, true, this);
         formCadastro.setLocationRelativeTo(null);
         formCadastro.txtCodigo.setText(String.format("%010d", getLastId()+1));
         formCadastro.setVisible(true);//
-        if(formCadastro.isValido()){
-            return new Responsavel(
-                    0, 
-                    formCadastro.txtCpf.getText(), 
-                    formCadastro.txtNome.getText()
-            );
-        }
-        return null;
     }
     
-    public boolean cadastrar(){
-        responsavel = abrirFormCadastro();
+    public boolean cadastrar(Responsavel responsavel){
         if(responsavel != null){
             return new ResponsavelDao().criar(responsavel);
         }
@@ -68,23 +58,28 @@ public class ResposavelController {
     public boolean excluir(int id){
         if(confirmarExclusao(id)){
             if(new ResponsavelDao().excluir(id)){
-                mensagemSucessoExcluirResponsavel(responsavel);
+                exibirSucessoExclusao();
                 return true;
             }
             else{
-                mensagemErroExcluirResponsavel(responsavel);
+                exibirErroExclusao();
                 return false;
             }
         }
         return false;
     }
-
+    
+    /**
+     *
+     * @param id id do responsável a ser excluído
+     * @return true se foi confirmada a exclusão, false se não
+     */
     public boolean confirmarExclusao(int id){
         responsavel = listarPorId(id);
         return Mensagens.confirmar(componentePai,
                 mensagemExcluirResponsavel(responsavel),
-                rsc.TITULO_EXCLUIR_USUARIO,
-                rsc.QUESTAO);
+                "Excluir responsável",
+                Resources.QUESTAO);
     }
     
     /**
@@ -93,8 +88,8 @@ public class ResposavelController {
     public void exibirSucessoExclusao(){
         Mensagens.mensagem(componentePai,
                 mensagemSucessoExcluirResponsavel(responsavel),
-                rsc.TITULO_SUCESSO_EXCLUSAO_USUARIO,
-                rsc.SUCESSO);
+                "Sucesso ao excluir",
+                Resources.SUCESSO);
     }
     
     /**
@@ -103,29 +98,19 @@ public class ResposavelController {
     public void exibirErroExclusao(){
         Mensagens.mensagem(componentePai,
                 mensagemErroExcluirResponsavel(responsavel), 
-                rsc.TITULO_ERRO_EXCLUSAO_USUARIO,
-                rsc.ERRO);
+                "Erro ao excluir",
+                Resources.ERRO);
     }
     
     
-    private Responsavel abrirFormularioEditar(Responsavel responsavel){
-        FormEditar formEdita = new FormEditar((Frame) componentePai, true);
-        formEdita.preencherCampos(responsavel);
+    public void abrirFormularioEditar(int id){
+        FormEditar formEdita = new FormEditar((Frame) componentePai, true, this);
+        formEdita.preencherCampos(listarPorId(id));
         formEdita.setLocationRelativeTo(null);
         formEdita.setVisible(true);
-        if(formEdita.validarCampos()){
-            return new Responsavel(
-                    responsavel.getId(),
-                    responsavel.getCpf(),
-                    formEdita.txtNome.getText()
-            );
-        }
-        return null;
     }
     
-    public boolean editar(int id) {
-        responsavel = new ResponsavelDao().listarPorId(id);
-        responsavel = abrirFormularioEditar(responsavel);
+    public boolean editar(Responsavel responsavel){
         if(responsavel != null){
             return new ResponsavelDao().editar(responsavel);
         }
@@ -144,4 +129,15 @@ public class ResposavelController {
         return "Erro ao excluir o responsável " + responsavel.getNome() + "!";
     }
     
+    public boolean validarCpf(String cpf){
+        return Resources.validarCpf(cpf);
+    }
+    
+    public boolean validarNome(String nome){
+        return nome.length()>2;
+    }
+    
+    public boolean verificarSeExisteCpf(String cpf){
+        return new ResponsavelDao().listarPorCpf(cpf) != null;
+    }
 }
