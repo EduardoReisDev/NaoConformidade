@@ -6,6 +6,7 @@
 package view.setor;
 
 import controller.Controller;
+import controller.SetorController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -287,11 +288,13 @@ Controller controller;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        //controller.abreTelaCadastrarSetor();
+        SetorController setorcontroller = new SetorController();
+        setorcontroller.cadastrar();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        //controller.abreTelaEditarSetor();
+        SetorController setorcontroller = new SetorController();
+        setorcontroller.editar();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
