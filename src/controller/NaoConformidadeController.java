@@ -1,4 +1,4 @@
-    package controller;
+package controller;
 
 import dao.NaoConformidadeDao;
 import java.awt.Color;
@@ -14,8 +14,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.NaoConformidade;
-    import  view.Mensagens ;
-    import view.naoconformidade.CadatroNaoCoformidade;
+import  view.Mensagens ;
+import view.naoconformidade.CadatroNaoCoformidade;
 
     public class NaoConformidadeController {
         CadatroNaoCoformidade cadatroNaoCoformidade;
