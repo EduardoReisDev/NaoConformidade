@@ -77,7 +77,6 @@ private final String[] colunas ={"Código", "Nome do Setor", "Responsavel pelo S
         modeloTabela.addRow(new String[]{
             String.format("%010d", setor.getId()),
             setor.getNome(),
-            converter(setor.isMaster())
         });
     }
     
