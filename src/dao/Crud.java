@@ -18,4 +18,5 @@ public interface Crud<T> {
     public T listarPorId(int id);
     public boolean editar(T dados);
     public boolean excluir(int id);
+    public int getLastId();
 }

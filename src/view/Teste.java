@@ -3,125 +3,55 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.responsaveis;
+package view;
 
-import controller.Controller;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import javax.swing.JComponent;
-import javax.swing.JOptionPane;
-import javax.swing.JRootPane;
-import javax.swing.KeyStroke;
-import javax.swing.table.DefaultTableModel;
-import model.Responsavel;
+import com.sun.java.swing.plaf.windows.WindowsInternalFrameTitlePane;
+import com.sun.java.swing.plaf.windows.WindowsInternalFrameUI;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
 
 /**
  *
- * @author Eduardo
+ * @author leona
  */
-public class FormResponsavel extends javax.swing.JDialog {
-    Controller controller;
-    private final String [] colunas;
-    DefaultTableModel modeloTabela;
+public class Teste extends javax.swing.JFrame {
+
     /**
-     * Creates new form Responsaveis
-     * @param parent
-     * @param modal
-     * @param controller
+     * Creates new form Teste
      */
-    public FormResponsavel(java.awt.Frame parent, boolean modal, Controller controller) {
-        super(parent, modal);
-        this.colunas = new String[]{"Código", "Nome", "CPF"};
+    public Teste() {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         initComponents();
-        this.controller = controller;
-        criarEstruturaTabelaEListarTodos();
-    }
-    
-    @Override
-    protected JRootPane createRootPane() {
-        // Definindo o ActionListener
-        ActionListener actionListener = (ActionEvent e) -> {
-            setVisible(false);
-        };
-        // Definindo o KeyStroke
-        KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
-        // Criando uma instancia de JRootPane
-        JRootPane rootPane = new JRootPane();
-        // Registrando o KeyStroke enquanto o JDialog estiver em foco
-        rootPane.registerKeyboardAction(
-        actionListener, stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
-        // Retornando o novo e modificado JRootPane
-        return rootPane;
+        //frameUsuarios.;
+        try {
+            frameUsuarios.setIcon(true);
+            frameUsuarios.setIcon(false);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        setLocationRelativeTo(null);
     }
 
-    private void criarEstruturaTabelaEListarTodos(){
-        criarEstruturaTabela();
-        controller.getResposavelController().listarTodos(this::popularTabela);
-    }
     
-    private void criarEstruturaTabela(){
-        modeloTabela = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+    private void abrirMaximizarOuMinimizarFrameUsuarios() throws PropertyVetoException{
+        if(frameUsuarios.isVisible()){
+            if(frameUsuarios.isIcon()){
+                frameUsuarios.setIcon(false);
             }
-        };
-        for(String col : colunas){
-            modeloTabela.addColumn(col);
-        }
-        tblResponsaveis.setModel(modeloTabela);
-    }
-    
-    private void popularTabela(Responsavel responsavel){
-        modeloTabela.addRow(new String[]{
-            String.format("%010d", responsavel.getId()),
-            responsavel.getNome(),
-            responsavel.getCpf()
-        });
-    }
-    
-    private void criarEstruturaTabelaEBuscar(){
-        criarEstruturaTabela();
-        controller.getResposavelController().listarPorNome(this::popularTabela, txtBusca.getText());
-    }
-    
-    
-    private int pegarIdDaLinhaSelecionada(){
-        int linhaSelecionada=tblResponsaveis.getSelectedRow();
-        if(linhaSelecionada>=0){
-            return (Integer.parseInt((String) tblResponsaveis.getValueAt(linhaSelecionada, 0)));
-        }
-        return -1;
-    }
-    
-    private void editar(){
-        int id = pegarIdDaLinhaSelecionada();
-        if(id > 0){
-            controller.getResposavelController().abrirFormularioEditar(id);
-            criarEstruturaTabelaEListarTodos();
+            else{
+                frameUsuarios.setIcon(true);
+            }
         }
         else{
-            exibirMensagemLinhaNaoSelecionada();
+            frameUsuarios.setSize(695, 516);
+            frameUsuarios.setIcon(false);
+            frameUsuarios.setVisible(true);
+            frameUsuarios.setLocation((areaDeTrabalho.getWidth()-695)/2, (areaDeTrabalho.getHeight()-516)/2);
         }
     }
-    
-    
-    private void excluir() {
-        int id = pegarIdDaLinhaSelecionada();
-        if(id > 0){
-            controller.getResposavelController().excluir(id);
-            criarEstruturaTabelaEListarTodos();
-        }
-        else{
-            exibirMensagemLinhaNaoSelecionada();
-        }
-    }
-    
-    private void exibirMensagemLinhaNaoSelecionada(){
-        JOptionPane.showMessageDialog(this, "Selecione uma linha na tabela.");
-    }
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -132,31 +62,47 @@ public class FormResponsavel extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        areaDeTrabalho = new javax.swing.JDesktopPane();
+        frameUsuarios = new javax.swing.JInternalFrame();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnCadastrar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblResponsaveis = new javax.swing.JTable();
+        tblUsuarios = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         txtBusca = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         btnEditar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        btnExcluir = new javax.swing.JButton();
+        btnExcuir = new javax.swing.JButton();
+        jToolBar1 = new javax.swing.JToolBar();
+        btnUsuarios = new javax.swing.JToggleButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jLabel1.setText("jLabel1");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerenciar Responsáveis", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        areaDeTrabalho.setBackground(new java.awt.Color(255, 255, 255));
+        areaDeTrabalho.setForeground(new java.awt.Color(255, 255, 255));
+
+        frameUsuarios.setClosable(true);
+        frameUsuarios.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        frameUsuarios.setIconifiable(true);
+        frameUsuarios.setFrameIcon(null);
+        frameUsuarios.setVisible(false);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerenciar Usuários", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnCadastrar.setBackground(new java.awt.Color(255, 255, 255));
         btnCadastrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar.png"))); // NOI18N
-        btnCadastrar.setText("Novo Responsável");
+        btnCadastrar.setText("Novo Usuário");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
@@ -180,11 +126,11 @@ public class FormResponsavel extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Responsáveis cadastrados");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Usuários cadastrados");
 
-        tblResponsaveis.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tblResponsaveis.setModel(new javax.swing.table.DefaultTableModel(
+        tblUsuarios.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -198,15 +144,15 @@ public class FormResponsavel extends javax.swing.JDialog {
                 {null, null, null}
             },
             new String [] {
-                "Código", "Nome do Responsável", "CPF"
+                "Código", "Nome do Usuário", "CPF"
             }
         ));
-        jScrollPane1.setViewportView(tblResponsaveis);
+        jScrollPane1.setViewportView(tblUsuarios);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Buscar Responsável");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Buscar Usuário");
 
         txtBusca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -217,11 +163,6 @@ public class FormResponsavel extends javax.swing.JDialog {
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -229,7 +170,7 @@ public class FormResponsavel extends javax.swing.JDialog {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -241,7 +182,7 @@ public class FormResponsavel extends javax.swing.JDialog {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabel5)
                     .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -252,7 +193,7 @@ public class FormResponsavel extends javax.swing.JDialog {
         btnEditar.setBackground(new java.awt.Color(255, 255, 255));
         btnEditar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/editar.png"))); // NOI18N
-        btnEditar.setText("Editar Responsável");
+        btnEditar.setText("Editar Usuário");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -278,13 +219,13 @@ public class FormResponsavel extends javax.swing.JDialog {
 
         jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        btnExcluir.setBackground(new java.awt.Color(255, 255, 255));
-        btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excluir.png"))); // NOI18N
-        btnExcluir.setText("Excluir Responsável");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+        btnExcuir.setBackground(new java.awt.Color(255, 255, 255));
+        btnExcuir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExcuir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excluir.png"))); // NOI18N
+        btnExcuir.setText("Excluir Usuário");
+        btnExcuir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
+                btnExcuirActionPerformed(evt);
             }
         });
 
@@ -294,14 +235,14 @@ public class FormResponsavel extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnExcuir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnExcuir, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -317,8 +258,8 @@ public class FormResponsavel extends javax.swing.JDialog {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1))
-                .addGap(0, 10, Short.MAX_VALUE))
+                    .addComponent(jLabel4))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
@@ -336,66 +277,162 @@ public class FormResponsavel extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(jLabel1)
+                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        javax.swing.GroupLayout frameUsuariosLayout = new javax.swing.GroupLayout(frameUsuarios.getContentPane());
+        frameUsuarios.getContentPane().setLayout(frameUsuariosLayout);
+        frameUsuariosLayout.setHorizontalGroup(
+            frameUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(frameUsuariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        frameUsuariosLayout.setVerticalGroup(
+            frameUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(frameUsuariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        areaDeTrabalho.setLayer(frameUsuarios, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout areaDeTrabalhoLayout = new javax.swing.GroupLayout(areaDeTrabalho);
+        areaDeTrabalho.setLayout(areaDeTrabalhoLayout);
+        areaDeTrabalhoLayout.setHorizontalGroup(
+            areaDeTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(areaDeTrabalhoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(frameUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        areaDeTrabalhoLayout.setVerticalGroup(
+            areaDeTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(areaDeTrabalhoLayout.createSequentialGroup()
+                .addContainerGap(323, Short.MAX_VALUE)
+                .addComponent(frameUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jToolBar1.setFloatable(false);
+        jToolBar1.setRollover(true);
+
+        btnUsuarios.setText("jToggleButton1");
+        btnUsuarios.setFocusable(false);
+        btnUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnUsuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuariosActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnUsuarios);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(areaDeTrabalho)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(areaDeTrabalho)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        controller.getResposavelController().abrirFormCadastro();
-        criarEstruturaTabelaEListarTodos();
+      //  adicionar();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        editar();
-    }//GEN-LAST:event_btnEditarActionPerformed
-
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        excluir();
-    }//GEN-LAST:event_btnExcluirActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        criarEstruturaTabelaEBuscar();
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
     private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
-        criarEstruturaTabelaEBuscar();
+        //criarEstruturaTabelaEBuscar();
     }//GEN-LAST:event_txtBuscaKeyReleased
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        //editar();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnExcuirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcuirActionPerformed
+        //excluir();
+    }//GEN-LAST:event_btnExcuirActionPerformed
+
+    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
+        try {
+            abrirMaximizarOuMinimizarFrameUsuarios();
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnUsuariosActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Teste.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Teste.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Teste.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Teste.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Teste().setVisible(true);
+            }
+        });
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane areaDeTrabalho;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnExcuir;
+    private javax.swing.JToggleButton btnUsuarios;
+    private javax.swing.JInternalFrame frameUsuarios;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblResponsaveis;
+    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTable tblUsuarios;
     private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
 }

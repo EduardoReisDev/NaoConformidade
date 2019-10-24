@@ -16,66 +16,26 @@ public class Resources {
     /**
     *Tipo de mensagem questionamento
     */
-    public int QUESTAO;
+    public static final int QUESTAO = JOptionPane.QUESTION_MESSAGE;
 
     /**
      *Tipo de mensagem sucesso
      */
-    public int SUCESSO;
+    public static final int SUCESSO = JOptionPane.INFORMATION_MESSAGE;
     
     /**
      *Tipo de mensagem erro
      */
     
-    public final int ERRO;
+    public static final int ERRO = JOptionPane.ERROR_MESSAGE;
     
     /**
      *Tipo de mensagem atenção
      */
-    public final int ATENCAO;
-    
-    /**
-     *Mensagem a ser exibida no título da caixa de diálogo de excluir usuário
-     */
-    public final String TITULO_EXCLUIR_USUARIO;
-    /**
-     *Mensagem a ser exibida no título da caixa de diálogo quando se obteve sucesso ao excluir um cliente
-     */
-    public final String TITULO_SUCESSO_EXCLUSAO_USUARIO;
-    /**
-     *Mensagem a ser exibida no título da caixa de diálogo quando se obteve erro ao excluir um cliente
-     */
-    public final String TITULO_ERRO_EXCLUSAO_USUARIO;
-    
-    /**
-     *Mensagem a ser exibida no titulo da caixa de diálogo quando o login não é feito com sucesso
-     */
-    public final String TITULO_MENSAGEM_LOGIN_NAO_EFETUADO;
-    
-    /*
-     *Mensagem a ser exibida no título da caixa de diálogo quando o usuário que efetuou login não é master
-     */
-    public final String TITULO_MENSAGEM_SOMENTE_USUARIO_MASTER;
-    
-    /**
-     *Mensagem a ser exibida na caixa de diálogo quando o usuário que efetuou login não é master
-     */
-    public final String MENSAGEM_SOMENTE_USUARIO_MASTER;
+    public static final int ATENCAO = JOptionPane.WARNING_MESSAGE;
 
-    public Resources() {
-        this.MENSAGEM_SOMENTE_USUARIO_MASTER = "Somente usuários masters poderão prosseguir!";
-        this.TITULO_MENSAGEM_SOMENTE_USUARIO_MASTER = "Usuário não master";
-        this.QUESTAO = JOptionPane.QUESTION_MESSAGE;
-        this.ERRO = JOptionPane.ERROR_MESSAGE;
-        this.SUCESSO = JOptionPane.INFORMATION_MESSAGE;
-        this.ATENCAO = JOptionPane.WARNING_MESSAGE;
-        this.TITULO_EXCLUIR_USUARIO = "Excluir usuário";
-        this.TITULO_SUCESSO_EXCLUSAO_USUARIO = "Sucesso ao excluir";
-        this.TITULO_ERRO_EXCLUSAO_USUARIO = "Erro ao excluir";
-        this.TITULO_MENSAGEM_LOGIN_NAO_EFETUADO = "Dados incorretos";
-    }
    
-    public String removerCaracteresInvalidosCpf(String cpf){
+    public static String removerCaracteresInvalidosCpf(String cpf){
         cpf = cpf.replace(".", "");
         cpf = cpf.replace("-", "");
         return cpf;
@@ -86,7 +46,7 @@ public class Resources {
      * @param cpf CPF a ser validado
      * @return true se o CPF for válido ou false se não
      */
-    public boolean validarCpf(String cpf){
+    public static boolean validarCpf(String cpf){
         cpf = removerCaracteresInvalidosCpf(cpf);
         int soma = 0;
         int peso = 10;

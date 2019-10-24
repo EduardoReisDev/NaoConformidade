@@ -23,7 +23,7 @@ public class Controller {
     private Component componentePai;
     private DadosController dadosController;
     private UsuarioController usuarioController;
-    private ResposavelController resposavelController;
+    private ResponsavelController resposavelController;
     private Usuario usuario;
     
     private boolean sucessoAcoes;
@@ -38,7 +38,7 @@ public class Controller {
             
     public Controller(){
         dadosController =  new DadosController();
-        resposavelController = new ResposavelController();
+        resposavelController = new ResponsavelController();
         usuarioController = new UsuarioController();
         propriedadesController = new PropriedadesController(System.getProperty("user.dir")+"\\configuracoes.ini");
     }
@@ -63,7 +63,7 @@ public class Controller {
         this.componentePai = componentePai;
     }
 
-    public ResposavelController getResposavelController() {
+    public ResponsavelController getResposavelController() {
         return resposavelController;
     }
 
@@ -123,7 +123,7 @@ public class Controller {
     }
     
     public void inicio(){
-        //new Splash();
+        new Splash();
         abreTelaPrincipal();
     }
 }

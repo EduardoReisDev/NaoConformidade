@@ -110,5 +110,10 @@ public class SetorDao implements Crud<Setor>{
             Conexao.fechaConexao(conexao);
         }
     }
+
+    @Override
+    public int getLastId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
