@@ -69,6 +69,14 @@ public class FormCadastrar extends javax.swing.JDialog {
                 Mensagens.mensagem(this, "Setor não salvo!", "Erro ao salvar", Resources.ERRO);
             }
        }
+    
+    public void ViewComboBox(){
+      ResponsavelDao dao = new ResponsavelDao();
+      
+      for(Responsavel r: dao.listarPorNome(String nome)){
+          ResponsavelSetor.addItem(r);
+      }
+  }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -186,21 +194,11 @@ public class FormCadastrar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ResponsavelSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResponsavelSetorActionPerformed
-        
+        ViewComboBox();
     }//GEN-LAST:event_ResponsavelSetorActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         salvar();
-        
-        /**
-       *Setor a = new Setor();
-       *SetorDao dao = new SetorDao();
-       * 
-       * a.setNome(NomeSetor.getText());
-       * dao.criar(a);
-       * 
-       *NomeSetor.setText("");
-       */
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
