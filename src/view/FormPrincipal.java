@@ -6,6 +6,7 @@
 package view;
 
 import controller.Controller;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -25,6 +26,7 @@ public class FormPrincipal extends javax.swing.JFrame {
      */
     public FormPrincipal(Controller controller) {
         initComponents();
+        setIcon();
         btnGerenciarNC.setContentAreaFilled(false);
         btnGerenciarNC.setOpaque(true);
         this.controller = controller;
@@ -502,4 +504,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuSobre;
     private javax.swing.JMenuItem munuNaoConfirmar;
     // End of variables declaration//GEN-END:variables
+
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
+    }
 }
