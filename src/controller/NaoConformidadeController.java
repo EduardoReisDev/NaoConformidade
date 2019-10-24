@@ -1,12 +1,14 @@
     package controller;
 
 import dao.NaoConformidadeDao;
+import dao.UsuarioDao;
 import java.awt.Color;
 import  java.awt.Component ;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.function.Consumer;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -14,6 +16,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.NaoConformidade;
+import model.Usuario;
     import  view.Mensagens ;
     import view.naoconformidade.CadatroNaoCoformidade;
 
@@ -133,6 +136,10 @@ import model.NaoConformidade;
         cadastroNaoCoformidade.setVisible(true);
         return null;
     }
+     public void listarNaoConformidades(Consumer<? super NaoConformidade> resultado){
+        new NaoConformidadeDao().listarTodos(resultado::accept);
+    }
+    
     public void salvar(){
         
         naoConformidade.setId(Integer.parseInt(cadastroNaoCoformidade.Codigo.getText()));

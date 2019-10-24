@@ -134,5 +134,11 @@ public class NaoConformidade {
         this.idSetor = idSetor;
     }
 
+    public boolean getReincidencia() {
+       return this.reincidencia;
+    }
+
+
+
    
 }

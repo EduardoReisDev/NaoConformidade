@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package view.naoconformidade;
 
 import controller.NaoConformidadeController;
@@ -11,18 +5,13 @@ import dao.NaoConformidadeDao;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import model.NaoConformidade;
-import model.Responsavel;
-
 /**
  *
  * @author Ricardo
  */
 public class CadatroNaoCoformidade extends javax.swing.JDialog {
     NaoConformidadeController nCController;
-    NaoConformidadeDao naoConformidadeDao = new NaoConformidadeDao();
-
-    
-            
+    NaoConformidadeDao naoConformidadeDao = new NaoConformidadeDao();       
     /** Creates new form cadatroNaoCoformidade
      * @param parent
      * @param modal
@@ -34,24 +23,24 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
         Codigo.setText(String.valueOf((naoConformidadeDao.getLastId()+1)));
         this.nCController = nController;
     }
-ArrayList<NaoConformidade> ResponsavelNC = new ArrayList<>();
+    ArrayList<NaoConformidade> ResponsavelNC = new ArrayList<>();
 
     public ArrayList<NaoConformidade> getResponsavelNaoConformidade() {
         return ResponsavelNC;
     }
 
-    public void setCategoria(ArrayList<NaoConformidade> ResponsavelNaoConformidade) {
+    public void setResponsavel(ArrayList<NaoConformidade> ResponsavelNaoConformidade) {
         this.ResponsavelNC = ResponsavelNaoConformidade;
-        
     }
-     public void prencheer() {
-        
+    
+    public void prencheer() {
         Responsavel.removeAllItems();
-           naoConformidadeDao.buscaResponsaveis().forEach(c ->{
-           Responsavel.addItem(c.getresponsavel());
-           getResponsavelNaoConformidade().add(c);  
+        naoConformidadeDao.buscaResponsaveis().
+        forEach(c ->{
+        Responsavel.addItem(c.getresponsavel());
+        getResponsavelNaoConformidade().add(c);  
         });
-     }
+    }
     
     public boolean validarDados(){
         if(!nCController.validarTexto(descricao.getText())){
@@ -542,5 +531,4 @@ ArrayList<NaoConformidade> ResponsavelNC = new ArrayList<>();
     public javax.swing.JCheckBox reincidencia;
     private javax.swing.JLabel visualizaImg;
     // End of variables declaration//GEN-END:variables
-
 }

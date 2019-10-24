@@ -7,12 +7,16 @@ package view.naoconformidade;
 
 import controller.Controller;
 import controller.NaoConformidadeController;
+import dao.NaoConformidadeDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
+import javax.swing.table.DefaultTableModel;
+import model.NaoConformidade;
 
 /**
  *
@@ -20,6 +24,9 @@ import javax.swing.KeyStroke;
  */
 public class FormNaoConformidade extends javax.swing.JDialog {
     Controller controller;
+    NaoConformidadeDao naoConformidades = new NaoConformidadeDao();
+    NaoConformidadeController naoConformidadeController = new NaoConformidadeController();
+    private final String[] colunas ={"Código","Descrição","DataRegistro","DataAcontecimento","Reincidencia","Abrangencia","Origem","Responsavel","AcaoCorrecao"};
     
     /**
      * Creates new form NaoConformidade
@@ -28,6 +35,35 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.controller = controller;
+        naoConformidadeController.listarNaoConformidades(this::preencherTabela);
+    }
+    private DefaultTableModel modelo;
+    
+    public void criarEstrurturaTabela(){
+        modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        for(String coluna: colunas){
+            modelo.addColumn(coluna);
+        }
+        jTable1.setModel(modelo);
+    }
+    private void preencherTabela(NaoConformidade naoConformidades){
+        criarEstrurturaTabela();
+        modelo.addRow(new Object[]{
+                naoConformidades.getId(),
+                naoConformidades.getDescricao(),
+                naoConformidades.getDataRegistro(),
+                naoConformidades.getDataAcontecimento(),
+                naoConformidades.getReincidencia(),
+                naoConformidades.getAbrangencia(),
+                naoConformidades.getOrigem(),
+                naoConformidades.getresponsavel(),
+                naoConformidades.getAcaoCorrecao()
+            });
     }
     
     @Override
