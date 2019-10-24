@@ -5,22 +5,29 @@
  */
 package view.setor;
 
+import controller.Resources;
+import java.lang.String;
 import controller.SetorController;
+import dao.ResponsavelDao;
 import dao.SetorDao;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.function.Consumer;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
+import model.Responsavel;
 import model.Setor;
+import view.Mensagens;
 
 /**
  *
  * @author Eduardo
  */
 public class FormCadastrar extends javax.swing.JDialog {
+    SetorController setorController;
 
     /**
      * Creates new form CadastroSetores
@@ -50,6 +57,26 @@ public class FormCadastrar extends javax.swing.JDialog {
         // Retornando o novo e modificado JRootPane
         return rootPane;
     }
+    
+    private void salvar(){
+        if(setorController.adicionar(new Setor(
+                NomeSetor.getText() 
+        ))){
+            Mensagens.mensagem(this, "Setor salvo com sucesso!", "Sucesso ao salvar", Resources.SUCESSO);
+                dispose();
+            }
+            else{
+                Mensagens.mensagem(this, "Setor não salvo!", "Erro ao salvar", Resources.ERRO);
+            }
+       }
+    
+    public void ViewComboBox(){
+      ResponsavelDao dao = new ResponsavelDao();
+      
+      for(Responsavel r: dao.listarPorNome(String nome)){
+          ResponsavelSetor.addItem(r);
+      }
+  }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,7 +109,6 @@ public class FormCadastrar extends javax.swing.JDialog {
         jLabel3.setText("Nome do Setor");
 
         ResponsavelSetor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        ResponsavelSetor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Usuário 1", "Usuário 2", "Usuário 3" }));
         ResponsavelSetor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ResponsavelSetorActionPerformed(evt);
@@ -168,18 +194,11 @@ public class FormCadastrar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ResponsavelSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResponsavelSetorActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_ResponsavelSetorActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // Cadastro do setor
-        Setor a = new Setor();
-        SetorDao dao = new SetorDao();
-        
-        a.setNome(NomeSetor.getText());
-        dao.criar(a);
-        
-        NomeSetor.setText("");
+        salvar();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**

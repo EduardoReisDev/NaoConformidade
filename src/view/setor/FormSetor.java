@@ -11,8 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
+import javax.swing.table.DefaultTableModel;
+import model.Setor;
 
 /**
  *
@@ -20,6 +23,8 @@ import javax.swing.KeyStroke;
  */
 public class FormSetor extends javax.swing.JDialog {
 Controller controller;
+DefaultTableModel modeloTabela;
+private final String[] colunas ={"Código", "Nome do Setor", "Responsavel pelo Setor"};
 
     /**
      * Creates new form NewJDialog
@@ -50,6 +55,55 @@ Controller controller;
     }
 
 
+    private void criarEstruturaTabelaEListarTodos(){
+        criarEstrurturaTabela();
+        controller.getSetorController().listarSetores(this::popularTabela);
+    }
+    
+    public void criarEstrurturaTabela(){
+        modeloTabela = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        for(String coluna: colunas){
+            modeloTabela.addColumn(coluna);
+        }
+        tblSetor.setModel(modeloTabela);
+    }
+    
+    private void popularTabela(Setor setor){
+        modeloTabela.addRow(new String[]{
+            String.format("%010d", setor.getId()),
+            setor.getNome(),
+            converter(setor.isMaster())
+        });
+    }
+    
+    private void exibirMensagemLinhaNaoSelecionada(){
+        JOptionPane.showMessageDialog(this, "Selecione uma linha na tabela.");
+    }
+    
+    private int pegarIdDaLinhaSelecionada(){
+        int linhaSelecionada=tblSetor.getSelectedRow();
+        if(linhaSelecionada>=0){
+            return (Integer.parseInt((String) tblSetor.getValueAt(linhaSelecionada, 0)));
+        }
+        return -1;
+    }
+    
+    private void excluir(){
+        int id = pegarIdDaLinhaSelecionada();
+        if(id>=0){
+            controller.getUsuarioController().excluir(id);
+        }
+        else{
+            exibirMensagemLinhaNaoSelecionada();
+        }
+        criarEstruturaTabelaEListarTodos();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,7 +118,7 @@ Controller controller;
         btnCadastrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblSetor = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -120,8 +174,8 @@ Controller controller;
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Setores cadastrados");
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblSetor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblSetor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -138,7 +192,7 @@ Controller controller;
                 "Código", "Nome do Setor", "Responsável pelo Setor"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblSetor);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -298,7 +352,7 @@ Controller controller;
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        excluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
@@ -322,7 +376,7 @@ Controller controller;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblSetor;
     // End of variables declaration//GEN-END:variables
 }
