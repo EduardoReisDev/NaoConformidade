@@ -293,6 +293,7 @@ public class FormCadastrar extends javax.swing.JDialog {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Código:");
 
+        txtCodigo.setEditable(false);
         txtCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtCodigo.setToolTipText("");
         txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
