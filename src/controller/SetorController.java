@@ -134,4 +134,24 @@ public class SetorController {
         return "Erro ao excluir o setor " + setor.getNome() + "!";
     }
     
+    public void abrirFormEditar(int id) {
+        FormEditar formularioEditar = new FormEditar((Frame) componentePai, true, this);
+        formularioEditar.setLocationRelativeTo(null);
+        formularioEditar.preencherCampos(listarPorId(id));
+        formularioEditar.setVisible(true);
+    }
+    
+    public boolean editar(Setor setor){
+        if(setor!=null){
+           return new SetorDao().editar(setor);//salva no banco de dados
+        } 
+        return false;
+    }
+    
+  public boolean adicionar(Setor setor){
+        if(setor!=null){//se não retornar nulo, insere no banco
+            return new SetorDao().criar(setor);//salva no banco de dados
+        }
+        return false;
+    }
 }

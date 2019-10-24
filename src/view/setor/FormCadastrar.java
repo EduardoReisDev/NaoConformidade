@@ -5,6 +5,7 @@
  */
 package view.setor;
 
+import controller.Resources;
 import java.lang.String;
 import controller.SetorController;
 import dao.ResponsavelDao;
@@ -19,12 +20,14 @@ import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import model.Responsavel;
 import model.Setor;
+import view.Mensagens;
 
 /**
  *
  * @author Eduardo
  */
 public class FormCadastrar extends javax.swing.JDialog {
+    SetorController setorController;
 
     /**
      * Creates new form CadastroSetores
@@ -54,6 +57,18 @@ public class FormCadastrar extends javax.swing.JDialog {
         // Retornando o novo e modificado JRootPane
         return rootPane;
     }
+    
+    private void salvar(){
+        if(setorController.adicionar(new Setor(
+                NomeSetor.getText() 
+        ))){
+            Mensagens.mensagem(this, "Setor salvo com sucesso!", "Sucesso ao salvar", Resources.SUCESSO);
+                dispose();
+            }
+            else{
+                Mensagens.mensagem(this, "Setor não salvo!", "Erro ao salvar", Resources.ERRO);
+            }
+       }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -175,14 +190,17 @@ public class FormCadastrar extends javax.swing.JDialog {
     }//GEN-LAST:event_ResponsavelSetorActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // Cadastro do setor
-        Setor a = new Setor();
-        SetorDao dao = new SetorDao();
+        salvar();
         
-        a.setNome(NomeSetor.getText());
-        dao.criar(a);
-        
-        NomeSetor.setText("");
+        /**
+       *Setor a = new Setor();
+       *SetorDao dao = new SetorDao();
+       * 
+       * a.setNome(NomeSetor.getText());
+       * dao.criar(a);
+       * 
+       *NomeSetor.setText("");
+       */
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
