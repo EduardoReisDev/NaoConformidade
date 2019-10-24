@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.ResponsavelDao;
 import dao.SetorDao;
 import java.awt.Component;
 import java.awt.Frame;
@@ -28,6 +29,7 @@ public class SetorController {
     FormEditar edicao;
     
     public SetorController() {
+        setor = new Setor();
         this.rsc = new Resources();
     }
     

@@ -20,6 +20,7 @@ import view.usuario.FormUsuario;
  * @author leona
  */
 public class Controller {
+    private SetorController setorController;
     private Component componentePai;
     private DadosController dadosController;
     private UsuarioController usuarioController;
@@ -40,6 +41,7 @@ public class Controller {
         dadosController =  new DadosController();
         resposavelController = new ResponsavelController();
         usuarioController = new UsuarioController();
+        setorController = new SetorController();
         propriedadesController = new PropriedadesController(System.getProperty("user.dir")+"\\configuracoes.ini");
     }
 
