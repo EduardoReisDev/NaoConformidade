@@ -57,7 +57,7 @@ public class FormResponsavel extends javax.swing.JDialog {
 
     private void criarEstruturaTabelaEListarTodos(){
         criarEstruturaTabela();
-        controller.getResposavelController().listarTodos(this::popularTabela);
+        controller.getResponsavelController().listarTodos(this::popularTabela);
     }
     
     private void criarEstruturaTabela(){
@@ -83,7 +83,7 @@ public class FormResponsavel extends javax.swing.JDialog {
     
     private void criarEstruturaTabelaEBuscar(){
         criarEstruturaTabela();
-        controller.getResposavelController().listarPorNome(this::popularTabela, txtBusca.getText());
+        controller.getResponsavelController().listarPorNome(this::popularTabela, txtBusca.getText());
     }
     
     
@@ -98,7 +98,7 @@ public class FormResponsavel extends javax.swing.JDialog {
     private void editar(){
         int id = pegarIdDaLinhaSelecionada();
         if(id > 0){
-            controller.getResposavelController().abrirFormularioEditar(id);
+            controller.getResponsavelController().abrirFormularioEditar(id);
             criarEstruturaTabelaEListarTodos();
         }
         else{
@@ -110,7 +110,7 @@ public class FormResponsavel extends javax.swing.JDialog {
     private void excluir() {
         int id = pegarIdDaLinhaSelecionada();
         if(id > 0){
-            controller.getResposavelController().excluir(id);
+            controller.getResponsavelController().excluir(id);
             criarEstruturaTabelaEListarTodos();
         }
         else{
@@ -362,7 +362,7 @@ public class FormResponsavel extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        controller.getResposavelController().abrirFormCadastro();
+        controller.getResponsavelController().abrirFormCadastro();
         criarEstruturaTabelaEListarTodos();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 

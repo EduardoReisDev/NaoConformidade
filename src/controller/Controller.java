@@ -23,7 +23,8 @@ public class Controller {
     private Component componentePai;
     private final DadosController dadosController;
     private final UsuarioController usuarioController;
-    private final ResponsavelController resposavelController;
+    private final ResponsavelController responsavelController;
+    private final SetorController setorController;
     private final PropriedadesController propriedadesController;
     private Usuario usuario;
     
@@ -36,17 +37,18 @@ public class Controller {
             
     public Controller(){
         dadosController =  new DadosController();
-        resposavelController = new ResponsavelController();
+        responsavelController = new ResponsavelController();
         usuarioController = new UsuarioController();
         propriedadesController = new PropriedadesController(System.getProperty("user.dir")+"\\configuracoes.ini");
+        setorController = new SetorController();
     }
 
-    public void verificarBancoDeDados(){
-        dadosController.verificarBanco();
+    public ResponsavelController getResponsavelController() {
+        return responsavelController;
     }
-    
-    public void verificaArquivoDeConfiguracoes(){
-        propriedadesController.ler("Boas vindas");
+
+    public SetorController getSetorController() {
+        return setorController;
     }
     
     public DadosController getDadosController() {
@@ -57,15 +59,18 @@ public class Controller {
         return usuarioController;
     }
 
+    public void verificarBancoDeDados(){
+        dadosController.verificarBanco();
+    }
+    
+    public void verificaArquivoDeConfiguracoes(){
+        propriedadesController.ler("Boas vindas");
+    }
+
     public void setComponentePai(Component componentePai) {
         this.componentePai = componentePai;
     }
 
-    public ResponsavelController getResposavelController() {
-        return resposavelController;
-    }
-
-    
     public void abreTelaNaoConformidade(){
         telaNaoConformidade = new FormNaoConformidade((Frame) componentePai, true, this);
         telaNaoConformidade.setLocationRelativeTo(null);
