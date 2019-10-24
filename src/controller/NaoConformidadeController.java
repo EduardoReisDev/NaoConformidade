@@ -151,7 +151,7 @@ import model.Usuario;
         naoConformidade.setDataAcontecimento(cadastroNaoCoformidade.dataAcontecimento.getCurrent().getTime());
         naoConformidade.setReincidencia(cadastroNaoCoformidade.reincidencia.isSelected());
         naoConformidade.setImagem(novoCaminho);
-        naoConformidade.setIdResponsavel(cadastroNaoCoformidade.getResponsavelNaoConformidade().get(cadastroNaoCoformidade.Responsavel.getSelectedIndex()).getId());
+        naoConformidade.setIdResponsavel(cadastroNaoCoformidade.getResponsavelNaoConformidade().get(cadastroNaoCoformidade.Responsavel.getSelectedIndex()).getIdResponsavel());
         if(!naoConformidadeDao.criar(naoConformidade)){
             JOptionPane.showMessageDialog(componentePai, "nao");
         }

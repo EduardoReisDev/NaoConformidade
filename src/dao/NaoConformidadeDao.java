@@ -54,7 +54,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
 
     @Override
     public void listarTodos(Consumer<? super NaoConformidade> resultado) {
-        String query = " ";
+        String query = "select * from naoConformidade AS n INNER JOIN  responsavel AS r WHERE n.idResponsavel=r.id";
         Connection conexao = new Conexao().abreConexao();
         NaoConformidade result;
         try{
@@ -184,7 +184,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
                     NaoConformidade naoConformidade = new NaoConformidade();
-                    naoConformidade.setId(rs.getInt(1));
+                    naoConformidade.setIdResponsavel(rs.getInt(1));
                     naoConformidade.setResponsavel(rs.getString(2));
                     responsaveis.add(naoConformidade);
                 }
