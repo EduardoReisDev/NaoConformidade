@@ -10,6 +10,7 @@ import java.awt.Component;
 import java.awt.Frame;
 import java.util.function.Consumer;
 import model.Setor;
+import view.Mensagens;
 import view.setor.FormCadastrar;
 import view.setor.FormEditar;
 
@@ -50,6 +51,14 @@ public class SetorController {
         edicao.setVisible(true);
     }
     
+        /**
+     *Este método faz a listagem a partir do id do setor
+     * @param id id do usuário a ser consultado;
+     */
+    public Setor listarPorId(int id){
+        return new SetorDao().listarPorId(id);
+    }
+    
      /**
      *Este método é responsável por listar todos os setores existentes no banco de dados
      * @param resultado resultado da listagem
@@ -59,6 +68,70 @@ public class SetorController {
         new SetorDao().listarTodos(resultado::accept);
     }
     
+    /**
+     *Este método é responsável por excluir o setor do banco de dados
+     * @param id id do setor a ser excluído
+     * @return true se foi excluído com sucesso ou false, se não
+     */
     
+    public boolean excluir(int id){
+        if(confirmarExclusao(id)){
+            if(new SetorDao().excluir(id)){
+                exibirSucessoExclusao();
+                return true;
+            }
+            else{
+                exibirErroExclusao();
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * @param id id do setor a ser excluído
+     * @return true se foi confirmada a exclusão, false se não
+     */
+    
+    public boolean confirmarExclusao(int id){
+        setor = listarPorId(id);
+        return Mensagens.confirmar(componentePai,
+                mensagemExcluirSetor(setor),
+                "Excluir Setor",
+                Resources.QUESTAO);
+    }
+    
+     /**
+     *Este método mostra uma mensagem de sucesso ao excluir
+     */
+    
+    public void exibirSucessoExclusao(){
+        Mensagens.mensagem(componentePai,
+                mensagemSucessoExcluirSetor(setor),
+                "Sucesso ao excluir",
+                Resources.SUCESSO);
+    }
+    
+     /**
+     *Este método mostra uma mensagem de erro ao excluir
+     */
+    public void exibirErroExclusao(){
+        Mensagens.mensagem(componentePai,
+                mensagemErroExcluirSetor(setor), 
+                "Erro ao excluir",
+                Resources.ERRO);
+    }
+    
+    public String mensagemExcluirSetor(Setor setor){
+        return "Tem certeza que deseja excluir o setor " + setor.getNome() + "?";
+    }
+    
+    public String mensagemSucessoExcluirSetor(Setor setor){
+        return "Sucesso ao excluir o setor " + setor.getNome() + "!";
+    }
+    
+    public String mensagemErroExcluirSetor(Setor setor){
+        return "Erro ao excluir o setor " + setor.getNome() + "!";
+    }
     
 }
