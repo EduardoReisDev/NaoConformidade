@@ -54,7 +54,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
 
     @Override
     public void listarTodos(Consumer<? super NaoConformidade> resultado) {
-        String query = "select * from naoConformidade ";
+        String query = " ";
         Connection conexao = new Conexao().abreConexao();
         NaoConformidade result;
         try{
@@ -185,7 +185,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                 while (rs.next()) {
                     NaoConformidade naoConformidade = new NaoConformidade();
                     naoConformidade.setId(rs.getInt(1));
-                    naoConformidade.setCategoria(rs.getString(2));
+                    naoConformidade.setResponsavel(rs.getString(2));
                     responsaveis.add(naoConformidade);
                 }
                  Conexao.fechaConexao(conexao);

@@ -24,7 +24,7 @@ public class NaoConformidade {
         return responsavel;
     }
 
-    public void setCategoria(String responsavel) {
+    public void setResponsavel(String responsavel) {
         this.responsavel = responsavel;
     }
 
