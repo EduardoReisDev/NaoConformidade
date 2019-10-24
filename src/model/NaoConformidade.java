@@ -18,6 +18,15 @@ public class NaoConformidade {
     private boolean reincidencia;
     private int idResponsavel;
     private int idSetor;
+    private String responsavel;
+
+    public String getresponsavel() {
+        return responsavel;
+    }
+
+    public void setCategoria(String responsavel) {
+        this.responsavel = responsavel;
+    }
 
     public NaoConformidade(int id, String abrangencia, String acaoCorrecao, Date dataAcontecimento, Date dataRegistro, String descricao, String imagem, String origem, boolean reincidencia, int idResponsavel, int idSetor){
         this.id = id;

@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.function.Consumer;
 
 /**
@@ -174,6 +175,25 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
             Conexao.fechaConexao(conexao);
         }
         return 0; 
+    }
+     
+    public ArrayList<NaoConformidade> buscaResponsaveis() {
+        ArrayList<NaoConformidade> responsaveis = new ArrayList<>();
+        Connection conexao = new Conexao().abreConexao();
+                    try (PreparedStatement stmt = conexao.prepareStatement("select * from responsavel")) {
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    NaoConformidade naoConformidade = new NaoConformidade();
+                    naoConformidade.setId(rs.getInt(1));
+                    naoConformidade.setCategoria(rs.getString(2));
+                    responsaveis.add(naoConformidade);
+                }
+                 Conexao.fechaConexao(conexao);
+            }
+            catch(SQLException e){
+            System.out.println("erro na listagem "+e.getMessage());
+        }
+        return responsaveis;
     }
     
 }

@@ -18,7 +18,7 @@ import model.NaoConformidade;
     import view.naoconformidade.CadatroNaoCoformidade;
 
     public class NaoConformidadeController {
-        CadatroNaoCoformidade cadatroNaoCoformidade;
+        CadatroNaoCoformidade cadastroNaoCoformidade;
         Component componentePai;
         String novoCaminho = null;
         NaoConformidadeDao naoConformidadeDao = new NaoConformidadeDao();
@@ -102,7 +102,7 @@ import model.NaoConformidade;
                 k.fillRect(0, 0, larguraFim, alturaFim);
                 k.drawImage(imagem, 0,0, larguraFim, alturaFim, null);
                 try {
-                    System.out.println(novoCaminho = String.valueOf("imagens não conformidades/imagem de não conformidade"+(cadatroNaoCoformidade.Codigo.getText()))+".png");
+                    novoCaminho = String.valueOf("imagens não conformidades/imagem de não conformidade"+(cadastroNaoCoformidade.Codigo.getText())+".png");
                     File arquivoX = new File(novoCaminho);
                     arquivoX.getParentFile().mkdirs();
                     ImageIO.write(imagemNova, "png", arquivoX) ;
@@ -128,28 +128,29 @@ import model.NaoConformidade;
 
     public NaoConformidade cadastrar () {
         
-        cadatroNaoCoformidade = new CadatroNaoCoformidade(null, true, this);
-        cadatroNaoCoformidade.setLocationRelativeTo(null);
-        cadatroNaoCoformidade.setVisible(true);
-        
+        cadastroNaoCoformidade = new CadatroNaoCoformidade(null, true, this);
+        cadastroNaoCoformidade.setLocationRelativeTo(null);
+        cadastroNaoCoformidade.setVisible(true);
         return null;
     }
     public void salvar(){
         
-        naoConformidade.setId(Integer.parseInt(cadatroNaoCoformidade.Codigo.getText()));
-        naoConformidade.setDescricao(cadatroNaoCoformidade.descricao.getText());
-        naoConformidade.setAbrangencia(cadatroNaoCoformidade.abrangencia.getText());
-        naoConformidade.setOrigem(cadatroNaoCoformidade.origem.getText());
-        naoConformidade.setAcaoCorrecao(cadatroNaoCoformidade.acaoCorrecao.getText());
-        naoConformidade.setDataRegistro(cadatroNaoCoformidade.dataRegistro.getSelectedDate().getTime());
-        naoConformidade.setDataAcontecimento(cadatroNaoCoformidade.dataAcontecimento.getCurrent().getTime());
-        naoConformidade.setReincidencia(cadatroNaoCoformidade.reincidencia.isSelected());
+        naoConformidade.setId(Integer.parseInt(cadastroNaoCoformidade.Codigo.getText()));
+        naoConformidade.setDescricao(cadastroNaoCoformidade.descricao.getText());
+        naoConformidade.setAbrangencia(cadastroNaoCoformidade.abrangencia.getText());
+        naoConformidade.setOrigem(cadastroNaoCoformidade.origem.getText());
+        naoConformidade.setAcaoCorrecao(cadastroNaoCoformidade.acaoCorrecao.getText());
+        naoConformidade.setDataRegistro(cadastroNaoCoformidade.dataRegistro.getSelectedDate().getTime());
+        naoConformidade.setDataAcontecimento(cadastroNaoCoformidade.dataAcontecimento.getCurrent().getTime());
+        naoConformidade.setReincidencia(cadastroNaoCoformidade.reincidencia.isSelected());
         naoConformidade.setImagem(novoCaminho);
+        naoConformidade.setIdResponsavel(cadastroNaoCoformidade.getResponsavelNaoConformidade().get(cadastroNaoCoformidade.Responsavel.getSelectedIndex()).getId());
         if(!naoConformidadeDao.criar(naoConformidade)){
             JOptionPane.showMessageDialog(componentePai, "nao");
         }
         else {
             JOptionPane.showMessageDialog(componentePai, "Dados cadastrados com sucesso!","Sucesso!",1);
+            cadastroNaoCoformidade.dispose();
         }
     }
 }

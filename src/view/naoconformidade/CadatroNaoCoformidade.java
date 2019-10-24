@@ -9,6 +9,9 @@ package view.naoconformidade;
 import controller.NaoConformidadeController;
 import dao.NaoConformidadeDao;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import model.NaoConformidade;
+import model.Responsavel;
 
 /**
  *
@@ -18,13 +21,37 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     NaoConformidadeController nCController;
     NaoConformidadeDao naoConformidadeDao = new NaoConformidadeDao();
 
-    /** Creates new form cadatroNaoCoformidade */
+    
+            
+    /** Creates new form cadatroNaoCoformidade
+     * @param parent
+     * @param modal
+     * @param nController */
     public CadatroNaoCoformidade(java.awt.Frame parent, boolean modal, NaoConformidadeController nController) {
         super(parent, modal);
         initComponents();
+        prencheer();
         Codigo.setText(String.valueOf((naoConformidadeDao.getLastId()+1)));
         this.nCController = nController;
     }
+ArrayList<NaoConformidade> ResponsavelNC = new ArrayList<>();
+
+    public ArrayList<NaoConformidade> getResponsavelNaoConformidade() {
+        return ResponsavelNC;
+    }
+
+    public void setCategoria(ArrayList<NaoConformidade> ResponsavelNaoConformidade) {
+        this.ResponsavelNC = ResponsavelNaoConformidade;
+        
+    }
+     public void prencheer() {
+        
+        Responsavel.removeAllItems();
+           naoConformidadeDao.buscaResponsaveis().forEach(c ->{
+           Responsavel.addItem(c.getresponsavel());
+           getResponsavelNaoConformidade().add(c);  
+        });
+     }
     
     public boolean validarDados(){
         if(!nCController.validarTexto(descricao.getText())){
