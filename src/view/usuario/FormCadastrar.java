@@ -191,8 +191,8 @@ public class FormCadastrar extends javax.swing.JDialog {
         verificacaoUsuario = new javax.swing.JLabel();
         verificacaoConfirmarSenha = new javax.swing.JLabel();
         verificacaoSenha = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
 
         setResizable(false);
 
@@ -255,6 +255,7 @@ public class FormCadastrar extends javax.swing.JDialog {
             }
         });
 
+        txtCpf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCpfKeyReleased(evt);
@@ -289,16 +290,16 @@ public class FormCadastrar extends javax.swing.JDialog {
         verificacaoSenha.setForeground(new java.awt.Color(255, 0, 0));
         verificacaoSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        txtCodigo.setEditable(false);
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Código:");
+
         txtCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtCodigo.setToolTipText("");
         txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCodigoKeyReleased(evt);
             }
         });
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Código:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -471,7 +472,7 @@ public class FormCadastrar extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    public javax.swing.JFormattedTextField txtCodigo;
+    public javax.swing.JTextField txtCodigo;
     public javax.swing.JPasswordField txtConfirmarSenha;
     public javax.swing.JFormattedTextField txtCpf;
     public javax.swing.JTextField txtNome;
