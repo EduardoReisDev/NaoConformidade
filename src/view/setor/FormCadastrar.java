@@ -171,11 +171,7 @@ public class FormCadastrar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ResponsavelSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResponsavelSetorActionPerformed
-        ResponsavelDao dao = new ResponsavelDao();
         
-        for(Responsavel r: dao.listarPorNome(String nome)){
-            ResponsavelSetor.addItem(r);
-        }
     }//GEN-LAST:event_ResponsavelSetorActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
