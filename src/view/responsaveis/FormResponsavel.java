@@ -21,9 +21,9 @@ import model.Responsavel;
  * @author Eduardo
  */
 public class FormResponsavel extends javax.swing.JDialog {
-    Controller controller;
+    private Controller controller;
     private final String [] colunas;
-    DefaultTableModel modeloTabela;
+    private DefaultTableModel modeloTabela;
     /**
      * Creates new form Responsaveis
      * @param parent
@@ -98,7 +98,7 @@ public class FormResponsavel extends javax.swing.JDialog {
     private void editar(){
         int id = pegarIdDaLinhaSelecionada();
         if(id > 0){
-            controller.getResposavelController().editar(id);
+            controller.getResposavelController().abrirFormularioEditar(id);
             criarEstruturaTabelaEListarTodos();
         }
         else{
@@ -362,7 +362,7 @@ public class FormResponsavel extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        controller.getResposavelController().cadastrar();
+        controller.getResposavelController().abrirFormCadastro();
         criarEstruturaTabelaEListarTodos();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 

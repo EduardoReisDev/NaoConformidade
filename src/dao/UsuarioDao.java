@@ -241,4 +241,23 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
         }
         return usuarioLogin;
     } 
+    
+    public int getLastId() {
+        String query = "select max(id) as maxId from usuario;";
+        Connection conexao = new Conexao().abreConexao();
+        try{
+            Statement stm = conexao.createStatement();
+            ResultSet res = stm.executeQuery(query);
+            while (res.next()){
+                return res.getInt("maxId");
+            }
+        }
+        catch(SQLException e){
+            System.out.println("erro na listagem "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
+        return 0; 
+    }
 }

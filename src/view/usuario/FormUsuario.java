@@ -22,8 +22,8 @@ import model.Usuario;
  * @author Eduardo
  */
 public class FormUsuario extends javax.swing.JDialog {
-    Controller controller;
-    DefaultTableModel modeloTabela;
+    private Controller controller;
+    private DefaultTableModel modeloTabela;
     private final String[] colunas ={"Código", "Nome", "CPF", "Usuário", "Usuário Master"};
     /**
      * Creates new form GerenciarUsuarios
@@ -93,7 +93,7 @@ public class FormUsuario extends javax.swing.JDialog {
     }
     
     public void adicionar(){
-        controller.getUsuarioController().cadastrar();
+        controller.getUsuarioController().abrirFormCadastro();
         criarEstruturaTabelaEListarTodos();
     }
     
@@ -118,7 +118,7 @@ public class FormUsuario extends javax.swing.JDialog {
     private void editar(){
         int id=pegarIdDaLinhaSelecionada();
         if(id>=0){
-            controller.getUsuarioController().editar(id);
+            controller.getUsuarioController().abrirFormEditar(id);
         }
         else{
             exibirMensagemLinhaNaoSelecionada();
@@ -163,9 +163,9 @@ public class FormUsuario extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerenciar Usuários", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerenciar Usuários", 2, 2, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(0));
 
         btnCadastrar.setBackground(new java.awt.Color(255, 255, 255));
         btnCadastrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -217,7 +217,7 @@ public class FormUsuario extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tblUsuarios);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Buscar Usuário");
@@ -256,7 +256,7 @@ public class FormUsuario extends javax.swing.JDialog {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(0));
 
         btnEditar.setBackground(new java.awt.Color(255, 255, 255));
         btnEditar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -285,7 +285,7 @@ public class FormUsuario extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(0));
 
         btnExcuir.setBackground(new java.awt.Color(255, 255, 255));
         btnExcuir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -354,10 +354,10 @@ public class FormUsuario extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

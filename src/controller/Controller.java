@@ -21,24 +21,22 @@ import view.usuario.FormUsuario;
  */
 public class Controller {
     private Component componentePai;
-    private DadosController dadosController;
-    private UsuarioController usuarioController;
-    private ResposavelController resposavelController;
+    private final DadosController dadosController;
+    private final UsuarioController usuarioController;
+    private final ResponsavelController resposavelController;
+    private final PropriedadesController propriedadesController;
     private Usuario usuario;
     
-    private boolean sucessoAcoes;
-    
-    FormNaoConformidade telaNaoConformidade;
-    FormResponsavel telaResponsavel;
-    FormSetor telaSetor;
-    FormUsuario telaUsuario;
-    FormPrincipal telaPrincipal;
-    PropriedadesController propriedadesController;
-    DialogoConfirmaSair dialogoConfirmaSair;
+    private FormNaoConformidade telaNaoConformidade;
+    private FormResponsavel telaResponsavel;
+    private FormSetor telaSetor;
+    private FormUsuario telaUsuario;
+    private FormPrincipal telaPrincipal;
+    private DialogoConfirmaSair dialogoConfirmaSair;
             
     public Controller(){
         dadosController =  new DadosController();
-        resposavelController = new ResposavelController();
+        resposavelController = new ResponsavelController();
         usuarioController = new UsuarioController();
         propriedadesController = new PropriedadesController(System.getProperty("user.dir")+"\\configuracoes.ini");
     }
@@ -63,7 +61,7 @@ public class Controller {
         this.componentePai = componentePai;
     }
 
-    public ResposavelController getResposavelController() {
+    public ResponsavelController getResposavelController() {
         return resposavelController;
     }
 
