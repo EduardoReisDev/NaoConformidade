@@ -5,7 +5,9 @@
  */
 package view.setor;
 
+import controller.Resources;
 import controller.SetorController;
+import dao.ResponsavelDao;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +15,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
+import model.Responsavel;
+import model.Setor;
+import view.Mensagens;
 
 /**
  *
@@ -48,7 +53,26 @@ public class FormEditar extends javax.swing.JDialog {
         // Retornando o novo e modificado JRootPane
         return rootPane;
     }
-
+    
+    private void salvar(){
+        if(setorController.adicionar(new Setor(
+                NomeSetor.getText() 
+        ))){
+            Mensagens.mensagem(this, "Setor salvo com sucesso!", "Sucesso ao salvar", Resources.SUCESSO);
+                dispose();
+            }
+            else{
+                Mensagens.mensagem(this, "Setor não salvo!", "Erro ao salvar", Resources.ERRO);
+            }
+       }
+    
+    public void ViewComboBox(){
+      ResponsavelDao dao = new ResponsavelDao();
+      
+      for(Responsavel r: dao.listarPorNome(String nome)){
+          ResponsavelSetor.addItem(r);
+      }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -167,7 +191,7 @@ public class FormEditar extends javax.swing.JDialog {
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       salvar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

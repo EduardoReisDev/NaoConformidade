@@ -129,12 +129,7 @@
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Selecione..."/>
-                <StringItem index="1" value="Usu&#xe1;rio 1"/>
-                <StringItem index="2" value="Usu&#xe1;rio 2"/>
-                <StringItem index="3" value="Usu&#xe1;rio 3"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <Events>
