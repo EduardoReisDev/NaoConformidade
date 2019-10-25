@@ -63,12 +63,12 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
     @Override
     public void listarTodos(Consumer<? super NaoConformidade> resultado) {
         String query = "select * from naoConformidade AS nc "
-                + "INNER JOIN setor AS s "
-                + "INNER JOIN  responsavel AS r "
-                + "INNER JOIN responsavel AS rs "
-                + "ON nc.idResponsavel=r.id AND "
-                + "s.idResponsavel = rs.id AND "
-                + "nc.idSetor = s.id;";
+                + "INNER JOIN setor as s "
+                + "INNER JOIN  responsavel AS rs "
+                + "INNER JOIN responsavel as r "
+                + "ON nc.idSetor = s.id "
+                + "and s.idResponsavel = rs.id "
+                + "and nc.idResponsavel = r.id ;";
         Connection conexao = new Conexao().abreConexao();
         NaoConformidade result;
         try{
