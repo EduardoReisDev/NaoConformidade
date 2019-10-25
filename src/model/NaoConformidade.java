@@ -22,6 +22,7 @@ public class NaoConformidade {
     private int IdResponsavel;
     private String Responsavel;
     private int IdSetor;
+    private String Setor;
 
     public NaoConformidade(int id, String abrangencia, String acaoCorrecao, Date dataAcontecimento, Date dataRegistro, String descricao, String imagem, String origem, boolean reincidencia, Setor setor, Responsavel responsavel){
         this.id = id;
@@ -150,5 +151,17 @@ public class NaoConformidade {
     public int getIdSetor() {
         return this.IdSetor;
     }
+
+    public void setIdSetor(int Setor ) {
+        this.IdSetor=Setor;
+    }
+    public void setSetorN(String Setor){
+        this.Setor=Setor;
+    }
+
+    public String getSetorN() {
+       return this.Setor;
+    }
+    
    
 }

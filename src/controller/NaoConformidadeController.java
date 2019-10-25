@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.NaoConformidade;
 import model.Responsavel;
+import model.Setor;
 import model.Usuario;
     import  view.Mensagens ;
     import view.naoconformidade.CadatroNaoCoformidade;
@@ -167,7 +168,9 @@ import model.Usuario;
                 novoCaminho,
                 cadastroNaoCoformidade.origem.getText(), 
                 cadastroNaoCoformidade.reincidencia.isSelected(), 
-                null, //falta esse combobox
+                new Setor(
+                    cadastroNaoCoformidade.getSetorNaoConformidade().get(cadastroNaoCoformidade.Setor.getSelectedIndex()).getId()
+                ),
                 new Responsavel(
                         cadastroNaoCoformidade.getResponsavelNaoConformidade().get(cadastroNaoCoformidade.Responsavel.getSelectedIndex()).getId()//id do responsável
                 )

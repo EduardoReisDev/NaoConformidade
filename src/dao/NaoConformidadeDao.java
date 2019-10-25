@@ -14,7 +14,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Responsavel;
 import model.Setor;
 
@@ -218,6 +221,67 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
             System.out.println("erro na listagem "+e.getMessage());
         }
         return responsaveis;
+    }
+    
+     public ArrayList<NaoConformidade> buscasetores() {
+        ArrayList<NaoConformidade> setores = new ArrayList<>();
+        Connection conexao = new Conexao().abreConexao();
+                    try (PreparedStatement stmt = conexao.prepareStatement("select * from setor")) {
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    NaoConformidade naoConformidade = new NaoConformidade();
+                    naoConformidade.setIdSetor(rs.getInt(1));
+                    naoConformidade.setSetorN(rs.getString(2));
+                    setores.add(naoConformidade);
+                }
+                 Conexao.fechaConexao(conexao);
+            }
+            catch(SQLException e){
+            System.out.println("erro na listagem "+e.getMessage());
+        }
+        return setores;
+    }
+
+     public List<NaoConformidade> read() {
+
+        Connection conexao = new Conexao().abreConexao();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<NaoConformidade> contatos = new ArrayList<>();
+
+        try {
+            stmt = conexao.prepareStatement("select n.id,n.descricao,n.dataRegistro,n.dataAcontecimento,n.reincidencia,n.abrangencia,n.origem, n.acaoCorrecao,n.caminhoImagem,s.nome,r.nome FROM naoConformidade AS n INNER JOIN responsavel AS r INNER JOIN setor AS s WHERE n.idSetor=s.id AND n.idResponsavel=r.id;");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                NaoConformidade contato = new NaoConformidade();
+
+                    contato.setId(rs.getInt("id"));
+                    contato.setDescricao(rs.getString("descricao"));
+                    contato.setDataRegistro(rs.getDate("dataRegistro"));
+                    contato.setDataAcontecimento(rs.getDate("DataAcontecimento"));
+                    contato.setReincidencia(rs.getBoolean("reincidencia"));
+                    contato.setReincidencia(rs.getBoolean("reincidencia"));
+                    contato.setAbrangencia(rs.getString("abrangencia"));
+                    contato.setAcaoCorrecao(rs.getString("acaoCorrecao"));
+                    contato.setOrigem(rs.getString("origem"));
+                    contato.setImagem(rs.getString("caminhoImagem"));
+                    contato.setSetorN(rs.getString("nome"));//nome do setor
+                    contato.setResponsavel(rs.getString("nome"));//nome do do responsavel pelo não conformidade
+                    
+                contatos.add(contato);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(NaoConformidadeDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            
+        }
+
+        return contatos;
+
     }
     
 }
