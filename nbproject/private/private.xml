@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/model/NaoConformidade.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/naoconformidade/FormNaoConformidade.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/dao/NaoConformidadeDao.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/model/Responsavel.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/model/Pessoa.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/model/Setor.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/setor/FormEditar.java</file>
-            <file>file:/C:/Users/leona/Documents/GitHub/NaoConformidade/src/view/setor/FormCadastrar.java</file>
+            <file>file:/D:/Desktop/NaoConformidade/src/view/naoconformidade/CadatroNaoCoformidade.java</file>
+            <file>file:/D:/Desktop/NaoConformidade/src/dao/NaoConformidadeDao.java</file>
+            <file>file:/D:/Desktop/NaoConformidade/src/model/NaoConformidade.java</file>
         </group>
     </open-files>
 </project-private>

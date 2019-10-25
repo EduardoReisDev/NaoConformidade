@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
@@ -26,7 +27,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     Controller controller;
     NaoConformidadeDao naoConformidades = new NaoConformidadeDao();
     NaoConformidadeController naoConformidadeController = new NaoConformidadeController();
-    private final String[] colunas ={"Código","Descrição","DataRegistro","DataAcontecimento","Reincidencia","Abrangencia","Origem","Responsavel","AcaoCorrecao"};
+    private final String[] colunas ={"Código","Descrição","DataRegistro","DataAcontecimento","Reincidencia","Abrangencia","Origem","Responsavel","AcaoCorrecao","Setor"};
     
     /**
      * Creates new form NaoConformidade
@@ -34,10 +35,16 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     public FormNaoConformidade(java.awt.Frame parent, boolean modal, Controller controller) {
         super(parent, modal);
         initComponents();
+        readJTable();
         this.controller = controller;
-        naoConformidadeController.listarNaoConformidades(this::preencherTabela);
+        //naoConformidadeController.listarNaoConformidades(this::preencherTabela);
     }
     private DefaultTableModel modelo;
+    
+     public void readJTable() {
+        preencherTabela(naoConformidades.read());
+  
+    }
     
     public void criarEstrurturaTabela(){
         modelo = new DefaultTableModel(){
@@ -51,19 +58,22 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         }
         jTable1.setModel(modelo);
     }
-    private void preencherTabela(NaoConformidade naoConformidades){
+    private void preencherTabela(List<NaoConformidade> naoConformidades){
         criarEstrurturaTabela();
-        modelo.addRow(new Object[]{
-                naoConformidades.getId(),
-                naoConformidades.getDescricao(),
-                naoConformidades.getDataRegistro(),
-                naoConformidades.getDataAcontecimento(),
-                naoConformidades.getReincidencia(),
-                naoConformidades.getAbrangencia(),
-                naoConformidades.getOrigem(),
-                naoConformidades.getResponsavel().getNome(),
-                naoConformidades.getAcaoCorrecao()
+        naoConformidades.forEach(c -> {
+            modelo.addRow(new Object[]{
+                c.getId(),
+                c.getDescricao(),
+                c.getDataRegistro(),
+                c.getDataAcontecimento(),
+                c.getReincidencia(),
+                c.getAbrangencia(),
+                c.getOrigem(),
+                c.getResponsavelN(),
+                c.getAcaoCorrecao(),
+                c.getSetorN()
             });
+        });
     }
     
     @Override

@@ -28,17 +28,33 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     public ArrayList<NaoConformidade> getResponsavelNaoConformidade() {
         return ResponsavelNC;
     }
-
+   
     public void setResponsavel(ArrayList<NaoConformidade> ResponsavelNaoConformidade) {
         this.ResponsavelNC = ResponsavelNaoConformidade;
+    }
+    
+    ArrayList<NaoConformidade> SetorNC = new ArrayList<>();
+
+    public ArrayList<NaoConformidade> getSetorNaoConformidade() {
+        return SetorNC;
+    }
+   
+    public void setSetor(ArrayList<NaoConformidade> SetorNaoConformidade) {
+        this.SetorNC = SetorNaoConformidade;
     }
     
     public void prencheer() {
         Responsavel.removeAllItems();
         naoConformidadeDao.buscaResponsaveis().
         forEach(c ->{
-        Responsavel.addItem(c.getresponsavel());
+        Responsavel.addItem(c.getResponsavelN());
         getResponsavelNaoConformidade().add(c);  
+        });
+        Setor.removeAllItems();
+        naoConformidadeDao.buscasetores().
+        forEach(c ->{
+        Setor.addItem(c.getSetorN());
+        getSetorNaoConformidade().add(c);  
         });
     }
     
@@ -97,6 +113,8 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
         dataRegistro = new datechooser.beans.DateChooserCombo();
         dataAcontecimento = new datechooser.beans.DateChooserCombo();
         btnCancelar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        Setor = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -276,6 +294,13 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Setor");
+        jLabel3.setName("jLabel3"); // NOI18N
+
+        Setor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Setor.setName("Setor"); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -296,27 +321,34 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
                     .addComponent(jLabel8)
                     .addComponent(jLabel1)
                     .addComponent(acaoCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(reincidencia)
                     .addComponent(jLabel6)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(origem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                         .addComponent(abrangencia, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(descricao, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(Codigo, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(Responsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                    .addComponent(Responsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(reincidencia))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                         .addComponent(jLabel10)
                         .addGap(205, 205, 205))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(btnImg)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(visualizaImg, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(38, Short.MAX_VALUE))))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(51, 51, 51)
+                                        .addComponent(btnImg)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(Setor, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(visualizaImg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
+                                .addContainerGap(38, Short.MAX_VALUE))))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(296, 296, 296)
                 .addComponent(btnSalvar)
@@ -366,8 +398,13 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
                         .addComponent(acaoCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(visualizaImg, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(reincidencia)
-                .addGap(77, 77, 77)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(reincidencia)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Setor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(59, 59, 59)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar)))
@@ -509,6 +546,7 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField Codigo;
     public javax.swing.JComboBox<String> Responsavel;
+    public javax.swing.JComboBox<String> Setor;
     public javax.swing.JTextField abrangencia;
     public javax.swing.JTextField acaoCorrecao;
     private javax.swing.JButton btnCancelar;
@@ -520,6 +558,7 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
