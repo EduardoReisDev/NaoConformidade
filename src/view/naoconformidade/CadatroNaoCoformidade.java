@@ -28,7 +28,7 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     public ArrayList<NaoConformidade> getResponsavelNaoConformidade() {
         return ResponsavelNC;
     }
-
+   
     public void setResponsavel(ArrayList<NaoConformidade> ResponsavelNaoConformidade) {
         this.ResponsavelNC = ResponsavelNaoConformidade;
     }
@@ -37,7 +37,7 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
         Responsavel.removeAllItems();
         naoConformidadeDao.buscaResponsaveis().
         forEach(c ->{
-        Responsavel.addItem(c.getresponsavel());
+        Responsavel.addItem(c.getResponsavelN());
         getResponsavelNaoConformidade().add(c);  
         });
     }

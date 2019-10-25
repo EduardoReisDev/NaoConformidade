@@ -16,8 +16,12 @@ public class NaoConformidade {
     private String imagem;
     private String origem;
     private boolean reincidencia;
+    
     private Responsavel responsavel;
     private Setor setor;
+    private int IdResponsavel;
+    private String Responsavel;
+    private int IdSetor;
 
     public NaoConformidade(int id, String abrangencia, String acaoCorrecao, Date dataAcontecimento, Date dataRegistro, String descricao, String imagem, String origem, boolean reincidencia, Setor setor, Responsavel responsavel){
         this.id = id;
@@ -31,6 +35,7 @@ public class NaoConformidade {
         this.reincidencia = reincidencia;
         this.responsavel = responsavel;
         this.setor = setor;
+        
     }
     
     public NaoConformidade(){
@@ -52,9 +57,6 @@ public class NaoConformidade {
     public void setSetor(Setor setor) {
         this.setor = setor;
     }
-    
-    
-    
     
     public int getId() {
         return id;
@@ -130,6 +132,23 @@ public class NaoConformidade {
 
     public boolean getReincidencia() {
        return this.reincidencia;
+    }
+
+    public void setIdResponsavel(int Responsavel) {
+        this.IdResponsavel=Responsavel;
+    }
+    public void setResponsavel(String Responsavel){
+        this.Responsavel=Responsavel;
+    }
+    public String getResponsavelN(){
+        return this.Responsavel;
+    }
+    public int getIdResponsavel() {
+       return this.IdResponsavel;
+    }
+
+    public int getIdSetor() {
+        return this.IdSetor;
     }
    
 }
