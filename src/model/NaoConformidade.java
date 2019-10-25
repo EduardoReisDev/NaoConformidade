@@ -16,19 +16,10 @@ public class NaoConformidade {
     private String imagem;
     private String origem;
     private boolean reincidencia;
-    private int idResponsavel;
-    private int idSetor;
-    private String responsavel;
+    private Responsavel responsavel;
+    private Setor setor;
 
-    public String getresponsavel() {
-        return responsavel;
-    }
-
-    public void setResponsavel(String responsavel) {
-        this.responsavel = responsavel;
-    }
-
-    public NaoConformidade(int id, String abrangencia, String acaoCorrecao, Date dataAcontecimento, Date dataRegistro, String descricao, String imagem, String origem, boolean reincidencia, int idResponsavel, int idSetor){
+    public NaoConformidade(int id, String abrangencia, String acaoCorrecao, Date dataAcontecimento, Date dataRegistro, String descricao, String imagem, String origem, boolean reincidencia, Setor setor, Responsavel responsavel){
         this.id = id;
         this.abrangencia = abrangencia;
         this.acaoCorrecao = acaoCorrecao;
@@ -38,13 +29,32 @@ public class NaoConformidade {
         this.imagem = imagem;
         this.origem = origem;
         this.reincidencia = reincidencia;
-        this.idResponsavel = idResponsavel;
-        this.idSetor = idSetor;
+        this.responsavel = responsavel;
+        this.setor = setor;
     }
     
     public NaoConformidade(){
         
     }
+
+    public Responsavel getResponsavel() {
+        return responsavel;
+    }
+
+    public void setResponsavel(Responsavel responsavel) {
+        this.responsavel = responsavel;
+    }
+
+    public Setor getSetor() {
+        return setor;
+    }
+
+    public void setSetor(Setor setor) {
+        this.setor = setor;
+    }
+    
+    
+    
     
     public int getId() {
         return id;
@@ -118,27 +128,8 @@ public class NaoConformidade {
         this.reincidencia = reincidencia;
     }
 
-    public int getIdResponsavel() {
-        return idResponsavel;
-    }
-
-    public void setIdResponsavel(int idResponsavel) {
-        this.idResponsavel = idResponsavel;
-    }
-
-    public int getIdSetor() {
-        return idSetor;
-    }
-
-    public void setIdSetor(int idSetor) {
-        this.idSetor = idSetor;
-    }
-
     public boolean getReincidencia() {
        return this.reincidencia;
     }
-
-
-
    
 }

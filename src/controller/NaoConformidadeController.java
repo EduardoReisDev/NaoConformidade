@@ -16,6 +16,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.NaoConformidade;
+import model.Responsavel;
 import model.Usuario;
     import  view.Mensagens ;
     import view.naoconformidade.CadatroNaoCoformidade;
@@ -142,7 +143,7 @@ import model.Usuario;
     
     public void salvar(){
         
-        naoConformidade.setId(Integer.parseInt(cadastroNaoCoformidade.Codigo.getText()));
+        /*naoConformidade.setId(Integer.parseInt(cadastroNaoCoformidade.Codigo.getText()));
         naoConformidade.setDescricao(cadastroNaoCoformidade.descricao.getText());
         naoConformidade.setAbrangencia(cadastroNaoCoformidade.abrangencia.getText());
         naoConformidade.setOrigem(cadastroNaoCoformidade.origem.getText());
@@ -151,7 +152,26 @@ import model.Usuario;
         naoConformidade.setDataAcontecimento(cadastroNaoCoformidade.dataAcontecimento.getCurrent().getTime());
         naoConformidade.setReincidencia(cadastroNaoCoformidade.reincidencia.isSelected());
         naoConformidade.setImagem(novoCaminho);
-        naoConformidade.setIdResponsavel(cadastroNaoCoformidade.getResponsavelNaoConformidade().get(cadastroNaoCoformidade.Responsavel.getSelectedIndex()).getIdResponsavel());
+        naoConformidade.setIdResponsavel(
+                cadastroNaoCoformidade.getResponsavelNaoConformidade().
+                        get(cadastroNaoCoformidade.Responsavel.getSelectedIndex()).getIdResponsavel());
+        
+        */
+        naoConformidade = new NaoConformidade(
+                0, 
+                cadastroNaoCoformidade.abrangencia.getText(),
+                cadastroNaoCoformidade.abrangencia.getText(), 
+                cadastroNaoCoformidade.dataAcontecimento.getCurrent().getTime(),
+                cadastroNaoCoformidade.dataRegistro.getSelectedDate().getTime(),
+                cadastroNaoCoformidade.descricao.getText(), 
+                novoCaminho,
+                cadastroNaoCoformidade.origem.getText(), 
+                cadastroNaoCoformidade.reincidencia.isSelected(), 
+                null, //falta esse combobox
+                new Responsavel(
+                        cadastroNaoCoformidade.getResponsavelNaoConformidade().get(cadastroNaoCoformidade.Responsavel.getSelectedIndex()).getId()//id do responsável
+                )
+        );
         if(!naoConformidadeDao.criar(naoConformidade)){
             JOptionPane.showMessageDialog(componentePai, "nao");
         }

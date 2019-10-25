@@ -19,4 +19,8 @@ public class Responsavel extends Pessoa{
         super(id, cpf, nome);
     }
     
+    public Responsavel(int id){
+        super(id);
+    }
+    
 }

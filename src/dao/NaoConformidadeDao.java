@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.function.Consumer;
+import model.Responsavel;
 
 /**
  *
@@ -39,8 +40,8 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
             ps.setString(6, dados.getOrigem());
             ps.setString(7, dados.getAcaoCorrecao());
             ps.setString(8, dados.getImagem());
-            ps.setInt(9, dados.getIdResponsavel());
-            ps.setInt(10, dados.getIdSetor());
+            ps.setInt(9, dados.getResponsavel().getId());
+            ps.setInt(10, dados.getSetor().getId());
             return ps.executeUpdate()>0;
         }
         catch(SQLException sqlex){
@@ -54,13 +55,14 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
 
     @Override
     public void listarTodos(Consumer<? super NaoConformidade> resultado) {
-        String query = "select * from naoConformidade AS n INNER JOIN  responsavel AS r WHERE n.idResponsavel=r.id";
+        String query = "select * from naoConformidade AS nc INNER JOIN  responsavel AS r WHERE nc.idResponsavel=r.id";
         Connection conexao = new Conexao().abreConexao();
         NaoConformidade result;
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
             while (res.next()){
+                System.out.println(res.toString());
                 result = new NaoConformidade(
                         res.getInt("id"),
                         res.getString("abrangencia"),
@@ -71,8 +73,12 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                         res.getString("caminhoImagem"),
                         res.getString("origem"),
                         res.getBoolean("reincidencia"),
-                        res.getInt("idResponsavel"),
-                        res.getInt("idSetor")
+                        null,
+                        new Responsavel(
+                                res.getInt(12),
+                                res.getString("cpf"),
+                                res.getString("nome")
+                        )
                 );
                 resultado.accept(result);
                 
