@@ -9,7 +9,22 @@ public class Setor {
     private String Codigo;
     private String Nome;
     private String Responsavel;
+    private Responsavel responsavel;
+    
+    public Setor(){
+        
+    }
+    
+    public Setor(int id){
+       this.id = id;
+    }
 
+    public Setor(int id, String nome, Responsavel responsavel){
+        this.id = id;
+        this.Nome = nome;
+        this.responsavel = responsavel;
+    }
+    
     public int getId() {
         return id;
     }

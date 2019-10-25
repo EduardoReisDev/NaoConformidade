@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 import model.Responsavel;
+import model.Setor;
 
 /**
  *
@@ -53,9 +54,18 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
         }
     }
 
+    
+    //ATENÇÂO"!!!! esse é o unico método que está funcionando corretamente!
+    
     @Override
     public void listarTodos(Consumer<? super NaoConformidade> resultado) {
-        String query = "select * from naoConformidade AS nc INNER JOIN  responsavel AS r WHERE nc.idResponsavel=r.id";
+        String query = "select * from naoConformidade AS nc "
+                + "INNER JOIN setor AS s "
+                + "INNER JOIN  responsavel AS r "
+                + "INNER JOIN responsavel AS rs "
+                + "ON nc.idResponsavel=r.id AND "
+                + "s.idResponsavel = rs.id AND "
+                + "nc.idSetor = s.id;";
         Connection conexao = new Conexao().abreConexao();
         NaoConformidade result;
         try{
@@ -73,11 +83,19 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                         res.getString("caminhoImagem"),
                         res.getString("origem"),
                         res.getBoolean("reincidencia"),
-                        null,
+                        new Setor(
+                                res.getInt(12),//id do setor
+                                res.getString(13), //nome do setor
+                                new Responsavel(
+                                        res.getInt(16),//id do responsavel pelo setor 
+                                        res.getString(18),//nome do responsavel pelo setor
+                                        res.getString(17)//cpf do responsável pelo setor
+                                )
+                        ),
                         new Responsavel(
-                                res.getInt(12),
-                                res.getString("cpf"),
-                                res.getString("nome")
+                                res.getInt(18),//id do responsavel pelo não conformidade
+                                res.getString(20),//nome do do responsavel pelo não conformidade
+                                res.getString(19)//cpf do responsavel pelo não conformidade
                         )
                 );
                 resultado.accept(result);
