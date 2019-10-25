@@ -130,8 +130,8 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
             ps.setString(6, dados.getOrigem());
             ps.setString(7, dados.getAcaoCorrecao());
             ps.setString(8, dados.getImagem());
-            ps.setInt(9, dados.getIdResponsavel());
-            ps.setInt(10, dados.getIdSetor());
+            ps.setInt(9, dados.getResponsavel().getId());
+            ps.setInt(10, dados.getSetor().getId());
             ps.setInt(11, dados.getId());
             
             return ps.executeUpdate()>0;
