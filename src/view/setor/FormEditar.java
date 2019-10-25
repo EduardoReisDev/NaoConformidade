@@ -60,7 +60,7 @@ public class FormEditar extends javax.swing.JDialog {
     }
     
     private void salvar(){
-        if(setorController.adicionar(new setor(
+        if(setorController.adicionar(new Setor(
                 NomeSetor.getText() 
         ))){
             Mensagens.mensagem(this, "Setor salvo com sucesso!", "Sucesso ao salvar", Resources.SUCESSO);
