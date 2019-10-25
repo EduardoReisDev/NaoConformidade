@@ -1,7 +1,6 @@
     package controller;
 
 import dao.NaoConformidadeDao;
-import dao.UsuarioDao;
 import java.awt.Color;
 import  java.awt.Component ;
 import java.awt.Graphics2D;
@@ -16,7 +15,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.NaoConformidade;
-import model.Usuario;
     import  view.Mensagens ;
     import view.naoconformidade.CadatroNaoCoformidade;
 
