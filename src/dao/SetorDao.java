@@ -29,7 +29,7 @@ public class SetorDao implements Crud<Setor>{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, dados.getCodigo());
             ps.setString(2, dados.getNome());
-            ps.setString(3, dados.getResponsavel());
+            ps.setString(3, dados.getResponsavel0());
             return ps.executeUpdate()>0;
         }
         catch(SQLException sqlex){
@@ -53,7 +53,7 @@ public class SetorDao implements Crud<Setor>{
                 result = new Setor();
                 result.setNome(res.getString("nome"));
                 result.setId(res.getInt("id"));
-                result.setResponsavel(res.getString("idResponsavel"));
+                result.setResponsavel0(res.getString("idResponsavel"));
                 resultado.accept(result);
             }
         }
@@ -79,7 +79,7 @@ public class SetorDao implements Crud<Setor>{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, dados.getNome());
             ps.setString(2, dados.getCodigo());
-            ps.setString(3, dados.getResponsavel());
+            ps.setString(3, dados.getResponsavel0());
             ps.setInt(4, dados.getId());
             return ps.executeUpdate()>0;
         }

@@ -68,7 +68,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                 + "INNER JOIN responsavel as r "
                 + "ON nc.idSetor = s.id "
                 + "and s.idResponsavel = rs.id "
-                + "and nc.idResponsavel = r.id ;";
+                + "and nc.idResponsavel = r.id;";
         System.out.println(query);
         Connection conexao = new Conexao().abreConexao();
         NaoConformidade result;
@@ -90,15 +90,15 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                                 res.getInt(12),//id do setor
                                 res.getString(13), //nome do setor
                                 new Responsavel(
-                                        res.getInt(16),//id do responsavel pelo setor 
-                                        res.getString(18),//nome do responsavel pelo setor
-                                        res.getString(17)//cpf do responsável pelo setor
+                                        res.getInt(15),//id do responsavel pelo setor 
+                                        res.getString(17),//cpf do responsavel pelo setor
+                                        res.getString(16)//nome do responsável pelo setor
                                 )
                         ),
                         new Responsavel(
                                 res.getInt(18),//id do responsavel pelo não conformidade
-                                res.getString(20),//nome do do responsavel pelo não conformidade
-                                res.getString(19)//cpf do responsavel pelo não conformidade
+                                res.getString(20),//cpf do do responsavel pelo não conformidade
+                                res.getString(19)//nome do responsavel pelo não conformidade
                         )
                 );
                 resultado.accept(result);
@@ -114,8 +114,53 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
     }
 
     @Override
-    public NaoConformidade listarPorId( int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public NaoConformidade listarPorId(int id) {
+        String query = "select * from naoConformidade AS nc "
+                + "INNER JOIN setor as s "
+                + "INNER JOIN  responsavel AS rs "
+                + "INNER JOIN responsavel as r "
+                + "ON nc.idSetor = s.id "
+                + "and s.idResponsavel = rs.id "
+                + "and nc.idResponsavel = r.id where nc.id="+id+";";
+        Connection conexao = new Conexao().abreConexao();
+        try{
+            Statement stm = conexao.createStatement();
+            ResultSet res = stm.executeQuery(query);
+            while (res.next()){
+                return new NaoConformidade(
+                        res.getInt("id"),
+                        res.getString("abrangencia"),
+                        res.getString("acaoCorrecao"),
+                        res.getDate("dataAcontecimento"),
+                        res.getDate("dataRegistro"),
+                        res.getString("descricao"),
+                        res.getString("caminhoImagem"),
+                        res.getString("origem"),
+                        res.getBoolean("reincidencia"),
+                        new Setor(
+                                res.getInt(12),//id do setor
+                                res.getString(13), //nome do setor
+                                new Responsavel(
+                                        res.getInt(15),//id do responsavel pelo setor 
+                                        res.getString(17),//cpf do responsavel pelo setor
+                                        res.getString(16)//nome do responsável pelo setor
+                                )
+                        ),
+                        new Responsavel(
+                                res.getInt(18),//id do responsavel pelo não conformidade
+                                res.getString(20),//cpf do do responsavel pelo não conformidade
+                                res.getString(19)//nome do responsavel pelo não conformidade
+                        )
+                );
+            }
+        }
+        catch(SQLException e){
+            System.out.println("erro na listagem "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
+        return null;
     }
 
     @Override
@@ -203,7 +248,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
         }
         return 0; 
     }
-     
+    /* 
     public ArrayList<NaoConformidade> buscaResponsaveis() {
         ArrayList<NaoConformidade> responsaveis = new ArrayList<>();
         Connection conexao = new Conexao().abreConexao();
@@ -241,7 +286,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
         }
         return setores;
     }
-
+*/
      public List<NaoConformidade> read() {
         String query = "select * from naoConformidade AS nc "
                 + "INNER JOIN setor as s "

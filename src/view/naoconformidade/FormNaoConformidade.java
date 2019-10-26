@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
@@ -71,10 +70,15 @@ public class FormNaoConformidade extends javax.swing.JDialog {
                 c.getOrigem(),
                 c.getResponsavel().getNome(),
                 c.getAcaoCorrecao(),
-                c.getSetor().getNome()
+                c.getSetor().getResponsavel().getNome()
             });
         });
     }
+    
+    private void mostrarNaoConformidade(){
+        
+    }
+    
     
     @Override
     protected JRootPane createRootPane() {

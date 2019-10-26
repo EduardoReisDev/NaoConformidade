@@ -83,20 +83,6 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     }
     
     
-    public void prencheer() {
-        Responsavel.removeAllItems();
-        naoConformidadeDao.buscaResponsaveis().forEach(c ->{
-                Responsavel.addItem(c.getResponsavelN());
-                listaIdResponsavelComboBox.add(c.getId());//insere o id do responsável na lista
-        });
-        Setor.removeAllItems();
-        naoConformidadeDao.buscasetores().forEach(c ->{
-            Setor.addItem(c.getSetorN());
-            listaIdSetorComboBox.add(c.getId());
-        });
-    }
-    
-    
     private int pegarIdSetor(){
         return listaIdSetorComboBox.get(Setor.getSelectedIndex());
     }
@@ -128,6 +114,16 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
             }
         return false;
     }  
+    
+    private void escolherImagem(){
+        naoConformidadeController.getImagemController().escolherImagem();
+        visualizaImg.setIcon(
+                naoConformidadeController.getImagemController().lerImagem(
+                        visualizaImg.getWidth(), 
+                        visualizaImg.getHeight())
+        );
+        
+    }
     
     public void salvar(){
         if(!validarDados()){
@@ -637,7 +633,7 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_acaoCorrecaoKeyPressed
 
     private void btnImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImgActionPerformed
-        visualizaImg.setIcon(naoConformidadeController.escolherImagem());
+        escolherImagem();
     }//GEN-LAST:event_btnImgActionPerformed
 
     private void btnImgKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnImgKeyPressed
