@@ -69,13 +69,13 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                 + "ON nc.idSetor = s.id "
                 + "and s.idResponsavel = rs.id "
                 + "and nc.idResponsavel = r.id ;";
+        System.out.println(query);
         Connection conexao = new Conexao().abreConexao();
         NaoConformidade result;
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
             while (res.next()){
-                System.out.println(res.toString());
                 result = new NaoConformidade(
                         res.getInt("id"),
                         res.getString("abrangencia"),
@@ -243,35 +243,50 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
     }
 
      public List<NaoConformidade> read() {
-
+        String query = "select * from naoConformidade AS nc "
+                + "INNER JOIN setor as s "
+                + "INNER JOIN  responsavel AS rs "
+                + "INNER JOIN responsavel as r "
+                + "ON nc.idSetor = s.id "
+                + "and s.idResponsavel = rs.id "
+                + "and nc.idResponsavel = r.id ;";
         Connection conexao = new Conexao().abreConexao();
         PreparedStatement stmt = null;
-        ResultSet rs = null;
+        ResultSet res = null;
 
         List<NaoConformidade> contatos = new ArrayList<>();
 
         try {
-            stmt = conexao.prepareStatement("select n.id,n.descricao,n.dataRegistro,n.dataAcontecimento,n.reincidencia,n.abrangencia,n.origem, n.acaoCorrecao,n.caminhoImagem,s.nome,r.nome FROM naoConformidade AS n INNER JOIN responsavel AS r INNER JOIN setor AS s WHERE n.idSetor=s.id AND n.idResponsavel=r.id;");
-            rs = stmt.executeQuery();
+            stmt = conexao.prepareStatement(query);
+            res = stmt.executeQuery();
 
-            while (rs.next()) {
-
-                NaoConformidade contato = new NaoConformidade();
-
-                    contato.setId(rs.getInt("id"));
-                    contato.setDescricao(rs.getString("descricao"));
-                    contato.setDataRegistro(rs.getDate("dataRegistro"));
-                    contato.setDataAcontecimento(rs.getDate("DataAcontecimento"));
-                    contato.setReincidencia(rs.getBoolean("reincidencia"));
-                    contato.setReincidencia(rs.getBoolean("reincidencia"));
-                    contato.setAbrangencia(rs.getString("abrangencia"));
-                    contato.setAcaoCorrecao(rs.getString("acaoCorrecao"));
-                    contato.setOrigem(rs.getString("origem"));
-                    contato.setImagem(rs.getString("caminhoImagem"));
-                    contato.setSetorN(rs.getString("nome"));//nome do setor
-                    contato.setResponsavel(rs.getString("nome"));//nome do do responsavel pelo não conformidade
+            while (res.next()) {
                     
-                contatos.add(contato);
+                contatos.add(new NaoConformidade(
+                        res.getInt("id"),
+                        res.getString("abrangencia"),
+                        res.getString("acaoCorrecao"),
+                        res.getDate("dataAcontecimento"),
+                        res.getDate("dataRegistro"),
+                        res.getString("descricao"),
+                        res.getString("caminhoImagem"),
+                        res.getString("origem"),
+                        res.getBoolean("reincidencia"),
+                        new Setor(
+                                res.getInt(12),//id do setor
+                                res.getString(13), //nome do setor
+                                new Responsavel(
+                                        res.getInt(16),//id do responsavel pelo setor 
+                                        res.getString(18),//nome do responsavel pelo setor
+                                        res.getString(17)//cpf do responsável pelo setor
+                                )
+                        ),
+                        new Responsavel(
+                                res.getInt(18),//id do responsavel pelo não conformidade
+                                res.getString(20),//nome do do responsavel pelo não conformidade
+                                res.getString(19)//cpf do responsavel pelo não conformidade
+                        )
+                ));
             }
 
         } catch (SQLException ex) {

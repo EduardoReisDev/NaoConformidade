@@ -69,9 +69,9 @@ public class FormNaoConformidade extends javax.swing.JDialog {
                 c.getReincidencia(),
                 c.getAbrangencia(),
                 c.getOrigem(),
-                c.getResponsavelN(),
+                c.getResponsavel().getNome(),
                 c.getAcaoCorrecao(),
-                c.getSetorN()
+                c.getSetor().getNome()
             });
         });
     }

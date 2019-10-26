@@ -51,6 +51,9 @@ public class NaoConformidadeController {
         return new NaoConformidadeDao().getLastId();
     }
     
+    public void listarTodos(){
+        
+    }
     
     public Icon escolherImagem(){
         float constanteCalculoLargura;
