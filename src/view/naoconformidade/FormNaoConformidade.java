@@ -135,7 +135,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         btnEditar.setText("Editar Não Conformidade");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovo1ActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -374,9 +374,29 @@ public class FormNaoConformidade extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnGerarPDFActionPerformed
 
-    private void btnNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovo1ActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         //controller.abreTelaEditarNaoConformidade();
-    }//GEN-LAST:event_btnNovo1ActionPerformed
+        if(jTable1.getSelectedRow() != -1){
+           NaoConformidadeController ncController = new NaoConformidadeController();
+            NaoConformidade dados ;
+            dados =new NaoConformidade(
+                    jTable1.getValueAt(jTable1.getSelectedRow(), 0), 
+                    jTable1.getValueAt(jTable1.getSelectedRow(), 1), 
+                    jTable1.getValueAt(jTable1.getSelectedRow(), 2), 
+                    jTable1.getValueAt(jTable1.getSelectedRow(), 3), 
+                    jTable1.getValueAt(jTable1.getSelectedRow(), 4), 
+                    jTable1.getValueAt(jTable1.getSelectedRow(), 5), 
+                    jTable1.getValueAt(jTable1.getSelectedRow(), 6), 
+                    jTable1.getValueAt(jTable1.getSelectedRow(), 7), 
+                    jTable1.getValueAt(jTable1.getSelectedRow(), 8),
+                    jTable1.getValueAt(jTable1.getSelectedRow(), 9));
+           ncController.editar(dados);
+        }
+        else {
+            readJTable();
+            JOptionPane.showMessageDialog(null, "Selecione uma não conformidade para alterar!");
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         NaoConformidadeController NaoConformidadeController = new NaoConformidadeController();

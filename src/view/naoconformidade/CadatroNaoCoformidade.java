@@ -33,28 +33,7 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
         //prencheer();
         inicializar();
     }
-    ArrayList<NaoConformidade> ResponsavelNC = new ArrayList<>();
-
-    public ArrayList<NaoConformidade> getResponsavelNaoConformidade() {
-        return ResponsavelNC;
-    }
-   
-    public void setResponsavel(ArrayList<NaoConformidade> ResponsavelNaoConformidade) {
-        this.ResponsavelNC = ResponsavelNaoConformidade;
-    }
-    
-    ArrayList<NaoConformidade> SetorNC = new ArrayList<>();
-
-    public ArrayList<NaoConformidade> getSetorNaoConformidade() {
-        return SetorNC;
-    }
-   
-    public void setSetor(ArrayList<NaoConformidade> SetorNaoConformidade) {
-        this.SetorNC = SetorNaoConformidade;
-    }
-    
-    
-    
+        
     private void inicializar(){
         listarResponsaveis();
         listarSetores();
