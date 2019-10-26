@@ -133,10 +133,10 @@ public class Controller {
     
     public void inicio(){
         //new Splash();
-        //abreTelaPrincipal();
+        abreTelaPrincipal();
         //abreTelaNaoConformidade();
        // 
-       naoConformidadeController.mostrarNaoConformidade(19);
+       //naoConformidadeController.mostrarNaoConformidade(19);
         //System.exit(0);
     }
 }
