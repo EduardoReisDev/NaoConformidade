@@ -92,33 +92,6 @@ public class NaoConformidadeController {
             JOptionPane.showMessageDialog(componentePai, "nao");
         }
     }
-     
-    public void salvar(){
-        naoConformidade = new NaoConformidade(
-                0, 
-                cadastroNaoCoformidade.abrangencia.getText(),
-                cadastroNaoCoformidade.abrangencia.getText(), 
-                cadastroNaoCoformidade.dataAcontecimento.getCurrent().getTime(),
-                cadastroNaoCoformidade.dataRegistro.getSelectedDate().getTime(),
-                cadastroNaoCoformidade.descricao.getText(), 
-                novoCaminho,
-                cadastroNaoCoformidade.origem.getText(), 
-                cadastroNaoCoformidade.reincidencia.isSelected(), 
-                new Setor(
-                    cadastroNaoCoformidade.getSetorNaoConformidade().get(cadastroNaoCoformidade.Setor.getSelectedIndex()).getId()
-                ),
-                new Responsavel(
-                        cadastroNaoCoformidade.getResponsavelNaoConformidade().get(cadastroNaoCoformidade.Responsavel.getSelectedIndex()).getId()//id do responsável
-                )
-        );
-        if(naoConformidadeDao.criar(naoConformidade)){
-            JOptionPane.showMessageDialog(componentePai, "Dados cadastrados com sucesso!","Sucesso!",1);
-            cadastroNaoCoformidade.dispose();
-        }
-        else {
-            JOptionPane.showMessageDialog(componentePai, "nao");
-        }
-    }
 
     public void mostrarNaoConformidade(int id) {
         FormDetalheNaoConformidade formDetalheNaoConformidade = new FormDetalheNaoConformidade((Frame) componentePai, true, this);
