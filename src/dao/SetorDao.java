@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.function.Consumer;
+import model.Responsavel;
 
 /**
  *
@@ -53,7 +54,7 @@ public class SetorDao implements Crud<Setor>{
                 result = new Setor();
                 result.setNome(res.getString("nome"));
                 result.setId(res.getInt("id"));
-                result.setResponsavel0(res.getString("idResponsavel"));
+                result.setResponsavel(new Responsavel(res.getInt("id")));
                 resultado.accept(result);
             }
         }

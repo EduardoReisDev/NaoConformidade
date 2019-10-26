@@ -107,6 +107,52 @@ public class ImagemController {
         return null;
     }
     
+    private BufferedImage processarImagemSalvar(int largura, int altura){
+        int larguraImagem;
+        int alturaImagem;
+        int larguraFinal;
+        int alturaFinal;
+        float aspectoImagem;
+        if(imagem != null){
+            larguraImagem = imagem.getWidth();
+            alturaImagem = imagem.getHeight();
+            aspectoImagem = (float) larguraImagem / alturaImagem;
+            if(aspectoImagem >= 1.0 ){//se o a imagem tem a largura maior que altura
+                if((int) alturaImagem/((float)larguraImagem/largura) > altura){//calcula a altura da imagem e verifica se não tem overflow na altura
+                    larguraFinal=(int) ((int) larguraImagem/((float)alturaImagem/altura));
+                    alturaFinal = (int) ((int) alturaImagem/((float)alturaImagem/altura));
+                }else{
+                    larguraFinal=(int) ((int) larguraImagem/((float)larguraImagem/largura));
+                    alturaFinal = (int) ((int) alturaImagem/((float)larguraImagem/largura));
+                }
+            }
+            else{
+                if((int) larguraImagem/((float)alturaImagem/altura) > altura){//calcula a largura da imagem e verifica se não tem overflow na largura
+                    larguraFinal=(int) ((int) larguraImagem/((float)larguraImagem/largura));
+                    alturaFinal = (int) ((int) alturaImagem/((float)larguraImagem/largura));
+                }else{
+                    larguraFinal=(int) ((int) larguraImagem/((float)alturaImagem/altura));
+                    alturaFinal = (int) ((int) alturaImagem/((float)alturaImagem/altura));
+                }
+            }
+            BufferedImage miniatura = new BufferedImage(larguraFinal, alturaFinal, BufferedImage.TYPE_INT_RGB);
+            Graphics2D graficosMiniatura = miniatura.createGraphics();
+            graficosMiniatura.setColor(Color.WHITE);
+            graficosMiniatura.fillRect(0, 0, larguraFinal, alturaFinal);
+            graficosMiniatura.drawImage(
+                    imagem, 
+                    0,
+                    0,
+                    larguraFinal, 
+                    alturaFinal, 
+                    null
+            );
+            return miniatura;
+        }
+        return null;
+    }
+    
+    
     public void salvarImagem(String caminho){
         if(imagem!=null){
             try {
@@ -114,7 +160,7 @@ public class ImagemController {
                 if(!arquivoImagem.getParentFile().exists()){//se não existe o diretório, cria outro, se criar toda vez, as imagens são excluidas
                     arquivoImagem.getParentFile().mkdirs();
                 }
-                ImageIO.write(ProcessarImagem(1280, 1280), "png", arquivoImagem);
+                ImageIO.write(processarImagemSalvar(1280, 1280), "png", arquivoImagem);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, ex);
             }
