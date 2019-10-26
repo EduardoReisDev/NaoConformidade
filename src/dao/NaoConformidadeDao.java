@@ -127,8 +127,8 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, dados.getDescricao());
-            ps.setDate(2, new Date(dados.getDataRegistro().getYear(), dados.getDataRegistro().getMonth() , dados.getDataRegistro().getDay()));
-            ps.setDate(3, new Date(dados.getDataAcontecimento().getYear(), dados.getDataAcontecimento().getMonth() , dados.getDataAcontecimento().getDay()));
+            ps.setDate(2, new Date(dados.getDataRegistro().getYear(), dados.getDataRegistro().getMonth() , dados.getDataRegistro().getDate()));
+            ps.setDate(3, new Date(dados.getDataAcontecimento().getYear(), dados.getDataAcontecimento().getMonth() , dados.getDataAcontecimento().getDate()));
             ps.setBoolean(4, dados.isReincidencia());
             ps.setString(5, dados.getAbrangencia());
             ps.setString(6, dados.getOrigem());

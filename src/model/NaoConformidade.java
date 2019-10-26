@@ -42,6 +42,19 @@ public class NaoConformidade {
     public NaoConformidade(){
         
     }
+                         //"Código","Descrição","DataRegistro","DataAcontecimento","Reincidencia","Abrangencia","Origem","Responsavel","AcaoCorrecao","Setor"
+    public NaoConformidade(Object id, Object descricao, Object dataRegistro, Object dataAcontecimento, Object reincidencia, Object abrangencia, Object origem,Object responsavel, Object acaoCorrecao,Object setor) {
+        this.id =(int) id;
+        this.abrangencia = (String) abrangencia;
+        this.acaoCorrecao = (String) acaoCorrecao;
+        this.dataAcontecimento = (Date) dataAcontecimento;
+        this.dataRegistro = (Date) dataRegistro;
+        this.descricao = (String) descricao;
+        this.origem = (String) origem;
+        this.reincidencia = (boolean) reincidencia;
+        this.responsavel = (model.Responsavel) responsavel;
+        this.setor = (model.Setor) setor;
+    }
 
     public Responsavel getResponsavel() {
         return responsavel;
