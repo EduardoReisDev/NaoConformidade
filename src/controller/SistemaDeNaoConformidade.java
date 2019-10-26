@@ -5,6 +5,8 @@
  */
 package controller;
 
+import java.awt.Color;
+import javax.swing.UIManager;
 import view.splash.Splash;
 
 /**
@@ -17,6 +19,7 @@ public class SistemaDeNaoConformidade {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //new Splash();
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -34,7 +37,7 @@ public class SistemaDeNaoConformidade {
         }
         //</editor-fold>
         
-        //Splash.splash();
+        
       // java.awt.EventQueue.invokeLater(new Controller()::inicio);
        new Controller().inicio();
        //new DadosController().exportarBanco();

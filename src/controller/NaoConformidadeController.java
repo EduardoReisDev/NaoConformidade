@@ -1,9 +1,10 @@
-    package controller;
+package controller;
 
 import dao.NaoConformidadeDao;
-import dao.UsuarioDao;
+import dao.ResponsavelDao;
+import dao.SetorDao;
 import java.awt.Color;
-import  java.awt.Component ;
+import java.awt.Component ;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,17 +19,18 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import model.NaoConformidade;
 import model.Responsavel;
 import model.Setor;
-import model.Usuario;
-    import  view.Mensagens ;
-    import view.naoconformidade.CadatroNaoCoformidade;
+import view.Mensagens ;
+import view.naoconformidade.CadatroNaoCoformidade;
 
-    public class NaoConformidadeController {
-        CadatroNaoCoformidade cadastroNaoCoformidade;
-        Component componentePai;
-        String novoCaminho = null;
-        NaoConformidadeDao naoConformidadeDao = new NaoConformidadeDao();
-        NaoConformidade naoConformidade = new NaoConformidade();
-
+public class NaoConformidadeController {
+    CadatroNaoCoformidade cadastroNaoCoformidade;
+    Component componentePai;
+    String novoCaminho = null;
+    NaoConformidadeDao naoConformidadeDao = new NaoConformidadeDao();
+    NaoConformidade naoConformidade = new NaoConformidade();
+    
+    private BufferedImage imagem;
+    
     public  Component  getComponentePai () {
         return componentePai;
     }
@@ -36,6 +38,126 @@ import model.Usuario;
     public  void  setComponentePai(Component  componentePai){
         this.componentePai = componentePai;
     }
+    
+    public void listarTodosSetores(Consumer<?super Setor> setor){
+        new SetorDao().listarTodos(setor::accept);
+    }
+    
+    public void listarTodosResponsaveis(Consumer<?super Responsavel> responsavel){
+        new ResponsavelDao().listarTodos(responsavel::accept);
+    }
+    
+    public int getLastId(){
+        return new NaoConformidadeDao().getLastId();
+    }
+    
+    
+    public Icon escolherImagem(){
+        float constanteCalculoLargura;
+        float constanteCalculoAltura;
+        int larguraLabel = 300;
+        int alturaLabel = 300;
+        int larguraFinal;
+        int alturaFinal;
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivos de imagem", new String[]{"png", "gif", "jpeg", "jpg"}));
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        if (fileChooser.showOpenDialog(componentePai)==JFileChooser.APPROVE_OPTION){//se o arquivo foi selecionado
+            File arquivo = fileChooser.getSelectedFile();
+            if(arquivo.exists()){
+                try {
+                    imagem = ImageIO.read(arquivo);
+                    constanteCalculoLargura = imagem.getWidth() / larguraLabel;
+                    constanteCalculoAltura = imagem.getHeight() / alturaLabel;
+                    BufferedImage miniatura = new BufferedImage(larguraLabel, alturaLabel, BufferedImage.TYPE_INT_RGB);
+                    Graphics2D graficosMiniatura = miniatura.createGraphics();
+                    graficosMiniatura.setColor(Color.WHITE);
+                    graficosMiniatura.fillRect(0, 0, larguraLabel, alturaLabel);
+                    if(imagem.getWidth() >= imagem.getHeight()){ // se a largura é maior que a altura, usa a constante de calculo da largura
+                        if(imagem.getWidth() < larguraLabel){
+                            larguraFinal = imagem.getWidth();
+                            alturaFinal = imagem.getHeight();
+                        }
+                        else{
+                            larguraFinal = (int)(imagem.getWidth()/constanteCalculoLargura);
+                            alturaFinal = (int) (imagem.getHeight()/constanteCalculoLargura);
+                        }
+                    }
+                    else { //se não, usa a constante de cálculo da altura
+                        if(imagem.getHeight()< alturaLabel){
+                            larguraFinal = imagem.getWidth();
+                            alturaFinal = imagem.getHeight();
+                        }
+                        else{
+                            larguraFinal = (int)(imagem.getWidth()/constanteCalculoAltura);
+                            alturaFinal = (int) (imagem.getHeight()/constanteCalculoAltura);
+                        }
+                    }
+                    graficosMiniatura.drawImage(
+                            imagem, 
+                            (larguraLabel - larguraFinal)/2,
+                            (alturaLabel - alturaFinal)/2, 
+                            larguraFinal, 
+                            alturaFinal, 
+                            null
+                    );
+                    return new ImageIcon(miniatura);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null,ex);
+                }
+            }
+        }
+        return null;
+    }
+    
+    public void salvarImagem(String caminho){
+        if(imagem!=null){
+            float constanteCalculoAltura = (float) imagem.getWidth()/720;
+            float constanteCalculoLargura = (float) imagem.getHeight()/720;
+            int larguraFinal;
+            int alturaFinal;
+            BufferedImage imagemSalvar;
+            Graphics2D graficosImagemSalvar;
+
+            //primeira divisão
+            if(imagem.getWidth() >= imagem.getHeight()){ // se a largura é maior que a altura, usa a constante de calculo da largura
+                if(imagem.getWidth() < 720){
+                    larguraFinal = imagem.getWidth();
+                    alturaFinal = imagem.getHeight();
+                }
+                else{
+                    larguraFinal = (int) (imagem.getWidth()/constanteCalculoLargura);
+                    alturaFinal = (int) (imagem.getHeight()/constanteCalculoLargura);
+                }
+            }
+            else { //se não, usa a constante de cálculo da altura
+                if(imagem.getWidth()< 720){
+                    larguraFinal = imagem.getWidth();
+                    alturaFinal = imagem.getHeight();
+                }
+                else{
+                    larguraFinal = (int) (imagem.getWidth()/constanteCalculoAltura);
+                    alturaFinal = (int) (imagem.getHeight()/constanteCalculoAltura);
+                }
+            }
+            imagemSalvar = new BufferedImage(larguraFinal, alturaFinal, BufferedImage.TYPE_INT_RGB);
+            graficosImagemSalvar = imagemSalvar.createGraphics();
+            graficosImagemSalvar.fillRect(0, 0, larguraFinal, alturaFinal);
+            graficosImagemSalvar.drawImage(imagem, 0,0, larguraFinal, alturaFinal, null);
+            try {
+                File arquivoImagem = new File(caminho);
+                if(!arquivoImagem.getParentFile().exists()){//se não existe o diretório, cria outro, se criar toda vez, as imagens são excluidas
+                    arquivoImagem.getParentFile().mkdirs();
+                }
+                ImageIO.write(imagemSalvar, "png", arquivoImagem) ;
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
+    }
+    
+    
     public Icon imagem(){
         JFileChooser file = new JFileChooser();
         file.setFileFilter(new FileNameExtensionFilter("Arquivos de imagem", new String[]{"png", "gif", "jpeg", "jpg"}));
@@ -131,17 +253,31 @@ import model.Usuario;
         Mensagens.mensagem(componentePai,"Preencha este campo corretamente!\nMínimo 3 caracteres! "," Atenção! ", 2 );
     }
 
-    public NaoConformidade cadastrar () {
-        
+    public void cadastrar () {
         cadastroNaoCoformidade = new CadatroNaoCoformidade(null, true, this);
         cadastroNaoCoformidade.setLocationRelativeTo(null);
         cadastroNaoCoformidade.setVisible(true);
-        return null;
     }
-     public void listarNaoConformidades(Consumer<? super NaoConformidade> resultado){
+    
+    public void listarNaoConformidades(Consumer<? super NaoConformidade> resultado){
         new NaoConformidadeDao().listarTodos(resultado::accept);
     }
     
+     
+     
+     
+    public void salvar(NaoConformidade naoConformidade){
+        //salva imagem
+        salvarImagem(naoConformidade.getImagem());
+        if(naoConformidadeDao.criar(naoConformidade)){
+            JOptionPane.showMessageDialog(componentePai, "Dados cadastrados com sucesso!","Sucesso!",1);
+            cadastroNaoCoformidade.dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(componentePai, "nao");
+        }
+    }
+     
     public void salvar(){
         
         /*naoConformidade.setId(Integer.parseInt(cadastroNaoCoformidade.Codigo.getText()));
@@ -175,12 +311,13 @@ import model.Usuario;
                         cadastroNaoCoformidade.getResponsavelNaoConformidade().get(cadastroNaoCoformidade.Responsavel.getSelectedIndex()).getId()//id do responsável
                 )
         );
-        if(!naoConformidadeDao.criar(naoConformidade)){
-            JOptionPane.showMessageDialog(componentePai, "nao");
-        }
-        else {
+        System.out.println(naoConformidade.toString());
+        if(naoConformidadeDao.criar(naoConformidade)){
             JOptionPane.showMessageDialog(componentePai, "Dados cadastrados com sucesso!","Sucesso!",1);
             cadastroNaoCoformidade.dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(componentePai, "nao");
         }
     }
 }

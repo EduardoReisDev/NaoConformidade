@@ -26,6 +26,7 @@ public class Controller {
     private final ResponsavelController responsavelController;
     private final SetorController setorController;
     private final PropriedadesController propriedadesController;
+    private final NaoConformidadeController naoConformidadeController;
     private Usuario usuario;
     
     private FormNaoConformidade telaNaoConformidade;
@@ -38,6 +39,7 @@ public class Controller {
     public Controller(){
         dadosController =  new DadosController();
         responsavelController = new ResponsavelController();
+        naoConformidadeController = new NaoConformidadeController();
         usuarioController = new UsuarioController();
         propriedadesController = new PropriedadesController(System.getProperty("user.dir")+"\\configuracoes.ini");
         setorController = new SetorController();
@@ -128,5 +130,7 @@ public class Controller {
     public void inicio(){
         //new Splash();
         abreTelaPrincipal();
+        
+        
     }
 }
