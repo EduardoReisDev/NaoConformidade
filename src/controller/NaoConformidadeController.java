@@ -323,4 +323,8 @@ public class NaoConformidadeController {
             JOptionPane.showMessageDialog(componentePai, "nao");
         }
     }
+
+    public void mostrarNaoConformidade(int id) {
+        System.out.println(id);
+    }
 }

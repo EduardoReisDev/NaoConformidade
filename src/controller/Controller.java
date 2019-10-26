@@ -45,6 +45,10 @@ public class Controller {
         setorController = new SetorController();
     }
 
+    public NaoConformidadeController getNaoConformidadeController() {
+        return naoConformidadeController;
+    }
+
     public ResponsavelController getResponsavelController() {
         return responsavelController;
     }

@@ -269,6 +269,11 @@ public class FormNaoConformidade extends javax.swing.JDialog {
                 "Código", "Descrição", "Data de Registro", "Dt do Acontecimento", "Reincidência", "Abrangência", "Origem", "Resp. de Qualidade", "Ação de Correção"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -374,6 +379,12 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         NaoConformidadeController.cadastrar();
         readJTable();
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        if(evt.getClickCount() == 2){//se é dois cliques
+            controller.getNaoConformidadeController().mostrarNaoConformidade(Integer.parseInt(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0))));
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;

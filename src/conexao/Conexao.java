@@ -4,6 +4,9 @@ package conexao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.sqlite.SQLiteConfig;
 
 /**
  *
@@ -11,6 +14,7 @@ import java.sql.SQLException;
  */
 public class Conexao {
     private final String URL;
+    public final String DRIVER = "org.sqlite.JDBC";  
 
     public Conexao() {
         this.URL = "jdbc:sqlite:"+System.getProperty("user.dir")+"\\banco\\Banco.db";
@@ -18,11 +22,15 @@ public class Conexao {
     
     public Connection abreConexao(){
         try{
-            //Class.forName("com.mysql.jdbc.DriverManager");
-            return DriverManager.getConnection(URL);
+            Class.forName(DRIVER);
+            SQLiteConfig configuracao = new SQLiteConfig();
+            configuracao.enforceForeignKeys(true);
+            return DriverManager.getConnection(URL,configuracao.toProperties());
         }
         catch (SQLException sqlex){
             System.out.println("Erro na conexão "+sqlex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
