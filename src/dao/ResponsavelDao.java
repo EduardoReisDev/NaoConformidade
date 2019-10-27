@@ -43,17 +43,15 @@ public class ResponsavelDao implements Crud<Responsavel>{
     @Override
     public void listarTodos(Consumer<? super Responsavel> resultado) {
         Connection conexao = new Conexao().abreConexao();
-        Responsavel responsavel = null;
         try{
             PreparedStatement stmt = conexao.prepareStatement("select * from responsavel");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                responsavel = new Responsavel(
+                resultado.accept(new Responsavel(
                         rs.getInt("id"), 
                         rs.getString("cpf"),
                         rs.getString("nome")
-                );
-                resultado.accept(responsavel);
+                ));
             }
         }
         catch (SQLException e){
@@ -67,17 +65,15 @@ public class ResponsavelDao implements Crud<Responsavel>{
     public void listarPorNome(Consumer<? super Responsavel> resultado, String nome) {
         String query = "SELECT * FROM responsavel WHERE nome like '"+nome+"%'";
         Connection conexao = new Conexao().abreConexao();
-        Responsavel responsavel = null;
         try{
             PreparedStatement stmt = conexao.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                responsavel = new Responsavel(
+                resultado.accept(new Responsavel(
                         rs.getInt("id"), 
                         rs.getString("cpf"),
                         rs.getString("nome")
-                );
-                resultado.accept(responsavel);
+                ));
             }
         }
         catch (SQLException e){
@@ -152,6 +148,7 @@ public class ResponsavelDao implements Crud<Responsavel>{
         }
     }
 
+    @Override
     public int getLastId() {
         String query = "select max(id) as maxId from responsavel;";
         Connection conexao = new Conexao().abreConexao();

@@ -15,10 +15,8 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     NaoConformidadeController naoConformidadeController;
     NaoConformidadeDao naoConformidadeDao = new NaoConformidadeDao();
     
-    private ArrayList<Integer> listaIdResponsavelComboBox;
-    private ArrayList<Integer> listaIdSetorComboBox;
-    
-    
+    private final ArrayList<Integer> listaIdResponsavelComboBox;
+    private final ArrayList<Integer> listaIdSetorComboBox;
     
     /** Creates new form cadatroNaoCoformidade
      * @param parent
@@ -113,7 +111,7 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
                     dataAcontecimento.getCurrent().getTime(), 
                     dataRegistro.getCurrent().getTime(), 
                     descricao.getText(), 
-                    System.getProperty("user.dir")+"\\imagens\\nc"+Codigo.getText()+".png", 
+                    "imagens\\nc"+Codigo.getText()+".png", 
                     origem.getText(), 
                     reincidencia.isSelected(), 
                     new Setor(

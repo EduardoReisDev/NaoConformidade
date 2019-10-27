@@ -35,6 +35,12 @@ public class Relatorio {
     private Document documento;
     private PdfDocument pdf;
     
+    public int millimetrosParaPontos(double milimetros){
+        double polegadas;
+        double millimetrosPorPolegadas = 25.4;
+        polegadas = milimetros/millimetrosPorPolegadas;
+        return  (int) (polegadas * 72);
+    }
     
     public void salvarPdf() throws FileNotFoundException{
         Table tabela = new Table(UnitValue.createPercentArray(new float[]{10,10,10,10,10,10,10,10,10,10})).setFixedLayout();
@@ -81,11 +87,11 @@ public class Relatorio {
         PdfWriter writer = new PdfWriter(dest);
         pdf = new PdfDocument(writer);
         documento = new Document(pdf, PageSize.A4);
-        documento.setMargins(, 20, 20, 30);
+        documento.setMargins(30, 20, 20, 30);
     }
     
     public static void main(String[] args) throws FileNotFoundException {
         
-        new Relatorio().criarEAdicionarConteudo();
+        System.out.println(new Relatorio().millimetrosParaPontos(21));
     }
 }

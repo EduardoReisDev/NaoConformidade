@@ -31,9 +31,6 @@ public class NaoConformidadeController {
         this.imagemController = imagemController;
     }
     
-    
-    
-    
     public Component  getComponentePai () {
         return componentePai;
     }

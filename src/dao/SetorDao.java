@@ -44,16 +44,17 @@ public class SetorDao implements Crud<Setor>{
     public void listarTodos(Consumer<? super Setor> resultado) {
         String query = "select * from setor";
         Connection conexao = new Conexao().abreConexao();
-        Setor result;
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
             while (res.next()){
-                result = new Setor();
-                result.setNome(res.getString("nome"));
-                result.setId(res.getInt("id"));
-                result.setResponsavel(new Responsavel(res.getInt("id")));
-                resultado.accept(result);
+                resultado.accept(new Setor(
+                        res.getInt("id"), 
+                        res.getString("nome"),
+                        new Responsavel(
+                                res.getInt("id")
+                        )
+                ));
             }
         }
         catch(SQLException e){
@@ -108,6 +109,7 @@ public class SetorDao implements Crud<Setor>{
         }
     }
     
+    @Override
     public int getLastId() {
         String query = "select max(id) as maxId from setor;";
         Connection conexao = new Conexao().abreConexao();

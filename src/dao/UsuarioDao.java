@@ -46,21 +46,20 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
     @Override
     public Usuario listarPorId(int id) {
         Connection conexao = new Conexao().abreConexao();
-        Usuario usuario = null;
         try{
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE id = ? ");
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                usuario = new Usuario();
-                usuario.setId(rs.getInt("id"));
-                usuario.setNome(rs.getString("nome"));
-                usuario.setCpf(rs.getString("cpf"));
-                usuario.setUsuario(rs.getString("usuario"));
-                usuario.setSenha(rs.getString("senha"));
-                usuario.setMaster(rs.getBoolean("master"));
+                return new Usuario(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        rs.getString("usuario"), 
+                        rs.getString("senha"), 
+                        rs.getBoolean("master")
+                );
             }
-            return usuario;
         }
         catch (SQLException e){
             System.out.println("erro na busca "+e.getMessage());
@@ -68,7 +67,7 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
         finally{
             Conexao.fechaConexao(conexao);
         }
-        return usuario;
+        return null;
     }
 
     @Override
@@ -116,19 +115,18 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
     public void listarTodos(Consumer<? super Usuario> resultado) {
         String query = "select * from usuario";
         Connection conexao = new Conexao().abreConexao();
-        Usuario result;
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
             while (res.next()){
-                result = new Usuario();
-                result.setNome(res.getString("nome"));
-                result.setId(res.getInt("id"));
-                result.setUsuario(res.getString("usuario"));
-                result.setCpf(res.getString("cpf"));
-                result.setSenha(res.getString("senha"));
-                result.setMaster(res.getBoolean("master"));
-                resultado.accept(result);
+                resultado.accept(new Usuario(
+                        res.getInt("id"),
+                        res.getString("nome"),
+                        res.getString("cpf"),
+                        res.getString("usuario"), 
+                        res.getString("senha"), 
+                        res.getBoolean("master")
+                ));
             }
         }
         catch(SQLException e){
@@ -142,19 +140,18 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
     public void lerPorNome(Consumer<? super Usuario> resultado, String nome) {
         String query = "SELECT * FROM usuario WHERE nome like '"+nome+"%'";
         Connection conexao = new Conexao().abreConexao();
-        Usuario result;
         try{
             PreparedStatement stmt = conexao.prepareStatement(query);
             ResultSet res = stmt.executeQuery();
             while (res.next()){
-                result = new Usuario();
-                result.setNome(res.getString("nome"));
-                result.setId(res.getInt("id"));
-                result.setUsuario(res.getString("usuario"));
-                result.setCpf(res.getString("cpf"));
-                result.setSenha(res.getString("senha"));
-                result.setMaster(res.getBoolean("master"));
-                resultado.accept(result);
+                resultado.accept(new Usuario(
+                        res.getInt("id"),
+                        res.getString("nome"),
+                        res.getString("cpf"),
+                        res.getString("usuario"), 
+                        res.getString("senha"), 
+                        res.getBoolean("master")
+                ));
             }
         }
         catch(SQLException e){
@@ -188,21 +185,20 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
     @Override
     public Usuario listarPorCpf(String cpf){
         Connection conexao = new Conexao().abreConexao();
-        Usuario usuario = null;
         try{
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE cpf = ? ");
             stmt.setString(1, cpf);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                usuario = new Usuario();
-                usuario.setId(rs.getInt("id"));
-                usuario.setNome(rs.getString("nome"));
-                usuario.setCpf(rs.getString("cpf"));
-                usuario.setUsuario(rs.getString("usuario"));
-                usuario.setSenha(rs.getString("senha"));
-                usuario.setMaster(rs.getBoolean("master"));
+                return new Usuario(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        rs.getString("usuario"), 
+                        rs.getString("senha"), 
+                        rs.getBoolean("master")
+                );
             }
-            return usuario;
         }
         catch (SQLException e){
             System.out.println("erro na busca "+e.getMessage());
@@ -210,28 +206,27 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
         finally{
             Conexao.fechaConexao(conexao);
         }
-        return usuario;
+        return null;
     }
     
     @Override
     public Usuario login (String usuario, String senha){
         Connection conexao = new Conexao().abreConexao();
-        Usuario usuarioLogin = null;
         try{
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE usuario = ? and senha= ? ");
             stmt.setString(1, usuario);
             stmt.setString(2, senha);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                usuarioLogin = new Usuario();
-                usuarioLogin.setId(rs.getInt("id"));
-                usuarioLogin.setNome(rs.getString("nome"));
-                usuarioLogin.setCpf(rs.getString("cpf"));
-                usuarioLogin.setUsuario(rs.getString("usuario"));
-                usuarioLogin.setSenha(rs.getString("senha"));
-                usuarioLogin.setMaster(rs.getBoolean("master"));
+                return new Usuario(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        rs.getString("usuario"), 
+                        rs.getString("senha"), 
+                        rs.getBoolean("master")
+                );
             }
-            return usuarioLogin;
         }
         catch (SQLException e){
             System.out.println("erro na busca "+e.getMessage());
@@ -239,9 +234,10 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
         finally{
             Conexao.fechaConexao(conexao);
         }
-        return usuarioLogin;
+        return null;
     } 
     
+    @Override
     public int getLastId() {
         String query = "select max(id) as maxId from usuario;";
         Connection conexao = new Conexao().abreConexao();

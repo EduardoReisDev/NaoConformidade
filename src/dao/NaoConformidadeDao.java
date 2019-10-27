@@ -72,12 +72,11 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                 + "and nc.idResponsavel = r.id;";
         System.out.println(query);
         Connection conexao = new Conexao().abreConexao();
-        NaoConformidade result;
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
             while (res.next()){
-                result = new NaoConformidade(
+                resultado.accept(new NaoConformidade(
                         res.getInt("id"),
                         res.getString("abrangencia"),
                         res.getString("acaoCorrecao"),
@@ -101,9 +100,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                                 res.getString(20),//cpf do do responsavel pelo não conformidade
                                 res.getString(19)//nome do responsavel pelo não conformidade
                         )
-                );
-                resultado.accept(result);
-                
+                ));
             }
         }
         catch(SQLException e){
@@ -231,6 +228,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
         return 0; 
     }
     
+    @Override
      public int getLastId() {
         String query = "select max(id) as maxId from naoConformidade;";
         Connection conexao = new Conexao().abreConexao();
