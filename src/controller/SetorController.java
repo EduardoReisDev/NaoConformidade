@@ -5,10 +5,12 @@
  */
 package controller;
 
+import dao.ResponsavelDao;
 import dao.SetorDao;
 import java.awt.Component;
 import java.awt.Frame;
 import java.util.function.Consumer;
+import model.Responsavel;
 import model.Setor;
 import view.Mensagens;
 import view.setor.FormCadastrar;
@@ -31,12 +33,17 @@ public class SetorController {
         this.rsc = new Resources();
     }
     
+    
+    public int getLastId(){
+        return new SetorDao().getLastId();
+    }
+    
       /**
      *Este método é responsável por acessar a tela FormCadastrar de Setores
      */
     
     public void cadastrar(){
-        cadastro = new FormCadastrar((Frame) componentePai, true);
+        cadastro = new FormCadastrar((Frame) componentePai, true, this);
         cadastro.setLocationRelativeTo(null);
         cadastro.setVisible(true);
     }
@@ -54,6 +61,7 @@ public class SetorController {
         /**
      *Este método faz a listagem a partir do id do setor
      * @param id id do usuário a ser consultado;
+     * @return 
      */
     public Setor listarPorId(int id){
         return new SetorDao().listarPorId(id);
@@ -66,6 +74,15 @@ public class SetorController {
     
     public void listarSetores(Consumer<? super Setor> resultado){
         new SetorDao().listarTodos(resultado::accept);
+    }
+    
+     /**
+     *Este método é responsável por listar todos os setores existentes no banco de dados
+     * @param resultado resultado da listagem
+     */
+    
+    public void listarResponsaveis(Consumer<? super Responsavel> resultado){
+        new ResponsavelDao().listarTodos(resultado::accept);
     }
     
     /**

@@ -24,13 +24,11 @@ public class SetorDao implements Crud<Setor>{
     @Override
     public boolean criar(Setor dados) {
         Connection conexao = new Conexao().abreConexao();
-        String query = "insert into setor ("
-                + "id, nome, idResponsavel) VALUES ( ?, ?, ?)";
+        String query = "insert into setor (nome, idResponsavel) VALUES (?, ?)";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
-            ps.setString(1, dados.getCodigo());
-            ps.setString(2, dados.getNome());
-            ps.setString(3, dados.getResponsavel0());
+            ps.setString(1, dados.getNome());
+            ps.setInt(2, dados.getResponsavel().getId());
             return ps.executeUpdate()>0;
         }
         catch(SQLException sqlex){
@@ -75,13 +73,12 @@ public class SetorDao implements Crud<Setor>{
     @Override
     public boolean editar(Setor dados) {
         Connection conexao = new Conexao().abreConexao();
-        String query = "update setor set setorNome = ?, setorCodigo = ?, setorResponsavel = ? where idsetor = ?";
+        String query = "update setor set nome = ?, idResponsavel = ? where idsetor = ?";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, dados.getNome());
-            ps.setString(2, dados.getCodigo());
-            ps.setString(3, dados.getResponsavel0());
-            ps.setInt(4, dados.getId());
+            ps.setInt(2, dados.getResponsavel().getId());
+            ps.setInt(3, dados.getId());
             return ps.executeUpdate()>0;
         }
         catch(SQLException e){
@@ -96,7 +93,7 @@ public class SetorDao implements Crud<Setor>{
     @Override
     public boolean excluir(int id) {
         Connection conexao = new Conexao().abreConexao();
-        String query = "delete from setor where idsetor = ?";
+        String query = "delete from setor where id = ?";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setInt(1, id);
@@ -109,6 +106,25 @@ public class SetorDao implements Crud<Setor>{
         finally{
             Conexao.fechaConexao(conexao);
         }
+    }
+    
+    public int getLastId() {
+        String query = "select max(id) as maxId from setor;";
+        Connection conexao = new Conexao().abreConexao();
+        try{
+            Statement stm = conexao.createStatement();
+            ResultSet res = stm.executeQuery(query);
+            while (res.next()){
+                return res.getInt("maxId");
+            }
+        }
+        catch(SQLException e){
+            System.out.println("erro na listagem "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
+        return 0; 
     }
     
 }
