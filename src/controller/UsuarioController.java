@@ -5,6 +5,7 @@
  */
 package controller;
 
+import resources.Resources;
 import dao.UsuarioDao;
 import java.awt.Component;
 import java.awt.Frame;

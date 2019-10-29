@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package resources;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,12 +18,12 @@ import java.util.logging.Logger;
  *
  * @author leona
  */
-public class PropriedadesController {
+public class Propriedade {
     private Properties propriedades; 
     private File arquivo;
     FileInputStream arquivoEntrada;
     
-    public PropriedadesController(String caminho) {
+    public Propriedade(String caminho) {
         this.propriedades = new Properties();
         arquivo = new File(caminho);
         boolean arquivoExistente = true;
@@ -33,7 +32,7 @@ public class PropriedadesController {
             try {
                 arquivo.createNewFile();
             } catch (IOException ex) {
-                Logger.getLogger(PropriedadesController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Propriedade.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         lerArquivoPropriedades();
@@ -48,9 +47,9 @@ public class PropriedadesController {
             propriedades.load(arquivoEntrada);
             arquivoEntrada.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(PropriedadesController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Propriedade.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(PropriedadesController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Propriedade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -58,7 +57,6 @@ public class PropriedadesController {
         lerArquivoPropriedades();
         return propriedades.getProperty(chave);
     }
-    
     
     private void criarPropriedades(){
         lerArquivoPropriedades();
@@ -73,15 +71,10 @@ public class PropriedadesController {
             propriedades.store(arquivoSaida, "UTF-8");
             //arquivoSaida.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(PropriedadesController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Propriedade.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(PropriedadesController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Propriedade.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    public static void main(String[] args) {
-      PropriedadesController p =  new PropriedadesController(System.getProperty("user.dir")+"\\configuracoes.ini");
-      //p.criarPropriedades();
-        System.out.println(p.ler("confirmar.fechar"));
     }
 }
 

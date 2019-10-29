@@ -5,7 +5,7 @@
  */
 package view.usuario;
 
-import controller.Resources;
+import resources.Resources;
 import controller.UsuarioController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -5,6 +5,7 @@
  */
 package controller;
 
+import resources.Resources;
 import dao.ResponsavelDao;
 import dao.SetorDao;
 import java.awt.Component;

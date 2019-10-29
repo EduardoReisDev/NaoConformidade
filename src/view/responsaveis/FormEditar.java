@@ -5,7 +5,7 @@
  */
 package view.responsaveis;
 
-import controller.Resources;
+import resources.Resources;
 import controller.ResponsavelController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

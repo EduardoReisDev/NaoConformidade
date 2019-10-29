@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package resources;
 
 import conexao.Conexao;
 import java.awt.Component;
@@ -22,15 +22,15 @@ import view.Mensagens;
  *
  * @author leona
  */
-public class DadosController {
+public class Dados {
     private final String caminho;
     private final ArrayList<String> listaEstrutura;
     private final ArrayList<String> listaEstruturaImportado;
     private Component componentePai = null;
     
-    private ArquivoController arquivoController = new ArquivoController();
+    private Arquivo arquivoController = new Arquivo();
     
-    public DadosController(){
+    public Dados(){
         this.caminho = System.getProperty("user.dir")+"\\banco\\Banco.db";
         listaEstruturaImportado = new ArrayList<>(4);
         listaEstrutura = new ArrayList<>(4);
@@ -169,7 +169,7 @@ public class DadosController {
                 listaEstruturaImportado.add(res.getString(5));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DadosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Dados.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -181,7 +181,7 @@ public class DadosController {
                 stmt.execute(estrutura);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DadosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Dados.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally{
             Conexao.fechaConexao(conexao);

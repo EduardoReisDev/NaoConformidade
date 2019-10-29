@@ -4,8 +4,15 @@
  * and open the template in the editor.
  */
 package controller;
+import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
+import resources.Dados;
+import resources.Propriedade;
 import java.awt.Component;
 import java.awt.Frame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import model.Usuario;
 import view.DialogoConfirmaSair;
 import view.FormPrincipal;
@@ -21,11 +28,11 @@ import view.usuario.FormUsuario;
  */
 public class Controller {
     private Component componentePai;
-    private final DadosController dadosController;
+    private final Dados dadosController;
     private final UsuarioController usuarioController;
     private final ResponsavelController responsavelController;
     private final SetorController setorController;
-    private final PropriedadesController propriedadesController;
+    private final Propriedade propriedadesController;
     private final NaoConformidadeController naoConformidadeController;
     private Usuario usuario;
     
@@ -37,11 +44,11 @@ public class Controller {
     private DialogoConfirmaSair dialogoConfirmaSair;
             
     public Controller(){
-        dadosController =  new DadosController();
+        dadosController =  new Dados();
         responsavelController = new ResponsavelController();
         naoConformidadeController = new NaoConformidadeController();
         usuarioController = new UsuarioController();
-        propriedadesController = new PropriedadesController(System.getProperty("user.dir")+"\\configuracoes.ini");
+        propriedadesController = new Propriedade(System.getProperty("user.dir")+"\\configuracoes.ini");
         setorController = new SetorController();
     }
 
@@ -57,7 +64,7 @@ public class Controller {
         return setorController;
     }
     
-    public DadosController getDadosController() {
+    public Dados getDadosController() {
         return dadosController;
     }
     
@@ -132,11 +139,17 @@ public class Controller {
     }
     
     public void inicio(){
-        //new Splash();
+        
         abreTelaPrincipal();
-        //abreTelaNaoConformidade();
-       // 
-       //naoConformidadeController.mostrarNaoConformidade(19);
-        //System.exit(0);
+    }
+    public static void main(String[] args) {
+        
+        new Splash();
+        try {
+            UIManager.setLookAndFeel(new WindowsLookAndFeel());
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        new Controller().inicio();
     }
 }

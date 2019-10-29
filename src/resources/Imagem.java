@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package resources;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -22,7 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author leona
  */
-public class ImagemController {
+public class Imagem {
     private Component componentePai;
             
     private BufferedImage imagem;

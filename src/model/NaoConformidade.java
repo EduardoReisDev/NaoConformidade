@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import resources.Resources;
 
 /**
  *
@@ -52,6 +53,20 @@ public class NaoConformidade {
         this.setor = (model.Setor) setor;
     }
 
+    @Override
+    public String toString(){
+        return String.format("%010d", id)+";"+
+                descricao+";"+
+                origem+";"+
+                abrangencia+";"+
+                acaoCorrecao+";"+
+                dataAcontecimento.getDate()+"/"+(dataAcontecimento.getMonth()+1)+"/"+(dataAcontecimento.getYear()+1900)+";"+
+                dataRegistro.getDate()+"/"+(dataRegistro.getMonth()+1)+"/"+(dataRegistro.getYear()+1990)+";"+
+                Resources.converterBooleanoSimOuNaoMaiusculo(reincidencia)+";"+
+                responsavel.toString()+";"+
+                setor.toString();
+    }
+    
     public Responsavel getResponsavel() {
         return responsavel;
     }

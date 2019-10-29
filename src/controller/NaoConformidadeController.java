@@ -1,5 +1,6 @@
 package controller;
 
+import resources.Imagem;
 import dao.NaoConformidadeDao;
 import dao.ResponsavelDao;
 import dao.SetorDao;
@@ -21,13 +22,13 @@ public class NaoConformidadeController {
     String novoCaminho = null;
     NaoConformidadeDao naoConformidadeDao = new NaoConformidadeDao();
     NaoConformidade naoConformidade = new NaoConformidade();
-    ImagemController imagemController = new ImagemController();
+    Imagem imagemController = new Imagem();
 
-    public ImagemController getImagemController() {
+    public Imagem getImagemController() {
         return imagemController;
     }
 
-    public void setImagemController(ImagemController imagemController) {
+    public void setImagemController(Imagem imagemController) {
         this.imagemController = imagemController;
     }
     
@@ -55,8 +56,8 @@ public class NaoConformidadeController {
         return new NaoConformidadeDao().listarPorId(id);
     }
     
-    public void listarTodos(){
-        
+    public void listarTodos(Consumer<?super NaoConformidade> naoConformidade){
+        new NaoConformidadeDao().listarTodos(naoConformidade::accept);
     }
     
     

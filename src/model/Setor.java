@@ -6,7 +6,7 @@ package model;
  */
 public class Setor {
     private int id;
-    private String Nome;
+    private String nome;
     private Responsavel responsavel;
     
     public Setor(){
@@ -19,11 +19,16 @@ public class Setor {
 
     public Setor(int id, String nome, Responsavel responsavel){
         this.id = id;
-        this.Nome = nome;
+        this.nome = nome;
         this.responsavel = responsavel;
     }
     
-    
+    @Override
+    public String toString(){
+        return String.format("%010d", id)+";"+
+                nome+";"+
+                responsavel.toString();
+    }
     
     public int getId() {
         return id;
@@ -34,11 +39,11 @@ public class Setor {
     }
 
     public String getNome() {
-        return Nome;
+        return nome;
     }
 
     public void setNome(String Nome) {
-        this.Nome = Nome;
+        this.nome = Nome;
     }
 
     public Responsavel getResponsavel() {

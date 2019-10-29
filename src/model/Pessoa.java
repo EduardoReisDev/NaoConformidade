@@ -32,6 +32,13 @@ public abstract class Pessoa {
         this.nome = nome;
     }
     
+    @Override
+    public String toString(){
+        return String.format("%010d", id)+";"+
+                nome+";"+
+                cpf;
+    }
+    
     public int getId() {
         return id;
     }

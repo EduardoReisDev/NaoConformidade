@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package resources;
 
 import java.util.InputMismatchException;
 import javax.swing.JOptionPane;
@@ -33,6 +33,15 @@ public class Resources {
      *Tipo de mensagem atenção
      */
     public static final int ATENCAO  = JOptionPane.WARNING_MESSAGE;
+    
+    public static String converterBooleanoSimOuNao(boolean valor){
+        return valor ? "sim" : "não";
+    }
+    
+    public static String converterBooleanoSimOuNaoMaiusculo(boolean valor){
+        return valor ? "Sim" : "Não";
+    }
+    
    
     public static String removerCaracteresInvalidosCpf(String cpf){
         cpf = cpf.replace(".", "");

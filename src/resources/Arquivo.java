@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package resources;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,13 +28,14 @@ import view.Mensagens;
  *
  * @author leona
  */
-public class ArquivoController {
+public class Arquivo {
     private DialogoCopiar dialogCopia;
 
     private InputStream entrada;
     private OutputStream saida;
     private File arquivoEntrada;
     private File arquivoSaida;
+    private OutputStreamWriter arquivoEscritor;
     
     public String obterCaminhoEntrada(boolean forcarSelecao){
         escolherArquivoOrigem(forcarSelecao);
@@ -84,9 +88,9 @@ public class ArquivoController {
                     saida.close();
                     dialogCopia.dispose();
                 } catch (FileNotFoundException ex) {
-                    Logger.getLogger(DadosController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Dados.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException | InterruptedException ex) {
-                    Logger.getLogger(DadosController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Dados.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 //return null;
            // }
@@ -126,13 +130,24 @@ public class ArquivoController {
         arquivoSaida = fileChooser.getSelectedFile();
     }
     
+    public void escolherArquivoDestino(String tipo, String descricao){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setFileFilter(new FileNameExtensionFilter(descricao, tipo));
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        if(fileChooser.showSaveDialog(null) != JFileChooser.APPROVE_OPTION){
+            fileChooser.setSelectedFile(null);
+        }
+        arquivoSaida = fileChooser.getSelectedFile();
+    }
+    
     public void limparArquivo(String caminho){
         try {
             new FileOutputStream(new File(caminho),false).close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(DadosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Dados.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(DadosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Dados.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -157,8 +172,34 @@ public class ArquivoController {
             try {
                 arquivo.createNewFile();
             } catch (IOException ex) {
-                Logger.getLogger(DadosController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Dados.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+    
+    public void abrirArquivoParaEscrita(){
+        if(!arquivoSaida.getParentFile().exists()){
+            arquivoSaida.getParentFile().mkdirs();
+        }
+        try {
+            arquivoEscritor = new OutputStreamWriter(new FileOutputStream(arquivoSaida), "iso-8859-1");
+        } catch (IOException ex) {
+            Logger.getLogger(Arquivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void escreverNoArquivoSaida(String str){
+        try {
+            arquivoEscritor.write(str.toCharArray());
+        } catch (IOException ex) {
+            Logger.getLogger(Arquivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void fecharArquivo(){
+        try {
+            arquivoEscritor.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Arquivo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

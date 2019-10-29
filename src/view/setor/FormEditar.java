@@ -5,7 +5,7 @@
  */
 package view.setor;
 
-import controller.Resources;
+import resources.Resources;
 import controller.SetorController;
 import dao.ResponsavelDao;
 import java.awt.Frame;
