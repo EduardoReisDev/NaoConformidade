@@ -46,7 +46,11 @@ public class Imagem {
     
     
     public Icon lerImagem(int largura, int altura){
-        return new ImageIcon(ProcessarImagem(largura, altura));
+        BufferedImage icone = ProcessarImagem(largura, altura);
+        if(icone!=null){
+            return new ImageIcon(ProcessarImagem(largura, altura));
+        }
+        return null;
     }
     
     public Icon lerImagem(String caminho, int largura, int altura){

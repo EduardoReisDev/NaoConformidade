@@ -5,6 +5,7 @@
  */
 package resources;
 
+import java.util.Calendar;
 import java.util.InputMismatchException;
 import javax.swing.JOptionPane;
 
@@ -42,6 +43,15 @@ public class Resources {
         return valor ? "Sim" : "Não";
     }
     
+    public static String getDataEHora(){
+        Calendar calendario = Calendar.getInstance();
+        return ""+calendario.get(Calendar.DAY_OF_MONTH)+"-"
+                +(calendario.get(Calendar.MONTH)+1)+"-"
+                +calendario.get(Calendar.YEAR)+"-"
+                +calendario.get(Calendar.HOUR)+"-"
+                +calendario.get(Calendar.MINUTE)+"-"
+                +calendario.get(Calendar.SECOND);
+    }
    
     public static String removerCaracteresInvalidosCpf(String cpf){
         cpf = cpf.replace(".", "");

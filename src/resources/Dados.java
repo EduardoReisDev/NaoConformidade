@@ -28,9 +28,10 @@ public class Dados {
     private final ArrayList<String> listaEstruturaImportado;
     private Component componentePai = null;
     
-    private Arquivo arquivoController = new Arquivo();
+    private final Arquivo arquivo;
     
     public Dados(){
+        this.arquivo = new Arquivo();
         this.caminho = System.getProperty("user.dir")+"\\banco\\Banco.db";
         listaEstruturaImportado = new ArrayList<>(4);
         listaEstrutura = new ArrayList<>(4);
@@ -55,17 +56,20 @@ public class Dados {
     
     
     public void exportarBanco(){
-        String caminhoArquivoExportado = arquivoController.obterCaminhoSaida();
+        arquivo.escolherArquivoDestino(
+                "db", 
+                "Arquivos de banco de dados", 
+                "Banco de dados exportado em "+Resources.getDataEHora());
+        String caminhoArquivoExportado = arquivo.obterCaminhoSaida();
         if(caminhoArquivoExportado != null){
-            if(arquivoController.isArquivoSaidaExistente()){
+            if(arquivo.isArquivoSaidaExistente()){
                 if(Mensagens.confirmar(null, "arquivo existe", "!!!", 0)){
-                    arquivoController.copiarArquivo(caminho, caminhoArquivoExportado);
+                    arquivo.copiarArquivo(caminho, caminhoArquivoExportado);
                     validarExportacao(caminhoArquivoExportado);
                 }
             }
             else{
-                arquivoController.criarArquivo(caminhoArquivoExportado);
-                arquivoController.copiarArquivo(caminho, caminhoArquivoExportado);
+                arquivo.copiarArquivo(caminho, caminhoArquivoExportado);
                 validarExportacao(caminhoArquivoExportado);
             }
         }
@@ -78,7 +82,8 @@ public class Dados {
     }
     
     public boolean importarBanco(boolean forcarSelecao){
-        String caminhoArquivoImportado = arquivoController.obterCaminhoEntrada(forcarSelecao);
+        arquivo.escolherArquivoOrigem("db","Arquivos de banco de dados");
+        String caminhoArquivoImportado = arquivo.obterCaminhoEntrada();
         if(caminhoArquivoImportado != null){
             while(!isEstruturaValida(caminhoArquivoImportado)){
                 if(forcarSelecao){
@@ -99,10 +104,11 @@ public class Dados {
                         break;
                     }
                 }
-                caminhoArquivoImportado = arquivoController.obterCaminhoEntrada(forcarSelecao);
+                arquivo.escolherArquivoOrigem("db","Arquivos de banco de dados");
+                caminhoArquivoImportado = arquivo.obterCaminhoEntrada();
             }
             if(isEstruturaValida(caminhoArquivoImportado)){//se o arquivo é válido, copia ele pro diretório do sistema
-                arquivoController.copiarArquivo(caminhoArquivoImportado, caminho);
+                arquivo.copiarArquivo(caminhoArquivoImportado, caminho);
                 return true;
             }
         }
@@ -123,7 +129,7 @@ public class Dados {
     }
     
     private void criarBanco(){
-        arquivoController.criarArquivo(caminho);
+        arquivo.criarArquivo(caminho);
         criarTabelas();
     }
     
@@ -150,8 +156,9 @@ public class Dados {
     }
     
     private boolean isEstruturaValida(String caminho){
-        Connection conexao= new Conexao().abreConexao(caminho);
+        Connection conexao = new Conexao().abreConexao(caminho);
         listarEstruturas(conexao);
+        Conexao.fechaConexao(conexao);
         return isBaseDeDadosValida();
     }
     
@@ -162,6 +169,7 @@ public class Dados {
     }
     
     private void listarEstruturas(Connection conexao){
+        listaEstruturaImportado.clear();
         try {
             Statement stmt = conexao.createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM sqlite_master WHERE type='table'");

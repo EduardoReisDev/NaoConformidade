@@ -12,15 +12,22 @@ import controller.NaoConformidadeController;
  * @author leona
  */
 public class CommaSeparatedValues {
-    private String [] colunas = {"Código", "Descriçao", "Origem", "Abrangência", "Ação de correção", "Data de acontecimento",
-                                "Data de registro", "Reincidência", "Código do responsável", "Nome do responsável",
-                                "CPF do responsável", "Código do setor", "Nome do setor", "Código do responsável pelo setor",
-                                "Nome do responsável pelo setor", "CPF do responsável pelo setor"};
+    private final String [] colunas;
     Arquivo arquivo;
+
+    public CommaSeparatedValues() {
+        this.colunas = new String[]{"Código", "Descriçao", "Origem", "Abrangência", 
+            "Ação de correção", "Data de acontecimento", "Data de registro", 
+            "Reincidência", "Código do responsável", "Nome do responsável", 
+            "CPF do responsável", "Código do setor", "Nome do setor", 
+            "Código do responsável pelo setor", "Nome do responsável pelo setor", 
+            "CPF do responsável pelo setor"
+        };
+    }
     
     private void exportarCsv(){
         arquivo = new Arquivo();
-        arquivo.escolherArquivoDestino("csv", "Arquivo de planilha eletrônica");
+        arquivo.escolherArquivoDestino("csv", "Arquivo de planilha eletrônica", "");
         arquivo.abrirArquivoParaEscrita();
         for(int i=0; i<colunas.length; i++){
             if(i<colunas.length-1){//a última coluna não pode ter vírgula

@@ -24,13 +24,12 @@ public class FrameImagem extends javax.swing.JFrame {
      */
     public FrameImagem(NaoConformidadeController naoConformidadeController) {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
         this.naoConformidadeController = naoConformidadeController;
         campoImagem.setIcon(
                 naoConformidadeController.
                         getImagemController().lerImagem(
-                                campoImagem.getWidth(),
-                                campoImagem.getHeight())
+                                500,
+                                500)
         );
     }
     
