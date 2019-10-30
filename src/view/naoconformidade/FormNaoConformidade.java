@@ -80,7 +80,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
             naoConformidade.getOrigem(),
             naoConformidade.getResponsavel().getNome(),
             naoConformidade.getAcaoCorrecao(),
-            naoConformidade.getSetor().getResponsavel().getNome()
+            naoConformidade.getSetor().getNome()
         });
     }
     

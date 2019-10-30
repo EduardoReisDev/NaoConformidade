@@ -17,6 +17,7 @@ import model.Usuario;
 import view.DialogoConfirmaSair;
 import view.FormPrincipal;
 import view.naoconformidade.FormNaoConformidade;
+import view.relatorio.FormRelatorio;
 import view.responsaveis.FormResponsavel;
 import view.setor.FormSetor;
 import view.splash.Splash;
@@ -139,7 +140,7 @@ public class Controller {
     }
     
     public void inicio(){
-        //abreTelaNaoConformidade();
+       // abreTelaNaoConformidade();
         abreTelaPrincipal();
     }
     public static void main(String[] args) {
@@ -151,5 +152,9 @@ public class Controller {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
         new Controller().inicio();
+    }
+
+    public void abrirTelaRelatorio() {
+        new FormRelatorio((Frame) componentePai, true).setVisible(true);
     }
 }

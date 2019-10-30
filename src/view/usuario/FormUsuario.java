@@ -7,6 +7,7 @@ package view.usuario;
 
 
 import controller.Controller;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -34,6 +35,7 @@ public class FormUsuario extends javax.swing.JDialog {
     public FormUsuario(java.awt.Frame parent, boolean modal, Controller controller) {
         super(parent, modal);
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
         this.controller = controller;
         criarEstruturaTabelaEListarTodos();
     }
