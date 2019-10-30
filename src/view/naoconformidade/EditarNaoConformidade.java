@@ -25,6 +25,7 @@ import model.Setor;
  */
 public class EditarNaoConformidade extends javax.swing.JDialog {
     NaoConformidadeController naoConformidadeController;
+    NaoConformidade aux;
     private ArrayList<Integer> listaIdResponsavelComboBox;
     private ArrayList<Integer> listaIdSetorComboBox;
     /**
@@ -33,13 +34,20 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
     public EditarNaoConformidade(java.awt.Frame parent, boolean modal,NaoConformidadeController naoConformidadecontroller, int id){
         super(parent, modal);
         initComponents();
-        
         this.naoConformidadeController = naoConformidadecontroller;
         listaIdResponsavelComboBox = new ArrayList<>();
         listaIdSetorComboBox = new ArrayList<>();
         inicializar();
+        setarDados(id);
     }
+    private void setarDados(int id){
+        aux = naoConformidadeController.listarPorId(id);
+        Codigo.setText(String.valueOf(id));
+        descricao.setText(aux.getDescricao());
+        Responsavel.setSelectedIndex(listaIdResponsavelComboBox.indexOf(aux.getResponsavel().getId()));
+        Setor.setSelectedIndex(listaIdSetorComboBox.indexOf(aux.getSetor().getId()));
     
+    }
     private void inicializar(){
         listarResponsaveis();
         listarSetores();

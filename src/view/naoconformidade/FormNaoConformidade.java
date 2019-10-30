@@ -61,6 +61,14 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         jTable1.setModel(modelo);
     }
     
+     private int pegarIdDaLinhaSelecionada(){
+        int linhaSelecionada=jTable1.getSelectedRow();
+        if(linhaSelecionada>=0){
+            return (Integer.parseInt(String.valueOf(jTable1.getValueAt(linhaSelecionada, 0))));
+        }
+        return -1;
+    }
+    
     private void popularTabela(NaoConformidade naoConformidade){
         modelo.addRow(new Object[]{
             naoConformidade.getId(),
@@ -353,7 +361,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         //controller.abreTelaEditarNaoConformidade();
         if(jTable1.getSelectedRow() != -1){
-           controller.getNaoConformidadeController().editar((Integer)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
+           controller.getNaoConformidadeController().editar(pegarIdDaLinhaSelecionada());
         }
         else {
             criarEstruturaEListarTodos();
@@ -369,7 +377,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if(evt.getClickCount() == 2){//se é dois cliques
-            controller.getNaoConformidadeController().mostrarNaoConformidade(Integer.parseInt(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0))));
+            controller.getNaoConformidadeController().mostrarNaoConformidade(pegarIdDaLinhaSelecionada());
         }
     }//GEN-LAST:event_jTable1MouseClicked
 

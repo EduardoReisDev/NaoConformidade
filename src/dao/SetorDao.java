@@ -42,7 +42,7 @@ public class SetorDao implements Crud<Setor>{
 
     @Override
     public void listarTodos(Consumer<? super Setor> resultado) {
-        String query = "select * from setor";
+        String query = "select * from setor order by nome";
         Connection conexao = new Conexao().abreConexao();
         try{
             Statement stm = conexao.createStatement();

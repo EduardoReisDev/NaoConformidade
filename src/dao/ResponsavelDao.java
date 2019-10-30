@@ -44,7 +44,7 @@ public class ResponsavelDao implements Crud<Responsavel>{
     public void listarTodos(Consumer<? super Responsavel> resultado) {
         Connection conexao = new Conexao().abreConexao();
         try{
-            PreparedStatement stmt = conexao.prepareStatement("select * from responsavel");
+            PreparedStatement stmt = conexao.prepareStatement("select * from responsavel order by nome");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 resultado.accept(new Responsavel(
