@@ -68,7 +68,28 @@ public class SetorDao implements Crud<Setor>{
 
     @Override
     public Setor listarPorId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conexao = new Conexao().abreConexao();
+        try{
+            PreparedStatement stmt = conexao.prepareStatement("select * from setor where id = ? ");
+            stmt.setInt(1, id);
+            ResultSet res = stmt.executeQuery();
+            while (res.next()){
+                return(new Setor(
+                        res.getInt("id"), 
+                        res.getString("nome"),
+                        new Responsavel(
+                                res.getInt("id")
+                        )
+                ));
+            }
+        }
+        catch(SQLException e){
+            System.out.println("erro na listagem "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
+        return null;
     }
 
     @Override
@@ -127,6 +148,30 @@ public class SetorDao implements Crud<Setor>{
             Conexao.fechaConexao(conexao);
         }
         return 0; 
+    }
+
+    public void listarPorNome(Consumer<Setor> resultado, String nome) {
+        String query = "select * from setor where nome like"+nome+"%";
+        Connection conexao = new Conexao().abreConexao();
+        try{
+            Statement stm = conexao.createStatement();
+            ResultSet res = stm.executeQuery(query);
+            while (res.next()){
+                resultado.accept(new Setor(
+                        res.getInt("id"), 
+                        res.getString("nome"),
+                        new Responsavel(
+                                res.getInt("id")
+                        )
+                ));
+            }
+        }
+        catch(SQLException e){
+            System.out.println("erro na listagem "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
     }
     
 }

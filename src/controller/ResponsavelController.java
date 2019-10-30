@@ -45,7 +45,7 @@ public class ResponsavelController {
     public void abrirFormCadastro(){
         FormCadastrar formCadastro = new FormCadastrar((Frame) componentePai, true, this);
         formCadastro.setLocationRelativeTo(null);
-        formCadastro.setVisible(true);//
+        formCadastro.setVisible(true);
     }
     
     public boolean cadastrar(Responsavel responsavel){
@@ -105,8 +105,8 @@ public class ResponsavelController {
     
     public void abrirFormularioEditar(int id){
         FormEditar formEdita = new FormEditar((Frame) componentePai, true, this);
-        formEdita.preencherCampos(new ResponsavelDao().listarPorId(id));
         formEdita.setLocationRelativeTo(null);
+        formEdita.preencherCampos(new ResponsavelDao().listarPorId(id));
         formEdita.setVisible(true);
     }
     

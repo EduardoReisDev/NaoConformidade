@@ -22,18 +22,19 @@ import model.Setor;
  * @author Eduardo
  */
 public class FormSetor extends javax.swing.JDialog {
-Controller controller;
-DefaultTableModel modeloTabela;
-private final String[] colunas ={"Código", "Nome do Setor", "Responsavel pelo Setor"};
+    private Controller controller;
+    private DefaultTableModel modeloTabela;
+    private final String[] colunas;
 
     /**
      * Creates new form NewJDialog
      */
     public FormSetor(java.awt.Frame parent, boolean modal, Controller controller) {
         super(parent, modal);
+        this.colunas = new String [] {"Código", "Nome do Setor", "Responsavel pelo Setor"};
         initComponents();
         this.controller = controller;
-        
+        criarEstruturaTabelaEListarTodos();
     }
     // Sobrepondo o método createRootPane()
 
@@ -56,11 +57,11 @@ private final String[] colunas ={"Código", "Nome do Setor", "Responsavel pelo S
 
 
     private void criarEstruturaTabelaEListarTodos(){
-        criarEstrurturaTabela();
-        controller.getSetorController().listarSetores(this::popularTabela);
+        criarEstruturaTabela();
+        controller.getSetorController().listarTodos(this::popularTabela);
     }
     
-    public void criarEstrurturaTabela(){
+    public void criarEstruturaTabela(){
         modeloTabela = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -84,6 +85,11 @@ private final String[] colunas ={"Código", "Nome do Setor", "Responsavel pelo S
         JOptionPane.showMessageDialog(this, "Selecione uma linha na tabela.");
     }
     
+    private void criarEstruturaTabelaEBuscar(){
+        criarEstruturaTabela();
+        controller.getSetorController().listarPorNome(this::popularTabela, txtBusca.getText());
+    }
+    
     private int pegarIdDaLinhaSelecionada(){
         int linhaSelecionada=tblSetor.getSelectedRow();
         if(linhaSelecionada>=0){
@@ -92,15 +98,26 @@ private final String[] colunas ={"Código", "Nome do Setor", "Responsavel pelo S
         return -1;
     }
     
-    private void excluir(){
+    private void editar(){
         int id = pegarIdDaLinhaSelecionada();
-        if(id>=0){
-            controller.getUsuarioController().excluir(id);
+        if(id > 0){
+            controller.getSetorController().abrirFormEditar(id);
+            criarEstruturaTabelaEListarTodos();
         }
         else{
             exibirMensagemLinhaNaoSelecionada();
         }
-        criarEstruturaTabelaEListarTodos();
+    }
+    
+    private void excluir() {
+        int id = pegarIdDaLinhaSelecionada();
+        if(id > 0){
+            controller.getSetorController().excluir(id);
+            criarEstruturaTabelaEListarTodos();
+        }
+        else{
+            exibirMensagemLinhaNaoSelecionada();
+        }
     }
     
     /**
@@ -120,7 +137,7 @@ private final String[] colunas ={"Código", "Nome do Setor", "Responsavel pelo S
         tblSetor = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtBusca = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         btnEditar = new javax.swing.JButton();
@@ -198,11 +215,21 @@ private final String[] colunas ={"Código", "Nome do Setor", "Responsavel pelo S
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Buscar setor");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField1.setText("Digite aqui...");
+        txtBusca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtBusca.setText("Digite aqui...");
+        txtBusca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscaActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -212,7 +239,7 @@ private final String[] colunas ={"Código", "Nome do Setor", "Responsavel pelo S
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -223,7 +250,7 @@ private final String[] colunas ={"Código", "Nome do Setor", "Responsavel pelo S
                 .addGap(19, 19, 19)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -346,8 +373,7 @@ private final String[] colunas ={"Código", "Nome do Setor", "Responsavel pelo S
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        SetorController setorcontroller = new SetorController();
-        setorcontroller.editar();
+        editar();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -362,6 +388,14 @@ private final String[] colunas ={"Código", "Nome do Setor", "Responsavel pelo S
         System.out.println(evt.getKeyCode());
     }//GEN-LAST:event_jPanel1KeyPressed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        criarEstruturaTabelaEBuscar();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
+        criarEstruturaTabelaEBuscar();
+    }//GEN-LAST:event_txtBuscaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCadastrar;
@@ -375,7 +409,7 @@ private final String[] colunas ={"Código", "Nome do Setor", "Responsavel pelo S
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblSetor;
+    private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
 }

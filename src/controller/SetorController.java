@@ -54,7 +54,7 @@ public class SetorController {
      */
     
     public void editar(){
-        edicao = new FormEditar((Frame)componentePai, true);
+        //edicao = new FormEditar((Frame)componentePai, true);
         edicao.setLocationRelativeTo(null);
         edicao.setVisible(true);
     }
@@ -73,8 +73,12 @@ public class SetorController {
      * @param resultado resultado da listagem
      */
     
-    public void listarSetores(Consumer<? super Setor> resultado){
+    public void listarTodos(Consumer<? super Setor> resultado){
         new SetorDao().listarTodos(resultado::accept);
+    }
+    
+    public void listarPorNome(Consumer<? super Setor> resultado, String nome){
+        new SetorDao().listarPorNome(resultado::accept, nome);
     }
     
      /**
@@ -155,7 +159,7 @@ public class SetorController {
     public void abrirFormEditar(int id) {
         FormEditar formularioEditar = new FormEditar((Frame) componentePai, true, this);
         formularioEditar.setLocationRelativeTo(null);
-        formularioEditar.preencherCampos(listarPorId(id));
+        formularioEditar.preencherCampos(new SetorDao().listarPorId(id));
         formularioEditar.setVisible(true);
     }
     
