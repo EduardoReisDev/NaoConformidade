@@ -64,7 +64,7 @@ public class NaoConformidadeController {
     }
     
     public void listarIntervaloDeData(Consumer<?super NaoConformidade> naoConformidade, Date dataInicio, Date dataFim){
-        new NaoConformidadeDao().listarTodos(naoConformidade::accept, dataInicio, dataFim);
+        new NaoConformidadeDao().listarPorIntevaloData(naoConformidade::accept, dataInicio, dataFim);
     }
     
     

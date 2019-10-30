@@ -33,8 +33,8 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, dados.getDescricao());
-            ps.setDate(2, new Date(dados.getDataAcontecimento().getYear(), dados.getDataAcontecimento().getMonth() , dados.getDataAcontecimento().getDate()));
-            ps.setDate(3, new Date(dados.getDataRegistro().getYear(), dados.getDataRegistro().getMonth() , dados.getDataRegistro().getDate()));
+            ps.setDate(2, new Date(dados.getDataRegistro().getTime()));
+            ps.setDate(3, new Date(dados.getDataAcontecimento().getTime()));
             ps.setBoolean(4, dados.isReincidencia());
             ps.setString(5, dados.getAbrangencia());
             ps.setString(6, dados.getOrigem());
@@ -213,8 +213,8 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, dados.getDescricao());
-            ps.setDate(2, new Date(dados.getDataRegistro().getYear(), dados.getDataRegistro().getMonth() , dados.getDataRegistro().getDate()));
-            ps.setDate(3, new Date(dados.getDataAcontecimento().getYear(), dados.getDataAcontecimento().getMonth() , dados.getDataAcontecimento().getDate()));
+            ps.setDate(2, new Date(dados.getDataRegistro().getTime()));
+            ps.setDate(3, new Date(dados.getDataAcontecimento().getTime()));
             ps.setBoolean(4, dados.isReincidencia());
             ps.setString(5, dados.getAbrangencia());
             ps.setString(6, dados.getOrigem());
@@ -292,7 +292,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
         return 0; 
     }
 
-    public void listarPorIntevaloData(Consumer<NaoConformidade> resultado, Date dataInicio, Date dataFim) {
+    public void listarPorIntevaloData(Consumer<NaoConformidade> resultado, java.util.Date dataInicio, java.util.Date dataFim) {
        String query = "select * from naoConformidade AS nc "
                 + "INNER JOIN setor as s "
                 + "INNER JOIN  responsavel AS rs "
@@ -300,13 +300,14 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                 + "ON nc.idSetor = s.id "
                 + "and s.idResponsavel = rs.id "
                 + "and nc.idResponsavel = r.id "
-               + "BETWEEN ? and ?";
+                + "WHERE nc.dataAcontecimento BETWEEN ? AND ?";
         Connection conexao = new Conexao().abreConexao();
         try{
             PreparedStatement stm = conexao.prepareStatement(query);
-            stm.setDate(1, dataInicio);
-            stm.setDate(2, dataFim);
-            ResultSet res = stm.executeQuery(query);
+            stm.setDate(1, new Date(dataInicio.getTime()));
+            stm.setDate(2, new Date(dataFim.getTime()));
+            
+            ResultSet res = stm.executeQuery();
             while (res.next()){
                 resultado.accept(new NaoConformidade(
                         res.getInt("id"),

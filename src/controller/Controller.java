@@ -141,7 +141,8 @@ public class Controller {
     
     public void inicio(){
        // abreTelaNaoConformidade();
-        abreTelaPrincipal();
+        //abreTelaPrincipal();
+        abrirTelaRelatorio();
     }
     public static void main(String[] args) {
         
