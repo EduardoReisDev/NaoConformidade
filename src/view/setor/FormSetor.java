@@ -78,6 +78,7 @@ public class FormSetor extends javax.swing.JDialog {
         modeloTabela.addRow(new String[]{
             String.format("%010d", setor.getId()),
             setor.getNome(),
+            setor.getResponsavel().getNome()
         });
     }
     

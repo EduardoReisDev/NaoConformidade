@@ -42,7 +42,10 @@ public class SetorDao implements Crud<Setor>{
 
     @Override
     public void listarTodos(Consumer<? super Setor> resultado) {
-        String query = "select * from setor";
+        String query = "select * from setor as s "
+                + "INNER JOIN responsavel as r "
+                + "on s.idResponsavel = r.id";
+        System.out.println(query);
         Connection conexao = new Conexao().abreConexao();
         try{
             Statement stm = conexao.createStatement();
@@ -52,7 +55,9 @@ public class SetorDao implements Crud<Setor>{
                         res.getInt("id"), 
                         res.getString("nome"),
                         new Responsavel(
-                                res.getInt("id")
+                                res.getInt(4),
+                                res.getString(6),
+                                res.getString(5)
                         )
                 ));
             }
@@ -64,7 +69,6 @@ public class SetorDao implements Crud<Setor>{
             Conexao.fechaConexao(conexao);
         }
     }
-
 
     @Override
     public Setor listarPorId(int id) {
