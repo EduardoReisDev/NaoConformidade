@@ -6,6 +6,7 @@ import dao.ResponsavelDao;
 import dao.SetorDao;
 import java.awt.Component ;
 import java.awt.Frame;
+import java.util.Date;
 import java.util.function.Consumer;
 import javax.swing.JOptionPane;
 import model.NaoConformidade;
@@ -60,6 +61,10 @@ public class NaoConformidadeController {
     
     public void listarTodos(Consumer<?super NaoConformidade> naoConformidade){
         new NaoConformidadeDao().listarTodos(naoConformidade::accept);
+    }
+    
+    public void listarIntervaloDeData(Consumer<?super NaoConformidade> naoConformidade, Date dataInicio, Date dataFim){
+        new NaoConformidadeDao().listarTodos(naoConformidade::accept, dataInicio, dataFim);
     }
     
     

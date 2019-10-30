@@ -63,10 +63,11 @@ public class ResponsavelDao implements Crud<Responsavel>{
     }
     
     public void listarPorNome(Consumer<? super Responsavel> resultado, String nome) {
-        String query = "SELECT * FROM responsavel WHERE nome like '"+nome+"%'";
+        String query = "SELECT * FROM responsavel WHERE nome like ?";
         Connection conexao = new Conexao().abreConexao();
         try{
             PreparedStatement stmt = conexao.prepareStatement(query);
+            stmt.setString(1, nome+"%");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 resultado.accept(new Responsavel(

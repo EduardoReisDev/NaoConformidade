@@ -155,6 +155,6 @@ public class Controller {
     }
 
     public void abrirTelaRelatorio() {
-        new FormRelatorio((Frame) componentePai, true).setVisible(true);
+        new FormRelatorio((Frame) componentePai, true, this).setVisible(true);
     }
 }

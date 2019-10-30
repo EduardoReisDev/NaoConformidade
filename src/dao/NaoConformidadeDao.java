@@ -13,11 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Responsavel;
 import model.Setor;
 
@@ -70,7 +66,6 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                 + "ON nc.idSetor = s.id "
                 + "and s.idResponsavel = rs.id "
                 + "and nc.idResponsavel = r.id;";
-        System.out.println(query);
         Connection conexao = new Conexao().abreConexao();
         try{
             Statement stm = conexao.createStatement();
@@ -119,11 +114,12 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                 + "INNER JOIN responsavel as r "
                 + "ON nc.idSetor = s.id "
                 + "and s.idResponsavel = rs.id "
-                + "and nc.idResponsavel = r.id where nc.id="+id+";";
+                + "and nc.idResponsavel = r.id where nc.id=?;";
         Connection conexao = new Conexao().abreConexao();
         try{
-            Statement stm = conexao.createStatement();
-            ResultSet res = stm.executeQuery(query);
+            PreparedStatement stm = conexao.prepareStatement(query);
+            stm.setInt(1, id);
+            ResultSet res = stm.executeQuery();
             while (res.next()){
                 return new NaoConformidade(
                         res.getInt("id"),
@@ -167,12 +163,12 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                 + "INNER JOIN responsavel as r "
                 + "ON nc.idSetor = s.id "
                 + "and s.idResponsavel = rs.id "
-                + "and nc.idResponsavel = r.id where nc.descricao LIKE '%"+descricao+"%';";
-        System.out.println(query);
+                + "and nc.idResponsavel = r.id where nc.descricao LIKE ?;";
         Connection conexao = new Conexao().abreConexao();
         try{
-            Statement stm = conexao.createStatement();
-            ResultSet res = stm.executeQuery(query);
+            PreparedStatement stm = conexao.prepareStatement(query);
+            stm.setString(1, "%"+descricao+"%");
+            ResultSet res = stm.executeQuery();
             while (res.next()){
                 resultado.accept(new NaoConformidade(
                         res.getInt("id"),
@@ -295,28 +291,24 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
         }
         return 0; 
     }
-     
-    public List<NaoConformidade> read() {
-        String query = "select * from naoConformidade AS nc "
+
+    public void listarPorIntevaloData(Consumer<NaoConformidade> resultado, Date dataInicio, Date dataFim) {
+       String query = "select * from naoConformidade AS nc "
                 + "INNER JOIN setor as s "
                 + "INNER JOIN  responsavel AS rs "
                 + "INNER JOIN responsavel as r "
                 + "ON nc.idSetor = s.id "
                 + "and s.idResponsavel = rs.id "
-                + "and nc.idResponsavel = r.id ;";
+                + "and nc.idResponsavel = r.id "
+               + "BETWEEN ? and ?";
         Connection conexao = new Conexao().abreConexao();
-        PreparedStatement stmt = null;
-        ResultSet res = null;
-
-        List<NaoConformidade> contatos = new ArrayList<>();
-
-        try {
-            stmt = conexao.prepareStatement(query);
-            res = stmt.executeQuery();
-
-            while (res.next()) {
-                    
-                contatos.add(new NaoConformidade(
+        try{
+            PreparedStatement stm = conexao.prepareStatement(query);
+            stm.setDate(1, dataInicio);
+            stm.setDate(2, dataFim);
+            ResultSet res = stm.executeQuery(query);
+            while (res.next()){
+                resultado.accept(new NaoConformidade(
                         res.getInt("id"),
                         res.getString("abrangencia"),
                         res.getString("acaoCorrecao"),
@@ -330,27 +322,25 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                                 res.getInt(12),//id do setor
                                 res.getString(13), //nome do setor
                                 new Responsavel(
-                                        res.getInt(16),//id do responsavel pelo setor 
-                                        res.getString(18),//nome do responsavel pelo setor
-                                        res.getString(17)//cpf do responsável pelo setor
+                                        res.getInt(15),//id do responsavel pelo setor 
+                                        res.getString(17),//cpf do responsavel pelo setor
+                                        res.getString(16)//nome do responsável pelo setor
                                 )
                         ),
                         new Responsavel(
                                 res.getInt(18),//id do responsavel pelo não conformidade
-                                res.getString(20),//nome do do responsavel pelo não conformidade
-                                res.getString(19)//cpf do responsavel pelo não conformidade
+                                res.getString(20),//cpf do do responsavel pelo não conformidade
+                                res.getString(19)//nome do responsavel pelo não conformidade
                         )
                 ));
             }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(NaoConformidadeDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            
         }
-
-        return contatos;
-
+        catch(SQLException e){
+            System.out.println("erro na listagem "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
     }
     
 }
