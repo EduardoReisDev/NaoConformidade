@@ -31,7 +31,6 @@ public class Splash extends javax.swing.JFrame {
     public final void inicializar(){
         setLocationRelativeTo(null);
         int x = (getWidth()-640)/2;
-        int y = (getHeight()-360)/2;
         JPanel painelGif = new JPanel(){
             @Override
             public void paint(Graphics g){
@@ -59,8 +58,10 @@ public class Splash extends javax.swing.JFrame {
     public void executarTarefas(){
         try {
             txt.setText("Conectando-se ao banco de dados...");
+            setEnabled(false);
             controller.verificarBancoDeDados();
             Thread.sleep(500);
+            //setEnabled(true);
             pgsBar.setValue(33);
             txt.setText("Verificando arquivo de configurações...");
             controller.verificaArquivoDeConfiguracoes();

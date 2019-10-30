@@ -139,12 +139,12 @@ public class Controller {
     }
     
     public void inicio(){
-        
+        //abreTelaNaoConformidade();
         abreTelaPrincipal();
     }
     public static void main(String[] args) {
         
-        new Splash();
+       // new Splash();
         try {
             UIManager.setLookAndFeel(new WindowsLookAndFeel());
         } catch (UnsupportedLookAndFeelException ex) {

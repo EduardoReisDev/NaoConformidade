@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
@@ -24,16 +25,15 @@ import model.Setor;
  */
 public class EditarNaoConformidade extends javax.swing.JDialog {
     NaoConformidadeController naoConformidadeController;
-    NaoConformidadeDao naoConformidadeDao = new NaoConformidadeDao();
-    
     private ArrayList<Integer> listaIdResponsavelComboBox;
     private ArrayList<Integer> listaIdSetorComboBox;
     /**
      * Creates new form EditarNaoConformidade
      */
-    public EditarNaoConformidade(java.awt.Frame parent, boolean modal,NaoConformidadeController naoConformidadecontroller,NaoConformidade dados){
+    public EditarNaoConformidade(java.awt.Frame parent, boolean modal,NaoConformidadeController naoConformidadecontroller, int id){
         super(parent, modal);
         initComponents();
+        
         this.naoConformidadeController = naoConformidadecontroller;
         listaIdResponsavelComboBox = new ArrayList<>();
         listaIdSetorComboBox = new ArrayList<>();
@@ -602,7 +602,7 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_acaoCorrecaoKeyPressed
 
     private void btnImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImgActionPerformed
-        visualizaImg.setIcon(naoConformidadeController.escolherImagem());
+        visualizaImg.setIcon((Icon) naoConformidadeController.getImagemController());
     }//GEN-LAST:event_btnImgActionPerformed
 
     private void btnImgKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnImgKeyPressed

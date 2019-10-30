@@ -5,6 +5,12 @@
  */
 package view;
 
+import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 /**
  *
  * @author leona
@@ -15,6 +21,11 @@ public class DialogoCopiar extends javax.swing.JFrame {
      * Creates new form DialogoCopiar
      */
     public DialogoCopiar() {
+        try {
+            UIManager.setLookAndFeel(new WindowsLookAndFeel());
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(DialogoCopiar.class.getName()).log(Level.SEVERE, null, ex);
+        }
         initComponents();
     }
     

@@ -14,10 +14,12 @@ import model.Setor;
 import view.DialogoImagemNaoConformidade;
 import view.Mensagens ;
 import view.naoconformidade.CadatroNaoCoformidade;
+import view.naoconformidade.EditarNaoConformidade;
 import view.naoconformidade.FormDetalheNaoConformidade;
 
 public class NaoConformidadeController {
     CadatroNaoCoformidade cadastroNaoCoformidade;
+    EditarNaoConformidade editarNaoConformidade;
     Component componentePai;
     String novoCaminho = null;
     NaoConformidadeDao naoConformidadeDao = new NaoConformidadeDao();
@@ -32,7 +34,7 @@ public class NaoConformidadeController {
         this.imagemController = imagemController;
     }
     
-    public Component  getComponentePai () {
+    public Component  getComponentePai (){
         return componentePai;
     }
 
@@ -75,8 +77,8 @@ public class NaoConformidadeController {
         cadastroNaoCoformidade.setVisible(true);
     }
     
-    public void listarNaoConformidades(Consumer<? super NaoConformidade> resultado){
-        new NaoConformidadeDao().listarTodos(resultado::accept);
+    public void listarPorDescricao(Consumer<? super NaoConformidade> resultado, String descricao){
+        new NaoConformidadeDao().listarPorDescricao(resultado::accept,descricao);
     }
      
     public void salvar(NaoConformidade naoConformidade){
@@ -103,5 +105,11 @@ public class NaoConformidadeController {
         dialogoImagemNaoConformidade = new DialogoImagemNaoConformidade((Frame) componentePai, true, this);
         dialogoImagemNaoConformidade.setLocationRelativeTo(null);
         dialogoImagemNaoConformidade.setVisible(true);
+    }
+
+    public void editar(int id){
+        editarNaoConformidade = new EditarNaoConformidade(null, true, this, id);
+        editarNaoConformidade.setLocationRelativeTo(null);
+        editarNaoConformidade.setVisible(true);
     }
 }

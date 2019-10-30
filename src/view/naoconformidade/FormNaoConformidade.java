@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
@@ -24,8 +25,6 @@ import model.NaoConformidade;
  */
 public class FormNaoConformidade extends javax.swing.JDialog {
     Controller controller;
-    NaoConformidadeDao naoConformidades = new NaoConformidadeDao();
-    NaoConformidadeController naoConformidadeController = new NaoConformidadeController();
     private final String[] colunas ={"Código","Descrição","DataRegistro","DataAcontecimento","Reincidencia","Abrangencia","Origem","Responsavel","AcaoCorrecao","Setor"};
     
     /**
@@ -34,18 +33,22 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     public FormNaoConformidade(java.awt.Frame parent, boolean modal, Controller controller) {
         super(parent, modal);
         initComponents();
-        readJTable();
         this.controller = controller;
-        //naoConformidadeController.listarNaoConformidades(this::preencherTabela);
+        criarEstruturaEListarTodos();
     }
     private DefaultTableModel modelo;
     
-     public void readJTable() {
-        preencherTabela(naoConformidades.read());
-  
+   
+    private void criarEstruturaEListarTodos(){
+        criarEstruturaTabela();
+        controller.getNaoConformidadeController().listarTodos(this::popularTabela);
+    }
+    private void criarEstruturaEBuscar(){
+        criarEstruturaTabela();
+        controller.getNaoConformidadeController().listarPorDescricao(this::popularTabela, txtBusca.getText());
     }
     
-    public void criarEstrurturaTabela(){
+    public void criarEstruturaTabela(){
         modelo = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -57,21 +60,19 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         }
         jTable1.setModel(modelo);
     }
-    private void preencherTabela(List<NaoConformidade> naoConformidades){
-        criarEstrurturaTabela();
-        naoConformidades.forEach(c -> {
-            modelo.addRow(new Object[]{
-                c.getId(),
-                c.getDescricao(),
-                c.getDataRegistro(),
-                c.getDataAcontecimento(),
-                c.getReincidencia(),
-                c.getAbrangencia(),
-                c.getOrigem(),
-                c.getResponsavel().getNome(),
-                c.getAcaoCorrecao(),
-                c.getSetor().getResponsavel().getNome()
-            });
+    
+    private void popularTabela(NaoConformidade naoConformidade){
+        modelo.addRow(new Object[]{
+            naoConformidade.getId(),
+            naoConformidade.getDescricao(),
+            naoConformidade.getDataRegistro(),
+            naoConformidade.getDataAcontecimento(),
+            naoConformidade.getReincidencia(),
+            naoConformidade.getAbrangencia(),
+            naoConformidade.getOrigem(),
+            naoConformidade.getResponsavel().getNome(),
+            naoConformidade.getAcaoCorrecao(),
+            naoConformidade.getSetor().getResponsavel().getNome()
         });
     }
     
@@ -111,13 +112,11 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         btnEditar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         btnExcluir = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        btnGerarPDF = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtBusca = new javax.swing.JTextField();
+        busca = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
@@ -185,35 +184,6 @@ public class FormNaoConformidade extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        btnGerarPDF.setBackground(new java.awt.Color(255, 255, 255));
-        btnGerarPDF.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnGerarPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir.png"))); // NOI18N
-        btnGerarPDF.setText("Gerar PDF");
-        btnGerarPDF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGerarPDFActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnGerarPDF, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Não Conformidades cadastradas");
 
@@ -222,10 +192,24 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Buscar Não Confomidade");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField1.setText("Digite aqui...");
+        txtBusca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtBusca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscaActionPerformed(evt);
+            }
+        });
+        txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscaKeyReleased(evt);
+            }
+        });
 
-        jButton1.setText("Buscar");
+        busca.setText("Buscar");
+        busca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -235,9 +219,9 @@ public class FormNaoConformidade extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1)
+                .addComponent(txtBusca)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(busca, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -246,8 +230,8 @@ public class FormNaoConformidade extends javax.swing.JDialog {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(busca))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -316,19 +300,16 @@ public class FormNaoConformidade extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addGap(0, 858, Short.MAX_VALUE))
                     .addComponent(jScrollPane1)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(110, 110, 110)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -338,8 +319,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -370,30 +350,13 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void btnGerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarPDFActionPerformed
-
-    }//GEN-LAST:event_btnGerarPDFActionPerformed
-
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         //controller.abreTelaEditarNaoConformidade();
         if(jTable1.getSelectedRow() != -1){
-           NaoConformidadeController ncController = new NaoConformidadeController();
-            NaoConformidade dados ;
-            dados =new NaoConformidade(
-                    jTable1.getValueAt(jTable1.getSelectedRow(), 0), 
-                    jTable1.getValueAt(jTable1.getSelectedRow(), 1), 
-                    jTable1.getValueAt(jTable1.getSelectedRow(), 2), 
-                    jTable1.getValueAt(jTable1.getSelectedRow(), 3), 
-                    jTable1.getValueAt(jTable1.getSelectedRow(), 4), 
-                    jTable1.getValueAt(jTable1.getSelectedRow(), 5), 
-                    jTable1.getValueAt(jTable1.getSelectedRow(), 6), 
-                    jTable1.getValueAt(jTable1.getSelectedRow(), 7), 
-                    jTable1.getValueAt(jTable1.getSelectedRow(), 8),
-                    jTable1.getValueAt(jTable1.getSelectedRow(), 9));
-           ncController.editar(dados);
+           controller.getNaoConformidadeController().editar((Integer)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
         }
         else {
-            readJTable();
+            criarEstruturaEListarTodos();
             JOptionPane.showMessageDialog(null, "Selecione uma não conformidade para alterar!");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -401,7 +364,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         NaoConformidadeController NaoConformidadeController = new NaoConformidadeController();
         NaoConformidadeController.cadastrar();
-        readJTable();
+        criarEstruturaEListarTodos();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -410,22 +373,32 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
+        criarEstruturaEBuscar();
+    }//GEN-LAST:event_txtBuscaKeyReleased
+
+    private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscaActionPerformed
+
+    private void buscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaActionPerformed
+        criarEstruturaEBuscar();
+    }//GEN-LAST:event_buscaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnGerarPDF;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton busca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
 }
