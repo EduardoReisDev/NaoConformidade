@@ -6,18 +6,12 @@
 package view.naoconformidade;
 
 import controller.NaoConformidadeController;
-import dao.NaoConformidadeDao;
-import datechooser.beans.DateChooserCombo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
-import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
@@ -585,7 +579,6 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        System.out.println(dataRegistro.getCurrent().getTime());
         if(!validarDados()){
             atualizar();
         }

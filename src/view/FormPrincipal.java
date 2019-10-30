@@ -14,6 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingWorker;
+import resources.Teclas;
 
 /**
  *
@@ -27,28 +28,14 @@ public class FormPrincipal extends javax.swing.JFrame {
     public FormPrincipal(Controller controller) {
         initComponents();
         setIcon();
-        
         btnGerenciarNC.setContentAreaFilled(false);
         btnGerenciarNC.setOpaque(true);
         this.controller = controller;
         this.controller.setComponentePai(this);
-    }
-    
-    @Override
-    protected JRootPane createRootPane() {
-        // Definindo o ActionListener
-        ActionListener actionListener = (ActionEvent e) -> {
-            fechar();
-        };
-        // Definindo o KeyStroke
-        KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
-        // Criando uma instancia de JRootPane
-        JRootPane rootPane = new JRootPane();
-        // Registrando o KeyStroke enquanto o JDialog estiver em foco
-        rootPane.registerKeyboardAction(
-        actionListener, stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
-        // Retornando o novo e modificado JRootPane
-        return rootPane;
+        Teclas teste = new Teclas();
+        addKeyListener(teste);
+        teste.recebeController(controller);
+        setFocusable(true);
     }
     
     private void fechar(){
