@@ -7,10 +7,16 @@ package view.naoconformidade;
 
 import controller.NaoConformidadeController;
 import dao.NaoConformidadeDao;
+import datechooser.beans.DateChooserCombo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TimeZone;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
@@ -18,6 +24,7 @@ import javax.swing.KeyStroke;
 import model.NaoConformidade;
 import model.Responsavel;
 import model.Setor;
+import resources.Imagem;
 
 /**
  *
@@ -41,9 +48,25 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
         setarDados(id);
     }
     private void setarDados(int id){
+        Imagem img = new Imagem();
         aux = naoConformidadeController.listarPorId(id);
-        Codigo.setText(String.valueOf(id));
+        Codigo.setText(String.valueOf(aux.getId()));
         descricao.setText(aux.getDescricao());
+        abrangencia.setText(aux.getAbrangencia());
+        origem.setText(aux.getOrigem());
+        acaoCorrecao.setText(aux.getAcaoCorrecao());
+        reincidencia.setSelected(aux.isReincidencia());
+        Calendar cal = Calendar.getInstance(TimeZone.getDefault()); 
+        cal.set(aux.getDataAcontecimento().getYear(), aux.getDataAcontecimento().getMonth(), aux.getDataAcontecimento().getDate());
+        dataAcontecimento.setSelectedDate(cal);
+        cal.set(aux.getDataRegistro().getYear(), aux.getDataRegistro().getMonth(), aux.getDataRegistro().getDate());
+        dataRegistro.setSelectedDate(cal);
+        if(aux.getImagem()!=null){
+           visualizaImg.setIcon(img.lerImagem(aux.getImagem(),300 ,300)); 
+        }
+        else{
+            visualizaImg.setIcon(null);
+        }
         Responsavel.setSelectedIndex(listaIdResponsavelComboBox.indexOf(aux.getResponsavel().getId()));
         Setor.setSelectedIndex(listaIdSetorComboBox.indexOf(aux.getSetor().getId()));
     
@@ -123,9 +146,9 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
         return false;
     }  
     
-    public void salvar(){
+    public void atualizar(){
         if(!validarDados()){
-            naoConformidadeController.salvar(new NaoConformidade(
+            naoConformidadeController.atualizar(new NaoConformidade(
                     0, //o id não será usado
                     abrangencia.getText(), 
                     acaoCorrecao.getText(), 
@@ -144,6 +167,15 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
             ));
         }
     }
+    
+     private void escolherImagem(){
+        naoConformidadeController.getImagemController().escolherImagem();
+        visualizaImg.setIcon(
+                naoConformidadeController.getImagemController().lerImagem(
+                        visualizaImg.getWidth(), 
+                        visualizaImg.getHeight())
+        );
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -164,7 +196,7 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        btnSalvar = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
         Codigo = new javax.swing.JTextField();
         descricao = new javax.swing.JTextField();
         abrangencia = new javax.swing.JTextField();
@@ -256,11 +288,11 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
             }
         });
 
-        btnSalvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+        btnAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
+                btnAtualizarActionPerformed(evt);
             }
         });
 
@@ -437,7 +469,7 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
                             .addContainerGap(38, Short.MAX_VALUE))))))
         .addGroup(jPanel2Layout.createSequentialGroup()
             .addGap(296, 296, 296)
-            .addComponent(btnSalvar)
+            .addComponent(btnAtualizar)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(btnCancelar)
             .addGap(0, 0, Short.MAX_VALUE))
@@ -492,7 +524,7 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
                     .addComponent(Setor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGap(59, 59, 59)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(btnSalvar)
+                .addComponent(btnAtualizar)
                 .addComponent(btnCancelar)))
     );
 
@@ -552,12 +584,12 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
         btnImg.requestFocusInWindow();
     }//GEN-LAST:event_jLabel9MouseClicked
 
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         System.out.println(dataRegistro.getCurrent().getTime());
         if(!validarDados()){
-            salvar();
+            atualizar();
         }
-    }//GEN-LAST:event_btnSalvarActionPerformed
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void descricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descricaoKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
@@ -610,12 +642,12 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_acaoCorrecaoKeyPressed
 
     private void btnImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImgActionPerformed
-        visualizaImg.setIcon((Icon) naoConformidadeController.getImagemController());
+        escolherImagem();
     }//GEN-LAST:event_btnImgActionPerformed
 
     private void btnImgKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnImgKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            btnSalvar.requestFocusInWindow();
+            btnAtualizar.requestFocusInWindow();
         }
     }//GEN-LAST:event_btnImgKeyPressed
 
@@ -642,9 +674,9 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
     public javax.swing.JComboBox<String> Setor;
     public javax.swing.JTextField abrangencia;
     public javax.swing.JTextField acaoCorrecao;
+    public javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCancelar;
     public javax.swing.JButton btnImg;
-    public javax.swing.JButton btnSalvar;
     public datechooser.beans.DateChooserCombo dataAcontecimento;
     public datechooser.beans.DateChooserCombo dataRegistro;
     public javax.swing.JTextField descricao;

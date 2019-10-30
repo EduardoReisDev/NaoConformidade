@@ -92,6 +92,17 @@ public class NaoConformidadeController {
             JOptionPane.showMessageDialog(componentePai, "nao");
         }
     }
+     public void atualizar(NaoConformidade naoConformidade){
+        //salva imagem
+        imagemController.salvarImagem(naoConformidade.getImagem());
+        if(naoConformidadeDao.editar(naoConformidade)){
+            JOptionPane.showMessageDialog(componentePai, "Dados atualizados com sucesso!","Sucesso!",1);
+            cadastroNaoCoformidade.dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(componentePai, "nao");
+        }
+    }
 
     public void mostrarNaoConformidade(int id) {
         FormDetalheNaoConformidade formDetalheNaoConformidade = new FormDetalheNaoConformidade((Frame) componentePai, true, this);

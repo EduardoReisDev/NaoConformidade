@@ -295,46 +295,8 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
         }
         return 0; 
     }
-    /* 
-    public ArrayList<NaoConformidade> buscaResponsaveis() {
-        ArrayList<NaoConformidade> responsaveis = new ArrayList<>();
-        Connection conexao = new Conexao().abreConexao();
-                    try (PreparedStatement stmt = conexao.prepareStatement("select * from responsavel")) {
-                ResultSet rs = stmt.executeQuery();
-                while (rs.next()) {
-                    NaoConformidade naoConformidade = new NaoConformidade();
-                    naoConformidade.setIdResponsavel(rs.getInt(1));
-                    naoConformidade.setResponsavel(rs.getString(2));
-                    responsaveis.add(naoConformidade);
-                }
-                 Conexao.fechaConexao(conexao);
-            }
-            catch(SQLException e){
-            System.out.println("erro na listagem "+e.getMessage());
-        }
-        return responsaveis;
-    }
-    
-     public ArrayList<NaoConformidade> buscasetores() {
-        ArrayList<NaoConformidade> setores = new ArrayList<>();
-        Connection conexao = new Conexao().abreConexao();
-                    try (PreparedStatement stmt = conexao.prepareStatement("select * from setor")) {
-                ResultSet rs = stmt.executeQuery();
-                while (rs.next()) {
-                    NaoConformidade naoConformidade = new NaoConformidade();
-                    naoConformidade.setIdSetor(rs.getInt(1));
-                    naoConformidade.setSetorN(rs.getString(2));
-                    setores.add(naoConformidade);
-                }
-                 Conexao.fechaConexao(conexao);
-            }
-            catch(SQLException e){
-            System.out.println("erro na listagem "+e.getMessage());
-        }
-        return setores;
-    }
-*/
-     public List<NaoConformidade> read() {
+     
+    public List<NaoConformidade> read() {
         String query = "select * from naoConformidade AS nc "
                 + "INNER JOIN setor as s "
                 + "INNER JOIN  responsavel AS rs "
