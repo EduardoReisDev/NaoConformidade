@@ -73,9 +73,14 @@ public class SetorController {
      * @param resultado resultado da listagem
      */
     
-    public void listarSetores(Consumer<? super Setor> resultado){
+    public void listarTodos(Consumer<? super Setor> resultado){
         new SetorDao().listarTodos(resultado::accept);
     }
+    
+    public void listarPorNome(Consumer<? super Setor> resultado, String nome){
+        new SetorDao().listarPorNome(resultado::accept, nome);
+    }
+    
     
      /**
      *Este método é responsável por listar todos os setores existentes no banco de dados
@@ -155,7 +160,7 @@ public class SetorController {
     public void abrirFormEditar(int id) {
         FormEditar formularioEditar = new FormEditar((Frame) componentePai, true, this);
         formularioEditar.setLocationRelativeTo(null);
-        formularioEditar.preencherCampos(listarPorId(id));
+        formularioEditar.preencherCampos(new SetorDao().listarPorId(id));
         formularioEditar.setVisible(true);
     }
     

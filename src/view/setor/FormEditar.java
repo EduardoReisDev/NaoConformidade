@@ -12,6 +12,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
@@ -24,7 +25,8 @@ import view.Mensagens;
  * @author Eduardo
  */
 public class FormEditar extends javax.swing.JDialog {
-
+    private SetorController setorController;
+    private ArrayList<Integer> listaIdResponsavel;
     /**
      * Creates new form EditarSetores
      */
@@ -56,13 +58,28 @@ public class FormEditar extends javax.swing.JDialog {
     
     public void preencherCampos(Setor setor){
         codigoSetor.setText(String.format("%010d", setor.getId()));
-        nomeSetor.setText(setor.getNome());
+        txtNome.setText(setor.getNome());
+    }
+    
+    private void listarResponsaveis(){
+        cbBoxResponsavel.removeAllItems();
+        setorController.listarResponsaveis(this::popularComboBox);
+    }
+    
+    private void popularComboBox(Responsavel responsavel){
+        listaIdResponsavel.add(responsavel.getId());
+        cbBoxResponsavel.addItem(responsavel.getNome());
     }
     
     private void salvar(){
-        if(setorController.adicionar(new Setor(
-                NomeSetor.getText() 
-        ))){
+        if(setorController.adicionar(
+                new Setor(
+                        0,
+                        txtNome.getText(), 
+                        new Responsavel(
+                                listaIdResponsavel.get(cbBoxResponsavel.getSelectedIndex())
+                        )
+                ))){
             Mensagens.mensagem(this, "Setor salvo com sucesso!", "Sucesso ao salvar", Resources.SUCESSO);
                 dispose();
             }
@@ -71,13 +88,6 @@ public class FormEditar extends javax.swing.JDialog {
             }
        }
     
-    public void ViewComboBox(){
-      ResponsavelDao dao = new ResponsavelDao();
-      
-      for(Responsavel r: dao.listarPorNome(String nome)){
-          ResponsavelSetor.addItem(r);
-      }
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,9 +99,9 @@ public class FormEditar extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         codigoSetor = new javax.swing.JTextField();
-        nomeSetor = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        responsavelSetor = new javax.swing.JComboBox<>();
+        cbBoxResponsavel = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -103,16 +113,15 @@ public class FormEditar extends javax.swing.JDialog {
         codigoSetor.setEditable(false);
         codigoSetor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        nomeSetor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Nome do Setor");
 
-        responsavelSetor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        responsavelSetor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Usuário 1", "Usuário 2", "Usuário 3" }));
-        responsavelSetor.addActionListener(new java.awt.event.ActionListener() {
+        cbBoxResponsavel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cbBoxResponsavel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                responsavelSetorActionPerformed(evt);
+                cbBoxResponsavelActionPerformed(evt);
             }
         });
 
@@ -145,9 +154,9 @@ public class FormEditar extends javax.swing.JDialog {
                             .addComponent(jLabel2)
                             .addComponent(codigoSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
-                            .addComponent(nomeSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(responsavelSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbBoxResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 56, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -161,11 +170,11 @@ public class FormEditar extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nomeSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(responsavelSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbBoxResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jButton1)
                 .addGap(10, 10, 10))
@@ -191,9 +200,9 @@ public class FormEditar extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void responsavelSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responsavelSetorActionPerformed
+    private void cbBoxResponsavelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBoxResponsavelActionPerformed
         
-    }//GEN-LAST:event_responsavelSetorActionPerformed
+    }//GEN-LAST:event_cbBoxResponsavelActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        salvar();
@@ -245,13 +254,13 @@ public class FormEditar extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbBoxResponsavel;
     private javax.swing.JTextField codigoSetor;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField nomeSetor;
-    private javax.swing.JComboBox<String> responsavelSetor;
+    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }
