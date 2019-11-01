@@ -102,7 +102,7 @@ public class NaoConformidadeController {
         imagemController.salvarImagem(naoConformidade.getImagem());
         if(naoConformidadeDao.editar(naoConformidade)){
             JOptionPane.showMessageDialog(componentePai, "Dados atualizados com sucesso!","Sucesso!",1);
-            cadastroNaoCoformidade.dispose();
+            editarNaoConformidade.dispose();
         }
         else {
             JOptionPane.showMessageDialog(componentePai, "nao");

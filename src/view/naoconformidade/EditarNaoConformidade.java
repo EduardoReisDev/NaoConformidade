@@ -56,7 +56,7 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
         cal.set(aux.getDataRegistro().getYear(), aux.getDataRegistro().getMonth(), aux.getDataRegistro().getDate());
         dataRegistro.setSelectedDate(cal);
         if(aux.getImagem()!=null){
-           visualizaImg.setIcon(img.lerImagem(aux.getImagem(),300 ,300)); 
+           visualizaImg.setIcon(img.lerImagem(aux.getImagem(),visualizaImg.getWidth() ,visualizaImg.getHeight())); 
         }
         else{
             visualizaImg.setIcon(null);
@@ -143,7 +143,7 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
     public void atualizar(){
         if(!validarDados()){
             naoConformidadeController.atualizar(new NaoConformidade(
-                    0, //o id não será usado
+                    Integer.parseInt(Codigo.getText()), //o id não será usado
                     abrangencia.getText(), 
                     acaoCorrecao.getText(), 
                     dataAcontecimento.getCurrent().getTime(), 
