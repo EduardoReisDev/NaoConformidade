@@ -59,7 +59,7 @@ public class Dados {
         arquivo.escolherArquivoDestino(
                 "db", 
                 "Arquivos de banco de dados", 
-                "Banco de dados exportado em "+Resources.getDataEHora());
+                "Banco de dados exportado em "+Resources.getDataEHora()+".db");
         String caminhoArquivoExportado = arquivo.obterCaminhoSaida();
         if(caminhoArquivoExportado != null){
             if(arquivo.isArquivoSaidaExistente()){

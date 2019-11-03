@@ -5,6 +5,7 @@
  */
 package resources;
 
+import java.awt.Component;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,11 +37,19 @@ public class Arquivo {
     private File arquivoSaida;
     private OutputStreamWriter arquivoEscritor;
     private final JFileChooser fileChooser;
-
+    private Component componentePai;
+    
     public Arquivo() {
         this.fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     }
+    
+    public Arquivo(Component compontePai) {
+        this.componentePai=compontePai;
+        this.fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+    }
+    
     public String obterCaminhoEntrada(){
         if(arquivoEntrada != null){
             return arquivoEntrada.getAbsolutePath();

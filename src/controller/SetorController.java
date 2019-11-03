@@ -25,14 +25,14 @@ import view.setor.FormEditar;
 public class SetorController {
     private Component componentePai;
     private Setor setor;
-    private Resources rsc;
     
     FormCadastrar cadastro;
     FormEditar edicao;
-    
-    public SetorController() {
-        this.rsc = new Resources();
+
+    public void setComponentePai(Component componentePai) {
+        this.componentePai = componentePai;
     }
+    
     
     
     public int getLastId(){
@@ -45,7 +45,7 @@ public class SetorController {
     
     public void cadastrar(){
         cadastro = new FormCadastrar((Frame) componentePai, true, this);
-        cadastro.setLocationRelativeTo(null);
+        cadastro.setLocationRelativeTo(componentePai);
         cadastro.setVisible(true);
     }
     
@@ -55,7 +55,7 @@ public class SetorController {
     
     public void editar(){
         edicao = new FormEditar((Frame)componentePai, true);
-        edicao.setLocationRelativeTo(null);
+        edicao.setLocationRelativeTo(componentePai);
         edicao.setVisible(true);
     }
     
@@ -159,7 +159,7 @@ public class SetorController {
     
     public void abrirFormEditar(int id) {
         FormEditar formularioEditar = new FormEditar((Frame) componentePai, true, this);
-        formularioEditar.setLocationRelativeTo(null);
+        formularioEditar.setLocationRelativeTo(componentePai);
         formularioEditar.preencherCampos(new SetorDao().listarPorId(id));
         formularioEditar.setVisible(true);
     }

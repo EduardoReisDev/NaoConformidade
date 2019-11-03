@@ -6,7 +6,9 @@
 package resources;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.TimeZone;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,15 +46,39 @@ public class Resources {
     }
     
     public static String getDataEHora(){
-        Calendar calendario = Calendar.getInstance();
-        return ""+calendario.get(Calendar.DAY_OF_MONTH)+"-"
-                +(calendario.get(Calendar.MONTH)+1)+"-"
-                +calendario.get(Calendar.YEAR)+"-"
-                +calendario.get(Calendar.HOUR)+"-"
-                +calendario.get(Calendar.MINUTE)+"-"
-                +calendario.get(Calendar.SECOND);
+        Calendar calendario = Calendar.getInstance(TimeZone.getDefault());
+        return String.format("%02d-%02d-%04d-%02d-%02d-%02d",
+                calendario.get(Calendar.DAY_OF_MONTH),
+                (calendario.get(Calendar.MONTH)+1),
+                calendario.get(Calendar.YEAR),
+                calendario.get(Calendar.HOUR_OF_DAY),
+                calendario.get(Calendar.MINUTE),
+                calendario.get(Calendar.SECOND));
+    }
+    
+    public static String getData(){
+        Calendar calendario = Calendar.getInstance(TimeZone.getDefault());
+        return String.format("%02d-%02d-%04d",
+                calendario.get(Calendar.DAY_OF_MONTH),
+                (calendario.get(Calendar.MONTH)+1),
+                calendario.get(Calendar.YEAR));
+    }
+    
+    public static String getHora(){
+        Calendar calendario = Calendar.getInstance(TimeZone.getDefault());
+        return String.format("%02d:%02d:%02d",
+                calendario.get(Calendar.HOUR_OF_DAY),
+                calendario.get(Calendar.MINUTE),
+                calendario.get(Calendar.SECOND));
     }
    
+    
+    public static String getDataFormatada(Date data){
+        return String.format("%d/%d/%d",
+                0);
+    }
+    
+    
     public static String removerCaracteresInvalidosCpf(String cpf){
         cpf = cpf.replace(".", "");
         cpf = cpf.replace("-", "");

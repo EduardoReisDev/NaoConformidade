@@ -23,11 +23,11 @@ public class ResponsavelController {
     private Component componentePai; 
     private Responsavel responsavel;
 
-    public ResponsavelController() {
-        
+    public void setComponentePai(Component componentePai) {
+        this.componentePai = componentePai;
     }
-    
-    
+
+  
     public void listarTodos(Consumer <?super Responsavel> responsavel){
         new ResponsavelDao().listarTodos(responsavel::accept);
     }
@@ -44,7 +44,7 @@ public class ResponsavelController {
     
     public void abrirFormCadastro(){
         FormCadastrar formCadastro = new FormCadastrar((Frame) componentePai, true, this);
-        formCadastro.setLocationRelativeTo(null);
+        formCadastro.setLocationRelativeTo(componentePai);
         formCadastro.setVisible(true);//
     }
     
@@ -106,7 +106,7 @@ public class ResponsavelController {
     public void abrirFormularioEditar(int id){
         FormEditar formEdita = new FormEditar((Frame) componentePai, true, this);
         formEdita.preencherCampos(new ResponsavelDao().listarPorId(id));
-        formEdita.setLocationRelativeTo(null);
+        formEdita.setLocationRelativeTo(componentePai);
         formEdita.setVisible(true);
     }
     

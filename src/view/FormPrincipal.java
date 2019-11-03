@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
@@ -382,7 +383,9 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGerenciarSetoresActionPerformed
 
     private void btnGerarRelatorioMensalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarRelatorioMensalActionPerformed
-        // TODO add your handling code here:
+        
+            controller.abrirTelaRelatorio();
+        
     }//GEN-LAST:event_btnGerarRelatorioMensalActionPerformed
 
     private void btnGerenciarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarUsuariosActionPerformed

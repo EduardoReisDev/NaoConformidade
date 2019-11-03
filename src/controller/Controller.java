@@ -9,6 +9,7 @@ import resources.Dados;
 import resources.Propriedade;
 import java.awt.Component;
 import java.awt.Frame;
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -35,6 +36,7 @@ public class Controller {
     private final SetorController setorController;
     private final Propriedade propriedadesController;
     private final NaoConformidadeController naoConformidadeController;
+    private final RelatorioController relatorioController;
     private Usuario usuario;
     
     private FormNaoConformidade telaNaoConformidade;
@@ -42,9 +44,11 @@ public class Controller {
     private FormSetor telaSetor;
     private FormUsuario telaUsuario;
     private FormPrincipal telaPrincipal;
+    private FormRelatorio telaRelatorio;
     private DialogoConfirmaSair dialogoConfirmaSair;
             
     public Controller(){
+        this.relatorioController = new RelatorioController();
         dadosController =  new Dados();
         responsavelController = new ResponsavelController();
         naoConformidadeController = new NaoConformidadeController();
@@ -53,6 +57,14 @@ public class Controller {
         setorController = new SetorController();
     }
 
+    public RelatorioController getRelatorioController() {
+        return relatorioController;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    
     public NaoConformidadeController getNaoConformidadeController() {
         return naoConformidadeController;
     }
@@ -83,36 +95,40 @@ public class Controller {
 
     public void setComponentePai(Component componentePai) {
         this.componentePai = componentePai;
+        naoConformidadeController.setComponentePai(componentePai);
+        usuarioController.setComponentePai(componentePai);
+        setorController.setComponentePai(componentePai);
+        responsavelController.setComponentePai(componentePai);
     }
 
     public void abreTelaNaoConformidade(){
         telaNaoConformidade = new FormNaoConformidade((Frame) componentePai, true, this);
-        telaNaoConformidade.setLocationRelativeTo(null);
+        telaNaoConformidade.setLocationRelativeTo(componentePai);
         telaNaoConformidade.setVisible(true);
     }
     
     public void abreTelaResponsavel(){
         telaResponsavel = new FormResponsavel((Frame) componentePai, true, this);
-        telaResponsavel.setLocationRelativeTo(null);
+        telaResponsavel.setLocationRelativeTo(componentePai);
         telaResponsavel.setVisible(true);
     }
     
     public void abreTelaSetor(){
         telaSetor= new FormSetor((Frame) componentePai, true, this);
-        telaSetor.setLocationRelativeTo(null);
+        telaSetor.setLocationRelativeTo(componentePai);
         telaSetor.setVisible(true);
     }
     
     public void abreTelaUsuario(){
         usuarioController.setComponentePai(componentePai);
         telaUsuario = new FormUsuario((Frame) componentePai, true, this);
-        telaUsuario.setLocationRelativeTo(null);
+        telaUsuario.setLocationRelativeTo(componentePai);
         telaUsuario.setVisible(true);
     }
     
     private void abreTelaPrincipal(){
         telaPrincipal= new FormPrincipal(this);
-        telaPrincipal.setLocationRelativeTo(null);
+        telaPrincipal.setLocationRelativeTo(componentePai);
         //telaPrincipal.setTitle();
         telaPrincipal.setExtendedState(FormPrincipal.MAXIMIZED_BOTH);
         telaPrincipal.setVisible(true);
@@ -125,7 +141,7 @@ public class Controller {
     public void fechar(){
         if(Boolean.parseBoolean(propriedadesController.ler("confirmar.fechar"))){
             dialogoConfirmaSair = new DialogoConfirmaSair((Frame) componentePai, true);
-            dialogoConfirmaSair.setLocationRelativeTo(null);
+            dialogoConfirmaSair.setLocationRelativeTo(componentePai);
             dialogoConfirmaSair.setVisible(true);
             if(dialogoConfirmaSair.isNaoMostrarNovamente()){
                 propriedadesController.escrever("confirmar.fechar", "false");
@@ -139,12 +155,21 @@ public class Controller {
         }
     }
     
+    
+    public void abrirTelaRelatorio(){
+        telaRelatorio = new FormRelatorio((Frame) componentePai, true, this);
+        telaRelatorio.setLocationRelativeTo(componentePai);
+        telaRelatorio.setVisible(true);
+    }
+    
     public void inicio(){
-       abreTelaNaoConformidade();
-        //abreTelaPrincipal();
+        usuario = usuarioController.login();
+        if(usuario!=null){
+            abreTelaPrincipal();
+        }
         //abrirTelaRelatorio();
     }
-    public static void main(String[] args) {
+    public static void main(String[] args){
         
        // new Splash();
         try {
@@ -155,7 +180,5 @@ public class Controller {
         new Controller().inicio();
     }
 
-    public void abrirTelaRelatorio() {
-        new FormRelatorio((Frame) componentePai, true, this).setVisible(true);
-    }
+    
 }

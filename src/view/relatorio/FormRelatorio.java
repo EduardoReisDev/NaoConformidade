@@ -6,6 +6,7 @@
 package view.relatorio;
 
 import controller.Controller;
+import java.io.FileNotFoundException;
 
 /**
  *
@@ -22,6 +23,19 @@ public class FormRelatorio extends javax.swing.JDialog {
         this.controller = controller;
     }
 
+    private void gerarRelatorio(){
+        if(controller.getRelatorioController().criarRelatorio(controller.getUsuario())){
+            controller.getNaoConformidadeController().listarIntervaloDeData(
+                    controller.getRelatorioController()::listarNaoConformidade,
+                    dataInicio.getCurrent().getTime(), 
+                    dataFim.getCurrent().getTime()
+            );
+            controller.getRelatorioController().colocarNumeroDePaginas();
+            controller.getRelatorioController().fecharDocumento();
+        }
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -168,12 +182,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        controller.getNaoConformidadeController().listarIntervaloDeData(nc->{
-            System.out.println(nc.getDescricao());
-        }, 
-        dataInicio.getCurrent().getTime(), 
-        dataFim.getCurrent().getTime());
+        gerarRelatorio();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

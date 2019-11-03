@@ -61,7 +61,7 @@ public class NaoConformidade {
                 abrangencia+";"+
                 acaoCorrecao+";"+
                 dataAcontecimento.getDate()+"/"+(dataAcontecimento.getMonth()+1)+"/"+(dataAcontecimento.getYear()+1900)+";"+
-                dataRegistro.getDate()+"/"+(dataRegistro.getMonth()+1)+"/"+(dataRegistro.getYear()+1990)+";"+
+                dataRegistro.getDate()+"/"+(dataRegistro.getMonth()+1)+"/"+(dataRegistro.getYear()+1900)+";"+
                 Resources.converterBooleanoSimOuNaoMaiusculo(reincidencia)+";"+
                 responsavel.toString()+";"+
                 setor.toString();
