@@ -7,11 +7,10 @@ package view.naoconformidade;
 
 import controller.Controller;
 import controller.NaoConformidadeController;
-import dao.NaoConformidadeDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.List;
+import java.util.Date;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
@@ -69,12 +68,23 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         return -1;
     }
     
+    private String dataFormatada(Date data){
+        String aux= String.valueOf(data.getYear());
+        if(aux.length()==3){
+            aux ="20"+ String.valueOf(data.getYear()).substring(1);
+        }
+        else{
+            aux=String.valueOf(data.getYear()).substring(1);
+        }        
+        return String.format("%02d",data.getDate())+String.format("/%02d",data.getMonth())+"/"+aux;
+    }
+    
     private void popularTabela(NaoConformidade naoConformidade){
         modelo.addRow(new Object[]{
             naoConformidade.getId(),
             naoConformidade.getDescricao(),
-            naoConformidade.getDataRegistro(),
-            naoConformidade.getDataAcontecimento(),
+            dataFormatada(naoConformidade.getDataRegistro()),
+            dataFormatada(naoConformidade.getDataAcontecimento()),
             naoConformidade.getReincidencia(),
             naoConformidade.getAbrangencia(),
             naoConformidade.getOrigem(),
@@ -88,6 +98,25 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         
     }
     
+    private String getNaoConformidadeSelecionada(){
+        return jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString();
+    }
+    
+    private void excluir(){
+        if (jTable1.getSelectedRow() != -1) {
+            if(JOptionPane.showConfirmDialog(this,"Tem certeza que deseja excluir a não conformidade "+ getNaoConformidadeSelecionada()) == JOptionPane.YES_OPTION){
+            controller.getNaoConformidadeController().excluir(pegarIdDaLinhaSelecionada());
+            criarEstruturaEListarTodos();
+            }
+            else{
+                criarEstruturaEListarTodos();
+            }
+        }
+        else{
+            criarEstruturaEListarTodos();
+            JOptionPane.showMessageDialog(null, "Selecione uma não conformormidade para excluir!");
+        }
+    }
     
     @Override
     protected JRootPane createRootPane() {
@@ -355,7 +384,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        excluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed

@@ -93,7 +93,7 @@ public class NaoConformidadeController {
             cadastroNaoCoformidade.dispose();
         }
         else {
-            JOptionPane.showMessageDialog(componentePai, "nao");
+            JOptionPane.showMessageDialog(componentePai, "Não foi possível cadastrar!");
         }
     }
     
@@ -105,7 +105,7 @@ public class NaoConformidadeController {
             editarNaoConformidade.dispose();
         }
         else {
-            JOptionPane.showMessageDialog(componentePai, "nao");
+            JOptionPane.showMessageDialog(componentePai, "Não foi possível atualizar!");
         }
     }
 
@@ -129,4 +129,14 @@ public class NaoConformidadeController {
         editarNaoConformidade.setLocationRelativeTo(componentePai);
         editarNaoConformidade.setVisible(true);
     }
+    
+    public void excluir(int id){
+        if(naoConformidadeDao.excluir(id)){
+            JOptionPane.showMessageDialog(componentePai, "Não conformidade excluída com sucesso!","Sucesso!",1);
+        }
+        else {
+            JOptionPane.showMessageDialog(componentePai, "Não foi possível excluir!");
+        }
+    }
+            
 }
