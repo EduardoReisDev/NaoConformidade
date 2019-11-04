@@ -6,10 +6,12 @@
 package view.naoconformidade;
 
 import controller.NaoConformidadeController;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 
@@ -21,16 +23,12 @@ public class FrameImagem extends javax.swing.JFrame {
     private final NaoConformidadeController naoConformidadeController;
     /**
      * Creates new form FrameImagem
+     * @param naoConformidadeController
      */
-    public FrameImagem(NaoConformidadeController naoConformidadeController) {
+    public FrameImagem(NaoConformidadeController naoConformidadeController)                 {
         initComponents();
         this.naoConformidadeController = naoConformidadeController;
-        campoImagem.setIcon(
-                naoConformidadeController.
-                        getImagemController().lerImagem(
-                                500,
-                                500)
-        );
+        initComponents();
     }
     
     @Override
@@ -65,21 +63,45 @@ public class FrameImagem extends javax.swing.JFrame {
 
         campoImagem = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setModalExclusionType(java.awt.Dialog.ModalExclusionType.TOOLKIT_EXCLUDE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
+
+        campoImagem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                campoImagemMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(campoImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(campoImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(campoImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(campoImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        campoImagem.setIcon(naoConformidadeController.getImagemController().lerImagem(getWidth(), getHeight()));
+    }//GEN-LAST:event_formComponentResized
+
+    private void campoImagemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoImagemMousePressed
+        if(evt.getClickCount() == 2){
+            setExtendedState(MAXIMIZED_BOTH);
+        }
+    }//GEN-LAST:event_campoImagemMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel campoImagem;
     // End of variables declaration//GEN-END:variables

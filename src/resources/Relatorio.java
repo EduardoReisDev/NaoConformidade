@@ -326,8 +326,8 @@ public class Relatorio {
                 new Paragraph(
                         new Text(
                                 String.format("Emitente: %s CPF: %s", 
-                                    emitente.getNome(), 
-                                    emitente.getCpf())
+                                        emitente.getNome(), 
+                                        emitente.getCpf())
                         )
                 ));
         inserirQuebraDePagina();

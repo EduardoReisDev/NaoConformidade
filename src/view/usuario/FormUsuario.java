@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
@@ -26,6 +27,7 @@ public class FormUsuario extends javax.swing.JDialog {
     private Controller controller;
     private DefaultTableModel modeloTabela;
     private final String[] colunas ={"Código", "Nome", "CPF", "Usuário", "Usuário Master"};
+    private final ArrayList<Integer> listaId;
     /**
      * Creates new form GerenciarUsuarios
      * @param parent
@@ -37,6 +39,7 @@ public class FormUsuario extends javax.swing.JDialog {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
         this.controller = controller;
+        listaId = new ArrayList<>();
         criarEstruturaTabelaEListarTodos();
     }
     
@@ -104,8 +107,7 @@ public class FormUsuario extends javax.swing.JDialog {
     }
     
    
-    private int pegarIdDaLinhaSelecionada(){
-        int linhaSelecionada=tblUsuarios.getSelectedRow();
+    private int pegarIdDaLinhaSelecionada(int linhaSelecionada){
         if(linhaSelecionada>=0){
             return (Integer.parseInt((String) tblUsuarios.getValueAt(linhaSelecionada, 0)));
         }
@@ -118,25 +120,35 @@ public class FormUsuario extends javax.swing.JDialog {
     }
     
     private void editar(){
-        int id=pegarIdDaLinhaSelecionada();
-        if(id>=0){
-            controller.getUsuarioController().abrirFormEditar(id);
+        listaId.clear();
+        for (int linha : tblUsuarios.getSelectedRows()){
+            listaId.add(pegarIdDaLinhaSelecionada(linha));
         }
-        else{
+        if(listaId.isEmpty()){
             exibirMensagemLinhaNaoSelecionada();
         }
-        criarEstruturaTabelaEListarTodos();
+        else{
+            listaId.forEach(id->{
+                controller.getUsuarioController().abrirFormEditar(id);
+                criarEstruturaTabelaEListarTodos();
+            });
+        }
     }
     
     private void excluir(){
-        int id = pegarIdDaLinhaSelecionada();
-        if(id>=0){
-            controller.getUsuarioController().excluir(id);
+        listaId.clear();
+        for (int linha : tblUsuarios.getSelectedRows()){
+            listaId.add(pegarIdDaLinhaSelecionada(linha));
         }
-        else{
+        if(listaId.isEmpty()){
             exibirMensagemLinhaNaoSelecionada();
         }
-        criarEstruturaTabelaEListarTodos();
+        else{
+            listaId.forEach(id->{
+                controller.getUsuarioController().excluir(id);
+                criarEstruturaTabelaEListarTodos();
+            });
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.

@@ -329,12 +329,6 @@ public class FormDetalheNaoConformidade extends javax.swing.JDialog {
             naoConformidadeController.exibirImagem();
         }
     }//GEN-LAST:event_lblImagemMouseClicked
-
-    public static void main(String[] args) {
-        new FormDetalheNaoConformidade(new JFrame(), true, new NaoConformidadeController()).setVisible(true);
-    }
-    
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

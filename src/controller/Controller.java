@@ -163,10 +163,11 @@ public class Controller {
     }
     
     public void inicio(){
-        usuario = usuarioController.login();
-        if(usuario!=null){
+       // usuario = usuarioController.login();
+        //if(usuario!=null){
             abreTelaPrincipal();
-        }
+        //}
+        //abreTelaNaoConformidade();
         //abrirTelaRelatorio();
     }
     public static void main(String[] args){

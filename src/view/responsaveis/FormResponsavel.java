@@ -9,6 +9,7 @@ import controller.Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
@@ -24,6 +25,7 @@ public class FormResponsavel extends javax.swing.JDialog {
     private Controller controller;
     private final String [] colunas;
     private DefaultTableModel modeloTabela;
+    private final ArrayList<Integer> listaId;
     /**
      * Creates new form Responsaveis
      * @param parent
@@ -35,6 +37,7 @@ public class FormResponsavel extends javax.swing.JDialog {
         this.colunas = new String[]{"Código", "Nome", "CPF"};
         initComponents();
         this.controller = controller;
+        listaId = new ArrayList<>();
         criarEstruturaTabelaEListarTodos();
     }
     
@@ -87,8 +90,7 @@ public class FormResponsavel extends javax.swing.JDialog {
     }
     
     
-    private int pegarIdDaLinhaSelecionada(){
-        int linhaSelecionada=tblResponsaveis.getSelectedRow();
+    private int pegarIdDaLinhaSelecionada(int linhaSelecionada){
         if(linhaSelecionada>=0){
             return (Integer.parseInt((String) tblResponsaveis.getValueAt(linhaSelecionada, 0)));
         }
@@ -96,25 +98,35 @@ public class FormResponsavel extends javax.swing.JDialog {
     }
     
     private void editar(){
-        int id = pegarIdDaLinhaSelecionada();
-        if(id > 0){
-            controller.getResponsavelController().abrirFormularioEditar(id);
-            criarEstruturaTabelaEListarTodos();
+        listaId.clear();
+        for (int linha : tblResponsaveis.getSelectedRows()){
+            listaId.add(pegarIdDaLinhaSelecionada(linha));
+        }
+        if(listaId.isEmpty()){
+            exibirMensagemLinhaNaoSelecionada();
         }
         else{
-            exibirMensagemLinhaNaoSelecionada();
+            listaId.forEach(id->{
+                controller.getResponsavelController().abrirFormularioEditar(id);
+                criarEstruturaTabelaEListarTodos();
+            });
         }
     }
     
     
     private void excluir() {
-        int id = pegarIdDaLinhaSelecionada();
-        if(id > 0){
-            controller.getResponsavelController().excluir(id);
-            criarEstruturaTabelaEListarTodos();
+        listaId.clear();
+        for (int linha : tblResponsaveis.getSelectedRows()){
+            listaId.add(pegarIdDaLinhaSelecionada(linha));
+        }
+        if(listaId.isEmpty()){
+            exibirMensagemLinhaNaoSelecionada();
         }
         else{
-            exibirMensagemLinhaNaoSelecionada();
+            listaId.forEach(id->{
+                controller.getResponsavelController().excluir(id);
+                criarEstruturaTabelaEListarTodos();
+            });
         }
     }
     

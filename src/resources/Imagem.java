@@ -45,7 +45,7 @@ public class Imagem {
     }
     
     
-    public Icon lerImagem(int largura, int altura){
+    public ImageIcon lerImagem(int largura, int altura){
         BufferedImage icone = ProcessarImagem(largura, altura);
         if(icone!=null){
             return new ImageIcon(ProcessarImagem(largura, altura));
@@ -53,14 +53,16 @@ public class Imagem {
         return null;
     }
     
-    public Icon lerImagem(String caminho, int largura, int altura){
-        File arquivo = new File(caminho);
-        if(arquivo.exists()){
-            try {
-                imagem = ImageIO.read(arquivo);
-                return new ImageIcon(ProcessarImagem(largura, altura));
-            } catch (IOException ex) {
-                
+    public ImageIcon lerImagem(String caminho, int largura, int altura){
+        if(caminho!=null){
+            File arquivo = new File(caminho);
+            if(arquivo.exists()){
+                try {
+                    imagem = ImageIO.read(arquivo);
+                    return new ImageIcon(ProcessarImagem(largura, altura));
+                } catch (IOException ex) {
+
+                }
             }
         }
         return null;

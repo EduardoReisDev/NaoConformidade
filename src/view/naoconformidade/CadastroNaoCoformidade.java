@@ -1,7 +1,7 @@
 package view.naoconformidade;
 
 import controller.NaoConformidadeController;
-import dao.NaoConformidadeDao;
+import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import model.NaoConformidade;
@@ -11,24 +11,22 @@ import model.Setor;
  *
  * @author Ricardo
  */
-public class CadatroNaoCoformidade extends javax.swing.JDialog {
-    NaoConformidadeController naoConformidadeController;
-    NaoConformidadeDao naoConformidadeDao = new NaoConformidadeDao();
-    
+public class CadastroNaoCoformidade extends javax.swing.JDialog {
+    private final NaoConformidadeController naoConformidadeController;
     private final ArrayList<Integer> listaIdResponsavelComboBox;
     private final ArrayList<Integer> listaIdSetorComboBox;
+    private FrameImagem frameImagem;
     
     /** Creates new form cadatroNaoCoformidade
      * @param parent
      * @param modal
      * @param naoConformidadecontroller */
-    public CadatroNaoCoformidade(java.awt.Frame parent, boolean modal, NaoConformidadeController naoConformidadecontroller) {
+    public CadastroNaoCoformidade(java.awt.Frame parent, boolean modal, NaoConformidadeController naoConformidadecontroller) {
         super(parent, modal);
         initComponents();
         this.naoConformidadeController = naoConformidadecontroller;
         listaIdResponsavelComboBox = new ArrayList<>();
         listaIdSetorComboBox = new ArrayList<>();
-        //prencheer();
         inicializar();
     }
         
@@ -124,7 +122,11 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
         }
     }
     
-    
+    private void mostrarImagem(){
+        frameImagem = new FrameImagem(naoConformidadeController);
+        frameImagem.setLocationRelativeTo(this);
+        frameImagem.setVisible(true);
+    }
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -325,6 +327,11 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
         });
 
         visualizaImg.setName("visualizaImg"); // NOI18N
+        visualizaImg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                visualizaImgMouseClicked(evt);
+            }
+        });
 
         dataRegistro.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
             new datechooser.view.appearance.ViewAppearance("custom",
@@ -517,7 +524,7 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-
+       
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
@@ -628,6 +635,12 @@ public class CadatroNaoCoformidade extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void visualizaImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_visualizaImgMouseClicked
+         if(evt.getClickCount() == 2){
+            mostrarImagem();
+        }
+    }//GEN-LAST:event_visualizaImgMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField Codigo;

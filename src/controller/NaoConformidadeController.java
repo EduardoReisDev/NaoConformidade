@@ -12,15 +12,14 @@ import javax.swing.JOptionPane;
 import model.NaoConformidade;
 import model.Responsavel;
 import model.Setor;
-import resources.Relatorio;
-import view.DialogoImagemNaoConformidade;
 import view.Mensagens ;
-import view.naoconformidade.CadatroNaoCoformidade;
+import view.naoconformidade.CadastroNaoCoformidade;
 import view.naoconformidade.EditarNaoConformidade;
 import view.naoconformidade.FormDetalheNaoConformidade;
+import view.naoconformidade.FrameImagem;
 
 public class NaoConformidadeController {
-    CadatroNaoCoformidade cadastroNaoCoformidade;
+    CadastroNaoCoformidade cadastroNaoCoformidade;
     EditarNaoConformidade editarNaoConformidade;
     Component componentePai;
     String novoCaminho = null;
@@ -77,7 +76,7 @@ public class NaoConformidadeController {
     }
 
     public void cadastrar(){
-        cadastroNaoCoformidade = new CadatroNaoCoformidade((Frame) componentePai, true, this);
+        cadastroNaoCoformidade = new CadastroNaoCoformidade((Frame) componentePai, true, this);
         cadastroNaoCoformidade.setLocationRelativeTo(componentePai);
         cadastroNaoCoformidade.setVisible(true);
     }
@@ -118,10 +117,11 @@ public class NaoConformidadeController {
     }
     
     public void exibirImagem(){
-        DialogoImagemNaoConformidade dialogoImagemNaoConformidade;
-        dialogoImagemNaoConformidade = new DialogoImagemNaoConformidade((Frame) componentePai, true, this);
-        dialogoImagemNaoConformidade.setLocationRelativeTo(componentePai);
-        dialogoImagemNaoConformidade.setVisible(true);
+        FrameImagem frameImagem;
+        frameImagem = new FrameImagem(this);
+        frameImagem.setLocationRelativeTo(componentePai);
+        frameImagem.setVisible(true);
+            
     }
 
     public void editar(int id){

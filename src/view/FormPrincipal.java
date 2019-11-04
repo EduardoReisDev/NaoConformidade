@@ -39,6 +39,23 @@ public class FormPrincipal extends javax.swing.JFrame {
         setFocusable(true);
     }
     
+    @Override
+    protected JRootPane createRootPane() {
+        // Definindo o ActionListener
+        ActionListener actionListener = (ActionEvent e) -> {
+            fechar();
+        };
+        // Definindo o KeyStroke
+        KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
+        // Criando uma instancia de JRootPane
+        JRootPane rootPane = new JRootPane();
+        // Registrando o KeyStroke enquanto o JDialog estiver em foco
+        rootPane.registerKeyboardAction(
+        actionListener, stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
+        // Retornando o novo e modificado JRootPane
+        return rootPane;
+    }
+    
     private void fechar(){
         controller.fechar();
     }
@@ -82,7 +99,6 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gerenciamento de Não Conformidades");
-        setResizable(false);
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -358,7 +374,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 339, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
