@@ -29,11 +29,11 @@ import view.usuario.FormUsuario;
  */
 public class Controller {
     private Component componentePai;
-    private final Dados dadosController;
+    private final Dados dados;
+    private final Propriedade propriedade;
     private final UsuarioController usuarioController;
     private final ResponsavelController responsavelController;
     private final SetorController setorController;
-    private final Propriedade propriedadesController;
     private final NaoConformidadeController naoConformidadeController;
     private final RelatorioController relatorioController;
     private Usuario usuario;
@@ -48,11 +48,11 @@ public class Controller {
             
     public Controller(){
         relatorioController = new RelatorioController();
-        dadosController =  new Dados();
+        dados =  new Dados();
         responsavelController = new ResponsavelController();
         naoConformidadeController = new NaoConformidadeController();
         usuarioController = new UsuarioController();
-        propriedadesController = new Propriedade(System.getProperty("user.dir")+"\\configuracoes.ini");
+        propriedade = new Propriedade(System.getProperty("user.dir")+"\\configuracoes.ini");
         setorController = new SetorController();
     }
 
@@ -77,7 +77,7 @@ public class Controller {
     }
     
     public Dados getDadosController() {
-        return dadosController;
+        return dados;
     }
     
     public UsuarioController getUsuarioController() {
@@ -85,11 +85,11 @@ public class Controller {
     }
 
     public void verificarBancoDeDados(){
-        dadosController.verificarBanco();
+        dados.verificarBanco();
     }
     
     public void verificaArquivoDeConfiguracoes(){
-        propriedadesController.ler("Boas vindas");
+        propriedade.ler("Boas vindas");
     }
 
     public void setComponentePai(Component componentePai) {
@@ -132,16 +132,16 @@ public class Controller {
     }
     
     public void setConfirmarFechar(boolean opcao){
-        propriedadesController.escrever("confirmar.fechar", String.valueOf(opcao));
+        propriedade.escrever("confirmar.fechar", String.valueOf(opcao));
     }
     
     public void fechar(){
-        if(Boolean.parseBoolean(propriedadesController.ler("confirmar.fechar"))){
+        if(Boolean.parseBoolean(propriedade.ler("confirmar.fechar"))){
             dialogoConfirmaSair = new DialogoConfirmaSair((Frame) componentePai, true);
             dialogoConfirmaSair.setLocationRelativeTo(componentePai);
             dialogoConfirmaSair.setVisible(true);
             if(dialogoConfirmaSair.isNaoMostrarNovamente()){
-                propriedadesController.escrever("confirmar.fechar", "false");
+                propriedade.escrever("confirmar.fechar", "false");
             }
             if(dialogoConfirmaSair.isSair()){
                 System.exit(0);

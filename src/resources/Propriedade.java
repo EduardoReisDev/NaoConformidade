@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class Propriedade {
     private Properties propriedades; 
     private File arquivo;
-    FileInputStream arquivoEntrada;
+    private FileInputStream arquivoEntrada;
     
     public Propriedade(String caminho) {
         this.propriedades = new Properties();
