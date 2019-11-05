@@ -19,24 +19,25 @@ import view.naoconformidade.FormDetalheNaoConformidade;
 import view.naoconformidade.FrameImagem;
 
 public class NaoConformidadeController {
-    CadastroNaoCoformidade cadastroNaoCoformidade;
-    EditarNaoConformidade editarNaoConformidade;
-    Component componentePai;
-    String novoCaminho = null;
-    NaoConformidadeDao naoConformidadeDao = new NaoConformidadeDao();
-    NaoConformidade naoConformidade = new NaoConformidade();
-    Imagem imagem = new Imagem();
+    private CadastroNaoCoformidade cadastroNaoCoformidade;
+    private EditarNaoConformidade editarNaoConformidade;
+    private Component componentePai;
+    private final NaoConformidadeDao naoConformidadeDao;
+    private final SetorDao setorDao;
+    private final ResponsavelDao responsavelDao;
+    private final Imagem imagem;
+    private FrameImagem frameImagem;
+    private FormDetalheNaoConformidade formDetalheNaoConformidade;
     
-    public Imagem getImagemController() {
+    public NaoConformidadeController() {
+        this.imagem = new Imagem();
+        this.naoConformidadeDao = new NaoConformidadeDao();
+        this.setorDao = new SetorDao();
+        this.responsavelDao = new ResponsavelDao();
+    }
+    
+    public Imagem getImagem() {
         return imagem;
-    }
-
-    public void setImagemController(Imagem imagemController) {
-        this.imagem = imagemController;
-    }
-    
-    public Component getComponentePai(){
-        return componentePai;
     }
 
     public void setComponentePai(Component componentePai){
@@ -44,27 +45,27 @@ public class NaoConformidadeController {
     }
     
     public void listarTodosSetores(Consumer<?super Setor> setor){
-        new SetorDao().listarTodos(setor::accept);
+        setorDao.listarTodos(setor::accept);
     }
     
     public void listarTodosResponsaveis(Consumer<?super Responsavel> responsavel){
-        new ResponsavelDao().listarTodos(responsavel::accept);
+        responsavelDao.listarTodos(responsavel::accept);
     }
     
     public int getLastId(){
-        return new NaoConformidadeDao().getLastId();
+        return naoConformidadeDao.getLastId();
     }
     
     public NaoConformidade listarPorId(int id){
-        return new NaoConformidadeDao().listarPorId(id);
+        return naoConformidadeDao.listarPorId(id);
     }
     
     public void listarTodos(Consumer<?super NaoConformidade> naoConformidade){
-        new NaoConformidadeDao().listarTodos(naoConformidade::accept);
+        naoConformidadeDao.listarTodos(naoConformidade::accept);
     }
     
     public void listarIntervaloDeData(Consumer<?super NaoConformidade> naoConformidade, Date dataInicio, Date dataFim){
-        new NaoConformidadeDao().listarPorIntevaloData(naoConformidade::accept, dataInicio, dataFim);
+        naoConformidadeDao.listarPorIntevaloData(naoConformidade::accept, dataInicio, dataFim);
     }
     
     public boolean validarTexto(String texto){ 
@@ -82,11 +83,10 @@ public class NaoConformidadeController {
     }
     
     public void listarPorDescricao(Consumer<? super NaoConformidade> resultado, String descricao){
-        new NaoConformidadeDao().listarPorDescricao(resultado::accept,descricao);
+        naoConformidadeDao.listarPorDescricao(resultado::accept,descricao);
     }
      
     public void salvar(NaoConformidade naoConformidade){
-        //salva imagem
         imagem.salvarImagem(naoConformidade.getImagem());
         if(naoConformidadeDao.criar(naoConformidade)){
             JOptionPane.showMessageDialog(componentePai, "Dados cadastrados com sucesso!","Sucesso!",1);
@@ -98,7 +98,6 @@ public class NaoConformidadeController {
     }
     
     public void atualizar(NaoConformidade naoConformidade){
-        //salva imagem
         imagem.salvarImagem(naoConformidade.getImagem());
         if(naoConformidadeDao.editar(naoConformidade)){
             JOptionPane.showMessageDialog(componentePai, "Dados atualizados com sucesso!","Sucesso!",1);
@@ -110,18 +109,16 @@ public class NaoConformidadeController {
     }
 
     public void mostrarNaoConformidade(int id) {
-        FormDetalheNaoConformidade formDetalheNaoConformidade = new FormDetalheNaoConformidade((Frame) componentePai, true, this);
+        formDetalheNaoConformidade = new FormDetalheNaoConformidade((Frame) componentePai, true, this);
         formDetalheNaoConformidade.setLocationRelativeTo(componentePai);
         formDetalheNaoConformidade.listar(id);
         formDetalheNaoConformidade.setVisible(true);
     }
     
     public void exibirImagem(){
-        FrameImagem frameImagem;
         frameImagem = new FrameImagem(this);
         frameImagem.setLocationRelativeTo(componentePai);
         frameImagem.setVisible(true);
-            
     }
 
     public void editar(int id){

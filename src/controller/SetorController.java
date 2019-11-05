@@ -25,69 +25,72 @@ import view.setor.FormEditar;
 public class SetorController {
     private Component componentePai;
     private Setor setor;
+    private FormCadastrar formCadastro;
+    private FormEditar formEditar;
+    private final SetorDao setorDao;
+    private final ResponsavelDao responsavelDao;
     
-    FormCadastrar cadastro;
-    FormEditar edicao;
+    public SetorController() {
+        this.setorDao = new SetorDao();
+        this.responsavelDao = new ResponsavelDao();
+    }
+    
 
     public void setComponentePai(Component componentePai) {
         this.componentePai = componentePai;
     }
     
     public int getLastId(){
-        return new SetorDao().getLastId();
-    }
-    
-      /**
-     *Este método é responsável por acessar a tela FormCadastrar de Setores
-     */
-    
-    public void cadastrar(){
-        cadastro = new FormCadastrar((Frame) componentePai, true, this);
-        cadastro.setLocationRelativeTo(componentePai);
-        cadastro.setVisible(true);
-    }
-    
-        /**
-     *Este método faz a listagem a partir do id do setor
-     * @param id id do usuário a ser consultado;
-     * @return 
-     */
-    public Setor listarPorId(int id){
-        return new SetorDao().listarPorId(id);
-    }
-    
-     /**
-     *Este método é responsável por listar todos os setores existentes no banco de dados
-     * @param resultado resultado da listagem
-     */
-    
-    public void listarTodos(Consumer<? super Setor> resultado){
-        new SetorDao().listarTodos(resultado::accept);
-    }
-    
-    public void listarPorNome(Consumer<? super Setor> resultado, String nome){
-        new SetorDao().listarPorNome(resultado::accept, nome);
-    }
-    
-    
-     /**
-     *Este método é responsável por listar todos os setores existentes no banco de dados
-     * @param resultado resultado da listagem
-     */
-    
-    public void listarResponsaveis(Consumer<? super Responsavel> resultado){
-        new ResponsavelDao().listarTodos(resultado::accept);
+        return setorDao.getLastId();
     }
     
     /**
-     *Este método é responsável por excluir o setor do banco de dados
-     * @param id id do setor a ser excluído
-     * @return true se foi excluído com sucesso ou false, se não
-     */
+    *Este método é responsável por acessar a tela FormCadastrar de Setores
+    */
     
+    public void cadastrar(){
+        formCadastro = new FormCadastrar((Frame) componentePai, true, this);
+        formCadastro.setLocationRelativeTo(componentePai);
+        formCadastro.setVisible(true);
+    }
+    
+    /**
+    *Este método faz a listagem a partir do id do setor
+    * @param id id do usuário a ser consultado;
+    * @return 
+    */
+    public Setor listarPorId(int id){
+        return setorDao.listarPorId(id);
+    }
+    
+    /**
+    *Este método é responsável por listar todos os setores existentes no banco de dados
+    * @param resultado resultado da listagem
+    */
+    public void listarTodos(Consumer<? super Setor> resultado){
+        setorDao.listarTodos(resultado::accept);
+    }
+    
+    public void listarPorNome(Consumer<? super Setor> resultado, String nome){
+        setorDao.listarPorNome(resultado::accept, nome);
+    }
+    
+    /**
+    *Este método é responsável por listar todos os setores existentes no banco de dados
+    * @param resultado resultado da listagem
+    */
+    public void listarResponsaveis(Consumer<? super Responsavel> resultado){
+        responsavelDao.listarTodos(resultado::accept);
+    }
+    
+    /**
+    *Este método é responsável por excluir o setor do banco de dados
+    * @param id id do setor a ser excluído
+    * @return true se foi excluído com sucesso ou false, se não
+    */
     public boolean excluir(int id){
         if(confirmarExclusao(id)){
-            if(new SetorDao().excluir(id)){
+            if(setorDao.excluir(id)){
                 exibirSucessoExclusao();
                 return true;
             }
@@ -146,22 +149,22 @@ public class SetorController {
     }
     
     public void abrirFormEditar(int id) {
-        FormEditar formularioEditar = new FormEditar((Frame) componentePai, true, this);
-        formularioEditar.setLocationRelativeTo(componentePai);
-        formularioEditar.preencherCampos(new SetorDao().listarPorId(id));
-        formularioEditar.setVisible(true);
+        formEditar = new FormEditar((Frame) componentePai, true, this);
+        formEditar.setLocationRelativeTo(componentePai);
+        formEditar.preencherCampos(new SetorDao().listarPorId(id));
+        formEditar.setVisible(true);
     }
     
     public boolean editar(Setor setor){
         if(setor!=null){
-           return new SetorDao().editar(setor);//salva no banco de dados
+           return setorDao.editar(setor);//salva no banco de dados
         } 
         return false;
     }
     
   public boolean adicionar(Setor setor){
         if(setor!=null){//se não retornar nulo, insere no banco
-            return new SetorDao().criar(setor);//salva no banco de dados
+            return setorDao.criar(setor);//salva no banco de dados
         }
         return false;
     }

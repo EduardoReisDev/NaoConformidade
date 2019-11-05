@@ -27,8 +27,11 @@ public class UsuarioController {
      */
     public final int TENTATIVAS_MAXIMAS_LOGIN;
     private Component componentePai;
-    
     private Usuario usuario;
+    private final UsuarioDao usuarioDao;
+    private FormLogin formularioLogin;
+    private FormEditar formularioEditar;
+    private FormCadastrar formCadastro;
     
     public void setComponentePai(Component componentePai) {
         this.componentePai = componentePai;
@@ -36,7 +39,7 @@ public class UsuarioController {
     
     public UsuarioController(){
         this.TENTATIVAS_MAXIMAS_LOGIN = 3;
-        usuario = new Usuario();
+        this.usuarioDao = new UsuarioDao();
     }
     
     /**
@@ -44,7 +47,7 @@ public class UsuarioController {
      * @param resultado resultado da listagem
      */
     public void listarUsuarios(Consumer<? super Usuario> resultado){
-        new UsuarioDao().listarTodos(resultado::accept);
+        usuarioDao.listarTodos(resultado::accept);
     }
     
     /**
@@ -53,7 +56,7 @@ public class UsuarioController {
      * @param nome nome do usuário a ser consultado
      */
     public void listarUsuariosPorNome(Consumer<? super Usuario> resultado, String nome){
-        new UsuarioDao().lerPorNome(resultado::accept, nome);
+        usuarioDao.lerPorNome(resultado::accept, nome);
     }
     
     /**
@@ -62,15 +65,15 @@ public class UsuarioController {
      * @return dados de usuario, ou null se não for encontrado nenhum usuário
      */
     public Usuario listarPorId(int id){
-        return new UsuarioDao().listarPorId(id);
+        return usuarioDao.listarPorId(id);
     }
     
     public int getLastId(){
-        return new UsuarioDao().getLastId();
+        return usuarioDao.getLastId();
     }
     
     public boolean verificarSeExisteCpf(String cpf) {
-        return new UsuarioDao().listarPorCpf(Resources.removerCaracteresInvalidosCpf(cpf)) != null;
+        return usuarioDao.listarPorCpf(Resources.removerCaracteresInvalidosCpf(cpf)) != null;
     }
     
     /**
@@ -78,7 +81,7 @@ public class UsuarioController {
      * @return dados de login caso eles sejam inseridos
      */
     public Usuario abrirFormularioLogin() {
-        FormLogin formularioLogin = new FormLogin((Frame) componentePai, true);
+        formularioLogin = new FormLogin((Frame) componentePai, true);
         formularioLogin.setLocationRelativeTo(componentePai);
         formularioLogin.setVisible(true);
         if(!formularioLogin.getTxtUsuario().getText().isEmpty()){
@@ -159,7 +162,7 @@ public class UsuarioController {
      */
     public boolean excluir(int id){
         if(confirmarExclusao(id)){
-            if(new UsuarioDao().excluir(id)){
+            if(usuarioDao.excluir(id)){
                 exibirSucessoExclusao();
                 return true;
             }
@@ -209,7 +212,7 @@ public class UsuarioController {
      * @param id id do usuário a ser editado
      */
     public void abrirFormEditar(int id) {
-        FormEditar formularioEditar = new FormEditar((Frame) componentePai, true, this);
+        formularioEditar = new FormEditar((Frame) componentePai, true, this);
         formularioEditar.setLocationRelativeTo(null);
         formularioEditar.preencherCampos(listarPorId(id));
         formularioEditar.setVisible(true);
@@ -222,7 +225,7 @@ public class UsuarioController {
      */
     public boolean editar(Usuario usuario){
         if(usuario!=null){
-           return new UsuarioDao().editar(usuario);//salva no banco de dados
+           return usuarioDao.editar(usuario);//salva no banco de dados
         } 
         return false;
     }
@@ -232,14 +235,14 @@ public class UsuarioController {
      * @return true quando existe e false quando não existe usuários masters armazenados.
      */
     public boolean verificarExistenciaDeUsuariosMasters(){
-        return new UsuarioDao().existeUsuariosMasters();
+        return usuarioDao.existeUsuariosMasters();
     }
     
     /**
      * Este método é responsável por abrir o formulário de cadastro de usuário
      */
     public void abrirFormCadastro(){
-        FormCadastrar formCadastro = new FormCadastrar((Frame) componentePai, true, this);
+        formCadastro = new FormCadastrar((Frame) componentePai, true, this);
         formCadastro.setLocationRelativeTo(null);
         formCadastro.setVisible(true);
     }
@@ -251,7 +254,7 @@ public class UsuarioController {
      */
     public boolean cadastrar(Usuario usuario){
         if(usuario!=null){//se não retornar nulo, insere no banco
-            return new UsuarioDao().criar(usuario);//salva no banco de dados
+            return usuarioDao.criar(usuario);//salva no banco de dados
         }
         return false;
     }

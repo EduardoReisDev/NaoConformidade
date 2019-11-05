@@ -22,42 +22,50 @@ import view.responsaveis.FormEditar;
 public class ResponsavelController {
     private Component componentePai; 
     private Responsavel responsavel;
-
+    private final ResponsavelDao responsavelDao;
+    private FormCadastrar formCadastro;
+    private FormEditar formEditar;
+    
+    public ResponsavelController() {
+        this.responsavelDao = new ResponsavelDao();
+    }
+    
     public void setComponentePai(Component componentePai) {
         this.componentePai = componentePai;
     }
 
   
     public void listarTodos(Consumer <?super Responsavel> responsavel){
-        new ResponsavelDao().listarTodos(responsavel::accept);
+        responsavelDao.listarTodos(responsavel::accept);
     }
+    
     public void listarPorNome(Consumer <?super Responsavel> responsavel, String nome){
-        new ResponsavelDao().listarPorNome(responsavel::accept, nome);
+        responsavelDao.listarPorNome(responsavel::accept, nome);
     }
     public Responsavel listarPorId(int id){
-        return new ResponsavelDao().listarPorId(id);
+        return responsavelDao.listarPorId(id);
     }
     
     public int getLastId(){
-        return new ResponsavelDao().getLastId();
+        return responsavelDao.getLastId();
     }
     
     public void abrirFormCadastro(){
-        FormCadastrar formCadastro = new FormCadastrar((Frame) componentePai, true, this);
+        formCadastro = new FormCadastrar((Frame) componentePai, true, this);
         formCadastro.setLocationRelativeTo(componentePai);
         formCadastro.setVisible(true);//
     }
     
     public boolean cadastrar(Responsavel responsavel){
         if(responsavel != null){
-            return new ResponsavelDao().criar(responsavel);
+            return responsavelDao.criar(responsavel);
         }
         return false;
     }
     
     public boolean excluir(int id){
         if(confirmarExclusao(id)){
-            if(new ResponsavelDao().excluir(id)){
+            if(responsavelDao.excluir(id)){
                 exibirSucessoExclusao();
                 return true;
             }
@@ -104,15 +112,15 @@ public class ResponsavelController {
     
     
     public void abrirFormularioEditar(int id){
-        FormEditar formEdita = new FormEditar((Frame) componentePai, true, this);
-        formEdita.preencherCampos(new ResponsavelDao().listarPorId(id));
-        formEdita.setLocationRelativeTo(componentePai);
-        formEdita.setVisible(true);
+        formEditar = new FormEditar((Frame) componentePai, true, this);
+        formEditar.preencherCampos(new ResponsavelDao().listarPorId(id));
+        formEditar.setLocationRelativeTo(componentePai);
+        formEditar.setVisible(true);
     }
     
     public boolean editar(Responsavel responsavel){
         if(responsavel != null){
-            return new ResponsavelDao().editar(responsavel);
+            return responsavelDao.editar(responsavel);
         }
         return false;
     }
@@ -138,6 +146,6 @@ public class ResponsavelController {
     }
     
     public boolean verificarSeExisteCpf(String cpf){
-        return new ResponsavelDao().listarPorCpf(cpf) != null;
+        return responsavelDao.listarPorCpf(cpf) != null;
     }
 }

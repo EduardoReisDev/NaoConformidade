@@ -59,6 +59,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
     
     @Override
     public void listarTodos(Consumer<? super NaoConformidade> resultado) {
+        Connection conexao = new Conexao().abreConexao();
         String query = "select * from naoConformidade AS nc "
                 + "INNER JOIN setor as s "
                 + "INNER JOIN  responsavel AS rs "
@@ -66,7 +67,6 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                 + "ON nc.idSetor = s.id "
                 + "and s.idResponsavel = rs.id "
                 + "and nc.idResponsavel = r.id;";
-        Connection conexao = new Conexao().abreConexao();
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
@@ -108,6 +108,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
 
     @Override
     public NaoConformidade listarPorId(int id) {
+        Connection conexao = new Conexao().abreConexao();
         String query = "select * from naoConformidade AS nc "
                 + "INNER JOIN setor as s "
                 + "INNER JOIN  responsavel AS rs "
@@ -115,7 +116,6 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                 + "ON nc.idSetor = s.id "
                 + "and s.idResponsavel = rs.id "
                 + "and nc.idResponsavel = r.id where nc.id=?;";
-        Connection conexao = new Conexao().abreConexao();
         try{
             PreparedStatement stm = conexao.prepareStatement(query);
             stm.setInt(1, id);
@@ -207,7 +207,7 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
 
     @Override
     public boolean editar(NaoConformidade dados) {
-    Connection conexao = new Conexao().abreConexao();
+        Connection conexao = new Conexao().abreConexao();
         String query = "update naoConformidade set descricao = ?, dataRegistro = ?, dataAcontecimento = ?, reincidencia = ?, abrangencia = ?, "
                 + "origem = ?, acaoCorrecao = ?, caminhoImagem = ?, idResponsavel = ?, idSetor = ? where id = ?";
         try{
@@ -254,8 +254,8 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
     }
     
     public int listarUltimoId(){
-        String query = "select max(id) as maxId from naoConformidade;";
         Connection conexao = new Conexao().abreConexao();
+        String query = "select max(id) as maxId from naoConformidade;";
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
@@ -273,9 +273,9 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
     }
     
     @Override
-     public int getLastId() {
-        String query = "select max(id) as maxId from naoConformidade;";
+     public int getLastId(){
         Connection conexao = new Conexao().abreConexao();
+        String query = "select max(id) as maxId from naoConformidade;";
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
@@ -293,7 +293,8 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
     }
 
     public void listarPorIntevaloData(Consumer<NaoConformidade> resultado, java.util.Date dataInicio, java.util.Date dataFim) {
-       String query = "select * from naoConformidade AS nc "
+        Connection conexao = new Conexao().abreConexao();
+        String query = "select * from naoConformidade AS nc "
                 + "INNER JOIN setor as s "
                 + "INNER JOIN  responsavel AS rs "
                 + "INNER JOIN responsavel as r "
@@ -301,12 +302,10 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
                 + "and s.idResponsavel = rs.id "
                 + "and nc.idResponsavel = r.id "
                 + "WHERE nc.dataAcontecimento BETWEEN ? AND ?";
-        Connection conexao = new Conexao().abreConexao();
         try{
             PreparedStatement stm = conexao.prepareStatement(query);
             stm.setDate(1, new Date(dataInicio.getTime()));
             stm.setDate(2, new Date(dataFim.getTime()));
-            
             ResultSet res = stm.executeQuery();
             while (res.next()){
                 resultado.accept(new NaoConformidade(
@@ -343,5 +342,4 @@ public class NaoConformidadeDao implements Crud<NaoConformidade>{
             Conexao.fechaConexao(conexao);
         }
     }
-    
 }

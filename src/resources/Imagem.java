@@ -23,7 +23,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Imagem {
     private Component componentePai;
-            
     private BufferedImage imagem;
     
     public void escolherImagem(){

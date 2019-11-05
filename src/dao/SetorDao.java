@@ -41,10 +41,10 @@ public class SetorDao implements Crud<Setor>{
 
     @Override
     public void listarTodos(Consumer<? super Setor> resultado) {
+        Connection conexao = new Conexao().abreConexao();
         String query = "select * from setor as s "
                 + "INNER JOIN responsavel as r "
                 + "on s.idResponsavel = r.id";
-        Connection conexao = new Conexao().abreConexao();
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
@@ -71,9 +71,10 @@ public class SetorDao implements Crud<Setor>{
     @Override
     public Setor listarPorId(int id) {
         Connection conexao = new Conexao().abreConexao();
+        String query = "select * from setor as s INNER JOIN responsavel as r "
+                + "on s.idResponsavel = r.id where s.id = ? ";
         try{
-            PreparedStatement stmt = conexao.prepareStatement("select * from setor as s INNER JOIN responsavel as r "
-                + "on s.idResponsavel = r.id where s.id = ? ");
+            PreparedStatement stmt = conexao.prepareStatement(query);
             stmt.setInt(1, id);
             ResultSet res = stmt.executeQuery();
             while (res.next()){
@@ -137,8 +138,8 @@ public class SetorDao implements Crud<Setor>{
     
     @Override
     public int getLastId() {
-        String query = "select max(id) as maxId from setor;";
         Connection conexao = new Conexao().abreConexao();
+        String query = "select max(id) as maxId from setor;";
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
@@ -156,9 +157,9 @@ public class SetorDao implements Crud<Setor>{
     }
 
     public void listarPorNome(Consumer<Setor> resultado, String nome) {
+        Connection conexao = new Conexao().abreConexao();
         String query = "select * from setor as s INNER JOIN responsavel as r "
                 + "on s.idResponsavel = r.id where s.nome like ?";
-        Connection conexao = new Conexao().abreConexao();
         try{
             PreparedStatement stm = conexao.prepareStatement(query);
             stm.setString(1, nome+"%");

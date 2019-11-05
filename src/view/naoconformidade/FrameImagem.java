@@ -93,7 +93,7 @@ public class FrameImagem extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        campoImagem.setIcon(naoConformidadeController.getImagemController().lerImagem(getWidth(), getHeight()));
+        campoImagem.setIcon(naoConformidadeController.getImagem().lerImagem(getWidth(), getHeight()));
     }//GEN-LAST:event_formComponentResized
 
     private void campoImagemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoImagemMousePressed

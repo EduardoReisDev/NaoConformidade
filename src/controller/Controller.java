@@ -9,7 +9,6 @@ import resources.Dados;
 import resources.Propriedade;
 import java.awt.Component;
 import java.awt.Frame;
-import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -48,7 +47,7 @@ public class Controller {
     private DialogoConfirmaSair dialogoConfirmaSair;
             
     public Controller(){
-        this.relatorioController = new RelatorioController();
+        relatorioController = new RelatorioController();
         dadosController =  new Dados();
         responsavelController = new ResponsavelController();
         naoConformidadeController = new NaoConformidadeController();
@@ -129,8 +128,6 @@ public class Controller {
     private void abreTelaPrincipal(){
         telaPrincipal= new FormPrincipal(this);
         telaPrincipal.setLocationRelativeTo(componentePai);
-        //telaPrincipal.setTitle();
-        telaPrincipal.setExtendedState(FormPrincipal.MAXIMIZED_BOTH);
         telaPrincipal.setVisible(true);
     }
     

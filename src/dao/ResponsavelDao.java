@@ -43,8 +43,9 @@ public class ResponsavelDao implements Crud<Responsavel>{
     @Override
     public void listarTodos(Consumer<? super Responsavel> resultado) {
         Connection conexao = new Conexao().abreConexao();
+        String query = "select * from responsavel order by nome";
         try{
-            PreparedStatement stmt = conexao.prepareStatement("select * from responsavel order by nome");
+            PreparedStatement stmt = conexao.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 resultado.accept(new Responsavel(
@@ -63,8 +64,8 @@ public class ResponsavelDao implements Crud<Responsavel>{
     }
     
     public void listarPorNome(Consumer<? super Responsavel> resultado, String nome) {
-        String query = "SELECT * FROM responsavel WHERE nome like ?";
         Connection conexao = new Conexao().abreConexao();
+        String query = "SELECT * FROM responsavel WHERE nome like ?";
         try{
             PreparedStatement stmt = conexao.prepareStatement(query);
             stmt.setString(1, nome+"%");
@@ -88,9 +89,10 @@ public class ResponsavelDao implements Crud<Responsavel>{
     @Override
     public Responsavel listarPorId(int id) {
         Connection conexao = new Conexao().abreConexao();
+        String query = "select * from responsavel where id = ? ";
         Responsavel responsavel = null;
         try{
-            PreparedStatement stmt = conexao.prepareStatement("select * from responsavel where id = ? ");
+            PreparedStatement stmt = conexao.prepareStatement(query);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
@@ -151,8 +153,8 @@ public class ResponsavelDao implements Crud<Responsavel>{
 
     @Override
     public int getLastId() {
-        String query = "select max(id) as maxId from responsavel;";
         Connection conexao = new Conexao().abreConexao();
+        String query = "select max(id) as maxId from responsavel;";
         try{
             Statement stm = conexao.createStatement();
             ResultSet res = stm.executeQuery(query);
@@ -171,19 +173,18 @@ public class ResponsavelDao implements Crud<Responsavel>{
     
     public Responsavel listarPorCpf(String cpf){
         Connection conexao = new Conexao().abreConexao();
-        Responsavel responsavel = null;
+        String query = "SELECT * FROM responsavel WHERE cpf = ? ";
         try{
-            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM responsavel WHERE cpf = ? ");
+            PreparedStatement stmt = conexao.prepareStatement(query);
             stmt.setString(1, cpf);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                responsavel = new Responsavel(
+                return new Responsavel(
                         rs.getInt("id"),
                         rs.getString("cpf"),
                         rs.getString("nome")
                 );
             }
-            return responsavel;
         }
         catch (SQLException e){
             System.out.println("erro na busca "+e.getMessage());
@@ -191,7 +192,7 @@ public class ResponsavelDao implements Crud<Responsavel>{
         finally{
             Conexao.fechaConexao(conexao);
         }
-        return responsavel;
+        return null;
     }
     
 }

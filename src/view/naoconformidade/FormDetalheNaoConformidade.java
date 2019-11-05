@@ -66,7 +66,7 @@ public class FormDetalheNaoConformidade extends javax.swing.JDialog {
         lblNomeResponsavelSetor.setText(naoConformidade.getSetor().getResponsavel().getNome());
         lblCpfResponsavelSetor.setText(naoConformidade.getSetor().getResponsavel().getCpf());
         lblImagem.setIcon(
-                naoConformidadeController.getImagemController().lerImagem(
+                naoConformidadeController.getImagem().lerImagem(
                         naoConformidade.getImagem(), 
                         lblImagem.getWidth(),
                         lblImagem.getHeight()

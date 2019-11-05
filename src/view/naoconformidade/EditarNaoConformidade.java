@@ -164,9 +164,9 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
     }
     
      private void escolherImagem(){
-        naoConformidadeController.getImagemController().escolherImagem();
+        naoConformidadeController.getImagem().escolherImagem();
         visualizaImg.setIcon(
-                naoConformidadeController.getImagemController().lerImagem(
+                naoConformidadeController.getImagem().lerImagem(
                         visualizaImg.getWidth(), 
                         visualizaImg.getHeight())
         );

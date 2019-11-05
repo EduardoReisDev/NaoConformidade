@@ -5,7 +5,6 @@
  */
 package controller;
 
-import java.io.FileNotFoundException;
 import model.NaoConformidade;
 import model.Usuario;
 import resources.Arquivo;
