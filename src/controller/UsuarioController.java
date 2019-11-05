@@ -79,7 +79,7 @@ public class UsuarioController {
      */
     public Usuario abrirFormularioLogin() {
         FormLogin formularioLogin = new FormLogin((Frame) componentePai, true);
-        formularioLogin.setLocationRelativeTo(formularioLogin);
+        formularioLogin.setLocationRelativeTo(componentePai);
         formularioLogin.setVisible(true);
         if(!formularioLogin.getTxtUsuario().getText().isEmpty()){
             return new Usuario(

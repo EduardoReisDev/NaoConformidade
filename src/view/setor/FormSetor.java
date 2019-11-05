@@ -78,6 +78,7 @@ public class FormSetor extends javax.swing.JDialog {
         modeloTabela.addRow(new String[]{
             String.format("%010d", setor.getId()),
             setor.getNome(),
+            setor.getResponsavel().getNome()
         });
     }
     
@@ -145,18 +146,8 @@ public class FormSetor extends javax.swing.JDialog {
         btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
-            }
-        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerenciar Setores", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
-        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jPanel1KeyPressed(evt);
-            }
-        });
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -216,10 +207,9 @@ public class FormSetor extends javax.swing.JDialog {
         jLabel2.setText("Buscar setor");
 
         txtBusca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtBusca.setText("Digite aqui...");
-        txtBusca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscaActionPerformed(evt);
+        txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscaKeyReleased(evt);
             }
         });
 
@@ -380,21 +370,13 @@ public class FormSetor extends javax.swing.JDialog {
         excluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        System.out.println(evt.getKeyCode());
-    }//GEN-LAST:event_formKeyPressed
-
-    private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
-        System.out.println(evt.getKeyCode());
-    }//GEN-LAST:event_jPanel1KeyPressed
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         criarEstruturaTabelaEBuscar();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
+    private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
         criarEstruturaTabelaEBuscar();
-    }//GEN-LAST:event_txtBuscaActionPerformed
+    }//GEN-LAST:event_txtBuscaKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

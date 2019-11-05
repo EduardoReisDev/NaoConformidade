@@ -38,8 +38,7 @@ public class Relatorio {
     private float margemSuperior;
     private float margemEsquerda;
     private float margemInferior;
-    private PageSize tamanhoPagina;
-    private Controller controller;
+    private final PageSize tamanhoPagina;
 
     public Relatorio() {
         this.tamanhoPagina = PageSize.A4;

@@ -33,8 +33,6 @@ public class SetorController {
         this.componentePai = componentePai;
     }
     
-    
-    
     public int getLastId(){
         return new SetorDao().getLastId();
     }
@@ -47,16 +45,6 @@ public class SetorController {
         cadastro = new FormCadastrar((Frame) componentePai, true, this);
         cadastro.setLocationRelativeTo(componentePai);
         cadastro.setVisible(true);
-    }
-    
-     /**
-     *Este método é responsável por acessar a tela FormEditar de Setores
-     */
-    
-    public void editar(){
-        edicao = new FormEditar((Frame)componentePai, true);
-        edicao.setLocationRelativeTo(componentePai);
-        edicao.setVisible(true);
     }
     
         /**

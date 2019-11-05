@@ -18,7 +18,7 @@ import java.util.function.Consumer;
  *
  * @author leona
  */
-public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
+public class UsuarioDao implements Crud<Usuario>{
 
     @Override
     public boolean criar(Usuario dados) {
@@ -164,7 +164,6 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
     }
     
     
-    @Override
     public boolean existeUsuariosMasters(){
         Connection conexao = new Conexao().abreConexao();
         try{
@@ -183,7 +182,6 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
         return false;
     }
     
-    @Override
     public Usuario listarPorCpf(String cpf){
         Connection conexao = new Conexao().abreConexao();
         try{
@@ -210,7 +208,6 @@ public class UsuarioDao implements Crud<Usuario>, UsuarioDaoInterface{
         return null;
     }
     
-    @Override
     public Usuario login (String usuario, String senha){
         Connection conexao = new Conexao().abreConexao();
         try{

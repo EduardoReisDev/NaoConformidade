@@ -62,7 +62,9 @@ public class FormUsuario extends javax.swing.JDialog {
     
     private void criarEstruturaTabelaEListarTodos(){
         criarEstrurturaTabela();
-        controller.getUsuarioController().listarUsuarios(this::popularTabela);
+        controller.getUsuarioController().listarUsuarios((usuario) -> 
+                this.popularTabela(usuario)
+        );
     }
     
     public void criarEstrurturaTabela(){

@@ -11,7 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -45,7 +44,7 @@ public class Splash extends javax.swing.JFrame {
         executarTarefas();
         Thread thread = new Thread(() -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 dispose();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Splash.class.getName()).log(Level.SEVERE, null, ex);

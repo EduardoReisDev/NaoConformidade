@@ -5,9 +5,6 @@
  */
 package view.usuario;
 
-import model.Usuario;
-import controller.UsuarioController;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -22,10 +19,10 @@ import javax.swing.KeyStroke;
  * @author leona
  */
 public class FormLogin extends javax.swing.JDialog {
-    private boolean saidaValida = false;
-    
     /**
      * Creates new form Login
+     * @param parent
+     * @param modal
      */
     public FormLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -79,6 +76,7 @@ public class FormLogin extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Login");
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N

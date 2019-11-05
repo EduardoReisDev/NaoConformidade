@@ -20,7 +20,6 @@ import model.Responsavel;
  * @author leona
  */
 public class SetorDao implements Crud<Setor>{
-
     @Override
     public boolean criar(Setor dados) {
         Connection conexao = new Conexao().abreConexao();
@@ -45,7 +44,6 @@ public class SetorDao implements Crud<Setor>{
         String query = "select * from setor as s "
                 + "INNER JOIN responsavel as r "
                 + "on s.idResponsavel = r.id";
-        System.out.println(query);
         Connection conexao = new Conexao().abreConexao();
         try{
             Statement stm = conexao.createStatement();
@@ -70,12 +68,12 @@ public class SetorDao implements Crud<Setor>{
         }
     }
 
-
     @Override
     public Setor listarPorId(int id) {
         Connection conexao = new Conexao().abreConexao();
         try{
-            PreparedStatement stmt = conexao.prepareStatement("select * from setor where id = ? ");
+            PreparedStatement stmt = conexao.prepareStatement("select * from setor as s INNER JOIN responsavel as r "
+                + "on s.idResponsavel = r.id where s.id = ? ");
             stmt.setInt(1, id);
             ResultSet res = stmt.executeQuery();
             while (res.next()){
@@ -83,7 +81,9 @@ public class SetorDao implements Crud<Setor>{
                         res.getInt("id"), 
                         res.getString("nome"),
                         new Responsavel(
-                                res.getInt("id")
+                                res.getInt(4),
+                                res.getString(6),
+                                res.getString(5)
                         )
                 ));
             }
@@ -100,7 +100,7 @@ public class SetorDao implements Crud<Setor>{
     @Override
     public boolean editar(Setor dados) {
         Connection conexao = new Conexao().abreConexao();
-        String query = "update setor set nome = ?, idResponsavel = ? where idsetor = ?";
+        String query = "update setor set nome = ?, idResponsavel = ? where id = ?";
         try{
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, dados.getNome());
@@ -109,7 +109,7 @@ public class SetorDao implements Crud<Setor>{
             return ps.executeUpdate()>0;
         }
         catch(SQLException e){
-            System.out.println("erro na exclusao "+e.getMessage());
+            System.out.println("erro na edição "+e.getMessage());
             return false;
         }
         finally{
@@ -156,17 +156,21 @@ public class SetorDao implements Crud<Setor>{
     }
 
     public void listarPorNome(Consumer<Setor> resultado, String nome) {
-        String query = "select * from setor where nome like"+nome+"%";
+        String query = "select * from setor as s INNER JOIN responsavel as r "
+                + "on s.idResponsavel = r.id where s.nome like ?";
         Connection conexao = new Conexao().abreConexao();
         try{
-            Statement stm = conexao.createStatement();
-            ResultSet res = stm.executeQuery(query);
+            PreparedStatement stm = conexao.prepareStatement(query);
+            stm.setString(1, nome+"%");
+            ResultSet res = stm.executeQuery();
             while (res.next()){
                 resultado.accept(new Setor(
                         res.getInt("id"), 
                         res.getString("nome"),
                         new Responsavel(
-                                res.getInt("id")
+                                res.getInt(4),
+                                res.getString(6),
+                                res.getString(5)
                         )
                 ));
             }

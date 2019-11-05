@@ -224,7 +224,7 @@ public class CadastroNaoCoformidade extends javax.swing.JDialog {
         });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setText("Responsável de Qualidade");
+        jLabel8.setText("Responsável ");
         jLabel8.setName("jLabel8"); // NOI18N
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -377,7 +377,6 @@ public class CadastroNaoCoformidade extends javax.swing.JDialog {
                 true)));
     dataRegistro.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
 
-    dataAcontecimento.setFormat(3);
     dataAcontecimento.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
 
     btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

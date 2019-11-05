@@ -163,7 +163,7 @@ public class Controller {
     }
     
     public void inicio(){
-       // usuario = usuarioController.login();
+        //usuario = usuarioController.login();
         //if(usuario!=null){
             abreTelaPrincipal();
         //}
@@ -171,13 +171,12 @@ public class Controller {
         //abrirTelaRelatorio();
     }
     public static void main(String[] args){
-        
-       // new Splash();
         try {
             UIManager.setLookAndFeel(new WindowsLookAndFeel());
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
+       // new Splash();
         new Controller().inicio();
     }
 
