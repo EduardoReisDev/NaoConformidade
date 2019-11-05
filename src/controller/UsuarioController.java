@@ -13,8 +13,8 @@ import java.util.Arrays;
 import model.Usuario;
 import java.util.function.Consumer;
 import view.Mensagens;
-import view.usuario.FormCadastrar;
-import view.usuario.FormEditar;
+import view.usuario.FormCadastrarUsuario;
+import view.usuario.FormEditarUsuario;
 import view.usuario.FormLogin;
 
 /**
@@ -30,8 +30,8 @@ public class UsuarioController {
     private Usuario usuario;
     private final UsuarioDao usuarioDao;
     private FormLogin formularioLogin;
-    private FormEditar formularioEditar;
-    private FormCadastrar formCadastro;
+    private FormEditarUsuario formularioEditar;
+    private FormCadastrarUsuario formCadastro;
     
     public void setComponentePai(Component componentePai) {
         this.componentePai = componentePai;
@@ -212,7 +212,7 @@ public class UsuarioController {
      * @param id id do usuário a ser editado
      */
     public void abrirFormEditar(int id) {
-        formularioEditar = new FormEditar((Frame) componentePai, true, this);
+        formularioEditar = new FormEditarUsuario((Frame) componentePai, true, this);
         formularioEditar.setLocationRelativeTo(null);
         formularioEditar.preencherCampos(listarPorId(id));
         formularioEditar.setVisible(true);
@@ -242,7 +242,7 @@ public class UsuarioController {
      * Este método é responsável por abrir o formulário de cadastro de usuário
      */
     public void abrirFormCadastro(){
-        formCadastro = new FormCadastrar((Frame) componentePai, true, this);
+        formCadastro = new FormCadastrarUsuario((Frame) componentePai, true, this);
         formCadastro.setLocationRelativeTo(null);
         formCadastro.setVisible(true);
     }

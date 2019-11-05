@@ -25,7 +25,7 @@ import view.Mensagens;
  *
  * @author Eduardo
  */
-public class FormCadastrar extends javax.swing.JDialog {
+public class FormCadastrarResponsavel extends javax.swing.JDialog {
     private ResponsavelController responsavelController;
     private MaskFormatter mascaraCpf;
     
@@ -35,7 +35,7 @@ public class FormCadastrar extends javax.swing.JDialog {
      * @param modal
      * @param responsavelController
      */
-    public FormCadastrar(java.awt.Frame parent, boolean modal, ResponsavelController responsavelController) {
+    public FormCadastrarResponsavel(java.awt.Frame parent, boolean modal, ResponsavelController responsavelController) {
         super(parent, modal);
         initComponents();
         try {
@@ -43,7 +43,7 @@ public class FormCadastrar extends javax.swing.JDialog {
             mascaraCpf.setPlaceholderCharacter('_');
             txtCpf.setFormatterFactory(new DefaultFormatterFactory(mascaraCpf));
         } catch (ParseException ex) {
-            Logger.getLogger(view.usuario.FormCadastrar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(view.usuario.FormCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.responsavelController = responsavelController;
         txtCodigo.setText(String.format("%010d", responsavelController.getLastId()+1));

@@ -24,13 +24,13 @@ import view.Mensagens;
  *
  * @author Eduardo
  */
-public class FormEditar extends javax.swing.JDialog {
+public class FormEditarSetor extends javax.swing.JDialog {
     private final SetorController setorController;
     private final ArrayList<Integer> listaIdResponsavel;
     /**
      * Creates new form EditarSetores
      */
-    public FormEditar(java.awt.Frame parent, boolean modal, SetorController setorController) {
+    public FormEditarSetor(java.awt.Frame parent, boolean modal, SetorController setorController) {
         super(parent, modal);
         initComponents();
         this.setorController = setorController;
@@ -119,11 +119,6 @@ public class FormEditar extends javax.swing.JDialog {
         jLabel3.setText("Nome do Setor");
 
         cbBoxResponsavel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cbBoxResponsavel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbBoxResponsavelActionPerformed(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Responsável pelo Setor");
@@ -199,10 +194,6 @@ public class FormEditar extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cbBoxResponsavelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBoxResponsavelActionPerformed
-        
-    }//GEN-LAST:event_cbBoxResponsavelActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        salvar();

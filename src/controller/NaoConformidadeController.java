@@ -13,14 +13,14 @@ import model.NaoConformidade;
 import model.Responsavel;
 import model.Setor;
 import view.Mensagens ;
-import view.naoconformidade.CadastroNaoCoformidade;
-import view.naoconformidade.EditarNaoConformidade;
+import view.naoconformidade.FormCadastroNaoCoformidade;
+import view.naoconformidade.FormEditarNaoConformidade;
 import view.naoconformidade.FormDetalheNaoConformidade;
 import view.naoconformidade.FrameImagem;
 
 public class NaoConformidadeController {
-    private CadastroNaoCoformidade cadastroNaoCoformidade;
-    private EditarNaoConformidade editarNaoConformidade;
+    private FormCadastroNaoCoformidade cadastroNaoCoformidade;
+    private FormEditarNaoConformidade editarNaoConformidade;
     private Component componentePai;
     private final NaoConformidadeDao naoConformidadeDao;
     private final SetorDao setorDao;
@@ -77,7 +77,7 @@ public class NaoConformidadeController {
     }
 
     public void cadastrar(){
-        cadastroNaoCoformidade = new CadastroNaoCoformidade((Frame) componentePai, true, this);
+        cadastroNaoCoformidade = new FormCadastroNaoCoformidade((Frame) componentePai, true, this);
         cadastroNaoCoformidade.setLocationRelativeTo(componentePai);
         cadastroNaoCoformidade.setVisible(true);
     }
@@ -122,7 +122,7 @@ public class NaoConformidadeController {
     }
 
     public void editar(int id){
-        editarNaoConformidade = new EditarNaoConformidade((Frame) componentePai, true, this, id);
+        editarNaoConformidade = new FormEditarNaoConformidade((Frame) componentePai, true, this, id);
         editarNaoConformidade.setLocationRelativeTo(componentePai);
         editarNaoConformidade.setVisible(true);
     }

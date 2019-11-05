@@ -12,8 +12,8 @@ import java.awt.Frame;
 import java.util.function.Consumer;
 import model.Responsavel;
 import view.Mensagens;
-import view.responsaveis.FormCadastrar;
-import view.responsaveis.FormEditar;
+import view.responsaveis.FormCadastrarResponsavel;
+import view.responsaveis.FormEditarResponsavel;
 
 /**
  *
@@ -23,8 +23,8 @@ public class ResponsavelController {
     private Component componentePai; 
     private Responsavel responsavel;
     private final ResponsavelDao responsavelDao;
-    private FormCadastrar formCadastro;
-    private FormEditar formEditar;
+    private FormCadastrarResponsavel formCadastro;
+    private FormEditarResponsavel formEditar;
     
     public ResponsavelController() {
         this.responsavelDao = new ResponsavelDao();
@@ -51,7 +51,7 @@ public class ResponsavelController {
     }
     
     public void abrirFormCadastro(){
-        formCadastro = new FormCadastrar((Frame) componentePai, true, this);
+        formCadastro = new FormCadastrarResponsavel((Frame) componentePai, true, this);
         formCadastro.setLocationRelativeTo(componentePai);
         formCadastro.setVisible(true);//
     }
@@ -112,7 +112,7 @@ public class ResponsavelController {
     
     
     public void abrirFormularioEditar(int id){
-        formEditar = new FormEditar((Frame) componentePai, true, this);
+        formEditar = new FormEditarResponsavel((Frame) componentePai, true, this);
         formEditar.preencherCampos(new ResponsavelDao().listarPorId(id));
         formEditar.setLocationRelativeTo(componentePai);
         formEditar.setVisible(true);

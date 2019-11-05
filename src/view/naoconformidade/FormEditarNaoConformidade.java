@@ -24,7 +24,7 @@ import resources.Imagem;
  *
  * @author Eduardo
  */
-public class EditarNaoConformidade extends javax.swing.JDialog {
+public class FormEditarNaoConformidade extends javax.swing.JDialog {
     NaoConformidadeController naoConformidadeController;
     NaoConformidade aux;
     private ArrayList<Integer> listaIdResponsavelComboBox;
@@ -32,7 +32,7 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
     /**
      * Creates new form EditarNaoConformidade
      */
-    public EditarNaoConformidade(java.awt.Frame parent, boolean modal,NaoConformidadeController naoConformidadecontroller, int id){
+    public FormEditarNaoConformidade(java.awt.Frame parent, boolean modal,NaoConformidadeController naoConformidadecontroller, int id){
         super(parent, modal);
         initComponents();
         this.naoConformidadeController = naoConformidadecontroller;
@@ -399,7 +399,6 @@ public class EditarNaoConformidade extends javax.swing.JDialog {
                 true)));
     dataRegistro.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
 
-    dataAcontecimento.setFormat(3);
     dataAcontecimento.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
 
     btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

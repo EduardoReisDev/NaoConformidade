@@ -11,7 +11,7 @@ import model.Setor;
  *
  * @author Ricardo
  */
-public class CadastroNaoCoformidade extends javax.swing.JDialog {
+public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
     private final NaoConformidadeController naoConformidadeController;
     private final ArrayList<Integer> listaIdResponsavelComboBox;
     private final ArrayList<Integer> listaIdSetorComboBox;
@@ -21,7 +21,7 @@ public class CadastroNaoCoformidade extends javax.swing.JDialog {
      * @param parent
      * @param modal
      * @param naoConformidadecontroller */
-    public CadastroNaoCoformidade(java.awt.Frame parent, boolean modal, NaoConformidadeController naoConformidadecontroller) {
+    public FormCadastroNaoCoformidade(java.awt.Frame parent, boolean modal, NaoConformidadeController naoConformidadecontroller) {
         super(parent, modal);
         initComponents();
         this.naoConformidadeController = naoConformidadecontroller;

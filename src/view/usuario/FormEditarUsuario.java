@@ -25,7 +25,7 @@ import view.Mensagens;
  *
  * @author leona
  */
-public class FormEditar extends javax.swing.JDialog {
+public class FormEditarUsuario extends javax.swing.JDialog {
     private UsuarioController usuarioController;
     private MaskFormatter mascaraCpf;
     /**
@@ -34,7 +34,7 @@ public class FormEditar extends javax.swing.JDialog {
      * @param modal
      * @param usuarioController
      */
-    public FormEditar(java.awt.Frame parent, boolean modal, UsuarioController usuarioController) {
+    public FormEditarUsuario(java.awt.Frame parent, boolean modal, UsuarioController usuarioController) {
         super(parent, modal);
         initComponents();
         this.usuarioController = usuarioController;
@@ -43,7 +43,7 @@ public class FormEditar extends javax.swing.JDialog {
             mascaraCpf.setPlaceholderCharacter('_');
             txtCpf.setFormatterFactory(new DefaultFormatterFactory(mascaraCpf));
         } catch (ParseException ex) {
-            Logger.getLogger(FormCadastrar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
     
@@ -374,7 +374,7 @@ public class FormEditar extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

@@ -14,8 +14,8 @@ import java.util.function.Consumer;
 import model.Responsavel;
 import model.Setor;
 import view.Mensagens;
-import view.setor.FormCadastrar;
-import view.setor.FormEditar;
+import view.setor.FormCadastrarSetor;
+import view.setor.FormEditarSetor;
 
 /**
  *
@@ -25,8 +25,8 @@ import view.setor.FormEditar;
 public class SetorController {
     private Component componentePai;
     private Setor setor;
-    private FormCadastrar formCadastro;
-    private FormEditar formEditar;
+    private FormCadastrarSetor formCadastro;
+    private FormEditarSetor formEditar;
     private final SetorDao setorDao;
     private final ResponsavelDao responsavelDao;
     
@@ -49,7 +49,7 @@ public class SetorController {
     */
     
     public void cadastrar(){
-        formCadastro = new FormCadastrar((Frame) componentePai, true, this);
+        formCadastro = new FormCadastrarSetor((Frame) componentePai, true, this);
         formCadastro.setLocationRelativeTo(componentePai);
         formCadastro.setVisible(true);
     }
@@ -149,7 +149,7 @@ public class SetorController {
     }
     
     public void abrirFormEditar(int id) {
-        formEditar = new FormEditar((Frame) componentePai, true, this);
+        formEditar = new FormEditarSetor((Frame) componentePai, true, this);
         formEditar.setLocationRelativeTo(componentePai);
         formEditar.preencherCampos(new SetorDao().listarPorId(id));
         formEditar.setVisible(true);
