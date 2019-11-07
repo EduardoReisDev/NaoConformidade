@@ -42,6 +42,13 @@ public class Imagem {
         }
     }
     
+    public void removerImagem(){
+        imagem = null;
+    }
+    
+    public boolean isImagemValida(){
+        return imagem != null;
+    }
     
     public ImageIcon lerImagem(int largura, int altura){
         BufferedImage icone = ProcessarImagem(largura, altura);
