@@ -7,24 +7,18 @@ package view;
 
 import controller.Controller;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.io.FileNotFoundException;
-import javax.swing.JComponent;
-import javax.swing.JRootPane;
-import javax.swing.KeyStroke;
 import javax.swing.SwingWorker;
-import resources.Teclas;
+import resources.AcaoTecla;
 
 /**
  *
  * @author leona
  */
 public class FormPrincipal extends javax.swing.JFrame {
-    Controller controller;
+    private final Controller controller;
     /**
      * Creates new form Principal
+     * @param controller
      */
     public FormPrincipal(Controller controller) {
         initComponents();
@@ -33,27 +27,8 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnGerenciarNC.setOpaque(true);
         this.controller = controller;
         this.controller.setComponentePai(this);
-        Teclas teste = new Teclas();
-        addKeyListener(teste);
-        teste.recebeController(controller);
+        addKeyListener(new AcaoTecla(controller));
         setFocusable(true);
-    }
-    
-    @Override
-    protected JRootPane createRootPane() {
-        // Definindo o ActionListener
-        ActionListener actionListener = (ActionEvent e) -> {
-            fechar();
-        };
-        // Definindo o KeyStroke
-        KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
-        // Criando uma instancia de JRootPane
-        JRootPane rootPane = new JRootPane();
-        // Registrando o KeyStroke enquanto o JDialog estiver em foco
-        rootPane.registerKeyboardAction(
-        actionListener, stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
-        // Retornando o novo e modificado JRootPane
-        return rootPane;
     }
     
     private void fechar(){
