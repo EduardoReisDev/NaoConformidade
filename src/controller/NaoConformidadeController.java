@@ -6,6 +6,7 @@ import dao.ResponsavelDao;
 import dao.SetorDao;
 import java.awt.Component ;
 import java.awt.Frame;
+import java.io.File;
 import java.util.Date;
 import java.util.function.Consumer;
 import javax.swing.JOptionPane;
@@ -129,6 +130,7 @@ public class NaoConformidadeController {
     
     public void excluir(int id){
         if(naoConformidadeDao.excluir(id)){
+            new File("imagens\\nc"+id+".png").delete();
             JOptionPane.showMessageDialog(componentePai, "Não conformidade excluída com sucesso!","Sucesso!",1);
         }
         else {
