@@ -7,6 +7,12 @@ package view;
 
 import controller.Controller;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import javax.swing.SwingWorker;
 import resources.AcaoTecla;
 
@@ -27,8 +33,27 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnGerenciarNC.setOpaque(true);
         this.controller = controller;
         this.controller.setComponentePai(this);
-        addKeyListener(new AcaoTecla(controller));
-        setFocusable(true);
+    }
+    
+    @Override
+    protected JRootPane createRootPane() {
+        // Definindo o ActionListener
+        ActionListener acaoEsc = (ActionEvent e) -> {
+            fechar();
+        };
+        ActionListener acaoF1 = (ActionEvent e) -> {
+            controller.abreTelaUsuario();
+        };
+        // Definindo o KeyStroke
+        KeyStroke strokeEsc = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
+        KeyStroke strokeFi = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
+        // Criando uma instancia de JRootPane
+        JRootPane rootPane = new JRootPane();
+        // Registrando o KeyStroke enquanto o JDialog estiver em foco
+        rootPane.registerKeyboardAction(acaoEsc, strokeEsc, JComponent.WHEN_IN_FOCUSED_WINDOW);
+        rootPane.registerKeyboardAction(acaoF1, strokeFi, JComponent.WHEN_IN_FOCUSED_WINDOW);
+        // Retornando o novo e modificado JRootPane
+        return rootPane;
     }
     
     private void fechar(){

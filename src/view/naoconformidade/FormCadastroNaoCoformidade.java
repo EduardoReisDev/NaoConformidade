@@ -52,6 +52,11 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
         naoConformidadeController.listarTodosSetores(this::popularComboBoxSetor);
     }
     
+    private void removerImagem(){
+        naoConformidadeController.getImagem().removerImagem();
+        mostrarIconeEscolherImagem();
+    }
+    
     private void listarResponsaveis(){
         Responsavel.removeAllItems();
         naoConformidadeController.listarTodosResponsaveis(this::popularComboboxResponsavel);
@@ -87,8 +92,8 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
                 naoConformidadeController.obrigatorio(this);
                 return true;
             }
-        else if(!naoConformidadeController.validarTexto(origem.getText())){
-                origem.requestFocus();
+        else if(!naoConformidadeController.validarTexto(abrangencia.getText())){
+                abrangencia.requestFocus();
                 naoConformidadeController.obrigatorio(this);
                 return true;
             }
@@ -102,7 +107,12 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
     
     private void escolherImagem(){
         naoConformidadeController.getImagem().escolherImagem();
-        btnImagem.setIcon(naoConformidadeController.getImagem().lerImagem(btnImagem.getWidth(), btnImagem.getHeight()));
+        if(naoConformidadeController.getImagem().isImagemValida()){
+            btnImagem.setIcon(naoConformidadeController.getImagem().lerImagem(btnImagem.getWidth(), btnImagem.getHeight()));
+        }
+        else{
+            mostrarIconeEscolherImagem();
+        }
     }
     
     public void salvar(){
@@ -115,7 +125,7 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
                     dataRegistro.getCurrent().getTime(), 
                     descricao.getText(), 
                     "imagens\\nc"+Codigo.getText()+".png", 
-                    origem.getText(), 
+                    abrangencia.getText(), 
                     reincidencia.isSelected(), 
                     new Setor(
                             pegarIdSetor()
@@ -128,9 +138,11 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
     }
     
     private void mostrarImagem(){
-        frameImagem = new FrameImagem(naoConformidadeController);
-        frameImagem.setLocationRelativeTo(this);
-        frameImagem.setVisible(true);
+        if(naoConformidadeController.getImagem().isImagemValida()){
+            frameImagem = new FrameImagem(naoConformidadeController);
+            frameImagem.setLocationRelativeTo(this);
+            frameImagem.setVisible(true);
+        }
     }
     
     /** This method is called from within the constructor to
@@ -157,10 +169,8 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
         dataRegistro = new datechooser.beans.DateChooserCombo();
         dataAcontecimento = new datechooser.beans.DateChooserCombo();
         descricao = new javax.swing.JTextField();
-        abrangencia = new javax.swing.JTextField();
         origem = new javax.swing.JTextField();
         Responsavel = new javax.swing.JComboBox<>();
-        acaoCorrecao = new javax.swing.JTextField();
         reincidencia = new javax.swing.JCheckBox();
         btnCancelar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -168,8 +178,11 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         btnImagem = new javax.swing.JButton();
         btnVisualizar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnRemover = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        abrangencia = new javax.swing.JTextArea();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        acaoCorrecao = new javax.swing.JTextArea();
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Imagem");
@@ -331,14 +344,6 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
         }
     });
 
-    abrangencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    abrangencia.setName("abrangencia"); // NOI18N
-    abrangencia.addKeyListener(new java.awt.event.KeyAdapter() {
-        public void keyPressed(java.awt.event.KeyEvent evt) {
-            abrangenciaKeyPressed(evt);
-        }
-    });
-
     origem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
     origem.setName("origem"); // NOI18N
     origem.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -355,16 +360,8 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
         }
     });
 
-    acaoCorrecao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    acaoCorrecao.setName("acaoCorrecao"); // NOI18N
-    acaoCorrecao.addKeyListener(new java.awt.event.KeyAdapter() {
-        public void keyPressed(java.awt.event.KeyEvent evt) {
-            acaoCorrecaoKeyPressed(evt);
-        }
-    });
-
     reincidencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    reincidencia.setText("Essa Não Conformidade está em reincidência?");
+    reincidencia.setText("É reincidência");
     reincidencia.setName("reincidencia"); // NOI18N
     reincidencia.addKeyListener(new java.awt.event.KeyAdapter() {
         public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -415,12 +412,12 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
         }
     });
 
-    jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    jButton1.setText("Remover Imagem");
-    jButton1.setName("jButton1"); // NOI18N
-    jButton1.addActionListener(new java.awt.event.ActionListener() {
+    btnRemover.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    btnRemover.setText("Remover Imagem");
+    btnRemover.setName("btnRemover"); // NOI18N
+    btnRemover.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton1ActionPerformed(evt);
+            btnRemoverActionPerformed(evt);
         }
     });
 
@@ -431,7 +428,7 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
         .addGroup(jPanel2Layout.createSequentialGroup()
             .addComponent(btnVisualizar)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton1))
+            .addComponent(btnRemover))
         .addComponent(btnImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
     jPanel2Layout.setVerticalGroup(
@@ -441,16 +438,23 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(btnVisualizar)
-                .addComponent(jButton1)))
+                .addComponent(btnRemover)))
     );
 
-    jButton2.setText("teset");
-    jButton2.setName("jButton2"); // NOI18N
-    jButton2.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton2ActionPerformed(evt);
-        }
-    });
+    jScrollPane2.setName("jScrollPane2"); // NOI18N
+
+    abrangencia.setColumns(20);
+    abrangencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    abrangencia.setRows(3);
+    abrangencia.setName("abrangencia"); // NOI18N
+    jScrollPane2.setViewportView(abrangencia);
+
+    jScrollPane1.setName("jScrollPane1"); // NOI18N
+
+    acaoCorrecao.setColumns(20);
+    acaoCorrecao.setRows(3);
+    acaoCorrecao.setName("acaoCorrecao"); // NOI18N
+    jScrollPane1.setViewportView(acaoCorrecao);
 
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
@@ -479,41 +483,37 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(descricao)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel9)
-                                .addComponent(acaoCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Responsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel8)
-                                .addComponent(reincidencia)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(Setor, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(337, 337, 337)))
-                                .addComponent(abrangencia, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addGap(326, 326, 326))
-                                    .addComponent(origem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addGap(0, 0, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnCancelar)
-                            .addGap(96, 96, 96)
-                            .addComponent(jButton2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel6)
+                                    .addComponent(Responsavel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(reincidencia)
+                                    .addComponent(Setor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(326, 326, 326))
+                                    .addComponent(origem)
+                                    .addComponent(jScrollPane2)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jScrollPane1))
+                                .addComponent(jLabel3))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(btnCancelar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addContainerGap())))
     );
     jPanel1Layout.setVerticalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanel1Layout.createSequentialGroup()
-            .addContainerGap(34, Short.MAX_VALUE)
+            .addContainerGap(33, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel1)
                 .addComponent(labelx, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -523,40 +523,42 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
                 .addComponent(dataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(dataAcontecimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(18, 18, 18)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(jLabel2)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(28, 28, 28)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnCancelar)
+                        .addComponent(btnSalvar)))
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jLabel7)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(origem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jLabel6)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(abrangencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(31, 31, 31)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jLabel9)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(acaoCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jLabel8)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(Responsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jLabel3)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(Setor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
-                    .addComponent(reincidencia))
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(btnCancelar)
-                .addComponent(btnSalvar)
-                .addComponent(jButton2))
+                    .addComponent(reincidencia)
+                    .addGap(0, 0, Short.MAX_VALUE)))
             .addContainerGap())
     );
 
@@ -579,9 +581,9 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
     pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        removerImagem();
+    }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
         mostrarImagem();
@@ -607,44 +609,11 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_reincidenciaKeyPressed
 
-    private void acaoCorrecaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_acaoCorrecaoKeyPressed
-        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            if(!naoConformidadeController.validarTexto(acaoCorrecao.getText())){
-                naoConformidadeController.obrigatorio(this);
-            }
-            else{
-                Setor.requestFocusInWindow();
-            }
-        }
-    }//GEN-LAST:event_acaoCorrecaoKeyPressed
-
     private void ResponsavelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ResponsavelKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
             acaoCorrecao.requestFocusInWindow();
         }
     }//GEN-LAST:event_ResponsavelKeyPressed
-
-    private void origemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_origemKeyPressed
-        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            if(!naoConformidadeController.validarTexto(origem.getText())){
-                naoConformidadeController.obrigatorio(this);
-            }
-            else{
-                Responsavel.requestFocusInWindow();
-            }
-        }
-    }//GEN-LAST:event_origemKeyPressed
-
-    private void abrangenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_abrangenciaKeyPressed
-        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            if(!naoConformidadeController.validarTexto(abrangencia.getText())){
-                naoConformidadeController.obrigatorio(this);
-            }
-            else{
-                origem.requestFocusInWindow();
-            }
-        }
-    }//GEN-LAST:event_abrangenciaKeyPressed
 
     private void descricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descricaoKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
@@ -673,7 +642,7 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        origem.requestFocusInWindow();
+        abrangencia.requestFocusInWindow();
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
@@ -696,25 +665,31 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.out.println(naoConformidadeController.getImagem().isImagemValida());
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void origemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_origemKeyPressed
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            if(!naoConformidadeController.validarTexto(origem.getText())){
+                naoConformidadeController.obrigatorio(this);
+            }
+            else{
+                Responsavel.requestFocusInWindow();
+            }
+        }
+    }//GEN-LAST:event_origemKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Codigo;
-    private javax.swing.JComboBox<String> Responsavel;
-    private javax.swing.JComboBox<String> Setor;
-    private javax.swing.JTextField abrangencia;
-    private javax.swing.JTextField acaoCorrecao;
+    public javax.swing.JTextField Codigo;
+    public javax.swing.JComboBox<String> Responsavel;
+    public javax.swing.JComboBox<String> Setor;
+    private javax.swing.JTextArea abrangencia;
+    private javax.swing.JTextArea acaoCorrecao;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnImagem;
-    private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnRemover;
+    public javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVisualizar;
-    private datechooser.beans.DateChooserCombo dataAcontecimento;
-    private datechooser.beans.DateChooserCombo dataRegistro;
-    private javax.swing.JTextField descricao;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    public datechooser.beans.DateChooserCombo dataAcontecimento;
+    public datechooser.beans.DateChooserCombo dataRegistro;
+    public javax.swing.JTextField descricao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -726,8 +701,10 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelx;
-    private javax.swing.JTextField origem;
-    private javax.swing.JCheckBox reincidencia;
+    public javax.swing.JTextField origem;
+    public javax.swing.JCheckBox reincidencia;
     // End of variables declaration//GEN-END:variables
 }
