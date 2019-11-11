@@ -88,7 +88,10 @@ public class NaoConformidadeController {
     }
      
     public void salvar(NaoConformidade naoConformidade){
-        imagem.salvarImagem(naoConformidade.getImagem());
+        if(imagem.isImagemValida()){
+            naoConformidade.setImagem(String.format("imagens\\nc%d.png", naoConformidade.getId()));
+            imagem.salvarImagem(String.format("imagens\\nc%d.png", naoConformidade.getId()));
+        }
         if(naoConformidadeDao.criar(naoConformidade)){
             JOptionPane.showMessageDialog(componentePai, "Dados cadastrados com sucesso!","Sucesso!",1);
             cadastroNaoCoformidade.dispose();
@@ -99,7 +102,10 @@ public class NaoConformidadeController {
     }
     
     public void atualizar(NaoConformidade naoConformidade){
-        imagem.salvarImagem(naoConformidade.getImagem());
+        if(imagem.isImagemValida()){
+            naoConformidade.setImagem(String.format("imagens\\nc%d.png", naoConformidade.getId()));
+            imagem.salvarImagem(String.format("imagens\\nc%d.png", naoConformidade.getId()));
+        }
         if(naoConformidadeDao.editar(naoConformidade)){
             JOptionPane.showMessageDialog(componentePai, "Dados atualizados com sucesso!","Sucesso!",1);
             editarNaoConformidade.dispose();
@@ -110,6 +116,7 @@ public class NaoConformidadeController {
     }
 
     public void mostrarNaoConformidade(int id) {
+        imagem.removerImagem();
         formDetalheNaoConformidade = new FormDetalheNaoConformidade((Frame) componentePai, true, this);
         formDetalheNaoConformidade.setLocationRelativeTo(componentePai);
         formDetalheNaoConformidade.listar(id);
@@ -117,9 +124,11 @@ public class NaoConformidadeController {
     }
     
     public void exibirImagem(){
-        frameImagem = new FrameImagem(this);
-        frameImagem.setLocationRelativeTo(componentePai);
-        frameImagem.setVisible(true);
+        if(imagem.isImagemValida()){
+            frameImagem = new FrameImagem(this);
+            frameImagem.setLocationRelativeTo(componentePai);
+            frameImagem.setVisible(true);
+        }
     }
 
     public void editar(int id){

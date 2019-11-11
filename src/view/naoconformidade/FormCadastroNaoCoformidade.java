@@ -118,13 +118,13 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
     public void salvar(){
         if(!validarDados()){
             naoConformidadeController.salvar(new NaoConformidade(
-                    0, //o id não será usado
+                    Integer.parseInt(Codigo.getText()), //o id não será usado
                     abrangencia.getText(), 
                     acaoCorrecao.getText(), 
                     dataAcontecimento.getCurrent().getTime(), 
                     dataRegistro.getCurrent().getTime(), 
                     descricao.getText(), 
-                    "imagens\\nc"+Codigo.getText()+".png", 
+                    null, 
                     abrangencia.getText(), 
                     reincidencia.isSelected(), 
                     new Setor(
