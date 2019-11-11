@@ -398,8 +398,14 @@ public class FormEditarNaoConformidade extends javax.swing.JDialog {
                 false,
                 true)));
     dataRegistro.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
+    dataRegistro.setNavigateFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
+    dataRegistro.setCurrentNavigateIndex(0);
+    dataRegistro.setBehavior(datechooser.model.multiple.MultyModelBehavior.SELECT_SINGLE);
 
     dataAcontecimento.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
+    dataAcontecimento.setNavigateFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
+    dataAcontecimento.setCurrentNavigateIndex(0);
+    dataAcontecimento.setBehavior(datechooser.model.multiple.MultyModelBehavior.SELECT_SINGLE);
 
     btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
     btnCancelar.setText("Cancelar");
