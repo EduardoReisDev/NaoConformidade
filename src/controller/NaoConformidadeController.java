@@ -9,19 +9,18 @@ import java.awt.Frame;
 import java.io.File;
 import java.util.Date;
 import java.util.function.Consumer;
-import javax.swing.JOptionPane;
 import model.NaoConformidade;
 import model.Responsavel;
 import model.Setor;
 import view.Mensagens ;
-import view.naoconformidade.FormCadastroNaoCoformidade;
-import view.naoconformidade.FormEditarNaoConformidade;
+import view.naoconformidade.FormCadastrarNaoConformidade;
+import view.naoconformidade.FormEditarNaoCoformidade;
 import view.naoconformidade.FormDetalheNaoConformidade;
 import view.naoconformidade.FrameImagem;
 
 public class NaoConformidadeController {
-    private FormCadastroNaoCoformidade cadastroNaoCoformidade;
-    private FormEditarNaoConformidade editarNaoConformidade;
+    private FormCadastrarNaoConformidade cadastroNaoConformidade;
+    private FormEditarNaoCoformidade editarNaoConformidade;
     private Component componentePai;
     private final NaoConformidadeDao naoConformidadeDao;
     private final SetorDao setorDao;
@@ -78,9 +77,9 @@ public class NaoConformidadeController {
     }
 
     public void cadastrar(){
-        cadastroNaoCoformidade = new FormCadastroNaoCoformidade((Frame) componentePai, true, this);
-        cadastroNaoCoformidade.setLocationRelativeTo(componentePai);
-        cadastroNaoCoformidade.setVisible(true);
+        cadastroNaoConformidade = new FormCadastrarNaoConformidade((Frame) componentePai, true, this);
+        cadastroNaoConformidade.setLocationRelativeTo(componentePai);
+        cadastroNaoConformidade.setVisible(true);
     }
     
     public void listarPorDescricao(Consumer<? super NaoConformidade> resultado, String descricao){
@@ -93,11 +92,11 @@ public class NaoConformidadeController {
             imagem.salvarImagem(String.format("imagens\\nc%d.png", naoConformidade.getId()));
         }
         if(naoConformidadeDao.criar(naoConformidade)){
-            JOptionPane.showMessageDialog(componentePai, "Dados cadastrados com sucesso!","Sucesso!",1);
-            cadastroNaoCoformidade.dispose();
+            Mensagens.mensagem(componentePai, "Dados cadastrados com sucesso!","Sucesso!",1);
+            cadastroNaoConformidade.dispose();
         }
         else {
-            JOptionPane.showMessageDialog(componentePai, "Não foi possível cadastrar!");
+            Mensagens.mensagem(componentePai, "Não foi possível cadastrar!","Informação",1);
         }
     }
     
@@ -107,11 +106,11 @@ public class NaoConformidadeController {
             imagem.salvarImagem(String.format("imagens\\nc%d.png", naoConformidade.getId()));
         }
         if(naoConformidadeDao.editar(naoConformidade)){
-            JOptionPane.showMessageDialog(componentePai, "Dados atualizados com sucesso!","Sucesso!",1);
+            Mensagens.mensagem(componentePai, "Dados atualizados com sucesso!", "Sucesso!", 1);
             editarNaoConformidade.dispose();
         }
-        else {
-            JOptionPane.showMessageDialog(componentePai, "Não foi possível atualizar!");
+        else{
+            Mensagens.mensagem(componentePai, "Não foi possível atualizar!", "Iformação", 1);
         }
     }
 
@@ -132,7 +131,7 @@ public class NaoConformidadeController {
     }
 
     public void editar(int id){
-        editarNaoConformidade = new FormEditarNaoConformidade((Frame) componentePai, true, this, id);
+        editarNaoConformidade = new FormEditarNaoCoformidade((Frame) componentePai, true, this, id);
         editarNaoConformidade.setLocationRelativeTo(componentePai);
         editarNaoConformidade.setVisible(true);
     }
@@ -140,10 +139,11 @@ public class NaoConformidadeController {
     public void excluir(int id){
         if(naoConformidadeDao.excluir(id)){
             new File("imagens\\nc"+id+".png").delete();
-            JOptionPane.showMessageDialog(componentePai, "Não conformidade excluída com sucesso!","Sucesso!",1);
+            
+            Mensagens.mensagem(componentePai, "Não conformidade excluída com sucesso!","Sucesso!",1);
         }
         else {
-            JOptionPane.showMessageDialog(componentePai, "Não foi possível excluir!");
+            Mensagens.mensagem(componentePai, "Não foi possível excluir!","Informação",1);
         }
     }
             

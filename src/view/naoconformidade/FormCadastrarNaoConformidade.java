@@ -12,7 +12,7 @@ import model.Setor;
  *
  * @author Ricardo
  */
-public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
+public class FormCadastrarNaoConformidade extends javax.swing.JDialog {
     private final NaoConformidadeController naoConformidadeController;
     private final ArrayList<Integer> listaIdResponsavelComboBox;
     private final ArrayList<Integer> listaIdSetorComboBox;
@@ -22,7 +22,7 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
      * @param parent
      * @param modal
      * @param naoConformidadeController */
-    public FormCadastroNaoCoformidade(java.awt.Frame parent, boolean modal, NaoConformidadeController naoConformidadeController) {
+    public FormCadastrarNaoConformidade(java.awt.Frame parent, boolean modal, NaoConformidadeController naoConformidadeController) {
         super(parent, modal);
         initComponents();
         this.naoConformidadeController = naoConformidadeController;
@@ -190,9 +190,7 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Não Conformidade");
-        setMaximumSize(new java.awt.Dimension(800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Não Conformidade", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
@@ -402,6 +400,16 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
             btnImagemMouseClicked(evt);
         }
     });
+    btnImagem.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnImagemActionPerformed(evt);
+        }
+    });
+    btnImagem.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyPressed(java.awt.event.KeyEvent evt) {
+            btnImagemKeyPressed(evt);
+        }
+    });
 
     btnVisualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
     btnVisualizar.setText("Visualizar Imagem");
@@ -409,6 +417,11 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
     btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             btnVisualizarActionPerformed(evt);
+        }
+    });
+    btnVisualizar.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyPressed(java.awt.event.KeyEvent evt) {
+            btnVisualizarKeyPressed(evt);
         }
     });
 
@@ -447,6 +460,11 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
     abrangencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
     abrangencia.setRows(3);
     abrangencia.setName("abrangencia"); // NOI18N
+    abrangencia.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyPressed(java.awt.event.KeyEvent evt) {
+            abrangenciaKeyPressed(evt);
+        }
+    });
     jScrollPane2.setViewportView(abrangencia);
 
     jScrollPane1.setName("jScrollPane1"); // NOI18N
@@ -454,6 +472,11 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
     acaoCorrecao.setColumns(20);
     acaoCorrecao.setRows(3);
     acaoCorrecao.setName("acaoCorrecao"); // NOI18N
+    acaoCorrecao.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyPressed(java.awt.event.KeyEvent evt) {
+            acaoCorrecaoKeyPressed(evt);
+        }
+    });
     jScrollPane1.setViewportView(acaoCorrecao);
 
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -611,7 +634,7 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
 
     private void ResponsavelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ResponsavelKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            acaoCorrecao.requestFocusInWindow();
+            Setor.requestFocusInWindow();
         }
     }//GEN-LAST:event_ResponsavelKeyPressed
 
@@ -621,7 +644,7 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
                 naoConformidadeController.obrigatorio(this);
             }
             else{
-                abrangencia.requestFocusInWindow();
+                origem.requestFocusInWindow();
             }
         }
     }//GEN-LAST:event_descricaoKeyPressed
@@ -671,10 +694,50 @@ public class FormCadastroNaoCoformidade extends javax.swing.JDialog {
                 naoConformidadeController.obrigatorio(this);
             }
             else{
-                Responsavel.requestFocusInWindow();
+                abrangencia.requestFocusInWindow();
             }
         }
     }//GEN-LAST:event_origemKeyPressed
+
+    private void abrangenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_abrangenciaKeyPressed
+         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            if(!naoConformidadeController.validarTexto(abrangencia.getText())){
+                naoConformidadeController.obrigatorio(this);
+            }
+            else{
+                acaoCorrecao.requestFocusInWindow();
+            }
+        }
+    }//GEN-LAST:event_abrangenciaKeyPressed
+
+    private void acaoCorrecaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_acaoCorrecaoKeyPressed
+         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            if(!naoConformidadeController.validarTexto(acaoCorrecao.getText())){
+                naoConformidadeController.obrigatorio(this);
+            }
+            else{
+                Responsavel.requestFocusInWindow();
+            }
+        }
+    }//GEN-LAST:event_acaoCorrecaoKeyPressed
+
+    private void btnImagemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnImagemKeyPressed
+        btnVisualizar.requestFocusInWindow();
+    }//GEN-LAST:event_btnImagemKeyPressed
+
+    private void btnImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagemActionPerformed
+        if(naoConformidadeController.getImagem().isImagemValida()){
+           btnVisualizar.requestFocusInWindow();
+        }
+        else{
+            escolherImagem();
+        }
+        
+    }//GEN-LAST:event_btnImagemActionPerformed
+
+    private void btnVisualizarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnVisualizarKeyPressed
+        btnSalvar.requestFocusInWindow();
+    }//GEN-LAST:event_btnVisualizarKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField Codigo;

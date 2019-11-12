@@ -12,15 +12,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Date;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 import model.NaoConformidade;
+import view.Mensagens;
 
 /**
  *
- * @author Eduardo
+ * 
  */
 public class FormNaoConformidade extends javax.swing.JDialog {
     Controller controller;
@@ -28,6 +28,9 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     
     /**
      * Creates new form NaoConformidade
+     * @param parent
+     * @param modal
+     * @param controller
      */
     public FormNaoConformidade(java.awt.Frame parent, boolean modal, Controller controller) {
         super(parent, modal);
@@ -94,17 +97,13 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         });
     }
     
-    private void mostrarNaoConformidade(){
-        
-    }
-    
     private String getNaoConformidadeSelecionada(){
         return jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString();
     }
     
     private void excluir(){
         if (jTable1.getSelectedRow() != -1) {
-            if(JOptionPane.showConfirmDialog(this,"Tem certeza que deseja excluir a não conformidade "+ getNaoConformidadeSelecionada()) == JOptionPane.YES_OPTION){
+            if(Mensagens.confirmar(this,"Tem certeza que deseja excluir a não conformidade "+ getNaoConformidadeSelecionada(),"Informação",1)){
             controller.getNaoConformidadeController().excluir(pegarIdDaLinhaSelecionada());
             criarEstruturaEListarTodos();
             }
@@ -114,7 +113,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         }
         else{
             criarEstruturaEListarTodos();
-            JOptionPane.showMessageDialog(null, "Selecione uma não conformormidade para excluir!");
+            Mensagens.mensagem(null, "Selecione uma não conformormidade para excluir!","Informação",1);
         }
     }
     
@@ -230,11 +229,6 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         jLabel2.setText("Buscar Não Confomidade");
 
         txtBusca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtBusca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscaActionPerformed(evt);
-            }
-        });
         txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscaKeyReleased(evt);
@@ -394,7 +388,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         }
         else {
             criarEstruturaEListarTodos();
-            JOptionPane.showMessageDialog(null, "Selecione uma não conformidade para alterar!");
+            Mensagens.mensagem(null, "Selecione uma não conformidade para alterar!","Informação",1);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -410,17 +404,13 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
-    private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
-        criarEstruturaEBuscar();
-    }//GEN-LAST:event_txtBuscaKeyReleased
-
-    private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscaActionPerformed
-
     private void buscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaActionPerformed
         criarEstruturaEBuscar();
     }//GEN-LAST:event_buscaActionPerformed
+
+    private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
+        criarEstruturaEBuscar();
+    }//GEN-LAST:event_txtBuscaKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
