@@ -208,6 +208,33 @@ public class UsuarioDao implements Crud<Usuario>{
         return null;
     }
     
+    public Usuario loginPorNomeECpf (Usuario usuario){
+        Connection conexao = new Conexao().abreConexao();
+        try{
+            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE nome = ? and cpf = ? ");
+            stmt.setString(1, usuario.getNome());
+            stmt.setString(2, usuario.getCpf());
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                return new Usuario(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        rs.getString("usuario"), 
+                        rs.getString("senha"), 
+                        rs.getBoolean("master")
+                );
+            }
+        }
+        catch (SQLException e){
+            System.out.println("erro na busca "+e.getMessage());
+        }
+        finally{
+            Conexao.fechaConexao(conexao);
+        }
+        return null;
+    } 
+    
     public Usuario login (String usuario, String senha){
         Connection conexao = new Conexao().abreConexao();
         try{

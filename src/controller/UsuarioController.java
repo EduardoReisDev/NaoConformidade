@@ -16,6 +16,7 @@ import view.Mensagens;
 import view.usuario.FormCadastrarUsuario;
 import view.usuario.FormEditarUsuario;
 import view.usuario.FormLogin;
+import view.usuario.VerificarUsuario;
 
 /**
  *
@@ -32,6 +33,7 @@ public class UsuarioController {
     private FormLogin formularioLogin;
     private FormEditarUsuario formularioEditar;
     private FormCadastrarUsuario formCadastro;
+    private VerificarUsuario verificarUsuario;
     
     public void setComponentePai(Component componentePai) {
         this.componentePai = componentePai;
@@ -81,7 +83,7 @@ public class UsuarioController {
      * @return dados de login caso eles sejam inseridos
      */
     public Usuario abrirFormularioLogin() {
-        formularioLogin = new FormLogin((Frame) componentePai, true);
+        formularioLogin = new FormLogin((Frame) componentePai, true,this);
         formularioLogin.setLocationRelativeTo(componentePai);
         formularioLogin.setVisible(true);
         if(!formularioLogin.getTxtUsuario().getText().isEmpty()){
@@ -351,4 +353,22 @@ public class UsuarioController {
     public boolean validarCpf(String cpf){
        return Resources.validarCpf(cpf);
     }
+
+    public void abrirFormVerificarUsuario() {
+       verificarUsuario = new VerificarUsuario((Frame) componentePai, true, this);
+       verificarUsuario.setLocationRelativeTo(componentePai);
+       verificarUsuario.setVisible(true);
+    }
+    
+    public void verificarUsuario(Usuario usuario){
+        usuario = usuarioDao.loginPorNomeECpf(usuario);
+        if(usuario!=null){
+            verificarUsuario.dispose();
+            abrirFormEditar(usuario.getId());
+        }
+        else{
+            System.out.println("gi");
+        }
+    }
+    
 }
