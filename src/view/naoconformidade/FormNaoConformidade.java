@@ -391,9 +391,9 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         //controller.abreTelaEditarNaoConformidade();
         if(jTable1.getSelectedRow() != -1){
            controller.getNaoConformidadeController().editar(pegarIdDaLinhaSelecionada());
-           criarEstruturaEListarTodos();
         }
         else {
+            criarEstruturaEListarTodos();
             Mensagens.mensagem(null, "Selecione uma não conformidade para alterar!","Informação",1);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -409,7 +409,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
             controller.getNaoConformidadeController().mostrarNaoConformidade(pegarIdDaLinhaSelecionada());
         }
         if(jTable1.columnAtPoint(evt.getPoint()) == 10){
-            if(Mensagens.confirmar(this, "Gerar relatório", "Mensagem", 1)){
+            if(Mensagens.confirmar(this, "Gerar relatório?", "Mensagem", 1)){
             controller.getNaoConformidadeController().gerarRelatorioPorId(pegarIdDaLinhaSelecionada());
             }
         }
