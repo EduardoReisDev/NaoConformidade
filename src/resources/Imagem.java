@@ -58,13 +58,13 @@ public class Imagem {
         return null;
     }
     
-    public ImageIcon lerImagem(String caminho, int largura, int altura){
+    public ImageIcon lerImagem(String caminho, int largura, int altura, Color... corFundo){
         if(caminho!=null){
             File arquivo = new File(caminho);
             if(arquivo.exists()){
                 try {
                     imagem = ImageIO.read(arquivo);
-                    return new ImageIcon(ProcessarImagem(largura, altura));
+                    return new ImageIcon(ProcessarImagem(largura, altura, corFundo));
                 } catch (IOException ex) {
 
                 }
@@ -73,7 +73,7 @@ public class Imagem {
         return null;
     }
     
-    private BufferedImage ProcessarImagem(int largura, int altura){
+    private BufferedImage ProcessarImagem(int largura, int altura, Color... corFundo){
         int larguraImagem;
         int alturaImagem;
         int larguraFinal;
@@ -85,7 +85,12 @@ public class Imagem {
             aspectoImagem = (float) larguraImagem / alturaImagem;
             BufferedImage miniatura = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
             Graphics2D graficosMiniatura = miniatura.createGraphics();
-            graficosMiniatura.setColor(Color.WHITE);
+            if(corFundo == null){
+                graficosMiniatura.setColor(Color.WHITE);
+            }
+            else{
+                graficosMiniatura.setColor(corFundo[0]);
+            }
             graficosMiniatura.fillRect(0, 0, largura, altura);
             if(aspectoImagem >= 1.0 ){//se o a imagem tem a largura maior que altura
                 if((int) alturaImagem/((float)larguraImagem/largura) > altura){//calcula a altura da imagem e verifica se não tem overflow na altura
