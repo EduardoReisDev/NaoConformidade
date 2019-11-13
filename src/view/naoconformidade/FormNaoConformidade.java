@@ -391,9 +391,9 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         //controller.abreTelaEditarNaoConformidade();
         if(jTable1.getSelectedRow() != -1){
            controller.getNaoConformidadeController().editar(pegarIdDaLinhaSelecionada());
+           criarEstruturaEListarTodos();
         }
         else {
-            criarEstruturaEListarTodos();
             Mensagens.mensagem(null, "Selecione uma não conformidade para alterar!","Informação",1);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
