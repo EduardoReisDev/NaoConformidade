@@ -85,7 +85,7 @@ public class Imagem {
             aspectoImagem = (float) larguraImagem / alturaImagem;
             BufferedImage miniatura = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
             Graphics2D graficosMiniatura = miniatura.createGraphics();
-            if(corFundo == null){
+            if(corFundo.length == 0){
                 graficosMiniatura.setColor(Color.WHITE);
             }
             else{
