@@ -7,6 +7,7 @@ package view.relatorio;
 
 import controller.Controller;
 import java.io.FileNotFoundException;
+import model.Usuario;
 
 /**
  *
@@ -24,14 +25,14 @@ public class FormRelatorio extends javax.swing.JDialog {
     }
 
     private void gerarRelatorio(){
-        if(controller.getRelatorioController().criarRelatorio(controller.getUsuario())){
-            controller.getNaoConformidadeController().listarIntervaloDeData(
-                    controller.getRelatorioController()::listarNaoConformidade,
-                    dataInicio.getCurrent().getTime(), 
+        if(dataFim.getCurrent().getTimeInMillis() > dataInicio.getCurrent().getTimeInMillis()){
+            controller.getNaoConformidadeController().gerarRelatorioPorData(
+                    dataInicio.getCurrent().getTime(),                     
                     dataFim.getCurrent().getTime()
             );
-            controller.getRelatorioController().colocarNumeroDePaginas();
-            controller.getRelatorioController().fecharDocumento();
+        }
+        else{
+            System.out.println("a data fim não pode ser antes da data inicio");
         }
     }
     
@@ -46,8 +47,8 @@ public class FormRelatorio extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        dataFim = new datechooser.beans.DateChooserCombo();
         dataInicio = new datechooser.beans.DateChooserCombo();
+        dataFim = new datechooser.beans.DateChooserCombo();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -56,7 +57,7 @@ public class FormRelatorio extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerar Relatório", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 
-        dataFim.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
+        dataInicio.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
             new datechooser.view.appearance.ViewAppearance("custom",
                 new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
                     new java.awt.Color(0, 0, 0),
@@ -97,9 +98,9 @@ public class FormRelatorio extends javax.swing.JDialog {
                 (datechooser.view.BackRenderer)null,
                 false,
                 true)));
-    dataFim.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
+    dataInicio.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
 
-    dataInicio.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
+    dataFim.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
         new datechooser.view.appearance.ViewAppearance("custom",
             new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
                 new java.awt.Color(0, 0, 0),
@@ -140,7 +141,7 @@ public class FormRelatorio extends javax.swing.JDialog {
             (datechooser.view.BackRenderer)null,
             false,
             true)));
-dataInicio.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
+dataFim.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
 
 jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 jLabel1.setText("Data inicial");
@@ -163,12 +164,12 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
         .addGroup(jPanel1Layout.createSequentialGroup()
             .addContainerGap()
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(dataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jLabel1))
             .addGap(77, 77, 77)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabel2)
-                .addComponent(dataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(dataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -184,8 +185,8 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
                 .addComponent(jLabel2))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(dataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(dataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(dataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
             .addComponent(jButton1)
             .addContainerGap())
