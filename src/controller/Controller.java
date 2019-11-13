@@ -160,10 +160,10 @@ public class Controller {
     }
     
     public void inicio(){
-        usuario = usuarioController.login();
-        if(usuario!=null){
+        //usuario = usuarioController.login();
+       // if(usuario!=null){
             abreTelaPrincipal();
-        }
+       // }
         //abreTelaNaoConformidade();
         //abrirTelaRelatorio();
     }
@@ -173,7 +173,7 @@ public class Controller {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         } 
-        new Splash();
+        //new Splash();
         new Controller().inicio();
     }
 

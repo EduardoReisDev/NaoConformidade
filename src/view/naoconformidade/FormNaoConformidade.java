@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.util.Date;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 import model.NaoConformidade;
@@ -24,7 +25,7 @@ import view.Mensagens;
  */
 public class FormNaoConformidade extends javax.swing.JDialog {
     Controller controller;
-    private final String[] colunas ={"Código","Descrição","DataRegistro","DataAcontecimento","Reincidencia","Abrangencia","Origem","Responsavel","AcaoCorrecao","Setor"};
+    private final String[] colunas ={"Código","Descrição","DataRegistro","DataAcontecimento","Reincidencia","Abrangencia","Origem","Responsavel","AcaoCorrecao","Setor","Gerar relatório"};
     
     /**
      * Creates new form NaoConformidade
@@ -37,6 +38,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         initComponents();
         this.controller = controller;
         criarEstruturaEListarTodos();
+        ButtonColumn();
     }
     private DefaultTableModel modelo;
     
@@ -93,7 +95,8 @@ public class FormNaoConformidade extends javax.swing.JDialog {
             naoConformidade.getOrigem(),
             naoConformidade.getResponsavel().getNome(),
             naoConformidade.getAcaoCorrecao(),
-            naoConformidade.getSetor().getNome()
+            naoConformidade.getSetor().getNome(),
+            "Gerar"
         });
     }
     
@@ -425,7 +428,16 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public javax.swing.JTable jTable1;
     private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
+
+    public void ButtonColumn(){
+        
+	//SET CUSTOM RENDERER TO TEAMS COLUMN
+	jTable1.getColumnModel().getColumn(10).setCellRenderer(new view.naoconformidade.ButtonRenderer());
+	
+	//SET CUSTOM EDITOR TO TEAMS COLUMN
+	jTable1.getColumnModel().getColumn(10).setCellEditor(new view.naoconformidade.ButtonEditor(new JTextField()));
+	}
 }
