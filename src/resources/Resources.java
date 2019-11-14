@@ -73,10 +73,10 @@ public class Resources {
     }
    
     
-    public static String getDataFormatada(Date data){
-        return String.format("%d/%d/%d",
-                0);
+    public static String dataFormatada(Date data){
+        return String.format("%02d/%02d/%d",data.getDate(),data.getMonth()+1,data.getYear()+1900);
     }
+    
     
     
     public static String removerCaracteresInvalidosCpf(String cpf){

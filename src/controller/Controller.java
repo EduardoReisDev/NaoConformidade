@@ -154,12 +154,12 @@ public class Controller {
     }
     
     public void inicio(){
-        //usuario = usuarioController.login();
-       // if(usuario!=null){
-       usuario = new Usuario();
+        usuario = usuarioController.login();
+        if(usuario!=null){
+       //usuario = new Usuario();
             naoConformidadeController.setUsuario(usuario);
             abreTelaPrincipal();
-       // }
+       }
         //abreTelaNaoConformidade();
         //abrirTelaRelatorio();
     }
@@ -169,7 +169,7 @@ public class Controller {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         } 
-        //new Splash();
+        new Splash();
         new Controller().inicio();
     }
 

@@ -56,8 +56,8 @@ public class FormDetalheNaoConformidade extends javax.swing.JDialog {
     public void listar(int id) {
         naoConformidade = naoConformidadeController.listarPorId(id);
         txtCodigo.setText(String.format("%010d", naoConformidade.getId()));
-        txtDataAcontecimento.setText(naoConformidade.getDataAcontecimento().toString());
-        txtDataRegistro.setText(naoConformidade.getDataRegistro().toString());
+        txtDataAcontecimento.setText(Resources.dataFormatada(naoConformidade.getDataAcontecimento()));
+        txtDataRegistro.setText(Resources.dataFormatada(naoConformidade.getDataRegistro()));
         txtDescricao.setText(naoConformidade.getDescricao());
         txtAbrangencia.setText(naoConformidade.getAbrangencia());
         txtAcaoCorrecao.setText(naoConformidade.getAcaoCorrecao());

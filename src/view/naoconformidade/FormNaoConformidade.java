@@ -27,6 +27,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import model.NaoConformidade;
+import resources.Resources;
 import sun.swing.table.DefaultTableCellHeaderRenderer;
 import view.Mensagens;
 
@@ -140,23 +141,11 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         }
         return -1;
     }
-    
-    private String dataFormatada(Date data){
-        String aux= String.valueOf(data.getYear());
-        if(aux.length()==3){
-            aux ="20"+ String.valueOf(data.getYear()).substring(1);
-        }
-        else{
-            aux=String.valueOf(data.getYear()).substring(1);
-        }        
-        return String.format("%02d",data.getDate())+String.format("/%02d",data.getMonth())+"/"+aux;
-    }
-    
      
     private void popularTabela(NaoConformidade naoConformidade){
         modelo.addRow(new Object[]{
             naoConformidade.getDescricao(),
-            dataFormatada(naoConformidade.getDataAcontecimento()),
+            Resources.dataFormatada(naoConformidade.getDataAcontecimento()),
             resources.Resources.converterBooleanoSimOuNaoMaiusculo(naoConformidade.getReincidencia()),
             naoConformidade.getResponsavel().getNome(),
             naoConformidade.getSetor().getNome()

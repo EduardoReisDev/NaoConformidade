@@ -91,9 +91,9 @@ public class FormEditarNaoCoformidade extends javax.swing.JDialog {
         acaoCorrecao.setText(aux.getAcaoCorrecao());
         reincidencia.setSelected(aux.isReincidencia());
         Calendar cal = Calendar.getInstance(TimeZone.getDefault()); 
-        cal.set(aux.getDataAcontecimento().getYear(), aux.getDataAcontecimento().getMonth(), aux.getDataAcontecimento().getDate());
+        cal.setTime(aux.getDataAcontecimento());
         dataAcontecimento.setSelectedDate(cal);
-        cal.set(aux.getDataRegistro().getYear(), aux.getDataRegistro().getMonth(), aux.getDataRegistro().getDate());
+        cal.setTime(aux.getDataRegistro());
         dataRegistro.setSelectedDate(cal);
         if(aux.getImagem()!=null){
            btnImagem.setIcon(img.lerImagem(aux.getImagem(),btnImagem.getWidth() ,btnImagem.getHeight())); 

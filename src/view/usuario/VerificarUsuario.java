@@ -39,16 +39,22 @@ public class VerificarUsuario extends javax.swing.JDialog {
     }
     
     private void verificar(){
-        usuarioController.verificarUsuario(
-                new Usuario(
-                        0,
-                        txtNome.getText(),
-                        txtCpf.getText(),
-                        "", 
-                        "",
-                        false
-                )
-        );
+        if(usuarioController.validarCpf(txtCpf.getText())){
+            verificacaoCpf.setText("");
+            usuarioController.verificarUsuario(
+                    new Usuario(
+                            0,
+                            txtNome.getText(),
+                            txtCpf.getText(),
+                            "", 
+                            "",
+                            false
+                    )
+            );
+        }
+        else{
+            verificacaoCpf.setText("CPF inválido!");
+        }
     }
 
     /**
@@ -67,6 +73,7 @@ public class VerificarUsuario extends javax.swing.JDialog {
         btnVerificar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtCpf = new javax.swing.JFormattedTextField();
+        verificacaoCpf = new javax.swing.JLabel();
 
         jToggleButton1.setText("jToggleButton1");
         jToggleButton1.setName("jToggleButton1"); // NOI18N
@@ -100,6 +107,10 @@ public class VerificarUsuario extends javax.swing.JDialog {
         txtCpf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtCpf.setName("txtCpf"); // NOI18N
 
+        verificacaoCpf.setForeground(new java.awt.Color(255, 0, 0));
+        verificacaoCpf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        verificacaoCpf.setName("verificacaoCpf"); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -111,12 +122,14 @@ public class VerificarUsuario extends javax.swing.JDialog {
                         .addGap(0, 269, Short.MAX_VALUE)
                         .addComponent(btnVerificar))
                     .addComponent(txtNome)
+                    .addComponent(txtCpf)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                        .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtCpf))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(verificacaoCpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -127,7 +140,9 @@ public class VerificarUsuario extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(verificacaoCpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
@@ -167,5 +182,6 @@ public class VerificarUsuario extends javax.swing.JDialog {
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JLabel verificacaoCpf;
     // End of variables declaration//GEN-END:variables
 }
