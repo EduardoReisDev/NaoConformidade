@@ -129,6 +129,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gerenciamento de Não Conformidades");
+        setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         setMinimumSize(new java.awt.Dimension(800, 600));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/novo.png"))); // NOI18N
