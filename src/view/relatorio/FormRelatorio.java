@@ -6,8 +6,12 @@
 package view.relatorio;
 
 import controller.Controller;
-import java.io.FileNotFoundException;
-import model.Usuario;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -17,11 +21,15 @@ public class FormRelatorio extends javax.swing.JDialog {
     Controller controller;
     /**
      * Creates new form FormRelatório
+     * @param parent
+     * @param modal
+     * @param controller
      */
     public FormRelatorio(java.awt.Frame parent, boolean modal, Controller controller) {
         super(parent, modal);
         initComponents();
         this.controller = controller;
+        dataInicio.requestFocusInWindow();
     }
 
     private void gerarRelatorio(){
@@ -36,6 +44,22 @@ public class FormRelatorio extends javax.swing.JDialog {
         }
     }
     
+    @Override
+    protected JRootPane createRootPane() {
+        // Definindo o ActionListener
+        ActionListener actionListener = (ActionEvent e) -> {
+            setVisible(false);
+        };
+        // Definindo o KeyStroke
+        KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
+        // Criando uma instancia de JRootPane
+        JRootPane rootPane = new JRootPane();
+        // Registrando o KeyStroke enquanto o JDialog estiver em foco
+        rootPane.registerKeyboardAction(
+        actionListener, stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
+        // Retornando o novo e modificado JRootPane
+        return rootPane;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -151,7 +175,7 @@ jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 jLabel2.setText("Data final");
 
 jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-jButton1.setText("Listar");
+jButton1.setText("Gerar relatório");
 jButton1.addActionListener(new java.awt.event.ActionListener() {
     public void actionPerformed(java.awt.event.ActionEvent evt) {
         jButton1ActionPerformed(evt);
@@ -163,19 +187,20 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
     jPanel1Layout.setHorizontalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanel1Layout.createSequentialGroup()
-            .addContainerGap()
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(dataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel1))
-            .addGap(77, 77, 77)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel2)
-                .addComponent(dataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(dataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1))
+                    .addGap(77, 77, 77)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2)
+                        .addComponent(dataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(142, 142, 142)
+                    .addComponent(jButton1)))
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton1)
-            .addGap(169, 169, 169))
     );
     jPanel1Layout.setVerticalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,9 +213,9 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                 .addComponent(dataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(dataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+            .addGap(18, 18, 18)
             .addComponent(jButton1)
-            .addContainerGap())
+            .addContainerGap(14, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -8,14 +8,11 @@ package view.setor;
 import resources.Resources;
 import java.lang.String;
 import controller.SetorController;
-import dao.ResponsavelDao;
-import dao.SetorDao;
-import java.awt.Frame;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.function.Consumer;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
@@ -36,6 +33,7 @@ public class FormCadastrarSetor extends javax.swing.JDialog {
     public FormCadastrarSetor(java.awt.Frame parent, boolean modal, SetorController setorController) {
         super(parent, modal);
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
         this.setorController = setorController;
         listaIdResponsavel = new ArrayList<>();
         txtCodigo.setText(String.format("%010d", setorController.getLastId()+1));

@@ -6,6 +6,7 @@
 package view.usuario;
 
 import controller.UsuarioController;
+import java.awt.Toolkit;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,7 @@ public class VerificarUsuario extends javax.swing.JDialog {
         super(parent, modal);
         this.usuarioController = usuarioController;
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
          try {
             mascaraCpf = new MaskFormatter("###.###.###-##");
             mascaraCpf.setPlaceholderCharacter('_');

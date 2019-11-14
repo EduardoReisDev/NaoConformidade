@@ -9,6 +9,7 @@ import resources.Resources;
 import controller.SetorController;
 import dao.ResponsavelDao;
 import java.awt.Frame;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -33,6 +34,7 @@ public class FormEditarSetor extends javax.swing.JDialog {
     public FormEditarSetor(java.awt.Frame parent, boolean modal, SetorController setorController) {
         super(parent, modal);
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
         this.setorController = setorController;
         listaIdResponsavel = new ArrayList<>();
         listarResponsaveis();

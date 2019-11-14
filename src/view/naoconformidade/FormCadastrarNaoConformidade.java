@@ -2,9 +2,15 @@ package view.naoconformidade;
 
 import controller.NaoConformidadeController;
 import java.awt.Frame;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import model.NaoConformidade;
 import model.Responsavel;
 import model.Setor;
@@ -25,6 +31,7 @@ public class FormCadastrarNaoConformidade extends javax.swing.JDialog {
     public FormCadastrarNaoConformidade(java.awt.Frame parent, boolean modal, NaoConformidadeController naoConformidadeController) {
         super(parent, modal);
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
         this.naoConformidadeController = naoConformidadeController;
         listaIdResponsavelComboBox = new ArrayList<>();
         listaIdSetorComboBox = new ArrayList<>();
@@ -32,7 +39,25 @@ public class FormCadastrarNaoConformidade extends javax.swing.JDialog {
         mostrarIconeEscolherImagem();
         descricao.requestFocusInWindow();
     }
-        
+    
+    @Override
+    protected JRootPane createRootPane() {
+        // Definindo o ActionListener
+        ActionListener actionListener = (ActionEvent e) -> {
+            setVisible(false);
+        };
+        // Definindo o KeyStroke
+        KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
+        // Criando uma instancia de JRootPane
+        JRootPane rootPane = new JRootPane();
+        // Registrando o KeyStroke enquanto o JDialog estiver em foco
+        rootPane.registerKeyboardAction(
+        actionListener, stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
+        // Retornando o novo e modificado JRootPane
+        return rootPane;
+    }
+
+    
     private void mostrarIconeEscolherImagem(){
         btnImagem.setIcon(naoConformidadeController.getImagem().lerImagem(
                 getClass().getResource("/imagens/escolherImagem.png").getFile(), 
@@ -470,6 +495,7 @@ public class FormCadastrarNaoConformidade extends javax.swing.JDialog {
     jScrollPane1.setName("jScrollPane1"); // NOI18N
 
     acaoCorrecao.setColumns(20);
+    acaoCorrecao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
     acaoCorrecao.setRows(3);
     acaoCorrecao.setName("acaoCorrecao"); // NOI18N
     acaoCorrecao.addKeyListener(new java.awt.event.KeyAdapter() {

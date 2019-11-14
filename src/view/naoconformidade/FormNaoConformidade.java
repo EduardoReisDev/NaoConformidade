@@ -165,12 +165,12 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     }
     
     private String getNaoConformidadeSelecionada(){
-        return jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString();
+        return jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString();
     }
     
     private void excluir(){
         if (jTable1.getSelectedRow() != -1) {
-            if(Mensagens.confirmar(this,"Tem certeza que deseja excluir a não conformidade "+ getNaoConformidadeSelecionada(),"Informação",1)){
+            if(Mensagens.confirmar(this,"Tem certeza que deseja excluir a não conformidade "+ getNaoConformidadeSelecionada()+"?","Mensagem",1)){
             controller.getNaoConformidadeController().excluir(pegarIdDaLinhaSelecionada());
             criarEstruturaEListarTodos();
             }
@@ -180,7 +180,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         }
         else{
             criarEstruturaEListarTodos();
-            Mensagens.mensagem(null, "Selecione uma não conformormidade para excluir!","Informação",1);
+            Mensagens.mensagem(null, "Selecione uma não conformormidade para excluir!","Mensagem",1);
         }
     }
     
@@ -457,7 +457,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         }
         else {
             criarEstruturaEListarTodos();
-            Mensagens.mensagem(null, "Selecione uma não conformidade para alterar!","Informação",1);
+            Mensagens.mensagem(null, "Selecione uma não conformidade para alterar!","Mensagem",1);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 

@@ -7,6 +7,7 @@ package view.responsaveis;
 
 import resources.Resources;
 import controller.ResponsavelController;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -34,7 +35,9 @@ public class FormEditarResponsavel extends javax.swing.JDialog {
      */
     public FormEditarResponsavel(java.awt.Frame parent, boolean modal, ResponsavelController responsavelController) {
         super(parent, modal);
-        initComponents();try {
+        initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
+        try {
             mascaraCpf = new MaskFormatter("###.###.###-##");
             mascaraCpf.setPlaceholderCharacter('_');
             txtCpf.setFormatterFactory(new DefaultFormatterFactory(mascaraCpf));

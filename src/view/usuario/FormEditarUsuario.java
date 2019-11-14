@@ -7,6 +7,7 @@ package view.usuario;
 
 import resources.Resources;
 import controller.UsuarioController;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -37,6 +38,7 @@ public class FormEditarUsuario extends javax.swing.JDialog {
     public FormEditarUsuario(java.awt.Frame parent, boolean modal, UsuarioController usuarioController) {
         super(parent, modal);
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
         this.usuarioController = usuarioController;
         try {
             mascaraCpf = new MaskFormatter("###.###.###-##");

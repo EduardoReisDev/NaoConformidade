@@ -361,13 +361,14 @@ public class UsuarioController {
     }
     
     public void verificarUsuario(Usuario usuario){
+        usuario.setCpf(resources.Resources.removerCaracteresInvalidosCpf(usuario.getCpf()));
         usuario = usuarioDao.loginPorNomeECpf(usuario);
         if(usuario!=null){
             verificarUsuario.dispose();
             abrirFormEditar(usuario.getId());
         }
         else{
-            System.out.println("gi");
+            Mensagens.mensagem(componentePai, "Usuário "+usuario.getNome()+" não existe!", "Mensagem", 1);
         }
     }
     
