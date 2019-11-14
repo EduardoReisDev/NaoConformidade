@@ -7,18 +7,33 @@ package view.naoconformidade;
 
 import controller.Controller;
 import controller.NaoConformidadeController;
+import datechooser.beans.customizer.render.CellRenderer;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Date;
+import java.util.Enumeration;
+import javafx.scene.layout.Border;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import static javax.swing.SwingConstants.CENTER;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import model.NaoConformidade;
+import sun.swing.table.DefaultTableCellHeaderRenderer;
 import view.Mensagens;
 
 /**
@@ -27,7 +42,7 @@ import view.Mensagens;
  */
 public class FormNaoConformidade extends javax.swing.JDialog {
     Controller controller;
-    private final String[] colunas ={"Código","Descrição","DataRegistro","DataAcontecimento","Reincidencia","Abrangencia","Origem","Responsavel","AcaoCorrecao","Setor","Gerar relatório"};
+    private final String[] colunas ={"Código","Descrição","DataAcontecimento","Reincidencia","Abrangencia","Origem","Responsavel","AcaoCorrecao","Setor","",""};
     
     /**
      * Creates new form NaoConformidade
@@ -56,6 +71,32 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     }
     
     public void criarEstruturaTabela(){
+        DefaultTableCellRenderer renderizador = new DefaultTableCellHeaderRenderer(){
+            @Override
+            public void setHorizontalAlignment(int alignment) {
+                super.setHorizontalAlignment(CENTER); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void setBorder(javax.swing.border.Border border) {
+                super.setBorder(null); //To change body of generated methods, choose Tools | Templates.
+            }
+            
+        };
+        
+        DefaultTableCellRenderer renderizadorHeader = new DefaultTableCellHeaderRenderer(){
+            @Override
+            public void setHorizontalAlignment(int alignment) {
+                super.setHorizontalAlignment(CENTER); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void setBorder(javax.swing.border.Border border) {
+                super.setBorder(new LineBorder(new Color(204, 204, 204))); //To change body of generated methods, choose Tools | Templates.
+            }
+            
+        };
+        
         modelo = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -66,6 +107,34 @@ public class FormNaoConformidade extends javax.swing.JDialog {
             modelo.addColumn(coluna);
         }
         jTable1.setModel(modelo);
+        
+        Enumeration<TableColumn> columns = jTable1.getColumnModel().getColumns();
+        while(columns.hasMoreElements()){
+            TableColumn nextElement = columns.nextElement();
+            nextElement.setCellRenderer(renderizador);
+            //nextElement.setHeaderRenderer(renderizadorHeader);
+        }
+        jTable1.setRowHeight(30);
+        jTable1.getColumnModel().getColumn(9).setMinWidth(30);
+        jTable1.getColumnModel().getColumn(9).setMaxWidth(30);
+        jTable1.getColumnModel().getColumn(9).setCellRenderer(
+                new IconeCelula(
+                        new ImageIcon(
+                                getClass().getResource("/imagens/imprimir.png")
+                        ),
+                        "Visualizar"
+                )
+        );
+        jTable1.getColumnModel().getColumn(10).setMinWidth(30);
+        jTable1.getColumnModel().getColumn(10).setMaxWidth(30);
+        jTable1.getColumnModel().getColumn(10).setCellRenderer(
+                new IconeCelula(
+                        new ImageIcon(
+                                getClass().getResource("/imagens/imprimir.png")
+                        ),
+                        "Gerar relatório"
+                )
+        );
     }
     
      private int pegarIdDaLinhaSelecionada(){
@@ -87,19 +156,18 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         return String.format("%02d",data.getDate())+String.format("/%02d",data.getMonth())+"/"+aux;
     }
     
+     
     private void popularTabela(NaoConformidade naoConformidade){
         modelo.addRow(new Object[]{
             naoConformidade.getId(),
             naoConformidade.getDescricao(),
-            dataFormatada(naoConformidade.getDataRegistro()),
             dataFormatada(naoConformidade.getDataAcontecimento()),
-            naoConformidade.getReincidencia(),
+            resources.Resources.converterBooleanoSimOuNaoMaiusculo(naoConformidade.getReincidencia()),
             naoConformidade.getAbrangencia(),
             naoConformidade.getOrigem(),
             naoConformidade.getResponsavel().getNome(),
             naoConformidade.getAcaoCorrecao(),
-            naoConformidade.getSetor().getNome(),
-            getClass().getResource("/imagens/imprimir.png")
+            naoConformidade.getSetor().getNome()
         });
     }
     
@@ -405,7 +473,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        if(evt.getClickCount() == 2){//se é dois cliques
+        if(jTable1.columnAtPoint(evt.getPoint()) == 9){
             controller.getNaoConformidadeController().mostrarNaoConformidade(pegarIdDaLinhaSelecionada());
         }
         if(jTable1.columnAtPoint(evt.getPoint()) == 10){
@@ -440,4 +508,33 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
 
+}
+class IconeCelula extends DefaultTableCellRenderer{
+    private final JLabel label = new JLabel();
+    private final ImageIcon icone;
+    private final String textoTooltip;
+    public IconeCelula(ImageIcon icone, String textoTooltip) {
+        this.icone = icone;
+            this.textoTooltip = textoTooltip;
+    }
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean selected, boolean focused, int row, int column) {
+        
+        Color colorFondo = null;
+        Color colorFondoPorDefecto = new Color(192, 192, 192);
+        Color colorFondoSeleccion = new Color(140, 140, 140);
+        if(selected) {
+            this.setBackground(colorFondoPorDefecto);
+        } 
+        else{
+            //Para las que no est�n seleccionadas se pinta el fondo de las celdas de blanco
+            this.setBackground(Color.white);
+        }
+        label.setIcon(icone);
+        label.setHorizontalAlignment(JLabel.LEFT);
+        label.setToolTipText(textoTooltip);
+        label.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        return label;
+    }
 }
