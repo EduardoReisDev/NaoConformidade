@@ -49,7 +49,7 @@ public class ButtonColumn extends JFrame {
 	JTable table1=new JTable(data,columnHeaders);
 	
 	//SET CUSTOM RENDERER TO TEAMS COLUMN
-	table1.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());;
+	table1.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
 	
 	//SET CUSTOM EDITOR TO TEAMS COLUMN
 	table1.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JTextField()));

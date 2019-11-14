@@ -53,4 +53,5 @@ public class RelatorioController {
             relatorio.fecharDocumento();
         }
     }
+    
 }

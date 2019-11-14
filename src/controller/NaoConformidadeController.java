@@ -12,6 +12,7 @@ import java.util.function.Consumer;
 import model.NaoConformidade;
 import model.Responsavel;
 import model.Setor;
+import model.Usuario;
 import view.Mensagens ;
 import view.naoconformidade.FormCadastrarNaoConformidade;
 import view.naoconformidade.FormEditarNaoCoformidade;
@@ -28,13 +29,30 @@ public class NaoConformidadeController {
     private final Imagem imagem;
     private FrameImagem frameImagem;
     private FormDetalheNaoConformidade formDetalheNaoConformidade;
+    private Usuario usuario;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    private final RelatorioController relatorioController;
     
     public NaoConformidadeController() {
         this.imagem = new Imagem();
         this.naoConformidadeDao = new NaoConformidadeDao();
         this.setorDao = new SetorDao();
         this.responsavelDao = new ResponsavelDao();
+        this.relatorioController = new RelatorioController();
     }
+
+    public RelatorioController getRelatorioController() {
+        return relatorioController;
+    }
+    
     
     public Imagem getImagem() {
         return imagem;
@@ -43,6 +61,28 @@ public class NaoConformidadeController {
     public void setComponentePai(Component componentePai){
         this.componentePai = componentePai;
     }
+    
+    
+    public void gerarRelatorioPorData(Date dataInicio, Date dataFim){
+        if(relatorioController.criarRelatorio(usuario)){
+            listarIntervaloDeData(
+                    relatorioController::listarNaoConformidade,
+                    dataInicio, 
+                    dataFim
+            );
+            relatorioController.colocarNumeroDePaginas();
+            relatorioController.fecharDocumento();
+        }
+    }
+    
+    public void gerarRelatorioPorId(int id){
+        if(relatorioController.criarRelatorio(usuario)){
+            relatorioController.listarNaoConformidade(listarPorId(id));
+            relatorioController.colocarNumeroDePaginas();
+            relatorioController.fecharDocumento();
+        }
+    }
+    
     
     public void listarTodosSetores(Consumer<?super Setor> setor){
         setorDao.listarTodos(setor::accept);

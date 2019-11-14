@@ -7,12 +7,14 @@ package view.naoconformidade;
 
 import controller.Controller;
 import controller.NaoConformidadeController;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Date;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
@@ -38,12 +40,13 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         initComponents();
         this.controller = controller;
         criarEstruturaEListarTodos();
-        ButtonColumn();
+        
     }
     private DefaultTableModel modelo;
     
    
     private void criarEstruturaEListarTodos(){
+        
         criarEstruturaTabela();
         controller.getNaoConformidadeController().listarTodos(this::popularTabela);
     }
@@ -96,7 +99,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
             naoConformidade.getResponsavel().getNome(),
             naoConformidade.getAcaoCorrecao(),
             naoConformidade.getSetor().getNome(),
-            "Gerar"
+            getClass().getResource("/imagens/imprimir.png")
         });
     }
     
@@ -389,9 +392,9 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         //controller.abreTelaEditarNaoConformidade();
         if(jTable1.getSelectedRow() != -1){
            controller.getNaoConformidadeController().editar(pegarIdDaLinhaSelecionada());
-           criarEstruturaEListarTodos();
         }
         else {
+            criarEstruturaEListarTodos();
             Mensagens.mensagem(null, "Selecione uma não conformidade para alterar!","Informação",1);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -405,6 +408,11 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if(evt.getClickCount() == 2){//se é dois cliques
             controller.getNaoConformidadeController().mostrarNaoConformidade(pegarIdDaLinhaSelecionada());
+        }
+        if(jTable1.columnAtPoint(evt.getPoint()) == 10){
+            if(Mensagens.confirmar(this, "Gerar relatório?", "Mensagem", 1)){
+            controller.getNaoConformidadeController().gerarRelatorioPorId(pegarIdDaLinhaSelecionada());
+            }
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -433,12 +441,4 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
 
-    public void ButtonColumn(){
-        
-	//SET CUSTOM RENDERER TO TEAMS COLUMN
-	jTable1.getColumnModel().getColumn(10).setCellRenderer(new view.naoconformidade.ButtonRenderer());
-	
-	//SET CUSTOM EDITOR TO TEAMS COLUMN
-	jTable1.getColumnModel().getColumn(10).setCellEditor(new view.naoconformidade.ButtonEditor(new JTextField()));
-	}
 }

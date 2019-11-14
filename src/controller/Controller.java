@@ -35,7 +35,6 @@ public class Controller {
     private final ResponsavelController responsavelController;
     private final SetorController setorController;
     private final NaoConformidadeController naoConformidadeController;
-    private final RelatorioController relatorioController;
     private Usuario usuario;
     
     private FormNaoConformidade telaNaoConformidade;
@@ -47,17 +46,12 @@ public class Controller {
     private DialogoConfirmaSair dialogoConfirmaSair;
             
     public Controller(){
-        relatorioController = new RelatorioController();
         dados =  new Dados();
         responsavelController = new ResponsavelController();
         naoConformidadeController = new NaoConformidadeController();
         usuarioController = new UsuarioController();
         propriedade = new Propriedade(System.getProperty("user.dir")+"\\configuracoes.ini");
         setorController = new SetorController();
-    }
-
-    public RelatorioController getRelatorioController() {
-        return relatorioController;
     }
 
     public Usuario getUsuario() {
@@ -162,6 +156,8 @@ public class Controller {
     public void inicio(){
         //usuario = usuarioController.login();
        // if(usuario!=null){
+       usuario = new Usuario();
+            naoConformidadeController.setUsuario(usuario);
             abreTelaPrincipal();
        // }
         //abreTelaNaoConformidade();
