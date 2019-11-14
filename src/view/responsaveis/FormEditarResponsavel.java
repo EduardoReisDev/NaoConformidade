@@ -126,6 +126,7 @@ public class FormEditarResponsavel extends javax.swing.JDialog {
         verificacaoNome = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Editar Responsável");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Editar Responsável", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 

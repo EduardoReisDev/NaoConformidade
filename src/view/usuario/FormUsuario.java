@@ -177,11 +177,12 @@ public class FormUsuario extends javax.swing.JDialog {
         btnExcuir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Usuários");
         setResizable(false);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerenciar Usuários", 2, 2, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerenciar Usuários", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnCadastrar.setBackground(new java.awt.Color(255, 255, 255));
         btnCadastrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -233,7 +234,7 @@ public class FormUsuario extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tblUsuarios);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Buscar Usuário");
@@ -272,7 +273,7 @@ public class FormUsuario extends javax.swing.JDialog {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnEditar.setBackground(new java.awt.Color(255, 255, 255));
         btnEditar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -301,7 +302,7 @@ public class FormUsuario extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnExcuir.setBackground(new java.awt.Color(255, 255, 255));
         btnExcuir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

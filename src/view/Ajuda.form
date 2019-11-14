@@ -60,7 +60,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
+          <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -78,6 +78,7 @@
                 </TitledBorder>
               </Border>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Ajuda"/>
           </Properties>
 
           <Layout>
@@ -190,7 +191,7 @@
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar um novo usu&#xe1;rio no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal&#xa;do sistema e clique em Gerenciar Usu&#xe1;rios, feito isso,clique em Novo Usu&#xe1;rio e fa&#xe7;a o &#xa;preenchimento dos dados e clique em Salvar."/>
+                        <Property name="text" type="java.lang.String" value="Para cadastrar um novo usu&#xe1;rio no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em&#xa;Gerenciar Usu&#xe1;rios, feito isso,clique em Novo Usu&#xe1;rio e fa&#xe7;a o preenchimento dos dados e clique em Salvar."/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -218,7 +219,7 @@
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar um novo usu&#xe1;rio no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal&#xa;do sistema e clique em Gerenciar Usu&#xe1;rios, feito isso,clique em Novo Usu&#xe1;rio e fa&#xe7;a o &#xa;preenchimento dos dados e clique em Salvar."/>
+                        <Property name="text" type="java.lang.String" value="Para excluir um usu&#xe1;rio no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema, clique em Gerenciar&#xa;Usu&#xe1;rios, selecione o usu&#xe1;rio desejado e clique em excluir."/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -246,7 +247,7 @@
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar um novo usu&#xe1;rio no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal&#xa;do sistema e clique em Gerenciar Usu&#xe1;rios, feito isso,clique em Novo Usu&#xe1;rio e fa&#xe7;a o &#xa;preenchimento dos dados e clique em Salvar."/>
+                        <Property name="text" type="java.lang.String" value="Para editar um usu&#xe1;rio no sistema, &#xe9; necessario que voc&#xea; acesse o menu principal do sistema, clique em Gerenciar&#xa;Usu&#xe1;rios, selecione o usu&#xe1;rio desejado e clique em editar. Feito isso, fa&#xe7;a a edi&#xe7;&#xe3;o desejada e clique em Salvar."/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -328,7 +329,7 @@
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar um novo respons&#xe1;vel no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu &#xa;principal do sistema e clique em Gerenciar Respons&#xe1;veis, feito isso, clique em &#xa;Novo Respons&#xe1;vel e fa&#xe7;a o preenchimento dos dados e clique em Salvar."/>
+                        <Property name="text" type="java.lang.String" value="Para cadastrar um novo respons&#xe1;vel no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em&#xa;Gerenciar Respons&#xe1;veis, feito isso, clique em Novo Respons&#xe1;vel e fa&#xe7;a o preenchimento dos dados e clique em Salvar."/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -356,7 +357,7 @@
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar um novo respons&#xe1;vel no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu &#xa;principal do sistema e clique em Gerenciar Respons&#xe1;veis, feito isso, clique em &#xa;Novo Respons&#xe1;vel e fa&#xe7;a o preenchimento dos dados e clique em Salvar."/>
+                        <Property name="text" type="java.lang.String" value="Para editar um respons&#xe1;vel no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em Gerenciar&#xa;Respons&#xe1;veis, feito isso, selecione o respons&#xe1;vel desejado e clique em editar. Feito isso, fa&#xe7;a a edi&#xe7;&#xe3;o desejado e &#xa;clique em Salvar."/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -384,7 +385,7 @@
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar um novo respons&#xe1;vel no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu &#xa;principal do sistema e clique em Gerenciar Respons&#xe1;veis, feito isso, clique em &#xa;Novo Respons&#xe1;vel e fa&#xe7;a o preenchimento dos dados e clique em Salvar."/>
+                        <Property name="text" type="java.lang.String" value="Para excluir um respons&#xe1;vel no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em Gerenciar&#xa;Respons&#xe1;veis, feito isso, selecione o respons&#xe1;vel desejado e clique em excluir."/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -414,7 +415,7 @@
                                       <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="783" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="789" max="32767" attributes="0"/>
                               </Group>
                               <Component id="jScrollPane13" alignment="1" max="32767" attributes="0"/>
                           </Group>
@@ -466,7 +467,7 @@
                         <Property name="columns" type="int" value="20"/>
                         <Property name="lineWrap" type="boolean" value="true"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar um novo setor no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal&#xa;do sistema e clique em Gerenciar Setores, feito isso, clique em Novo Setor e fa&#xe7;a o &#xa;preenchimento dos dados e clique em Salvar."/>
+                        <Property name="text" type="java.lang.String" value="Para cadastrar um novo setor no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em &#xa;Gerenciar Setores, feito isso, clique em Novo Setor e fa&#xe7;a o preenchimento dos dados e clique em Salvar."/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -493,7 +494,7 @@
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar um novo setor no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal&#xa;do sistema e clique em Gerenciar Setores, feito isso, clique em Novo Setor e fa&#xe7;a o &#xa;preenchimento dos dados e clique em Salvar."/>
+                        <Property name="text" type="java.lang.String" value="Para editar um setor no sistema, &#xe9; necess&#xe1;rio que voc"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -520,7 +521,7 @@
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar um novo setor no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal&#xa;do sistema e clique em Gerenciar Setores, feito isso, clique em Novo Setor e fa&#xe7;a o &#xa;preenchimento dos dados e clique em Salvar."/>
+                        <Property name="text" type="java.lang.String" value="Para cadastrar um novo setor no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em &#xa;Gerenciar Setores, feito isso, clique em Novo Setor e fa&#xe7;a o preenchimento dos dados e clique em Salvar."/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -550,9 +551,9 @@
                                       <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="701" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="jScrollPane15" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jScrollPane16" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -565,14 +566,15 @@
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane5" min="-2" pref="82" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jScrollPane14" min="-2" pref="82" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane15" pref="81" max="32767" attributes="0"/>
+                          <Component id="jScrollPane16" min="-2" pref="78" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -600,7 +602,7 @@
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar uma N&#xe3;o Conformidade no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal&#xa;do sistema e clique em Gerenciar N&#xe3;o Conformidade, feito isso, clique em Nova N&#xe3;o Conformidade&#xa;e fa&#xe7;a o preenchimento dos dados e clique em Salvar.&#xa;"/>
+                        <Property name="text" type="java.lang.String" value="Para cadastrar uma N&#xe3;o Conformidade no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em&#xa;Gerenciar N&#xe3;o Conformidade, feito isso, clique em Nova N&#xe3;o Conformidade e fa&#xe7;a o preenchimento dos dados e clique em&#xa;Salvar.&#xa;"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -627,7 +629,7 @@
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar uma N&#xe3;o Conformidade no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal&#xa;do sistema e clique em Gerenciar N&#xe3;o Conformidade, feito isso, clique em Nova N&#xe3;o Conformidade&#xa;e fa&#xe7;a o preenchimento dos dados e clique em Salvar.&#xa;"/>
+                        <Property name="text" type="java.lang.String" value="Para cadastrar uma N&#xe3;o Conformidade no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em&#xa;Gerenciar N&#xe3;o Conformidade, feito isso, clique em Nova N&#xe3;o Conformidade e fa&#xe7;a o preenchimento dos dados e clique em&#xa;Salvar.&#xa;"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -640,21 +642,21 @@
                     <Property name="text" type="java.lang.String" value="Como excluir uma N&#xe3;o Conformidade?"/>
                   </Properties>
                 </Component>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane15">
+                <Container class="javax.swing.JScrollPane" name="jScrollPane16">
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="jTextArea14">
+                    <Component class="javax.swing.JTextArea" name="jTextArea15">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="f0" green="f0" red="f0" type="rgb"/>
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar uma N&#xe3;o Conformidade no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal&#xa;do sistema e clique em Gerenciar N&#xe3;o Conformidade, feito isso, clique em Nova N&#xe3;o Conformidade&#xa;e fa&#xe7;a o preenchimento dos dados e clique em Salvar.&#xa;"/>
+                        <Property name="text" type="java.lang.String" value="Para cadastrar uma N&#xe3;o Conformidade no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em&#xa;Gerenciar N&#xe3;o Conformidade, feito isso, clique em Nova N&#xe3;o Conformidade e fa&#xe7;a o preenchimento dos dados e clique em &#xa;Salvar.&#xa;"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -673,15 +675,95 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jScrollPane15" pref="955" max="32767" attributes="0"/>
+                              <Component id="jScrollPane17" alignment="1" pref="955" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane17" min="-2" pref="78" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane15" min="-2" pref="78" max="-2" attributes="0"/>
+                          <EmptySpace pref="16" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="jLabel13">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="14" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Como gerar um relat&#xf3;rio com todas as n&#xe3;o conformidades?"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane15">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextArea" name="jTextArea14">
+                      <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="f0" green="f0" red="f0" type="rgb"/>
+                        </Property>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="rows" type="int" value="3"/>
+                        <Property name="text" type="java.lang.String" value="Para cadastrar uma N&#xe3;o Conformidade no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em&#xa;Gerenciar N&#xe3;o Conformidade, feito isso, clique em Nova N&#xe3;o Conformidade e fa&#xe7;a o preenchimento dos dados e clique em &#xa;Salvar.&#xa;"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JLabel" name="jLabel14">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="14" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Como gerar relat&#xf3;rio individual de uma n&#xe3;o conformidade?"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane17">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextArea" name="jTextArea16">
+                      <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="f0" green="f0" red="f0" type="rgb"/>
+                        </Property>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="rows" type="int" value="3"/>
+                        <Property name="text" type="java.lang.String" value="Para cadastrar uma N&#xe3;o Conformidade no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em&#xa;Gerenciar N&#xe3;o Conformidade, feito isso, clique em Nova N&#xe3;o Conformidade e fa&#xe7;a o preenchimento dos dados e clique em &#xa;Salvar.&#xa;"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
             </Container>
           </SubComponents>
         </Container>

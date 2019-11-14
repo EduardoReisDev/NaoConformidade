@@ -72,9 +72,15 @@ public class Ajuda extends javax.swing.JDialog {
         jScrollPane14 = new javax.swing.JScrollPane();
         jTextArea13 = new javax.swing.JTextArea();
         jLabel12 = new javax.swing.JLabel();
+        jScrollPane16 = new javax.swing.JScrollPane();
+        jTextArea15 = new javax.swing.JTextArea();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
         jScrollPane15 = new javax.swing.JScrollPane();
         jTextArea14 = new javax.swing.JTextArea();
-        jPanel6 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jScrollPane17 = new javax.swing.JScrollPane();
+        jTextArea16 = new javax.swing.JTextArea();
 
         jTextArea4.setColumns(20);
         jTextArea4.setRows(5);
@@ -87,6 +93,7 @@ public class Ajuda extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ajuda", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        jPanel2.setToolTipText("Ajuda");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuário", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
 
@@ -97,7 +104,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea8.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea8.setColumns(20);
         jTextArea8.setRows(3);
-        jTextArea8.setText("Para cadastrar um novo usuário no sistema, é necessário que você acesse o menu principal\ndo sistema e clique em Gerenciar Usuários, feito isso,clique em Novo Usuário e faça o \npreenchimento dos dados e clique em Salvar.");
+        jTextArea8.setText("Para cadastrar um novo usuário no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Usuários, feito isso,clique em Novo Usuário e faça o preenchimento dos dados e clique em Salvar.");
         jScrollPane8.setViewportView(jTextArea8);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -107,7 +114,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea9.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea9.setColumns(20);
         jTextArea9.setRows(3);
-        jTextArea9.setText("Para cadastrar um novo usuário no sistema, é necessário que você acesse o menu principal\ndo sistema e clique em Gerenciar Usuários, feito isso,clique em Novo Usuário e faça o \npreenchimento dos dados e clique em Salvar.");
+        jTextArea9.setText("Para excluir um usuário no sistema, é necessário que você acesse o menu principal do sistema, clique em Gerenciar\nUsuários, selecione o usuário desejado e clique em excluir.");
         jScrollPane9.setViewportView(jTextArea9);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -117,7 +124,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea10.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea10.setColumns(20);
         jTextArea10.setRows(3);
-        jTextArea10.setText("Para cadastrar um novo usuário no sistema, é necessário que você acesse o menu principal\ndo sistema e clique em Gerenciar Usuários, feito isso,clique em Novo Usuário e faça o \npreenchimento dos dados e clique em Salvar.");
+        jTextArea10.setText("Para editar um usuário no sistema, é necessario que você acesse o menu principal do sistema, clique em Gerenciar\nUsuários, selecione o usuário desejado e clique em editar. Feito isso, faça a edição desejada e clique em Salvar.");
         jScrollPane10.setViewportView(jTextArea10);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -165,7 +172,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea3.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea3.setColumns(20);
         jTextArea3.setRows(3);
-        jTextArea3.setText("Para cadastrar um novo responsável no sistema, é necessário que você acesse o menu \nprincipal do sistema e clique em Gerenciar Responsáveis, feito isso, clique em \nNovo Responsável e faça o preenchimento dos dados e clique em Salvar.");
+        jTextArea3.setText("Para cadastrar um novo responsável no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Responsáveis, feito isso, clique em Novo Responsável e faça o preenchimento dos dados e clique em Salvar.");
         jScrollPane3.setViewportView(jTextArea3);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -175,7 +182,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea7.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea7.setColumns(20);
         jTextArea7.setRows(3);
-        jTextArea7.setText("Para cadastrar um novo responsável no sistema, é necessário que você acesse o menu \nprincipal do sistema e clique em Gerenciar Responsáveis, feito isso, clique em \nNovo Responsável e faça o preenchimento dos dados e clique em Salvar.");
+        jTextArea7.setText("Para editar um responsável no sistema, é necessário que você acesse o menu principal do sistema e clique em Gerenciar\nResponsáveis, feito isso, selecione o responsável desejado e clique em editar. Feito isso, faça a edição desejado e \nclique em Salvar.");
         jScrollPane7.setViewportView(jTextArea7);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -185,7 +192,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea11.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea11.setColumns(20);
         jTextArea11.setRows(3);
-        jTextArea11.setText("Para cadastrar um novo responsável no sistema, é necessário que você acesse o menu \nprincipal do sistema e clique em Gerenciar Responsáveis, feito isso, clique em \nNovo Responsável e faça o preenchimento dos dados e clique em Salvar.");
+        jTextArea11.setText("Para excluir um responsável no sistema, é necessário que você acesse o menu principal do sistema e clique em Gerenciar\nResponsáveis, feito isso, selecione o responsável desejado e clique em excluir.");
         jScrollPane11.setViewportView(jTextArea11);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -233,7 +240,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(3);
-        jTextArea1.setText("Para cadastrar um novo setor no sistema, é necessário que você acesse o menu principal\ndo sistema e clique em Gerenciar Setores, feito isso, clique em Novo Setor e faça o \npreenchimento dos dados e clique em Salvar.");
+        jTextArea1.setText("Para cadastrar um novo setor no sistema, é necessário que você acesse o menu principal do sistema e clique em \nGerenciar Setores, feito isso, clique em Novo Setor e faça o preenchimento dos dados e clique em Salvar.");
         jScrollPane1.setViewportView(jTextArea1);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -242,7 +249,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea2.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea2.setColumns(20);
         jTextArea2.setRows(3);
-        jTextArea2.setText("Para cadastrar um novo setor no sistema, é necessário que você acesse o menu principal\ndo sistema e clique em Gerenciar Setores, feito isso, clique em Novo Setor e faça o \npreenchimento dos dados e clique em Salvar.");
+        jTextArea2.setText("Para editar um setor no sistema, é necessário que voc");
         jScrollPane12.setViewportView(jTextArea2);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -251,7 +258,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea12.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea12.setColumns(20);
         jTextArea12.setRows(3);
-        jTextArea12.setText("Para cadastrar um novo setor no sistema, é necessário que você acesse o menu principal\ndo sistema e clique em Gerenciar Setores, feito isso, clique em Novo Setor e faça o \npreenchimento dos dados e clique em Salvar.");
+        jTextArea12.setText("Para cadastrar um novo setor no sistema, é necessário que você acesse o menu principal do sistema e clique em \nGerenciar Setores, feito isso, clique em Novo Setor e faça o preenchimento dos dados e clique em Salvar.");
         jScrollPane13.setViewportView(jTextArea12);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -268,7 +275,7 @@ public class Ajuda extends javax.swing.JDialog {
                             .addComponent(jLabel3)
                             .addComponent(jLabel9)
                             .addComponent(jLabel10))
-                        .addGap(0, 783, Short.MAX_VALUE))
+                        .addGap(0, 789, Short.MAX_VALUE))
                     .addComponent(jScrollPane13, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -298,7 +305,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea5.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea5.setColumns(20);
         jTextArea5.setRows(3);
-        jTextArea5.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal\ndo sistema e clique em Gerenciar Não Conformidade, feito isso, clique em Nova Não Conformidade\ne faça o preenchimento dos dados e clique em Salvar.\n");
+        jTextArea5.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade, feito isso, clique em Nova Não Conformidade e faça o preenchimento dos dados e clique em\nSalvar.\n");
         jScrollPane5.setViewportView(jTextArea5);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -307,17 +314,17 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea13.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea13.setColumns(20);
         jTextArea13.setRows(3);
-        jTextArea13.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal\ndo sistema e clique em Gerenciar Não Conformidade, feito isso, clique em Nova Não Conformidade\ne faça o preenchimento dos dados e clique em Salvar.\n");
+        jTextArea13.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade, feito isso, clique em Nova Não Conformidade e faça o preenchimento dos dados e clique em\nSalvar.\n");
         jScrollPane14.setViewportView(jTextArea13);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Como excluir uma Não Conformidade?");
 
-        jTextArea14.setBackground(new java.awt.Color(240, 240, 240));
-        jTextArea14.setColumns(20);
-        jTextArea14.setRows(3);
-        jTextArea14.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal\ndo sistema e clique em Gerenciar Não Conformidade, feito isso, clique em Nova Não Conformidade\ne faça o preenchimento dos dados e clique em Salvar.\n");
-        jScrollPane15.setViewportView(jTextArea14);
+        jTextArea15.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea15.setColumns(20);
+        jTextArea15.setRows(3);
+        jTextArea15.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade, feito isso, clique em Nova Não Conformidade e faça o preenchimento dos dados e clique em \nSalvar.\n");
+        jScrollPane16.setViewportView(jTextArea15);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -333,8 +340,8 @@ public class Ajuda extends javax.swing.JDialog {
                             .addComponent(jLabel4)
                             .addComponent(jLabel11)
                             .addComponent(jLabel12))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane15))
+                        .addGap(0, 701, Short.MAX_VALUE))
+                    .addComponent(jScrollPane16))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -344,27 +351,65 @@ public class Ajuda extends javax.swing.JDialog {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
+                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Relatório", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setText("Como gerar um relatório com todas as não conformidades?");
+
+        jTextArea14.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea14.setColumns(20);
+        jTextArea14.setRows(3);
+        jTextArea14.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade, feito isso, clique em Nova Não Conformidade e faça o preenchimento dos dados e clique em \nSalvar.\n");
+        jScrollPane15.setViewportView(jTextArea14);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel14.setText("Como gerar relatório individual de uma não conformidade?");
+
+        jTextArea16.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea16.setColumns(20);
+        jTextArea16.setRows(3);
+        jTextArea16.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade, feito isso, clique em Nova Não Conformidade e faça o preenchimento dos dados e clique em \nSalvar.\n");
+        jScrollPane17.setViewportView(jTextArea16);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE)
+                    .addComponent(jScrollPane17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel13))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -407,7 +452,7 @@ public class Ajuda extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane2)
         );
 
         pack();
@@ -460,6 +505,8 @@ public class Ajuda extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -481,6 +528,8 @@ public class Ajuda extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane15;
+    private javax.swing.JScrollPane jScrollPane16;
+    private javax.swing.JScrollPane jScrollPane17;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -495,6 +544,8 @@ public class Ajuda extends javax.swing.JDialog {
     private javax.swing.JTextArea jTextArea12;
     private javax.swing.JTextArea jTextArea13;
     private javax.swing.JTextArea jTextArea14;
+    private javax.swing.JTextArea jTextArea15;
+    private javax.swing.JTextArea jTextArea16;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea4;
