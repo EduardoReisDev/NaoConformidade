@@ -147,6 +147,7 @@ public class FormCadastrarResponsavel extends javax.swing.JDialog {
         txtCpf = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastrar Responsável");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar Responsável", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 

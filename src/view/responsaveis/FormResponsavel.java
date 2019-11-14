@@ -160,6 +160,7 @@ public class FormResponsavel extends javax.swing.JDialog {
         btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Responsáveis");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerenciar Responsáveis", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 

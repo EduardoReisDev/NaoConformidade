@@ -107,6 +107,7 @@ public class FormEditarSetor extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Editar Setor");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Editar Setor", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 

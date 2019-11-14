@@ -70,6 +70,7 @@ public class VerificarUsuario extends javax.swing.JDialog {
         jToggleButton1.setName("jToggleButton1"); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Verificar Usuários");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Verificar Usuário", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         jPanel1.setName("jPanel1"); // NOI18N

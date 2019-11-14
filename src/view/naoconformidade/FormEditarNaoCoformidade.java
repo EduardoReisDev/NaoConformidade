@@ -227,7 +227,7 @@ public class FormEditarNaoCoformidade extends javax.swing.JDialog {
         jLabel5.setName("jLabel5"); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Não Conformidade");
+        setTitle("Atualizar Não Conformidade");
         setMaximumSize(new java.awt.Dimension(800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
