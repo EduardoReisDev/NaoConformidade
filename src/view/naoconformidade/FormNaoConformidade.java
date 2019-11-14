@@ -7,28 +7,22 @@ package view.naoconformidade;
 
 import controller.Controller;
 import controller.NaoConformidadeController;
-import datechooser.beans.customizer.render.CellRenderer;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
-import javafx.scene.layout.Border;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JRootPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import static javax.swing.SwingConstants.CENTER;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -41,9 +35,9 @@ import view.Mensagens;
  * 
  */
 public class FormNaoConformidade extends javax.swing.JDialog {
-    Controller controller;
-    private final String[] colunas ={"Código","Descrição","DataAcontecimento","Reincidencia","Abrangencia","Origem","Responsavel","AcaoCorrecao","Setor","",""};
-    
+    private final Controller controller;
+    private final String[] colunas = {"Descrição","Data de Acontecimento","Reincidencia","Responsavel","Setor","",""};
+    private final ArrayList<Integer> listaIdNaoConformidade;
     /**
      * Creates new form NaoConformidade
      * @param parent
@@ -53,18 +47,19 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     public FormNaoConformidade(java.awt.Frame parent, boolean modal, Controller controller) {
         super(parent, modal);
         initComponents();
+        listaIdNaoConformidade = new ArrayList<>();
         this.controller = controller;
         criarEstruturaEListarTodos();
-        
     }
+    
     private DefaultTableModel modelo;
     
    
     private void criarEstruturaEListarTodos(){
-        
         criarEstruturaTabela();
         controller.getNaoConformidadeController().listarTodos(this::popularTabela);
     }
+    
     private void criarEstruturaEBuscar(){
         criarEstruturaTabela();
         controller.getNaoConformidadeController().listarPorDescricao(this::popularTabela, txtBusca.getText());
@@ -115,32 +110,33 @@ public class FormNaoConformidade extends javax.swing.JDialog {
             //nextElement.setHeaderRenderer(renderizadorHeader);
         }
         jTable1.setRowHeight(30);
-        jTable1.getColumnModel().getColumn(9).setMinWidth(30);
-        jTable1.getColumnModel().getColumn(9).setMaxWidth(30);
-        jTable1.getColumnModel().getColumn(9).setCellRenderer(
+        jTable1.getColumnModel().getColumn(5).setMinWidth(30);
+        jTable1.getColumnModel().getColumn(5).setMaxWidth(30);
+        jTable1.getColumnModel().getColumn(5).setCellRenderer(
                 new IconeCelula(
                         new ImageIcon(
-                                getClass().getResource("/imagens/imprimir.png")
+                                getClass().getResource("/imagens/me.png")
                         ),
                         "Visualizar"
                 )
         );
-        jTable1.getColumnModel().getColumn(10).setMinWidth(30);
-        jTable1.getColumnModel().getColumn(10).setMaxWidth(30);
-        jTable1.getColumnModel().getColumn(10).setCellRenderer(
+        jTable1.getColumnModel().getColumn(6).setMinWidth(30);
+        jTable1.getColumnModel().getColumn(6).setMaxWidth(30);
+        jTable1.getColumnModel().getColumn(6).setCellRenderer(
                 new IconeCelula(
                         new ImageIcon(
-                                getClass().getResource("/imagens/imprimir.png")
+                                getClass().getResource("/imagens/teste.png")
                         ),
                         "Gerar relatório"
                 )
         );
+        listaIdNaoConformidade.clear();
     }
     
-     private int pegarIdDaLinhaSelecionada(){
+    private int pegarIdDaLinhaSelecionada(){
         int linhaSelecionada=jTable1.getSelectedRow();
         if(linhaSelecionada>=0){
-            return (Integer.parseInt(String.valueOf(jTable1.getValueAt(linhaSelecionada, 0))));
+            return listaIdNaoConformidade.get(linhaSelecionada); 
         }
         return -1;
     }
@@ -159,16 +155,13 @@ public class FormNaoConformidade extends javax.swing.JDialog {
      
     private void popularTabela(NaoConformidade naoConformidade){
         modelo.addRow(new Object[]{
-            naoConformidade.getId(),
             naoConformidade.getDescricao(),
             dataFormatada(naoConformidade.getDataAcontecimento()),
             resources.Resources.converterBooleanoSimOuNaoMaiusculo(naoConformidade.getReincidencia()),
-            naoConformidade.getAbrangencia(),
-            naoConformidade.getOrigem(),
             naoConformidade.getResponsavel().getNome(),
-            naoConformidade.getAcaoCorrecao(),
             naoConformidade.getSetor().getNome()
         });
+        listaIdNaoConformidade.add(naoConformidade.getId());
     }
     
     private String getNaoConformidadeSelecionada(){
@@ -407,12 +400,12 @@ public class FormNaoConformidade extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 858, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(110, 110, 110)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -439,14 +432,15 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -474,10 +468,10 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        if(jTable1.columnAtPoint(evt.getPoint()) == 9){
+        if(jTable1.columnAtPoint(evt.getPoint()) == 5){
             controller.getNaoConformidadeController().mostrarNaoConformidade(pegarIdDaLinhaSelecionada());
         }
-        if(jTable1.columnAtPoint(evt.getPoint()) == 10){
+        if(jTable1.columnAtPoint(evt.getPoint()) == 6){
             if(Mensagens.confirmar(this, "Gerar relatório?", "Mensagem", 1)){
             controller.getNaoConformidadeController().gerarRelatorioPorId(pegarIdDaLinhaSelecionada());
             }
