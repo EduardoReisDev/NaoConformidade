@@ -7,6 +7,7 @@ package view.naoconformidade;
 
 import controller.NaoConformidadeController;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -27,6 +28,7 @@ public class FrameImagem extends javax.swing.JFrame {
      */
     public FrameImagem(NaoConformidadeController naoConformidadeController)                 {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
         this.naoConformidadeController = naoConformidadeController;
         initComponents();
     }
@@ -64,7 +66,9 @@ public class FrameImagem extends javax.swing.JFrame {
         campoImagem = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Visualização de imagem");
         setAlwaysOnTop(true);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.TOOLKIT_EXCLUDE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
@@ -72,6 +76,7 @@ public class FrameImagem extends javax.swing.JFrame {
             }
         });
 
+        campoImagem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         campoImagem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 campoImagemMousePressed(evt);
@@ -88,6 +93,8 @@ public class FrameImagem extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(campoImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
+
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
