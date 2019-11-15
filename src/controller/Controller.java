@@ -16,6 +16,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import model.Usuario;
 import view.DialogoConfirmaSair;
 import view.FormPrincipal;
+import view.Mensagens;
 import view.naoconformidade.FormNaoConformidade;
 import view.relatorio.FormRelatorio;
 import view.responsaveis.FormResponsavel;
@@ -93,11 +94,35 @@ public class Controller {
         setorController.setComponentePai(componentePai);
         responsavelController.setComponentePai(componentePai);
     }
+    
+    public boolean vericarExisteSetor(){
+         if(setorController.getLastId()>0){
+            return true;
+        }
+        else{
+            Mensagens.mensagem(componentePai, "É necessário que um setor esteja cadastrado!", "Mensagem", 1);
+            setorController.cadastrar();
+            return false;  
+        } 
+    }
+    
+    public boolean verificaExisteResponsavel(){
+        if(responsavelController.getLastId()>0){
+            return true;
+        }
+        else{
+            Mensagens.mensagem(componentePai, "É necessário que um responsável esteja cadastrado!", "Mensagem", 1);
+            responsavelController.abrirFormCadastro();
+            return false;  
+        }  
+    }
 
     public void abreTelaNaoConformidade(){
-        telaNaoConformidade = new FormNaoConformidade((Frame) componentePai, true, this);
-        telaNaoConformidade.setLocationRelativeTo(componentePai);
-        telaNaoConformidade.setVisible(true);
+        if(verificaExisteResponsavel() && vericarExisteSetor()){
+            telaNaoConformidade = new FormNaoConformidade((Frame) componentePai, true, this);
+            telaNaoConformidade.setLocationRelativeTo(componentePai);
+            telaNaoConformidade.setVisible(true);
+        }
     }
     
     public void abreTelaResponsavel(){
