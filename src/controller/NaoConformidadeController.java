@@ -53,7 +53,6 @@ public class NaoConformidadeController {
         return relatorioController;
     }
     
-    
     public Imagem getImagem() {
         return imagem;
     }
@@ -61,7 +60,6 @@ public class NaoConformidadeController {
     public void setComponentePai(Component componentePai){
         this.componentePai = componentePai;
     }
-    
     
     public void gerarRelatorioPorData(Date dataInicio, Date dataFim){
         if(relatorioController.criarRelatorio(usuario)){
@@ -113,7 +111,7 @@ public class NaoConformidadeController {
     }
     
     public void obrigatorio(Component componentePai){
-        Mensagens.mensagem(componentePai,"Preencha este campo corretamente!\nMínimo 3 caracteres! "," Atenção! ", 2 );
+        Mensagens.mensagem(componentePai,"Preencha este campo corretamente!\nMínimo 3 caracteres! "," Atenção! ", 2);
     }
 
     public void cadastrar(){
@@ -132,11 +130,11 @@ public class NaoConformidadeController {
             imagem.salvarImagem(String.format("imagens\\nc%d.png", naoConformidade.getId()));
         }
         if(naoConformidadeDao.criar(naoConformidade)){
-            Mensagens.mensagem(componentePai, "Dados cadastrados com sucesso!","Sucesso!",1);
+            Mensagens.mensagem(componentePai, "Dados cadastrados com sucesso!","Mensagem",1);
             cadastroNaoConformidade.dispose();
         }
         else {
-            Mensagens.mensagem(componentePai, "Não foi possível cadastrar!","Informação",1);
+            Mensagens.mensagem(componentePai, "Não foi possível cadastrar!","Mensagem",1);
         }
     }
     
@@ -146,7 +144,7 @@ public class NaoConformidadeController {
             imagem.salvarImagem(String.format("imagens\\nc%d.png", naoConformidade.getId()));
         }
         if(naoConformidadeDao.editar(naoConformidade)){
-            Mensagens.mensagem(componentePai, "Dados atualizados com sucesso!", "Sucesso!", 1);
+            Mensagens.mensagem(componentePai, "Dados atualizados com sucesso!", "Mensagem", 1);
             editarNaoConformidade.dispose();
         }
         else{
@@ -179,12 +177,10 @@ public class NaoConformidadeController {
     public void excluir(int id){
         if(naoConformidadeDao.excluir(id)){
             new File("imagens\\nc"+id+".png").delete();
-            
-            Mensagens.mensagem(componentePai, "Não conformidade excluída com sucesso!","Sucesso!",1);
+            Mensagens.mensagem(componentePai, "Não conformidade excluída com sucesso!","Mensagem",1);
         }
         else {
-            Mensagens.mensagem(componentePai, "Não foi possível excluir!","Informação",1);
+            Mensagens.mensagem(componentePai, "Não foi possível excluir!","Mensagem",1);
         }
-    }
-            
+    }        
 }

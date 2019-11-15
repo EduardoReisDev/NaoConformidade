@@ -37,7 +37,6 @@ public class Controller {
     private final SetorController setorController;
     private final NaoConformidadeController naoConformidadeController;
     private Usuario usuario;
-    
     private FormNaoConformidade telaNaoConformidade;
     private FormResponsavel telaResponsavel;
     private FormSetor telaSetor;
@@ -100,7 +99,7 @@ public class Controller {
             return true;
         }
         else{
-            Mensagens.mensagem(componentePai, "É necessário que um setor esteja cadastrado!", "Mensagem", 1);
+            Mensagens.mensagem(componentePai, "É necessário que pelo um um setor esteja cadastrado!", "Mensagem", 1);
             setorController.cadastrar();
             return false;  
         } 
@@ -111,7 +110,7 @@ public class Controller {
             return true;
         }
         else{
-            Mensagens.mensagem(componentePai, "É necessário que um responsável esteja cadastrado!", "Mensagem", 1);
+            Mensagens.mensagem(componentePai, "É necessário que pelo menos um responsável esteja cadastrado!", "Mensagem", 1);
             responsavelController.abrirFormCadastro();
             return false;  
         }  
@@ -181,12 +180,9 @@ public class Controller {
     public void inicio(){
         usuario = usuarioController.login();
         if(usuario!=null){
-       //usuario = new Usuario();
             naoConformidadeController.setUsuario(usuario);
             abreTelaPrincipal();
        }
-        //abreTelaNaoConformidade();
-        //abrirTelaRelatorio();
     }
     public static void main(String[] args){
         try {
@@ -196,7 +192,5 @@ public class Controller {
         } 
         new Splash();
         new Controller().inicio();
-    }
-
-    
+    }  
 }
