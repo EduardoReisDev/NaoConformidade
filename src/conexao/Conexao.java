@@ -14,9 +14,10 @@ import org.sqlite.SQLiteConfig;
  */
 public class Conexao {
     private final String URL;
-    public final String DRIVER = "org.sqlite.JDBC";  
+    private final String DRIVER;  
 
     public Conexao() {
+        this.DRIVER = "org.sqlite.JDBC";
         this.URL = "jdbc:sqlite:"+System.getProperty("user.dir")+"\\banco\\Banco.db";
     }
     
@@ -29,8 +30,9 @@ public class Conexao {
         }
         catch (SQLException sqlex){
             System.out.println("Erro na conexão "+sqlex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (ClassNotFoundException ex) {
+            System.out.println("Driver não encontrado "+ex.getMessage());;
         }
         return null;
     }
