@@ -17,6 +17,7 @@ public class Ajuda extends javax.swing.JDialog {
     public Ajuda(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -95,7 +96,8 @@ public class Ajuda extends javax.swing.JDialog {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ajuda", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         jPanel2.setToolTipText("Ajuda");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuário", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuário", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        jPanel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Como cadastrar um usuário?");
@@ -104,7 +106,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea8.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea8.setColumns(20);
         jTextArea8.setRows(3);
-        jTextArea8.setText("Para cadastrar um novo usuário no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Usuários, feito isso,clique em Novo Usuário e faça o preenchimento dos dados e clique em Salvar.");
+        jTextArea8.setText("Para cadastrar um novo usuário no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Usuários(F1), feito isso, Novo Usuário e faça o preenchimento dos dados e em Salvar.");
         jScrollPane8.setViewportView(jTextArea8);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -114,7 +116,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea9.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea9.setColumns(20);
         jTextArea9.setRows(3);
-        jTextArea9.setText("Para excluir um usuário no sistema, é necessário que você acesse o menu principal do sistema, clique em Gerenciar\nUsuários, selecione o usuário desejado e clique em excluir.");
+        jTextArea9.setText("Para excluir um usuário no sistema, é necessário que você acesse o menu principal do sistema, clique em Gerenciar\nUsuários(F1), selecione o usuário desejado e clique em excluir.");
         jScrollPane9.setViewportView(jTextArea9);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -124,7 +126,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea10.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea10.setColumns(20);
         jTextArea10.setRows(3);
-        jTextArea10.setText("Para editar um usuário no sistema, é necessario que você acesse o menu principal do sistema, clique em Gerenciar\nUsuários, selecione o usuário desejado e clique em editar. Feito isso, faça a edição desejada e clique em Salvar.");
+        jTextArea10.setText("Para editar um usuário no sistema, é necessario que você acesse o menu principal do sistema, clique em Gerenciar\nUsuários(F1), selecione o usuário desejado e em editar. Feito isso, faça a edição desejada e em Salvar.");
         jScrollPane10.setViewportView(jTextArea10);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -148,22 +150,22 @@ public class Ajuda extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Responsável", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Responsável", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        jPanel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Como cadastrar um Responsável?");
@@ -172,7 +174,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea3.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea3.setColumns(20);
         jTextArea3.setRows(3);
-        jTextArea3.setText("Para cadastrar um novo responsável no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Responsáveis, feito isso, clique em Novo Responsável e faça o preenchimento dos dados e clique em Salvar.");
+        jTextArea3.setText("Para cadastrar um novo responsável no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Responsáveis(F2), feito isso, em Novo Responsável e faça o preenchimento dos dados e em Salvar.");
         jScrollPane3.setViewportView(jTextArea3);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -182,7 +184,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea7.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea7.setColumns(20);
         jTextArea7.setRows(3);
-        jTextArea7.setText("Para editar um responsável no sistema, é necessário que você acesse o menu principal do sistema e clique em Gerenciar\nResponsáveis, feito isso, selecione o responsável desejado e clique em editar. Feito isso, faça a edição desejado e \nclique em Salvar.");
+        jTextArea7.setText("Para editar um responsável no sistema, é necessário que você acesse o menu principal do sistema e clique em Gerenciar\nResponsáveis(F2), após, selecione o responsável desejado e em editar. Depois, faça a edição desejada e em Salvar.");
         jScrollPane7.setViewportView(jTextArea7);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -192,7 +194,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea11.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea11.setColumns(20);
         jTextArea11.setRows(3);
-        jTextArea11.setText("Para excluir um responsável no sistema, é necessário que você acesse o menu principal do sistema e clique em Gerenciar\nResponsáveis, feito isso, selecione o responsável desejado e clique em excluir.");
+        jTextArea11.setText("Para excluir um responsável no sistema, é necessário que você acesse o menu principal do sistema e clique em \nGerenciarResponsáveis(F2), feito isso, selecione o responsável desejado e em excluir.");
         jScrollPane11.setViewportView(jTextArea11);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -216,19 +218,18 @@ public class Ajuda extends javax.swing.JDialog {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Setor", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
@@ -240,7 +241,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(3);
-        jTextArea1.setText("Para cadastrar um novo setor no sistema, é necessário que você acesse o menu principal do sistema e clique em \nGerenciar Setores, feito isso, clique em Novo Setor e faça o preenchimento dos dados e clique em Salvar.");
+        jTextArea1.setText("Para cadastrar um novo setor no sistema, é necessário que você acesse o menu principal do sistema e clique em \nGerenciar Setores(F4), feito isso, clique em Novo Setor e faça o preenchimento dos dados e clique em Salvar.");
         jScrollPane1.setViewportView(jTextArea1);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -249,7 +250,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea2.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea2.setColumns(20);
         jTextArea2.setRows(3);
-        jTextArea2.setText("Para editar um setor no sistema, é necessário que voc");
+        jTextArea2.setText("Para editar um setor no sistema, é necessário que você acesse o menu principal do sistema e clique em Gerenciar\nSetores(F4), após, selecione o setor desejado e em editar. Depois, faça a edição desejada e em Salvar.");
         jScrollPane12.setViewportView(jTextArea2);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -258,7 +259,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea12.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea12.setColumns(20);
         jTextArea12.setRows(3);
-        jTextArea12.setText("Para cadastrar um novo setor no sistema, é necessário que você acesse o menu principal do sistema e clique em \nGerenciar Setores, feito isso, clique em Novo Setor e faça o preenchimento dos dados e clique em Salvar.");
+        jTextArea12.setText("Para cadastrar um novo setor no sistema, é necessário que você acesse o menu principal do sistema e clique em \nGerenciar Setores(F4), feito isso, clique em Novo Setor e faça o preenchimento dos dados e clique em Salvar.");
         jScrollPane13.setViewportView(jTextArea12);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -275,29 +276,28 @@ public class Ajuda extends javax.swing.JDialog {
                             .addComponent(jLabel3)
                             .addComponent(jLabel9)
                             .addComponent(jLabel10))
-                        .addGap(0, 789, Short.MAX_VALUE))
+                        .addGap(0, 814, Short.MAX_VALUE))
                     .addComponent(jScrollPane13, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Não Conformidade", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Não Conformidade", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Como cadastrar uma Não Conformidade?");
@@ -305,7 +305,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea5.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea5.setColumns(20);
         jTextArea5.setRows(3);
-        jTextArea5.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade, feito isso, clique em Nova Não Conformidade e faça o preenchimento dos dados e clique em\nSalvar.\n");
+        jTextArea5.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade(F3), feito isso, em Nova Não Conformidade e faça o preenchimento dos dados e em Salvar.");
         jScrollPane5.setViewportView(jTextArea5);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -314,7 +314,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea13.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea13.setColumns(20);
         jTextArea13.setRows(3);
-        jTextArea13.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade, feito isso, clique em Nova Não Conformidade e faça o preenchimento dos dados e clique em\nSalvar.\n");
+        jTextArea13.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade(F4), feito isso, em Nova Não Conformidade e faça o preenchimento dos dados e em Salvar.");
         jScrollPane14.setViewportView(jTextArea13);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -323,7 +323,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea15.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea15.setColumns(20);
         jTextArea15.setRows(3);
-        jTextArea15.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade, feito isso, clique em Nova Não Conformidade e faça o preenchimento dos dados e clique em \nSalvar.\n");
+        jTextArea15.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade(F4), feito isso, em Nova Não Conformidade e faça o preenchimento dos dados e em Salvar.\n");
         jScrollPane16.setViewportView(jTextArea15);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -340,37 +340,36 @@ public class Ajuda extends javax.swing.JDialog {
                             .addComponent(jLabel4)
                             .addComponent(jLabel11)
                             .addComponent(jLabel12))
-                        .addGap(0, 701, Short.MAX_VALUE))
+                        .addGap(0, 726, Short.MAX_VALUE))
                     .addComponent(jScrollPane16))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Relatório", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel13.setText("Como gerar um relatório com todas as não conformidades?");
+        jLabel13.setText("Como gerar um relatório das não conformidades por período?");
 
         jTextArea14.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea14.setColumns(20);
         jTextArea14.setRows(3);
-        jTextArea14.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade, feito isso, clique em Nova Não Conformidade e faça o preenchimento dos dados e clique em \nSalvar.\n");
+        jTextArea14.setText("Para gerar um relatório por no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerar relatórios(F5), feito isso, escolha um período e em Gerar relatório.\n");
         jScrollPane15.setViewportView(jTextArea14);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -379,7 +378,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea16.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea16.setColumns(20);
         jTextArea16.setRows(3);
-        jTextArea16.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade, feito isso, clique em Nova Não Conformidade e faça o preenchimento dos dados e clique em \nSalvar.\n");
+        jTextArea16.setText("Para gerar um relatório no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade(F4), feito isso,no ícone gerar relatório da Não Conformidade escolhida e em Gerar.\n");
         jScrollPane17.setViewportView(jTextArea16);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -389,27 +388,26 @@ public class Ajuda extends javax.swing.JDialog {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE)
-                    .addComponent(jScrollPane17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE)
+                    .addComponent(jScrollPane15)
+                    .addComponent(jScrollPane17, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel13))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14))
+                        .addGap(0, 602, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
                 .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -429,16 +427,15 @@ public class Ajuda extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -448,7 +445,7 @@ public class Ajuda extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1039, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
