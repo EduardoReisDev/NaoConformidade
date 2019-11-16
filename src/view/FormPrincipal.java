@@ -56,16 +56,16 @@ public class FormPrincipal extends javax.swing.JFrame {
             fechar();
         };
         ActionListener acaoF1 = (ActionEvent e) -> {
-            controller.abrirTelaUsuario();
+            controller.abreTelaUsuario();
         };
         ActionListener acaoF2 = (ActionEvent e) -> {
-            controller.abrirTelaResponsavel();
+            controller.abreTelaResponsavel();
         };
         ActionListener acaoF3 = (ActionEvent e) -> {
-            controller.abrirTelaNaoConformidade();
+            controller.abreTelaNaoConformidade();
         };
         ActionListener acaoF4 = (ActionEvent e) -> {
-            controller.abrirTelaSetor();
+            controller.abreTelaSetor();
         };
          ActionListener acaoF5 = (ActionEvent e) -> {
             controller.abrirTelaRelatorio();
@@ -172,7 +172,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jToolBar1.add(jButton2);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar.png"))); // NOI18N
-        jButton3.setText("Não Conformidade");
+        jButton3.setText("Não Conformidad");
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setMaximumSize(new java.awt.Dimension(100, 75));
@@ -367,19 +367,19 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuConfirmarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        controller.abrirTelaUsuario();
+        controller.abreTelaUsuario();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        controller.abrirTelaResponsavel();
+        controller.abreTelaResponsavel();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        controller.abrirTelaNaoConformidade();
+        controller.abreTelaNaoConformidade();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        controller.abrirTelaSetor();
+        controller.abreTelaSetor();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -395,11 +395,11 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_bgComponentResized
 
     private void menuAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAjudaActionPerformed
-        new FormAjuda(this, true).setVisible(true);
+        new Help(this, true).setVisible(true);
     }//GEN-LAST:event_menuAjudaActionPerformed
 
     private void menuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSobreActionPerformed
-        new FormSobre(this, true).setVisible(true);
+        new Sobre(this, true).setVisible(true);
     }//GEN-LAST:event_menuSobreActionPerformed
 
 

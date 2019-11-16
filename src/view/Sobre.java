@@ -11,14 +11,14 @@ import java.awt.Toolkit;
  *
  * @author Eduardo
  */
-public class FormSobre extends javax.swing.JDialog {
+public class Sobre extends javax.swing.JDialog {
 
     /**
      * Creates new form Sobre
      * @param parent
      * @param modal
      */
-    public FormSobre(java.awt.Frame parent, boolean modal) {
+    public Sobre(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);

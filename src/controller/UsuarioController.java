@@ -9,9 +9,12 @@ import resources.Resources;
 import dao.UsuarioDao;
 import java.awt.Component;
 import java.awt.Frame;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.Arrays;
 import model.Usuario;
 import java.util.function.Consumer;
+import javax.swing.JFrame;
 import view.Mensagens;
 import view.usuario.FormCadastrarUsuario;
 import view.usuario.FormEditarUsuario;
@@ -151,12 +154,6 @@ public class UsuarioController {
             }
         }
         else{//chama o diálogo de cadastro de usuários
-            Mensagens.mensagem(
-                    componentePai, 
-                    "Nenhum usuário master encontrado."
-                    + "\nEfetue o cadastro de um usuário e marque a opção \"Usuário Master\".",
-                    "Nenhum usuário master encontrado.",
-                    Resources.ATENCAO);
             abrirFormCadastro();
             if(verificarExistenciaDeUsuariosMasters()){
                 return login();

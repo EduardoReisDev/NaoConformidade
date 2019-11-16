@@ -63,7 +63,7 @@ public class Dados {
         String caminhoArquivoExportado = arquivo.obterCaminhoSaida();
         if(caminhoArquivoExportado != null){
             if(arquivo.isArquivoSaidaExistente()){
-                if(Mensagens.confirmar(null, "O arquivo já existe existe", "Atenção", 0)){
+                if(Mensagens.confirmar(null, "arquivo existe", "!!!", 0)){
                     arquivo.copiarArquivo(caminho, caminhoArquivoExportado);
                     validarExportacao(caminhoArquivoExportado);
                 }
@@ -77,7 +77,7 @@ public class Dados {
     
     public void validarExportacao(String destino){
         if(isEstruturaValida(destino)){
-            Mensagens.mensagem(null, "base de dados exportada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            Mensagens.mensagem(null, "base de dados exportada com sucesso", "!!", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     

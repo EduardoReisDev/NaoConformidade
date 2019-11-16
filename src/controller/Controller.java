@@ -115,7 +115,7 @@ public class Controller {
         }  
     }
 
-    public void abrirTelaNaoConformidade(){
+    public void abreTelaNaoConformidade(){
         if(verificaExisteResponsavel() && vericarExisteSetor()){
             telaNaoConformidade = new FormNaoConformidade((Frame) componentePai, true, this);
             telaNaoConformidade.setLocationRelativeTo(componentePai);
@@ -123,29 +123,26 @@ public class Controller {
         }
     }
     
-    public void abrirTelaResponsavel(){
+    public void abreTelaResponsavel(){
         telaResponsavel = new FormResponsavel((Frame) componentePai, true, this);
         telaResponsavel.setLocationRelativeTo(componentePai);
         telaResponsavel.setVisible(true);
     }
     
-    public void abrirTelaSetor(){
+    public void abreTelaSetor(){
         telaSetor= new FormSetor((Frame) componentePai, true, this);
         telaSetor.setLocationRelativeTo(componentePai);
         telaSetor.setVisible(true);
     }
     
-    public void abrirTelaUsuario(){
+    public void abreTelaUsuario(){
         usuarioController.setComponentePai(componentePai);
-        usuario = usuarioController.loginMaster();
-        if(usuario != null){
-            telaUsuario = new FormUsuario((Frame) componentePai, true, this);
-            telaUsuario.setLocationRelativeTo(componentePai);
-            telaUsuario.setVisible(true);
-        }
+        telaUsuario = new FormUsuario((Frame) componentePai, true, this);
+        telaUsuario.setLocationRelativeTo(componentePai);
+        telaUsuario.setVisible(true);
     }
     
-    private void abrirTelaPrincipal(){
+    private void abreTelaPrincipal(){
         telaPrincipal= new FormPrincipal(this);
         telaPrincipal.setLocationRelativeTo(componentePai);
         telaPrincipal.setVisible(true);
@@ -196,7 +193,7 @@ public class Controller {
         usuario = usuarioController.login();
         if(usuario!=null){
             naoConformidadeController.setUsuario(usuario);
-            abrirTelaPrincipal();
+            abreTelaPrincipal();
         }
         else{
             System.exit(0);

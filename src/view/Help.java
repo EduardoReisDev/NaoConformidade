@@ -18,12 +18,12 @@ import resources.Resources;
  *
  * @author Ricardo
  */
-public class FormAjuda extends javax.swing.JDialog {
+public class Help extends javax.swing.JDialog {
 
     /**
      * Creates new form Help
      */
-    public FormAjuda(java.awt.Frame parent, boolean modal) {
+    public Help(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
@@ -46,74 +46,41 @@ public class FormAjuda extends javax.swing.JDialog {
         return rootPane;
     }
     
-    private void cadastrar(String lbl, boolean generoMensagem){
-        if(generoMensagem){
-            Mensagens.mensagem(
-                    this, 
-                    "Para cadastrar uma " +lbl+ " no sistema, é necessário que você acesse o menu principal do sistema e vá em "+lbl+","
-                            + "\nfeito isso, em Cadastrar "+lbl+", faça o preenchimento dos dados e clique em Salvar.", 
-                    "Mensagem", 
-                    Resources.SUCESSO
-            );
-        }
-        else{
-            Mensagens.mensagem(
-                    this, 
-                    "Para cadastrar um " +lbl+ " no sistema, é necessário que você acesse o menu principal do sistema e vá em "+lbl+","
-                            + "\nfeito isso, em Cadastrar "+lbl+", faça o preenchimento dos dados e clique em Salvar.", 
-                    "Mensagem", 
-                    Resources.SUCESSO
-            );
-        }
+    private void cadastrar(String lbl){
+        Mensagens.mensagem(
+                this, 
+                "Para cadastrar um(a) " +lbl+ " no sistema, é necessário que você acesse o menu principal do sistema e vá em "+lbl+","
+                        + "\nfeito isso, em Cadastrar Novo(a) "+lbl+" e faça o preenchimento dos dados e clique em Salvar.", 
+                "Mensagem", 
+                Resources.SUCESSO
+        );
     }
     
-    private void editar(String lbl,  boolean generoMensagem){
-        if(generoMensagem){
-            Mensagens.mensagem(
-                    this, 
-                    "Para editar uma "+lbl+" no sistema, é necessário que você acesse o menu principal do sistema e vá em "+lbl+", "
-                            + "\nfeito isso, selecione a "+lbl+" desejada na tabela de listagem e clique em editar. Depois, faça a edição desejada e clique em Salvar.", 
-                    "Mensagem", 
-                    Resources.SUCESSO
-            );
-        }
-        else{
-             Mensagens.mensagem(
-                    this, 
-                    "Para editar um "+lbl+" no sistema, é necessário que você acesse o menu principal do sistema e vá em "+lbl+", "
-                            + "\nfeito isso, selecione o "+lbl+" desejado na tabela de listagem e clique em editar. Depois, faça a edição desejada e clique em Salvar.", 
-                    "Mensagem", 
-                    Resources.SUCESSO
-            );
-        }
+    private void editar(String lbl){
+        Mensagens.mensagem(
+                this, 
+                "Para editar um(a) "+lbl+" no sistema, é necessário que você acesse o menu principal do sistema e vá em "+lbl+", "
+                        + "\nfeito isso, selecione o(a) "+lbl+"desejado(a) e em editar. Depois, faça a edição desejada e clique em Salvar.", 
+                "Mensagem", 
+                Resources.SUCESSO
+        );
     }
     
-    private void excluir(String lbl, boolean generoMensagem){
-        if(generoMensagem){
-            Mensagens.mensagem(
-                    this, 
-                    "Para excluir uma "+lbl+" no sistema, é necessário que você acesse o menu principal do sistema e vá em "+lbl+", "
-                            + "\nfeito isso, selecione a "+lbl+" desejada na tabela de listagem e clique em excluir.", 
-                    "Mensagem", 
-                    Resources.SUCESSO
-            );
-        }
-        else{
-            Mensagens.mensagem(
-                    this, 
-                    "Para excluir um "+lbl+" no sistema, é necessário que você acesse o menu principal do sistema e vá em "+lbl+", "
-                            + "\nfeito isso, selecione o "+lbl+" desejado na tabela de listagem e clique em excluir.", 
-                    "Mensagem", 
-                    Resources.SUCESSO
-            );
-        }
+    private void excluir(String lbl){
+        Mensagens.mensagem(
+                this, 
+                "Para excluir um(a) "+lbl+" no sistema, é necessário que você acesse o menu principal do sistema e vá em "+lbl+", "
+                        + "\nfeito isso, selecione o(a)"+lbl+" desejado(a) e clique em excluir.", 
+                "Mensagem", 
+                Resources.SUCESSO
+        );
     }
     
     private void individual(){
         Mensagens.mensagem(
                 this, 
                 "Para gerar um relatório individual no sistema, é necessário que você acesse o menu principal do sistema e vá em Não Conformidade, "
-                        + "\nfeito isso, escolha uma Não Conformidade na tabela de listagem, clique no ícone gerar relatório e confirme.\n",
+                        + "\nfeito isso,no clique no ícone gerar relatório da Não Conformidade escolhida e depois em Gerar.", 
                 "Mensagem", 
                 Resources.SUCESSO
         );
@@ -164,54 +131,42 @@ public class FormAjuda extends javax.swing.JDialog {
         delRes = new javax.swing.JButton();
         delNc = new javax.swing.JButton();
         delSet = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
         jLabel1.setName("jLabel1"); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Ajuda");
         setResizable(false);
 
         jPanel1.setName("jPanel1"); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Gerenciar Usuários(F1)");
         jLabel2.setName("jLabel2"); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Gerenciar Responsáveis(F2)");
         jLabel3.setName("jLabel3"); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Gerenciar Não Conformidades(F3)");
         jLabel4.setName("jLabel4"); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Gerenciar Setores(F4)");
         jLabel5.setName("jLabel5"); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Gerar Relatórios(F5)");
         jLabel6.setName("jLabel6"); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Sair ou fechar a tela atual(ESC)");
+        jLabel7.setText("Sair(ESC)");
         jLabel7.setName("jLabel7"); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("Como Cadastrar?");
         jLabel8.setName("jLabel8"); // NOI18N
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("Como Excluir?");
         jLabel9.setName("jLabel9"); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setText("Como Editar?");
         jLabel10.setName("jLabel10"); // NOI18N
 
-        altUsu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         altUsu.setText("Usuário");
         altUsu.setName("altUsu"); // NOI18N
         altUsu.addActionListener(new java.awt.event.ActionListener() {
@@ -220,7 +175,6 @@ public class FormAjuda extends javax.swing.JDialog {
             }
         });
 
-        altRes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         altRes.setText("Responsável");
         altRes.setName("altRes"); // NOI18N
         altRes.addActionListener(new java.awt.event.ActionListener() {
@@ -229,7 +183,6 @@ public class FormAjuda extends javax.swing.JDialog {
             }
         });
 
-        altSet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         altSet.setText("Setor");
         altSet.setName("altSet"); // NOI18N
         altSet.addActionListener(new java.awt.event.ActionListener() {
@@ -238,7 +191,6 @@ public class FormAjuda extends javax.swing.JDialog {
             }
         });
 
-        altNc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         altNc.setText("Não Conformidade");
         altNc.setName("altNc"); // NOI18N
         altNc.addActionListener(new java.awt.event.ActionListener() {
@@ -247,11 +199,9 @@ public class FormAjuda extends javax.swing.JDialog {
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Como Gerar Relatórios?");
         jLabel11.setName("jLabel11"); // NOI18N
 
-        RelPer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         RelPer.setText("Por período");
         RelPer.setName("RelPer"); // NOI18N
         RelPer.addActionListener(new java.awt.event.ActionListener() {
@@ -260,7 +210,6 @@ public class FormAjuda extends javax.swing.JDialog {
             }
         });
 
-        RelInd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         RelInd.setText("Individual");
         RelInd.setName("RelInd"); // NOI18N
         RelInd.addActionListener(new java.awt.event.ActionListener() {
@@ -269,7 +218,6 @@ public class FormAjuda extends javax.swing.JDialog {
             }
         });
 
-        edtUsu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         edtUsu.setText("Usuário");
         edtUsu.setName("edtUsu"); // NOI18N
         edtUsu.addActionListener(new java.awt.event.ActionListener() {
@@ -278,7 +226,6 @@ public class FormAjuda extends javax.swing.JDialog {
             }
         });
 
-        edtRes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         edtRes.setText("Responsável");
         edtRes.setName("edtRes"); // NOI18N
         edtRes.addActionListener(new java.awt.event.ActionListener() {
@@ -287,7 +234,6 @@ public class FormAjuda extends javax.swing.JDialog {
             }
         });
 
-        edtNc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         edtNc.setText("Não Conformidade");
         edtNc.setName("edtNc"); // NOI18N
         edtNc.addActionListener(new java.awt.event.ActionListener() {
@@ -296,7 +242,6 @@ public class FormAjuda extends javax.swing.JDialog {
             }
         });
 
-        edtSet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         edtSet.setText("Setor");
         edtSet.setName("edtSet"); // NOI18N
         edtSet.addActionListener(new java.awt.event.ActionListener() {
@@ -305,7 +250,6 @@ public class FormAjuda extends javax.swing.JDialog {
             }
         });
 
-        delUsu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         delUsu.setText("Usuário");
         delUsu.setName("delUsu"); // NOI18N
         delUsu.addActionListener(new java.awt.event.ActionListener() {
@@ -314,7 +258,6 @@ public class FormAjuda extends javax.swing.JDialog {
             }
         });
 
-        delRes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         delRes.setText("Responsável");
         delRes.setName("delRes"); // NOI18N
         delRes.addActionListener(new java.awt.event.ActionListener() {
@@ -323,7 +266,6 @@ public class FormAjuda extends javax.swing.JDialog {
             }
         });
 
-        delNc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         delNc.setText("Não Conformidade");
         delNc.setName("delNc"); // NOI18N
         delNc.addActionListener(new java.awt.event.ActionListener() {
@@ -332,7 +274,6 @@ public class FormAjuda extends javax.swing.JDialog {
             }
         });
 
-        delSet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         delSet.setText("Setor");
         delSet.setName("delSet"); // NOI18N
         delSet.addActionListener(new java.awt.event.ActionListener() {
@@ -340,10 +281,6 @@ public class FormAjuda extends javax.swing.JDialog {
                 delSetActionPerformed(evt);
             }
         });
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel12.setText("Teclas de atalho:");
-        jLabel12.setName("jLabel12"); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -389,8 +326,7 @@ public class FormAjuda extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(delNc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(delSet))
-                    .addComponent(jLabel12))
+                        .addComponent(delSet)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -402,10 +338,8 @@ public class FormAjuda extends javax.swing.JDialog {
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
@@ -447,7 +381,7 @@ public class FormAjuda extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RelInd)
                     .addComponent(RelPer))
-                .addContainerGap())
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -475,51 +409,51 @@ public class FormAjuda extends javax.swing.JDialog {
     }//GEN-LAST:event_RelPerActionPerformed
 
     private void altUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altUsuActionPerformed
-        cadastrar(altUsu.getText(), false);
+        cadastrar(altUsu.getLabel());
     }//GEN-LAST:event_altUsuActionPerformed
 
     private void altResActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altResActionPerformed
-        cadastrar(altRes.getText(), false);
+        cadastrar(altRes.getLabel());
     }//GEN-LAST:event_altResActionPerformed
 
     private void altNcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altNcActionPerformed
-        cadastrar(altNc.getText(), true);
+        cadastrar(altNc.getLabel());
     }//GEN-LAST:event_altNcActionPerformed
 
     private void altSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altSetActionPerformed
-        cadastrar(altSet.getText(), false);
+        cadastrar(altSet.getLabel());
     }//GEN-LAST:event_altSetActionPerformed
 
     private void edtUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtUsuActionPerformed
-        editar(edtUsu.getText(), false);
+        editar(edtUsu.getLabel());
     }//GEN-LAST:event_edtUsuActionPerformed
 
     private void edtResActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtResActionPerformed
-        editar(edtRes.getText(), false);
+        editar(edtRes.getLabel());
     }//GEN-LAST:event_edtResActionPerformed
 
     private void edtNcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtNcActionPerformed
-        editar(edtNc.getText(), true);
+        editar(edtNc.getLabel());
     }//GEN-LAST:event_edtNcActionPerformed
 
     private void edtSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSetActionPerformed
-        editar(edtSet.getText(), false);
+        editar(edtSet.getLabel());
     }//GEN-LAST:event_edtSetActionPerformed
 
     private void delUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delUsuActionPerformed
-        excluir(delUsu.getText(), false);
+        excluir(delUsu.getLabel());
     }//GEN-LAST:event_delUsuActionPerformed
 
     private void delResActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delResActionPerformed
-        excluir(delRes.getText(), false);
+        excluir(delRes.getLabel());
     }//GEN-LAST:event_delResActionPerformed
 
     private void delNcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delNcActionPerformed
-        excluir(delNc.getText(), true);
+        excluir(delNc.getLabel());
     }//GEN-LAST:event_delNcActionPerformed
 
     private void delSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delSetActionPerformed
-        excluir(delSet.getText(), false);
+        excluir(delSet.getLabel());
     }//GEN-LAST:event_delSetActionPerformed
 
     private void RelIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelIndActionPerformed
@@ -543,7 +477,6 @@ public class FormAjuda extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
