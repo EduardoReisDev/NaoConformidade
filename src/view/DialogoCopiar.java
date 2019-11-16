@@ -6,6 +6,7 @@
 package view;
 
 import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
+import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -21,6 +22,7 @@ public class DialogoCopiar extends javax.swing.JFrame {
      * Creates new form DialogoCopiar
      */
     public DialogoCopiar() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
         try {
             UIManager.setLookAndFeel(new WindowsLookAndFeel());
         } catch (UnsupportedLookAndFeelException ex) {

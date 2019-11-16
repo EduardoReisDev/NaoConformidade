@@ -150,7 +150,7 @@ public class FormCadastrarNaoConformidade extends javax.swing.JDialog {
                     dataRegistro.getCurrent().getTime(), 
                     descricao.getText(), 
                     null, 
-                    abrangencia.getText(), 
+                    origem.getText(), 
                     reincidencia.isSelected(), 
                     new Setor(
                             pegarIdSetor()

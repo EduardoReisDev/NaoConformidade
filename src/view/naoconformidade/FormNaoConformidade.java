@@ -9,11 +9,11 @@ import controller.Controller;
 import controller.NaoConformidadeController;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Enumeration;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -37,7 +37,7 @@ import view.Mensagens;
  */
 public class FormNaoConformidade extends javax.swing.JDialog {
     private final Controller controller;
-    private final String[] colunas = {"Descrição","Data de Acontecimento","Reincidencia","Responsavel","Setor","",""};
+    private final String[] colunas = {"Descrição","Data de Acontecimento","Reincidencia","Responsável","Setor","",""};
     private final ArrayList<Integer> listaIdNaoConformidade;
     /**
      * Creates new form NaoConformidade
@@ -48,6 +48,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     public FormNaoConformidade(java.awt.Frame parent, boolean modal, Controller controller) {
         super(parent, modal);
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
         listaIdNaoConformidade = new ArrayList<>();
         this.controller = controller;
         criarEstruturaEListarTodos();
@@ -67,17 +68,11 @@ public class FormNaoConformidade extends javax.swing.JDialog {
     }
     
     public void criarEstruturaTabela(){
-        DefaultTableCellRenderer renderizador = new DefaultTableCellHeaderRenderer(){
+        DefaultTableCellRenderer renderizador = new DefaultTableCellRenderer(){
             @Override
             public void setHorizontalAlignment(int alignment) {
                 super.setHorizontalAlignment(CENTER); //To change body of generated methods, choose Tools | Templates.
             }
-
-            @Override
-            public void setBorder(javax.swing.border.Border border) {
-                super.setBorder(null); //To change body of generated methods, choose Tools | Templates.
-            }
-            
         };
         
         DefaultTableCellRenderer renderizadorHeader = new DefaultTableCellHeaderRenderer(){
@@ -85,12 +80,6 @@ public class FormNaoConformidade extends javax.swing.JDialog {
             public void setHorizontalAlignment(int alignment) {
                 super.setHorizontalAlignment(CENTER); //To change body of generated methods, choose Tools | Templates.
             }
-
-            @Override
-            public void setBorder(javax.swing.border.Border border) {
-                super.setBorder(new LineBorder(new Color(204, 204, 204))); //To change body of generated methods, choose Tools | Templates.
-            }
-            
         };
         
         modelo = new DefaultTableModel(){
@@ -108,7 +97,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         while(columns.hasMoreElements()){
             TableColumn nextElement = columns.nextElement();
             nextElement.setCellRenderer(renderizador);
-            //nextElement.setHeaderRenderer(renderizadorHeader);
+            nextElement.setHeaderRenderer(renderizadorHeader);
         }
         jTable1.setRowHeight(30);
         jTable1.getColumnModel().getColumn(5).setMinWidth(30);
@@ -217,6 +206,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Não Conformidades");
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerenciar Não Conformidade", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 

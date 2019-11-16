@@ -9,9 +9,12 @@ import resources.Resources;
 import dao.UsuarioDao;
 import java.awt.Component;
 import java.awt.Frame;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.Arrays;
 import model.Usuario;
 import java.util.function.Consumer;
+import javax.swing.JFrame;
 import view.Mensagens;
 import view.usuario.FormCadastrarUsuario;
 import view.usuario.FormEditarUsuario;
@@ -83,7 +86,7 @@ public class UsuarioController {
      * @return dados de login caso eles sejam inseridos
      */
     public Usuario abrirFormularioLogin() {
-        formularioLogin = new FormLogin((Frame) componentePai, true,this);
+        formularioLogin = new FormLogin((Frame) componentePai, true, this);
         formularioLogin.setLocationRelativeTo(componentePai);
         formularioLogin.setVisible(true);
         if(!formularioLogin.getTxtUsuario().getText().isEmpty()){

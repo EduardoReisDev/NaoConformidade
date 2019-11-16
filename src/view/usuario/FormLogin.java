@@ -6,6 +6,7 @@
 package view.usuario;
 
 import controller.UsuarioController;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -25,10 +26,12 @@ public class FormLogin extends javax.swing.JDialog {
      * Creates new form Login
      * @param parent
      * @param modal
+     * @param usuarioController
      */
     public FormLogin(java.awt.Frame parent, boolean modal, UsuarioController usuarioController) {
         super(parent, modal);
         this.usuarioController = usuarioController;
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
         initComponents();
     }
     

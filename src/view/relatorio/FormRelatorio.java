@@ -6,12 +6,15 @@
 package view.relatorio;
 
 import controller.Controller;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
+import resources.Resources;
+import view.Mensagens;
 
 /**
  *
@@ -28,19 +31,23 @@ public class FormRelatorio extends javax.swing.JDialog {
     public FormRelatorio(java.awt.Frame parent, boolean modal, Controller controller) {
         super(parent, modal);
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
         this.controller = controller;
         dataInicio.requestFocusInWindow();
     }
+    
+    
 
     private void gerarRelatorio(){
-        if(dataFim.getCurrent().getTimeInMillis() > dataInicio.getCurrent().getTimeInMillis()){
+        System.out.println(dataFim.getCurrent().getTimeInMillis() +"  "+ dataInicio.getCurrent().getTimeInMillis());
+        if(dataFim.getCurrent().getTimeInMillis()<= dataInicio.getCurrent().getTimeInMillis()){
+            Mensagens.mensagem(this, "A data fim não pode ser menor ou igual a data inicial!", "Período incorreto", Resources.ATENCAO);
+        }
+        else{
             controller.getNaoConformidadeController().gerarRelatorioPorData(
                     dataInicio.getCurrent().getTime(),                     
                     dataFim.getCurrent().getTime()
             );
-        }
-        else{
-            System.out.println("a data fim não pode ser antes da data inicio");
         }
     }
     
@@ -79,6 +86,7 @@ public class FormRelatorio extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gerar Relatório");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerar Relatório", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 
@@ -124,6 +132,8 @@ public class FormRelatorio extends javax.swing.JDialog {
                 false,
                 true)));
     dataInicio.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
+    dataInicio.setNavigateFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
+    dataInicio.setBehavior(datechooser.model.multiple.MultyModelBehavior.SELECT_SINGLE);
 
     dataFim.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
         new datechooser.view.appearance.ViewAppearance("custom",
@@ -167,6 +177,8 @@ public class FormRelatorio extends javax.swing.JDialog {
             false,
             true)));
 dataFim.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
+dataFim.setNavigateFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 14));
+dataFim.setBehavior(datechooser.model.multiple.MultyModelBehavior.SELECT_SINGLE);
 
 jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 jLabel1.setText("Data inicial");

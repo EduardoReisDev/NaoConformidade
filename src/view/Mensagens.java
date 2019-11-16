@@ -6,6 +6,7 @@
 package view;
 
 import java.awt.Component;
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,5 +37,9 @@ public class Mensagens {
      */
     public static void mensagem(Component pai, String mensagem, String titulo, int tipoDeMensagem){
         JOptionPane.showMessageDialog(pai, mensagem, titulo, tipoDeMensagem);
+    }
+    
+    public static int mensagemComOpcoes(Component pai, String mensagem, String titulo, int tipoDeMensagem, Icon icone, Object[] opcoes ){
+        return JOptionPane.showOptionDialog(pai, mensagem, titulo, 0, tipoDeMensagem, icone, opcoes, null);
     }
 }

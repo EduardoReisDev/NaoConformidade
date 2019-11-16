@@ -14,14 +14,14 @@ import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.Usuario;
-import view.DialogoConfirmaSair;
+import resources.Resources;
 import view.FormPrincipal;
 import view.Mensagens;
 import view.naoconformidade.FormNaoConformidade;
 import view.relatorio.FormRelatorio;
 import view.responsaveis.FormResponsavel;
 import view.setor.FormSetor;
-import view.splash.Splash;
+import view.Splash;
 import view.usuario.FormUsuario;
 
 /**
@@ -43,7 +43,6 @@ public class Controller {
     private FormUsuario telaUsuario;
     private FormPrincipal telaPrincipal;
     private FormRelatorio telaRelatorio;
-    private DialogoConfirmaSair dialogoConfirmaSair;
             
     public Controller(){
         dados =  new Dados();
@@ -155,14 +154,27 @@ public class Controller {
     
     public void fechar(){
         if(Boolean.parseBoolean(propriedade.ler("confirmar.fechar"))){
-            dialogoConfirmaSair = new DialogoConfirmaSair((Frame) componentePai, true);
-            dialogoConfirmaSair.setLocationRelativeTo(componentePai);
-            dialogoConfirmaSair.setVisible(true);
-            if(dialogoConfirmaSair.isNaoMostrarNovamente()){
-                propriedade.escrever("confirmar.fechar", "false");
-            }
-            if(dialogoConfirmaSair.isSair()){
-                System.exit(0);
+            switch(Mensagens.mensagemComOpcoes(
+                    componentePai, 
+                    "Deseja sair do sistema de gerenciamento de Não Conformidades?", 
+                    "Sair do Sistema", 
+                    Resources.QUESTAO, 
+                    null,
+                    new String[]{"Sim","Não","Sair e não confirmar novamente","Não sair e não confirmar novamente"}
+                )){
+                case 0 :{
+                    System.exit(0);
+                    break;
+                }
+                case 2 : {
+                    propriedade.escrever("confirmar.fechar", "false");
+                    System.exit(0);
+                    break;
+                }
+                case 3 : {
+                    propriedade.escrever("confirmar.fechar", "false");
+                    break;
+                }
             }
         }
         else{

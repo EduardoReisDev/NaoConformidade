@@ -6,6 +6,7 @@
 package view.responsaveis;
 
 import controller.Controller;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -36,6 +37,7 @@ public class FormResponsavel extends javax.swing.JDialog {
         super(parent, modal);
         this.colunas = new String[]{"Código", "Nome", "CPF"};
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
         this.controller = controller;
         listaId = new ArrayList<>();
         criarEstruturaTabelaEListarTodos();
@@ -161,6 +163,7 @@ public class FormResponsavel extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Responsáveis");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerenciar Responsáveis", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
