@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -54,6 +55,16 @@ public class Imagem {
         BufferedImage icone = ProcessarImagem(largura, altura);
         if(icone!=null){
             return new ImageIcon(ProcessarImagem(largura, altura));
+        }
+        return null;
+    }
+    
+    public ImageIcon lerImagem(URL input, int largura, int altura, Color... corFundo){
+        try {
+            imagem = ImageIO.read(input);
+            return new ImageIcon(ProcessarImagem(largura, altura, corFundo));
+        } catch (IOException ex) {
+
         }
         return null;
     }

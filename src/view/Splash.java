@@ -30,7 +30,6 @@ public class Splash extends javax.swing.JFrame {
     }
     
     public final void inicializar(){
-        setAlwaysOnTop(true);
         setLocationRelativeTo(null);
         int x = (getWidth()-640)/2;
         JPanel painelGif = new JPanel(){

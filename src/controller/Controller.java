@@ -194,7 +194,10 @@ public class Controller {
         if(usuario!=null){
             naoConformidadeController.setUsuario(usuario);
             abreTelaPrincipal();
-       }
+        }
+        else{
+            System.exit(0);
+        }
     }
     public static void main(String[] args){
         try {

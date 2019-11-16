@@ -40,7 +40,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         int altura= getHeight()-180;
         bg.setIcon(
             controller.getNaoConformidadeController().getImagem().lerImagem(
-                    getClass().getResource("/imagens/ueg.png").getFile(),
+                    getClass().getResource("/imagens/UEG.png"),
                     largura,
                     altura,
                     new Color(240, 240, 240)
@@ -314,8 +314,10 @@ public class FormPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)))
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

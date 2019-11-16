@@ -155,7 +155,9 @@ public class UsuarioController {
         }
         else{//chama o diálogo de cadastro de usuários
             abrirFormCadastro();
-            return login();
+            if(verificarExistenciaDeUsuariosMasters()){
+                return login();
+            }
         }
         return usuario;
     }

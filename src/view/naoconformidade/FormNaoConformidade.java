@@ -22,13 +22,11 @@ import javax.swing.JRootPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import static javax.swing.SwingConstants.CENTER;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import model.NaoConformidade;
 import resources.Resources;
-import sun.swing.table.DefaultTableCellHeaderRenderer;
 import view.Mensagens;
 
 /**
@@ -37,7 +35,7 @@ import view.Mensagens;
  */
 public class FormNaoConformidade extends javax.swing.JDialog {
     private final Controller controller;
-    private final String[] colunas = {"Descrição","Data de Acontecimento","Reincidencia","Responsável","Setor","",""};
+    private final String[] colunas = {"Descrição","Data de Acontecimento","Reincidência","Responsável","Setor","",""};
     private final ArrayList<Integer> listaIdNaoConformidade;
     /**
      * Creates new form NaoConformidade
@@ -75,13 +73,7 @@ public class FormNaoConformidade extends javax.swing.JDialog {
             }
         };
         
-        DefaultTableCellRenderer renderizadorHeader = new DefaultTableCellHeaderRenderer(){
-            @Override
-            public void setHorizontalAlignment(int alignment) {
-                super.setHorizontalAlignment(CENTER); //To change body of generated methods, choose Tools | Templates.
-            }
-        };
-        
+       
         modelo = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -97,7 +89,6 @@ public class FormNaoConformidade extends javax.swing.JDialog {
         while(columns.hasMoreElements()){
             TableColumn nextElement = columns.nextElement();
             nextElement.setCellRenderer(renderizador);
-            nextElement.setHeaderRenderer(renderizadorHeader);
         }
         jTable1.setRowHeight(30);
         jTable1.getColumnModel().getColumn(5).setMinWidth(30);
