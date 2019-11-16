@@ -23,4 +23,9 @@ public class Responsavel extends Pessoa{
         super(id);
     }
     
+    @Override
+    public String toString(){
+        return super.toString();
+    }
+    
 }
