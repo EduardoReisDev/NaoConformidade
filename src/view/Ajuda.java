@@ -323,7 +323,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea15.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea15.setColumns(20);
         jTextArea15.setRows(3);
-        jTextArea15.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade(F4), feito isso, em Nova Não Conformidade e faça o preenchimento dos dados e em Salvar.\n");
+        jTextArea15.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade(F3), feito isso, em Nova Não Conformidade e faça o preenchimento dos dados e em Salvar.\n");
         jScrollPane16.setViewportView(jTextArea15);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
