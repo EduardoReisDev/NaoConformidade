@@ -314,7 +314,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea13.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea13.setColumns(20);
         jTextArea13.setRows(3);
-        jTextArea13.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade(F4), feito isso, em Nova Não Conformidade e faça o preenchimento dos dados e em Salvar.");
+        jTextArea13.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade(F3), feito isso, em Nova Não Conformidade e faça o preenchimento dos dados e em Salvar.");
         jScrollPane14.setViewportView(jTextArea13);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

@@ -395,7 +395,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_bgComponentResized
 
     private void menuAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAjudaActionPerformed
-        
+        new Help(this, true).setVisible(true);
     }//GEN-LAST:event_menuAjudaActionPerformed
 
     private void menuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSobreActionPerformed
