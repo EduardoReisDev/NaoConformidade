@@ -527,7 +527,7 @@
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar um novo setor no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em &#xa;Gerenciar Setores(F4), feito isso, clique em Novo Setor e fa&#xe7;a o preenchimento dos dados e clique em Salvar."/>
+                        <Property name="text" type="java.lang.String" value="Para excluir um setor no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em &#xa;Gerenciar Setores(F4), feito isso, selecione um setor e clique em Excluir."/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -636,7 +636,7 @@
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar uma N&#xe3;o Conformidade no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em&#xa;Gerenciar N&#xe3;o Conformidade(F3), feito isso, em Nova N&#xe3;o Conformidade e fa&#xe7;a o preenchimento dos dados e em Salvar."/>
+                        <Property name="text" type="java.lang.String" value="Para editar uma N&#xe3;o Conformidade no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em&#xa;Gerenciar N&#xe3;o Conformidade(F3), feito isso, selecione a n&#xe3;o conformidade, clique em editar e fa&#xe7;a a edi&#xe7;&#xe3;o desejada."/>
                       </Properties>
                     </Component>
                   </SubComponents>

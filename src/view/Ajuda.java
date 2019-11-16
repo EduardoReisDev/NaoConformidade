@@ -259,7 +259,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea12.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea12.setColumns(20);
         jTextArea12.setRows(3);
-        jTextArea12.setText("Para cadastrar um novo setor no sistema, é necessário que você acesse o menu principal do sistema e clique em \nGerenciar Setores(F4), feito isso, clique em Novo Setor e faça o preenchimento dos dados e clique em Salvar.");
+        jTextArea12.setText("Para excluir um setor no sistema, é necessário que você acesse o menu principal do sistema e clique em \nGerenciar Setores(F4), feito isso, selecione um setor e clique em Excluir.");
         jScrollPane13.setViewportView(jTextArea12);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -314,7 +314,7 @@ public class Ajuda extends javax.swing.JDialog {
         jTextArea13.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea13.setColumns(20);
         jTextArea13.setRows(3);
-        jTextArea13.setText("Para cadastrar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade(F3), feito isso, em Nova Não Conformidade e faça o preenchimento dos dados e em Salvar.");
+        jTextArea13.setText("Para editar uma Não Conformidade no sistema, é necessário que você acesse o menu principal do sistema e clique em\nGerenciar Não Conformidade(F3), feito isso, selecione a não conformidade, clique em editar e faça a edição desejada.");
         jScrollPane14.setViewportView(jTextArea13);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
