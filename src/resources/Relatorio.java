@@ -34,10 +34,6 @@ import model.Usuario;
 public class Relatorio {
     private Document documento;
     private PdfDocument pdf;
-    private float margemDireita;
-    private float margemSuperior;
-    private float margemEsquerda;
-    private float margemInferior;
     private final PageSize tamanhoPagina;
 
     public Relatorio() {
