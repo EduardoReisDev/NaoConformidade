@@ -13,6 +13,7 @@ import model.NaoConformidade;
 import model.Responsavel;
 import model.Setor;
 import model.Usuario;
+import resources.Resources;
 import view.Mensagens ;
 import view.naoconformidade.FormCadastrarNaoConformidade;
 import view.naoconformidade.FormEditarNaoCoformidade;
