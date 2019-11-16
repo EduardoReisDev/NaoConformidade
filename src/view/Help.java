@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
+import resources.Resources;
 
 /**
  *
@@ -51,7 +52,7 @@ public class Help extends javax.swing.JDialog {
                 "Para cadastrar um(a) " +lbl+ " no sistema, é necessário que você acesse o menu principal do sistema e vá em "+lbl+","
                         + "\nfeito isso, em Cadastrar Novo(a) "+lbl+" e faça o preenchimento dos dados e clique em Salvar.", 
                 "Mensagem", 
-                1
+                Resources.SUCESSO
         );
     }
     
@@ -61,7 +62,7 @@ public class Help extends javax.swing.JDialog {
                 "Para editar um(a) "+lbl+" no sistema, é necessário que você acesse o menu principal do sistema e vá em "+lbl+", "
                         + "\nfeito isso, selecione o(a) "+lbl+"desejado(a) e em editar. Depois, faça a edição desejada e clique em Salvar.", 
                 "Mensagem", 
-                1
+                Resources.SUCESSO
         );
     }
     
@@ -71,7 +72,7 @@ public class Help extends javax.swing.JDialog {
                 "Para excluir um(a) "+lbl+" no sistema, é necessário que você acesse o menu principal do sistema e vá em "+lbl+", "
                         + "\nfeito isso, selecione o(a)"+lbl+" desejado(a) e clique em excluir.", 
                 "Mensagem", 
-                1
+                Resources.SUCESSO
         );
     }
     
@@ -81,7 +82,7 @@ public class Help extends javax.swing.JDialog {
                 "Para gerar um relatório individual no sistema, é necessário que você acesse o menu principal do sistema e vá em Não Conformidade, "
                         + "\nfeito isso,no clique no ícone gerar relatório da Não Conformidade escolhida e depois em Gerar.", 
                 "Mensagem", 
-                1
+                Resources.SUCESSO
         );
     }
     
@@ -91,7 +92,7 @@ public class Help extends javax.swing.JDialog {
                 "Para gerar relatórios por período no sistema, é necessário que você acesse o menu principal do sistema e vá em relatórios,"
                         + "\nfeito isso, escolha um período e clique em Gerar relatório.", 
                 "Mensagem", 
-                1
+                Resources.SUCESSO
         );
     }
 

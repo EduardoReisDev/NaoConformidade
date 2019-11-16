@@ -130,11 +130,11 @@ public class NaoConformidadeController {
             imagem.salvarImagem(String.format("imagens\\nc%d.png", naoConformidade.getId()));
         }
         if(naoConformidadeDao.criar(naoConformidade)){
-            Mensagens.mensagem(componentePai, "Dados cadastrados com sucesso!","Mensagem",1);
+            Mensagens.mensagem(componentePai, "Dados cadastrados com sucesso!","Mensagem",Resources.SUCESSO);
             cadastroNaoConformidade.dispose();
         }
         else {
-            Mensagens.mensagem(componentePai, "Não foi possível cadastrar!","Mensagem",1);
+            Mensagens.mensagem(componentePai, "Não foi possível cadastrar!","Mensagem",Resources.SUCESSO);
         }
     }
     
@@ -144,11 +144,11 @@ public class NaoConformidadeController {
             imagem.salvarImagem(String.format("imagens\\nc%d.png", naoConformidade.getId()));
         }
         if(naoConformidadeDao.editar(naoConformidade)){
-            Mensagens.mensagem(componentePai, "Dados atualizados com sucesso!", "Mensagem", 1);
+            Mensagens.mensagem(componentePai, "Dados atualizados com sucesso!", "Mensagem", Resources.SUCESSO);
             editarNaoConformidade.dispose();
         }
         else{
-            Mensagens.mensagem(componentePai, "Não foi possível atualizar!", "Iformação", 1);
+            Mensagens.mensagem(componentePai, "Não foi possível atualizar!", "Iformação", Resources.SUCESSO);
         }
     }
 
@@ -177,10 +177,10 @@ public class NaoConformidadeController {
     public void excluir(int id){
         if(naoConformidadeDao.excluir(id)){
             new File("imagens\\nc"+id+".png").delete();
-            Mensagens.mensagem(componentePai, "Não conformidade excluída com sucesso!","Mensagem",1);
+            Mensagens.mensagem(componentePai, "Não conformidade excluída com sucesso!","Mensagem",Resources.SUCESSO);
         }
         else {
-            Mensagens.mensagem(componentePai, "Não foi possível excluir!","Mensagem",1);
+            Mensagens.mensagem(componentePai, "Não foi possível excluir!","Mensagem",Resources.SUCESSO);
         }
     }        
 }

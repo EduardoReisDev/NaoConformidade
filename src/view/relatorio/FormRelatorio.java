@@ -187,6 +187,7 @@ jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 jLabel2.setText("Data final");
 
 jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/teste.png"))); // NOI18N
 jButton1.setText("Gerar relatório");
 jButton1.addActionListener(new java.awt.event.ActionListener() {
     public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,7 +228,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
                 .addComponent(dataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(18, 18, 18)
             .addComponent(jButton1)
-            .addContainerGap(14, Short.MAX_VALUE))
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
