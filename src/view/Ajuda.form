@@ -663,7 +663,7 @@
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="text" type="java.lang.String" value="Para cadastrar uma N&#xe3;o Conformidade no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em&#xa;Gerenciar N&#xe3;o Conformidade(F3), feito isso, em Nova N&#xe3;o Conformidade e fa&#xe7;a o preenchimento dos dados e em Salvar.&#xa;"/>
+                        <Property name="text" type="java.lang.String" value="Para excluir uma N&#xe3;o Conformidade no sistema, &#xe9; necess&#xe1;rio que voc&#xea; acesse o menu principal do sistema e clique em&#xa;Gerenciar N&#xe3;o Conformidade(F3), feito isso, selecione a n&#xe3;o conformidade desejada e clique em excluir.&#xa;"/>
                       </Properties>
                     </Component>
                   </SubComponents>
