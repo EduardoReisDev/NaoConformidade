@@ -7,6 +7,7 @@ package view.usuario;
 
 import controller.UsuarioController;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -91,6 +92,11 @@ public class VerificarUsuario extends javax.swing.JDialog {
 
         txtNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtNome.setName("txtNome"); // NOI18N
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNomeKeyPressed(evt);
+            }
+        });
 
         btnVerificar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVerificar.setText("Verificar");
@@ -107,6 +113,11 @@ public class VerificarUsuario extends javax.swing.JDialog {
 
         txtCpf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtCpf.setName("txtCpf"); // NOI18N
+        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCpfKeyPressed(evt);
+            }
+        });
 
         verificacaoCpf.setForeground(new java.awt.Color(255, 0, 0));
         verificacaoCpf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -174,6 +185,18 @@ public class VerificarUsuario extends javax.swing.JDialog {
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
         verificar();
     }//GEN-LAST:event_btnVerificarActionPerformed
+
+    private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+        txtCpf.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_txtNomeKeyPressed
+
+    private void txtCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyPressed
+         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+        btnVerificar.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_txtCpfKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVerificar;
