@@ -173,24 +173,31 @@ public class FormDetalheNaoConformidade extends javax.swing.JDialog {
             }
         });
 
+        txtAbrangencia.setEditable(false);
         txtAbrangencia.setColumns(20);
         txtAbrangencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtAbrangencia.setRows(1);
         jScrollPane2.setViewportView(txtAbrangencia);
 
+        txtCodigo.setEditable(false);
         txtCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        txtDataAcontecimento.setEditable(false);
         txtDataAcontecimento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        txtDataRegistro.setEditable(false);
         txtDataRegistro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        txtReincidencia.setEditable(false);
         txtReincidencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        txtAcaoCorrecao.setEditable(false);
         txtAcaoCorrecao.setColumns(20);
         txtAcaoCorrecao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtAcaoCorrecao.setRows(1);
         jScrollPane3.setViewportView(txtAcaoCorrecao);
 
+        txtNomeResponsavel.setEditable(false);
         txtNomeResponsavel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -199,21 +206,26 @@ public class FormDetalheNaoConformidade extends javax.swing.JDialog {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("CPF:");
 
+        txtCpfResponsavel.setEditable(false);
         txtCpfResponsavel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Setor");
 
+        txtOrigem.setEditable(false);
         txtOrigem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        txtNomeSetor.setEditable(false);
         txtNomeSetor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setText("Responsável pelo setor:");
 
+        txtNomeResponsavelSetor.setEditable(false);
         txtNomeResponsavelSetor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        txtCpfResponsavelSetor.setEditable(false);
         txtCpfResponsavelSetor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
