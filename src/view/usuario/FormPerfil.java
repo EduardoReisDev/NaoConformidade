@@ -3,43 +3,47 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.setor;
+package view.usuario;
+
 
 import controller.Controller;
-import controller.SetorController;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
-import model.Setor;
+import model.Usuario;
+import resources.Resources;
+import view.Mensagens;
 
 /**
  *
- * @author Eduardo
+ * 
  */
-public class FormSetor extends javax.swing.JDialog {
+public class FormPerfil extends javax.swing.JDialog {
     private Controller controller;
     private DefaultTableModel modeloTabela;
-    private final String[] colunas;
-
+    private final String[] colunas ={"Código", "Nome", "CPF", "Pefil", "Perfil Master"};
+    private final ArrayList<Integer> listaId;
     /**
-     * Creates new form NewJDialog
+     * Creates new form GerenciarUsuarios
+     * @param parent
+     * @param modal
+     * @param controller
      */
-    public FormSetor(java.awt.Frame parent, boolean modal, Controller controller) {
+    public FormPerfil(java.awt.Frame parent, boolean modal, Controller controller) {
         super(parent, modal);
-        this.colunas = new String [] {"Código", "Nome do Setor", "Responsavel pelo Setor"};
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/logo.png")));
         this.controller = controller;
+        listaId = new ArrayList<>();
         criarEstruturaTabelaEListarTodos();
     }
-    // Sobrepondo o método createRootPane()
-
+    
     @Override
     protected JRootPane createRootPane() {
         // Definindo o ActionListener
@@ -56,14 +60,15 @@ public class FormSetor extends javax.swing.JDialog {
         // Retornando o novo e modificado JRootPane
         return rootPane;
     }
-
-
+    
     private void criarEstruturaTabelaEListarTodos(){
-        criarEstruturaTabela();
-        controller.getSetorController().listarTodos(this::popularTabela);
+        criarEstrurturaTabela();
+        controller.getUsuarioController().listarUsuarios((usuario) -> 
+                this.popularTabela(usuario)
+        );
     }
     
-    public void criarEstruturaTabela(){
+    public void criarEstrurturaTabela(){
         modeloTabela = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -73,56 +78,73 @@ public class FormSetor extends javax.swing.JDialog {
         for(String coluna: colunas){
             modeloTabela.addColumn(coluna);
         }
-        tblSetor.setModel(modeloTabela);
+        tblUsuarios.setModel(modeloTabela);
     }
     
-    private void popularTabela(Setor setor){
+    private void popularTabela(Usuario usuario){
         modeloTabela.addRow(new String[]{
-            String.format("%010d", setor.getId()),
-            setor.getNome(),
-            setor.getResponsavel().getNome()
+            String.format("%010d", usuario.getId()),
+            usuario.getNome(),
+            usuario.getCpf(),
+            usuario.getUsuario(),
+            Resources.converterBooleanoSimOuNaoMaiusculo(usuario.isMaster())
         });
     }
     
+        
+    public void adicionar(){
+        controller.getUsuarioController().abrirFormCadastro();
+        criarEstruturaTabelaEListarTodos();
+    }
+    
     private void exibirMensagemLinhaNaoSelecionada(){
-        JOptionPane.showMessageDialog(this, "Selecione uma linha na tabela.");
+        Mensagens.mensagem(this, "Selecione uma linha na tabela.","Mensagem",Resources.SUCESSO);
     }
     
-    private void criarEstruturaTabelaEBuscar(){
-        criarEstruturaTabela();
-        controller.getSetorController().listarPorNome(this::popularTabela, txtBusca.getText());
-    }
-    
-    private int pegarIdDaLinhaSelecionada(){
-        int linhaSelecionada=tblSetor.getSelectedRow();
+   
+    private int pegarIdDaLinhaSelecionada(int linhaSelecionada){
         if(linhaSelecionada>=0){
-            return (Integer.parseInt((String) tblSetor.getValueAt(linhaSelecionada, 0)));
+            return (Integer.parseInt((String) tblUsuarios.getValueAt(linhaSelecionada, 0)));
         }
         return -1;
     }
     
+    private void criarEstruturaTabelaEBuscar(){
+        criarEstrurturaTabela();
+        controller.getUsuarioController().listarUsuariosPorNome(this::popularTabela, txtBusca.getText());
+    }
+    
     private void editar(){
-        int id = pegarIdDaLinhaSelecionada();
-        if(id > 0){
-            controller.getSetorController().abrirFormEditar(id);
-            criarEstruturaTabelaEListarTodos();
+        listaId.clear();
+        for (int linha : tblUsuarios.getSelectedRows()){
+            listaId.add(pegarIdDaLinhaSelecionada(linha));
+        }
+        if(listaId.isEmpty()){
+            exibirMensagemLinhaNaoSelecionada();
         }
         else{
-            exibirMensagemLinhaNaoSelecionada();
+            listaId.forEach(id->{
+                controller.getUsuarioController().abrirFormEditar(id);
+                criarEstruturaTabelaEListarTodos();
+            });
         }
     }
     
-    private void excluir() {
-        int id = pegarIdDaLinhaSelecionada();
-        if(id > 0){
-            controller.getSetorController().excluir(id);
-            criarEstruturaTabelaEListarTodos();
+    private void excluir(){
+        listaId.clear();
+        for (int linha : tblUsuarios.getSelectedRows()){
+            listaId.add(pegarIdDaLinhaSelecionada(linha));
         }
-        else{
+        if(listaId.isEmpty()){
             exibirMensagemLinhaNaoSelecionada();
         }
+        else{
+            listaId.forEach(id->{
+                controller.getUsuarioController().excluir(id);
+                criarEstruturaTabelaEListarTodos();
+            });
+        }
     }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -134,44 +156,24 @@ public class FormSetor extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblSetor = new javax.swing.JTable();
         btnCadastrar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
+        btnExcuir = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblUsuarios = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         txtBusca = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Setores");
+        setTitle("Usuários");
         setPreferredSize(new java.awt.Dimension(740, 470));
         setResizable(false);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerenciar Setores", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gerenciar Perfis", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Setores cadastrados");
-
-        tblSetor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tblSetor.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Código", "Nome do Setor", "Responsável pelo Setor"
-            }
-        ));
-        jScrollPane1.setViewportView(tblSetor);
+        jLabel1.setText("Perfis cadastrados");
 
         btnCadastrar.setBackground(new java.awt.Color(255, 255, 255));
         btnCadastrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -193,18 +195,38 @@ public class FormSetor extends javax.swing.JDialog {
             }
         });
 
-        btnExcluir.setBackground(new java.awt.Color(255, 255, 255));
-        btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excluir.png"))); // NOI18N
-        btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+        btnExcuir.setBackground(new java.awt.Color(255, 255, 255));
+        btnExcuir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExcuir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excluir.png"))); // NOI18N
+        btnExcuir.setText("Excluir");
+        btnExcuir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
+                btnExcuirActionPerformed(evt);
             }
         });
 
+        tblUsuarios.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Código", "Nome do Usuário", "CPF"
+            }
+        ));
+        jScrollPane1.setViewportView(tblUsuarios);
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Buscar setor");
+        jLabel2.setText("Buscar Perfil:");
 
         txtBusca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -215,11 +237,6 @@ public class FormSetor extends javax.swing.JDialog {
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -228,23 +245,22 @@ public class FormSetor extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnCadastrar)
+                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnExcuir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -255,16 +271,16 @@ public class FormSetor extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExcuir, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
+                    .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -272,7 +288,7 @@ public class FormSetor extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -281,44 +297,39 @@ public class FormSetor extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        criarEstruturaTabelaEBuscar();
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        editar();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnExcuirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcuirActionPerformed
+        excluir();
+    }//GEN-LAST:event_btnExcuirActionPerformed
 
     private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
         criarEstruturaTabelaEBuscar();
     }//GEN-LAST:event_txtBuscaKeyReleased
 
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        excluir();
-    }//GEN-LAST:event_btnExcluirActionPerformed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        editar();
-    }//GEN-LAST:event_btnEditarActionPerformed
-
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        controller.getSetorController().cadastrar();
-        criarEstruturaTabelaEListarTodos();
+        adicionar();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnExcuir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblSetor;
+    private javax.swing.JTable tblUsuarios;
     private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
 }
