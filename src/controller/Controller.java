@@ -15,6 +15,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.Usuario;
 import resources.Resources;
+import view.FormAjuda;
 import view.FormPrincipal;
 import view.Mensagens;
 import view.naoconformidade.FormNaoConformidade;
@@ -208,4 +209,8 @@ public class Controller {
         new Splash();
         new Controller().inicio();
     }  
+
+    public void abrirTelaAjuda() {
+        new FormAjuda((Frame) componentePai, true).setVisible(true);
+    }
 }
