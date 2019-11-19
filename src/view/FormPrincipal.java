@@ -11,6 +11,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
@@ -67,8 +69,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         ActionListener acaoF4 = (ActionEvent e) -> {
             controller.abreTelaSetor();
         };
-         ActionListener acaoF5 = (ActionEvent e) -> {
+        ActionListener acaoF5 = (ActionEvent e) -> {
             controller.abrirTelaRelatorio();
+        };
+        ActionListener acaoF10 = (ActionEvent e) -> {
+            abrirTelaAjuda();
         };
         // Definindo o KeyStroke
         KeyStroke strokeEsc = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
@@ -77,6 +82,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         KeyStroke strokeF3 = KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0);
         KeyStroke strokeF4 = KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0);
         KeyStroke strokeF5 = KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0);
+        KeyStroke strokeF10 = KeyStroke.getKeyStroke(KeyEvent.VK_F10, 0);
         
         // Criando uma instancia de JRootPane
         JRootPane rootPane = new JRootPane();
@@ -87,8 +93,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         rootPane.registerKeyboardAction(acaoF3, strokeF3, JComponent.WHEN_IN_FOCUSED_WINDOW);
         rootPane.registerKeyboardAction(acaoF4, strokeF4, JComponent.WHEN_IN_FOCUSED_WINDOW);
         rootPane.registerKeyboardAction(acaoF5, strokeF5, JComponent.WHEN_IN_FOCUSED_WINDOW);
+        rootPane.registerKeyboardAction(acaoF10, strokeF10, JComponent.WHEN_IN_FOCUSED_WINDOW);
         // Retornando o novo e modificado JRootPane
         return rootPane;
+    }
+    
+    private void abrirTelaAjuda(){
+        controller.abrirTelaAjuda();
     }
     
     private void fechar(){
@@ -104,6 +115,17 @@ public class FormPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jMenuBar3 = new javax.swing.JMenuBar();
+        jMenu7 = new javax.swing.JMenu();
+        jMenu8 = new javax.swing.JMenu();
+        jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
         bg = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
@@ -118,14 +140,36 @@ public class FormPrincipal extends javax.swing.JFrame {
         menuExportar = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menuSair = new javax.swing.JMenuItem();
+        btnAjuda = new javax.swing.JMenu();
+        brnSobre = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         menuConfirmar = new javax.swing.JMenuItem();
         munuNaoConfirmar = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        menuAjuda = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        menuSobre = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenu5.setText("File");
+        jMenuBar2.add(jMenu5);
+
+        jMenu6.setText("Edit");
+        jMenuBar2.add(jMenu6);
+
+        jMenuItem2.setText("jMenuItem2");
+
+        jMenu1.setText("jMenu1");
+
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
+
+        jMenu7.setText("File");
+        jMenuBar3.add(jMenu7);
+
+        jMenu8.setText("Edit");
+        jMenuBar3.add(jMenu8);
+
+        jCheckBoxMenuItem2.setSelected(true);
+        jCheckBoxMenuItem2.setText("jCheckBoxMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gerenciamento de Não Conformidades");
@@ -260,6 +304,22 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        btnAjuda.setText("Ajuda");
+        btnAjuda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAjudaMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(btnAjuda);
+
+        brnSobre.setText("Sobre");
+        brnSobre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                brnSobreMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(brnSobre);
+
         jMenu3.setText("Opções");
 
         jMenu4.setText("Confirmar antes de sair");
@@ -283,27 +343,6 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenu3.add(jMenu4);
 
         jMenuBar1.add(jMenu3);
-
-        jMenu1.setText("Ajuda");
-
-        menuAjuda.setText("Ajuda");
-        menuAjuda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAjudaActionPerformed(evt);
-            }
-        });
-        jMenu1.add(menuAjuda);
-        jMenu1.add(jSeparator2);
-
-        menuSobre.setText("Sobre");
-        menuSobre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuSobreActionPerformed(evt);
-            }
-        });
-        jMenu1.add(menuSobre);
-
-        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -394,37 +433,46 @@ public class FormPrincipal extends javax.swing.JFrame {
         setImagemBackground();
     }//GEN-LAST:event_bgComponentResized
 
-    private void menuAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAjudaActionPerformed
-        new FormAjuda(this, true).setVisible(true);
-    }//GEN-LAST:event_menuAjudaActionPerformed
+    private void btnAjudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAjudaMouseClicked
+        abrirTelaAjuda();
+    }//GEN-LAST:event_btnAjudaMouseClicked
 
-    private void menuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSobreActionPerformed
+    private void brnSobreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brnSobreMouseClicked
         new Sobre(this, true).setVisible(true);
-    }//GEN-LAST:event_menuSobreActionPerformed
+    }//GEN-LAST:event_brnSobreMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bg;
+    private javax.swing.JMenu brnSobre;
+    private javax.swing.JMenu btnAjuda;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuBar jMenuBar3;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JMenuItem menuAjuda;
     private javax.swing.JMenuItem menuConfirmar;
     private javax.swing.JMenuItem menuExportar;
     private javax.swing.JMenuItem menuImportar;
     private javax.swing.JMenuItem menuSair;
-    private javax.swing.JMenuItem menuSobre;
     private javax.swing.JMenuItem munuNaoConfirmar;
     // End of variables declaration//GEN-END:variables
 

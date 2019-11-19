@@ -15,6 +15,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.Usuario;
 import resources.Resources;
+import view.FormAjuda;
 import view.FormPrincipal;
 import view.Mensagens;
 import view.naoconformidade.FormNaoConformidade;
@@ -22,7 +23,7 @@ import view.relatorio.FormRelatorio;
 import view.responsaveis.FormResponsavel;
 import view.setor.FormSetor;
 import view.Splash;
-import view.usuario.FormUsuario;
+import view.usuario.FormPerfil;
 
 /**
  *
@@ -40,7 +41,7 @@ public class Controller {
     private FormNaoConformidade telaNaoConformidade;
     private FormResponsavel telaResponsavel;
     private FormSetor telaSetor;
-    private FormUsuario telaUsuario;
+    private FormPerfil telaUsuario;
     private FormPrincipal telaPrincipal;
     private FormRelatorio telaRelatorio;
             
@@ -137,7 +138,7 @@ public class Controller {
     
     public void abreTelaUsuario(){
         usuarioController.setComponentePai(componentePai);
-        telaUsuario = new FormUsuario((Frame) componentePai, true, this);
+        telaUsuario = new FormPerfil((Frame) componentePai, true, this);
         telaUsuario.setLocationRelativeTo(componentePai);
         telaUsuario.setVisible(true);
     }
@@ -208,4 +209,8 @@ public class Controller {
         new Splash();
         new Controller().inicio();
     }  
+
+    public void abrirTelaAjuda() {
+        new FormAjuda((Frame) componentePai, true).setVisible(true);
+    }
 }

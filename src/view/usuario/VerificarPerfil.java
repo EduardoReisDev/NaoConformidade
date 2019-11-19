@@ -19,13 +19,13 @@ import model.Usuario;
  *
  * @author Ricardo
  */
-public class VerificarUsuario extends javax.swing.JDialog {
+public class VerificarPerfil extends javax.swing.JDialog {
     private final UsuarioController usuarioController;
      private MaskFormatter mascaraCpf;
     /**
      * Creates new form VerificarUsuario
      */
-    public VerificarUsuario(java.awt.Frame parent, boolean modal, UsuarioController usuarioController) {
+    public VerificarPerfil(java.awt.Frame parent, boolean modal, UsuarioController usuarioController) {
         super(parent, modal);
         this.usuarioController = usuarioController;
         initComponents();
@@ -35,7 +35,7 @@ public class VerificarUsuario extends javax.swing.JDialog {
             mascaraCpf.setPlaceholderCharacter('_');
             txtCpf.setFormatterFactory(new DefaultFormatterFactory(mascaraCpf));
         } catch (ParseException ex) {
-            Logger.getLogger(FormCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormCadastrarPerfil.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
     
@@ -83,11 +83,11 @@ public class VerificarUsuario extends javax.swing.JDialog {
         setTitle("Verificar Usuários");
         setResizable(false);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Verificar Usuário", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Verificar Perfil", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         jPanel1.setName("jPanel1"); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Usuario");
+        jLabel1.setText("Nome:");
         jLabel1.setName("jLabel1"); // NOI18N
 
         txtNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -108,7 +108,7 @@ public class VerificarUsuario extends javax.swing.JDialog {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("CPF");
+        jLabel2.setText("CPF:");
         jLabel2.setName("jLabel2"); // NOI18N
 
         txtCpf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -178,6 +178,8 @@ public class VerificarUsuario extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel1.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

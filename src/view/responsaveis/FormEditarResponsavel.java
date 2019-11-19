@@ -42,7 +42,7 @@ public class FormEditarResponsavel extends javax.swing.JDialog {
             mascaraCpf.setPlaceholderCharacter('_');
             txtCpf.setFormatterFactory(new DefaultFormatterFactory(mascaraCpf));
         } catch (ParseException ex) {
-            Logger.getLogger(view.usuario.FormCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(view.usuario.FormCadastrarPerfil.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.responsavelController = responsavelController;
     }

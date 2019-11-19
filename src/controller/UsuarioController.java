@@ -13,10 +13,10 @@ import java.util.Arrays;
 import model.Usuario;
 import java.util.function.Consumer;
 import view.Mensagens;
-import view.usuario.FormCadastrarUsuario;
-import view.usuario.FormEditarUsuario;
+import view.usuario.FormCadastrarPerfil;
+import view.usuario.FormEditarPerfil;
 import view.usuario.FormLogin;
-import view.usuario.VerificarUsuario;
+import view.usuario.VerificarPerfil;
 
 /**
  *
@@ -31,9 +31,9 @@ public class UsuarioController {
     private Usuario usuario;
     private final UsuarioDao usuarioDao;
     private FormLogin formularioLogin;
-    private FormEditarUsuario formularioEditar;
-    private FormCadastrarUsuario formCadastro;
-    private VerificarUsuario verificarUsuario;
+    private FormEditarPerfil formularioEditar;
+    private FormCadastrarPerfil formCadastro;
+    private VerificarPerfil verificarUsuario;
     
     public void setComponentePai(Component componentePai) {
         this.componentePai = componentePai;
@@ -222,7 +222,7 @@ public class UsuarioController {
      * @param id id do usuário a ser editado
      */
     public void abrirFormEditar(int id) {
-        formularioEditar = new FormEditarUsuario((Frame) componentePai, true, this);
+        formularioEditar = new FormEditarPerfil((Frame) componentePai, true, this);
         formularioEditar.setLocationRelativeTo(null);
         formularioEditar.preencherCampos(listarPorId(id));
         formularioEditar.setVisible(true);
@@ -252,7 +252,7 @@ public class UsuarioController {
      * Este método é responsável por abrir o formulário de cadastro de usuário
      */
     public void abrirFormCadastro(){
-        formCadastro = new FormCadastrarUsuario((Frame) componentePai, true, this);
+        formCadastro = new FormCadastrarPerfil((Frame) componentePai, true, this);
         formCadastro.setLocationRelativeTo(null);
         formCadastro.setVisible(true);
     }
@@ -363,7 +363,7 @@ public class UsuarioController {
     }
 
     public void abrirFormVerificarUsuario() {
-       verificarUsuario = new VerificarUsuario((Frame) componentePai, true, this);
+       verificarUsuario = new VerificarPerfil((Frame) componentePai, true, this);
        verificarUsuario.setLocationRelativeTo(componentePai);
        verificarUsuario.setVisible(true);
     }
