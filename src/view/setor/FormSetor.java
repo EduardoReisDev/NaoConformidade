@@ -362,8 +362,8 @@ public class FormSetor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        SetorController setorcontroller = new SetorController();
-        setorcontroller.cadastrar();
+        controller.getSetorController().cadastrar();
+        criarEstruturaTabelaEListarTodos();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed

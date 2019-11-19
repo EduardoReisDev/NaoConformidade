@@ -172,7 +172,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jToolBar1.add(jButton2);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar.png"))); // NOI18N
-        jButton3.setText("Não Conformidad");
+        jButton3.setText("Não Conformidade");
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setMaximumSize(new java.awt.Dimension(100, 75));
